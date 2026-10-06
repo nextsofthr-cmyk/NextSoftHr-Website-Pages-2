@@ -1,0 +1,6 @@
+{
+  "name": "NextSoftHR FAQ & Support Center",
+  "description": "Comprehensive FAQs and answers for NextSoftHR, the global HR, payroll, workforce, and business management SaaS platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

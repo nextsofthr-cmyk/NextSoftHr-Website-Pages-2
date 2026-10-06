@@ -1,0 +1,6 @@
+{
+  "name": "NextSoftHR Partner Commission & Revenue Share Hub",
+  "description": "Official interactive Schedule B Partner Commission & Revenue Share portal for NextSoftHR, featuring real-time commission modeling, tier qualifications, 62-section schedule explorer, lead protection tracker, and digital agreement acceptance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

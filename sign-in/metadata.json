@@ -1,0 +1,6 @@
+{
+  "name": "NextSofthr - Enterprise HR & Payroll SaaS",
+  "description": "Sign in to NextSofthr, the all-in-one HR, payroll and business management platform for growing businesses across Africa and worldwide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

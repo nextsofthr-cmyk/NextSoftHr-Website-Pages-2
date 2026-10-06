@@ -1,0 +1,6 @@
+{
+  "name": "NextSofthr",
+  "description": "Contact NextSofthr to explore modern HR, payroll and business management solutions for businesses across Africa and worldwide. Book a demo or speak with our team.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

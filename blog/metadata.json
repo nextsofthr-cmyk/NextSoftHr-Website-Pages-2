@@ -1,0 +1,6 @@
+{
+  "name": "NextSoftHr — Global HR, Payroll & Business Blog Platform",
+  "description": "Insights for the future of work. Explore HR strategy, payroll automation, talent acquisition, workforce analytics, and enterprise compliance across Africa and global markets with NextSoftHr.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

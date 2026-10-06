@@ -1,0 +1,7 @@
+{
+  "name": "NextSofthr - Global HR, Payroll & Business Platform",
+  "description": "All-in-one HR, payroll, attendance, talent, finance, projects, and business management platform with AI assistant and professional HR outsourcing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

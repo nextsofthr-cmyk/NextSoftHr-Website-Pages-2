@@ -1,0 +1,6 @@
+{
+  "name": "NextSoftHR Partner Commission & Revenue Share Schedule",
+  "description": "Official NextSoftHR Partner Commission & Revenue Share Schedule B portal featuring complete legal agreement text, live commission simulator, partner statement ledger, lead protection registry, and digital execution acceptance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

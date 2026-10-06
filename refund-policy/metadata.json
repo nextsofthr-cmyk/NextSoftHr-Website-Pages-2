@@ -1,0 +1,6 @@
+{
+  "name": "NextSoftHR — Refund, Cancellation & Credit Policy",
+  "description": "Official commercial refund, cancellation, credit, and partner payment policy for NextSoftHR global HR, payroll, and business management platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

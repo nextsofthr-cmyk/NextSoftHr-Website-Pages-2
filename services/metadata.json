@@ -1,0 +1,6 @@
+{
+  "name": "NextSofthr - HR, Payroll & Business Management Services",
+  "description": "NextSofthr provides modern HR, payroll and business management solutions for micro, small, medium-sized and large businesses across Africa and worldwide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

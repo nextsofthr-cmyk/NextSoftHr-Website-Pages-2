@@ -1,0 +1,6 @@
+{
+  "name": "NextSoftHR Training Academy",
+  "description": "Professional HR, Payroll and Workforce Training Academy by NextSoftHR. Build skills, empower people, and drive business performance with expert-led courses and certifications.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

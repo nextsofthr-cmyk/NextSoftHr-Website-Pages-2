@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, ArrowRight, ShieldCheck } from 'lucide-react';
-import { BRAND, NAV_LINKS } from '../data/contentData';
+import React, { useState, useEffect } from "react";
+import { Menu, X, Phone, ArrowRight, ShieldCheck } from "lucide-react";
+import { Link } from "react-router-dom";
+import { BRAND, NAV_LINKS } from "../data/contentData";
 
 interface HeaderProps {
   onOpenDemo: () => void;
@@ -20,8 +21,8 @@ export const Header: React.FC<HeaderProps> = ({
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -62,15 +63,17 @@ export const Header: React.FC<HeaderProps> = ({
       <header
         className={`sticky top-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-slate-100 py-3.5'
-            : 'bg-white border-b border-slate-100 py-4'
+            ? "bg-white/95 backdrop-blur-md shadow-md border-b border-slate-100 py-3.5"
+            : "bg-white border-b border-slate-100 py-4"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Brand Logo */}
-          <a href="#hero" className="flex items-center gap-2.5 group">
+          <Link to="/" className="flex items-center gap-2.5 group">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#0B3B73] to-[#0A2540] flex items-center justify-center shadow-md shadow-blue-950/10 border border-blue-800/20 group-hover:scale-105 transition-transform">
-              <span className="text-white font-extrabold text-xl tracking-tight">N</span>
+              <span className="text-white font-extrabold text-xl tracking-tight">
+                N
+              </span>
               <span className="w-2 h-2 rounded-full bg-[#84CC16] -ml-1 -mt-3 ring-2 ring-white"></span>
             </div>
             <div className="flex flex-col">
@@ -81,22 +84,22 @@ export const Header: React.FC<HeaderProps> = ({
                 HR • Payroll • Operations
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   link.isCurrent
-                    ? 'text-[#0B3B73] font-semibold bg-blue-50/80'
-                    : 'text-slate-600 hover:text-[#0B3B73] hover:bg-slate-50'
+                    ? "text-[#0B3B73] font-semibold bg-blue-50/80"
+                    : "text-slate-600 hover:text-[#0B3B73] hover:bg-slate-50"
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -124,7 +127,11 @@ export const Header: React.FC<HeaderProps> = ({
             className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
             aria-label="Toggle Navigation"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
 
@@ -133,18 +140,18 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 shadow-xl">
             <div className="grid grid-cols-2 gap-2 pt-2">
               {NAV_LINKS.map((link) => (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
+                  to={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-3 py-2 rounded-lg text-sm font-medium ${
                     link.isCurrent
-                      ? 'text-[#0B3B73] font-bold bg-blue-50'
-                      : 'text-slate-700 hover:bg-slate-50'
+                      ? "text-[#0B3B73] font-bold bg-blue-50"
+                      : "text-slate-700 hover:bg-slate-50"
                   }`}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
 

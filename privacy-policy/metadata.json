@@ -1,0 +1,6 @@
+{
+  "name": "NextSoftHR Privacy Policy",
+  "description": "Read the NextSoftHR Privacy Policy to learn how we collect, use, protect and manage personal information across our global HR, payroll and business management platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

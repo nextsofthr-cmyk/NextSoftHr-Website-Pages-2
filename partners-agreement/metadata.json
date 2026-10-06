@@ -1,0 +1,6 @@
+{
+  "name": "NextSoftHR Partner Agreement Portal",
+  "description": "NextSoftHR Reseller, Partner, Distributor, Affiliate & Associate Digital Agreement & Partner Portal. Powering People. Driving Businesses.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

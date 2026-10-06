@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --brand-blue-950: #061537;
+    --brand-blue-900: #0A1E4A;
+    --brand-blue-800: #0F2D6B;
+    --brand-blue-700: #164094;
+    --brand-blue-600: #1D56BE;
+    --brand-blue-500: #2563EB;
+    
+    --brand-lemon-400: #A3E635;
+    --brand-lemon-500: #84CC16;
+    --brand-lemon-600: #65A30D;
+    --brand-lemon-accent: #8CE30A;
+    --brand-lemon-light: #F4FDE8;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    color: #0F172A;
+    background-color: #F8FAFC;
+    overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  html.dark body {
+    background-color: #06112C;
+    color: #F8FAFC;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom scrollbars for dashboard views */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #081636;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #1E3A6E;
+  border-radius: 3px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #254F96;
+}

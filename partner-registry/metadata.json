@@ -1,0 +1,6 @@
+{
+  "name": "NextSofthr Global Partner Registry & Directory",
+  "description": "The global partner directory and ecosystem registry for NextSofthr, connecting businesses across Africa and worldwide with certified HR, payroll, accounting, and technology implementation partners.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
