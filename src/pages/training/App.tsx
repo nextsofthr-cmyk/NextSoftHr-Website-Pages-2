@@ -388,8 +388,12 @@ function AcademyApp() {
 
       {/* MODAL 4: Certificate View & Print (Section 10) */}
       <CertificateModal
+        isOpen={isCertificateOpen}
         certificate={activeCertificate}
-        onClose={() => setIsCertificateOpen(false)}
+        onClose={() => {
+          setIsCertificateOpen(false);
+          setActiveCertificate(null);
+        }}
       />
 
       {/* MODAL 5: Learner Operations Portal & Knowledge Checks (Section 17 & 18) */}
