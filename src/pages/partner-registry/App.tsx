@@ -28,8 +28,10 @@ import { Sparkles } from 'lucide-react';
 
 import { MOCK_PARTNERS } from './data/partners';
 import { Partner, FilterState, PartnerApplication, PartnerEnquiry } from './types';
+import { LanguageProvider } from './context/LanguageContext';
+import { CurrencyProvider } from './context/CurrencyContext';
 
-export default function App() {
+function PartnerRegistryContent() {
   // Global filter state
   const [filters, setFilters] = useState<FilterState>({
     searchQuery: '',
@@ -340,5 +342,15 @@ export default function App() {
       />
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <CurrencyProvider>
+        <PartnerRegistryContent />
+      </CurrencyProvider>
+    </LanguageProvider>
   );
 }

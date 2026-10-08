@@ -15,8 +15,9 @@ import SessionTimeoutToast from './components/SessionTimeoutToast';
 import { translations, LanguageKey } from './data/translations';
 import { HelpCircle, Sparkles } from 'lucide-react';
 import { useDeviceIdentifier } from './hooks/useDeviceIdentifier';
+import { ToastProvider } from './components/ToastNotification';
 
-export default function App() {
+function SignInContent() {
   const [currentLang, setCurrentLang] = useState<LanguageKey>('en');
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
@@ -198,5 +199,13 @@ export default function App() {
         onClose={() => setLegalModalType(null)}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ToastProvider>
+      <SignInContent />
+    </ToastProvider>
   );
 }

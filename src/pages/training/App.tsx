@@ -50,17 +50,7 @@ function AcademyApp() {
   const [isCertificateOpen, setIsCertificateOpen] = useState(false);
   const [isAIAdvisorOpen, setIsAIAdvisorOpen] = useState(false);
   const [isLiveChatOpen, setIsLiveChatOpen] = useState(false);
-  const [activeCertificate, setActiveCertificate] = useState<CertificateData | null>({
-    id: 'cert-1',
-    certificateId: 'NSHR-2026-8492',
-    courseName: 'Payroll Administration & End-to-End Processing',
-    learnerName: 'Chidinma Osuagwu',
-    completionDate: 'September 28, 2026',
-    grade: 'Pass with Distinction (94%)',
-    instructorName: 'Babatunde Adeleke, FCA',
-    instructorRole: 'Lead Faculty Assessor',
-    credentialUrl: 'https://www.nextsofthr.org/verify/NSHR-2026-8492',
-  });
+  const [activeCertificate, setActiveCertificate] = useState<CertificateData | null>(null);
   const [isPortalOpen, setIsPortalOpen] = useState(false);
 
   // Enrolled Courses Tracking State

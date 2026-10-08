@@ -25,9 +25,11 @@ import { LiveChatWidget } from './components/LiveChatWidget';
 import { ResourceItem } from './types';
 import { PartnerBadgeOptions } from './utils/badgeGenerator';
 import { CheckCircle2, Download, Globe } from 'lucide-react';
-import { useLanguage } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { useLanguage, LanguageProvider } from './context/LanguageContext';
+import { CurrencyProvider } from './context/CurrencyContext';
 
-export default function App() {
+function PartnersContent() {
   const [selectedPartnerCategory, setSelectedPartnerCategory] = useState<string>('HR Consultant');
   const [isPortalModalOpen, setIsPortalModalOpen] = useState<boolean>(false);
   const [isBadgeModalOpen, setIsBadgeModalOpen] = useState<boolean>(false);
@@ -102,7 +104,7 @@ export default function App() {
         {/* Section 2: Hero */}
         <Hero
           onApplyClick={() => handleApplyClick()}
-          onExploreBenefits={() => scrollToSection('benefits')}
+          onExploreClick={() => scrollToSection('benefits')}
         />
 
         {/* Section 3: Trust Strip */}
@@ -236,5 +238,17 @@ export default function App() {
       )}
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <LanguageProvider>
+        <CurrencyProvider>
+          <PartnersContent />
+        </CurrencyProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }

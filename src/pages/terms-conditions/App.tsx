@@ -9,10 +9,10 @@ import { PrivacyModal } from './components/PrivacyModal';
 import { ContactModal } from './components/ContactModal';
 import { LiveChatWidget } from './components/LiveChatWidget';
 import { TERMS_SECTIONS } from './data/termsData';
-import { useLanguage } from './i18n/LanguageContext';
+import { useLanguage, LanguageProvider } from './i18n/LanguageContext';
 import { ArrowUp, ChevronRight, ShieldCheck, Scale, Search, Check } from 'lucide-react';
 
-export default function App() {
+function TermsContentPage() {
   const { t, sections } = useLanguage();
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
@@ -266,5 +266,13 @@ export default function App() {
         onClose={() => setContactModalOpen(false)}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <TermsContentPage />
+    </LanguageProvider>
   );
 }

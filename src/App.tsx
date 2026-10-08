@@ -38,12 +38,71 @@ const PageLoadingFallback: React.FC = () => (
   </div>
 );
 
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
+
+class PageErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Page render error caught:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-[#071322] text-slate-900 dark:text-white font-sans text-center">
+          <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 border border-amber-500/20 flex items-center justify-center mb-4 text-2xl font-bold">
+            !
+          </div>
+          <h2 className="text-xl font-bold mb-2">Something went wrong loading this section</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mb-6">
+            {this.state.error?.message || 'An unexpected error occurred while rendering this page.'}
+          </p>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => {
+                this.setState({ hasError: false });
+                window.location.reload();
+              }}
+              className="px-4 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-md transition-all cursor-pointer"
+            >
+              Reload Page
+            </button>
+            <a
+              href="/"
+              className="px-4 py-2 text-xs font-bold bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-xl transition-all"
+            >
+              Return Home
+            </a>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <Suspense fallback={<PageLoadingFallback />}>
-        <Routes>
+      <PageErrorBoundary>
+        <Suspense fallback={<PageLoadingFallback />}>
+          <Routes>
           {/* 1. Core Homepage */}
           <Route path="/" element={<Homepage />} />
           <Route path="/homepage" element={<Homepage />} />
@@ -127,6 +186,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+    </PageErrorBoundary>
 
       {/* Omnipresent Page Switcher and Directory */}
       <GlobalPageSwitcher />

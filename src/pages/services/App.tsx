@@ -29,9 +29,10 @@ import { LiveChatWidget } from './components/LiveChatWidget';
 import { WhatsAppFAB } from './components/WhatsAppFAB';
 import { ScrollToTop } from './components/ScrollToTop';
 import { ServiceModal, IndustryModal, DemoModal, GetStartedModal } from './components/Modals';
+import { ThemeProvider } from './context/ThemeContext';
 import { ServiceItem, IndustryItem } from './types';
 
-export default function App() {
+function ServicesContent() {
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [getStartedModalOpen, setGetStartedModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
@@ -161,5 +162,13 @@ export default function App() {
       {/* Dynamic Scroll to Top Navigation Button */}
       <ScrollToTop />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <ServicesContent />
+    </ThemeProvider>
   );
 }

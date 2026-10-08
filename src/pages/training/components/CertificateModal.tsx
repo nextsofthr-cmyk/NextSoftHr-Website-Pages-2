@@ -4,15 +4,17 @@ import { CertificateData } from '../types';
 import { X, Printer, ShieldCheck, Download, Award } from 'lucide-react';
 
 interface CertificateModalProps {
+  isOpen?: boolean;
   certificate: CertificateData | null;
   onClose: () => void;
 }
 
 export const CertificateModal: React.FC<CertificateModalProps> = ({
+  isOpen = true,
   certificate,
   onClose,
 }) => {
-  if (!certificate) return null;
+  if (!isOpen || !certificate) return null;
 
   const handlePrint = () => {
     window.print();

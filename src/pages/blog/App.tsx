@@ -22,8 +22,9 @@ import { BookmarksDrawer } from './components/BookmarksDrawer';
 import { CmsAdminModal } from './components/CmsAdminModal';
 import { SeoSitemapModal } from './components/SeoSitemapModal';
 import { LiveChatWidget } from './components/LiveChatWidget';
+import { LanguageProvider } from './context/LanguageContext';
 
-export default function App() {
+function BlogContent() {
   const [articles, setArticles] = useState<Article[]>(MOCK_ARTICLES);
   const [currentRoute, setCurrentRoute] = useState<string>('/blog');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -407,5 +408,13 @@ export default function App() {
         onOpenGetStarted={() => setIsGetStartedOpen(true)}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <BlogContent />
+    </LanguageProvider>
   );
 }

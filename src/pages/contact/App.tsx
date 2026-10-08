@@ -15,8 +15,9 @@ import { Footer } from './components/Footer';
 import { StickyMobileBar } from './components/StickyMobileBar';
 import { LiveChatBubble } from './components/LiveChatBubble';
 import { EnquiryType } from './types';
+import { LanguageProvider } from './context/LanguageContext';
 
-export default function App() {
+function ContactContent() {
   const [selectedEnquiry, setSelectedEnquiry] = useState<EnquiryType>('HR Management');
   const [initialMessage, setInitialMessage] = useState<string>('');
 
@@ -159,5 +160,13 @@ export default function App() {
         onOpenSales={handleTalkToSales}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <ContactContent />
+    </LanguageProvider>
   );
 }

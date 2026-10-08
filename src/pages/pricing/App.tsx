@@ -23,10 +23,10 @@ import { LiveChatWidget } from './components/LiveChatWidget';
 import { LimitedTrialBonusBanner } from './components/LimitedTrialBonusBanner';
 import { PRICING_PLANS } from './data/pricingData';
 import { BillingCycle, CurrencyCode, PricingPlan, IndustrySolution, AddOnItem } from './types';
-import { useLanguage } from './context/LanguageContext';
-import { useCurrency } from './context/CurrencyContext';
+import { useLanguage, LanguageProvider } from './context/LanguageContext';
+import { useCurrency, CurrencyProvider } from './context/CurrencyContext';
 
-export default function App() {
+function PricingContent() {
   const { t } = useLanguage();
   const { selectedCurrency, setSelectedCurrency } = useCurrency();
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('yearly');
@@ -276,5 +276,15 @@ export default function App() {
         onClaimBonus={() => handleOpenTrial('Professional (With Limited Trial Bonus)')}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <CurrencyProvider>
+        <PricingContent />
+      </CurrencyProvider>
+    </LanguageProvider>
   );
 }
