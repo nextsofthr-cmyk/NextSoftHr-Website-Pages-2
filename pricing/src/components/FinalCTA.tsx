@@ -41,7 +41,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenTrial, onOpenDemo }) =
           <button
             id="final-start-trial-btn"
             onClick={onOpenTrial}
-            className="px-8 py-4 rounded-xl font-bold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] shadow-xl shadow-lime-400/20 hover:scale-[1.02] transition-all duration-150 flex items-center gap-2 text-base"
+            className="px-8 py-4 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-600/25 hover:scale-[1.02] transition-all duration-150 flex items-center gap-2 text-base"
           >
             <span>Start Free Trial</span>
             <ArrowRight className="w-5 h-5" />

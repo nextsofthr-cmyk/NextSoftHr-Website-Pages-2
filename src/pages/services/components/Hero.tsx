@@ -56,26 +56,28 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 mb-4">
-            <button
-              onClick={onOpenGetStarted}
+            <a
+              href="/signup"
               id="hero-get-started-cta"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold text-base text-white bg-[#0256C4] hover:bg-[#024bb0] shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/35 transition-all duration-200 flex items-center justify-center gap-3 group border border-blue-500"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold text-base text-white bg-[#0256C4] hover:bg-[#024bb0] shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/35 transition-all duration-200 flex items-center justify-center gap-3 group border border-blue-500 cursor-pointer"
             >
               <span>Get Started Free</span>
               <span className="w-2.5 h-2.5 rounded-full bg-[#84CC16] group-hover:scale-125 transition-transform" />
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
 
-            <button
-              onClick={onOpenDemo}
-              id="hero-book-demo-cta"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-base text-[#0A2540] dark:text-white bg-white dark:bg-[#0D2644] border border-slate-300 dark:border-blue-700 hover:border-slate-400 dark:hover:border-blue-500 shadow-sm transition-all duration-200 flex items-center justify-center gap-2.5 group"
+            <a
+              href="https://demo.scriptmaster.store/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="hero-explore-demo-cta"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-base text-[#0A2540] dark:text-white bg-white dark:bg-[#0D2644] border border-slate-300 dark:border-blue-700 hover:border-slate-400 dark:hover:border-blue-500 shadow-sm transition-all duration-200 flex items-center justify-center gap-2.5 group cursor-pointer"
             >
               <div className="w-7 h-7 rounded-full bg-blue-50 dark:bg-blue-900/60 flex items-center justify-center text-[#0256C4] dark:text-blue-300 group-hover:bg-[#84CC16]/20 transition-colors">
                 <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
               </div>
-              <span>Book a Demo</span>
-            </button>
+              <span>Explore Demo</span>
+            </a>
           </div>
 
           {/* Secondary reassurance text */}

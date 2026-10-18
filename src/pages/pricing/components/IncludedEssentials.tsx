@@ -14,6 +14,9 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { ESSENTIAL_FEATURES } from '../data/pricingData';
+import { CardSlider } from './CardSlider';
+
+const ESSENTIALS_PER_VIEW = { base: 1, sm: 2, lg: 3, xl: 4 };
 
 const ICONS_MAP: Record<string, React.ElementType> = {
   Users,
@@ -48,13 +51,16 @@ export const IncludedEssentials: React.FC = () => {
           </p>
         </div>
 
-        {/* 12 Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {ESSENTIAL_FEATURES.map((item, idx) => {
+        {/* 12 Features Slider */}
+        <CardSlider
+          id="essentials-slider"
+          ariaLabel="Included essentials"
+          items={ESSENTIAL_FEATURES}
+          perView={ESSENTIALS_PER_VIEW}
+          renderItem={(item, idx) => {
             const Icon = ICONS_MAP[item.iconName] || Users;
             return (
               <div
-                key={item.title}
                 id={`essential-feature-${idx}`}
                 className="p-5 rounded-2xl bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/80 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all duration-200 group"
               >
@@ -69,8 +75,8 @@ export const IncludedEssentials: React.FC = () => {
                 </p>
               </div>
             );
-          })}
-        </div>
+          }}
+        />
       </div>
     </section>
   );

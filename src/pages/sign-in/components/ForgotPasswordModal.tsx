@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
-import { Mail, ArrowLeft, CheckCircle2, ShieldCheck, X, Lock, Eye, EyeOff, KeyRound } from 'lucide-react';
-import NextSofthrLogo from './NextSofthrLogo';
-import PasswordStrengthMeter from './PasswordStrengthMeter';
-import { useToast } from './ToastNotification';
+import React, { useState } from "react";
+import {
+  Mail,
+  ArrowLeft,
+  CheckCircle2,
+  ShieldCheck,
+  X,
+  Lock,
+  Eye,
+  EyeOff,
+  KeyRound,
+} from "lucide-react";
+import PasswordStrengthMeter from "./PasswordStrengthMeter";
+import { useToast } from "./ToastNotification";
 
 interface ForgotPasswordModalProps {
   isOpen: boolean;
@@ -13,89 +22,95 @@ interface ForgotPasswordModalProps {
 export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   isOpen,
   onClose,
-  defaultEmail = '',
+  defaultEmail = "",
 }) => {
   const toast = useToast();
-  const [step, setStep] = useState<'request' | 'reset' | 'success'>('request');
+  const [step, setStep] = useState<"request" | "reset" | "success">("request");
   const [email, setEmail] = useState(defaultEmail);
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   if (!isOpen) return null;
 
   const handleRequestSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!email.trim()) {
-      const msg = 'Email field is required.';
+      const msg = "Email field is required.";
       setError(msg);
-      toast.error(msg, { title: 'Required Field' });
+      toast.error(msg, { title: "Required Field" });
       return;
     }
 
-    if (!email.includes('@') || !email.includes('.')) {
-      const msg = 'Please enter a valid work email address.';
+    if (!email.includes("@") || !email.includes(".")) {
+      const msg = "Please enter a valid work email address.";
       setError(msg);
-      toast.error(msg, { title: 'Invalid Email' });
+      toast.error(msg, { title: "Invalid Email" });
       return;
     }
 
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
-      toast.info(`Recovery security code verified for ${email}. Set your new password.`, {
-        title: 'Identity Confirmed',
-      });
+      toast.info(
+        `Recovery security code verified for ${email}. Set your new password.`,
+        {
+          title: "Identity Confirmed",
+        },
+      );
       // Advance to simulated secure reset step to let user set new password with strength meter
-      setStep('reset');
+      setStep("reset");
     }, 1000);
   };
 
   const handlePasswordResetSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!newPassword) {
-      const msg = 'Please enter a new password.';
+      const msg = "Please enter a new password.";
       setError(msg);
-      toast.error(msg, { title: 'Password Required' });
+      toast.error(msg, { title: "Password Required" });
       return;
     }
 
     if (newPassword.length < 6) {
-      const msg = 'Password must be at least 6 characters.';
+      const msg = "Password must be at least 6 characters.";
       setError(msg);
-      toast.error(msg, { title: 'Weak Password' });
+      toast.error(msg, { title: "Weak Password" });
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      const msg = 'Passwords do not match.';
+      const msg = "Passwords do not match.";
       setError(msg);
-      toast.error(msg, { title: 'Password Mismatch' });
+      toast.error(msg, { title: "Password Mismatch" });
       return;
     }
 
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
-      toast.success('Your workspace password was successfully reset. You can now log in.', {
-        title: 'Password Updated',
-      });
-      setStep('success');
+      toast.success(
+        "Your workspace password was successfully reset. You can now log in.",
+        {
+          title: "Password Updated",
+        },
+      );
+      setStep("success");
     }, 1100);
   };
 
   const handleReset = () => {
-    setStep('request');
-    setEmail('');
-    setNewPassword('');
-    setConfirmPassword('');
-    setError('');
+    setStep("request");
+    setEmail("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setError("");
     onClose();
   };
 
@@ -114,17 +129,22 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        <div className="mb-5">
-          <NextSofthrLogo size="sm" showTagline={false} />
+        <div className="mb-5 flex justify-center">
+          <img
+            src="/next-soft-logo.jpeg"
+            alt="NextSoftHr — Powering People. Driving Businesses"
+            className="h-12 w-auto object-contain dark:bg-white dark:rounded-lg dark:px-3 dark:py-1.5"
+          />
         </div>
 
-        {step === 'request' && (
+        {step === "request" && (
           <div>
-            <h3 className="text-xl font-bold text-[#0b1528] dark:text-white tracking-tight">
+            <h3 className="text-xl font-bold text-[#0b1528] dark:text-white tracking-tight text-center">
               Reset your password
             </h3>
-            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Enter your verified NextSofthr work email address, and we’ll initiate a secure password reset sequence.
+            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-center">
+              Enter your verified NextSofthr work email address, and we’ll
+              initiate a secure password reset sequence.
             </p>
 
             <form onSubmit={handleRequestSubmit} className="mt-5 space-y-4">
@@ -141,13 +161,13 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
-                      if (error) setError('');
+                      if (error) setError("");
                     }}
                     placeholder="you@company.com"
                     className={`w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border bg-slate-50/50 dark:bg-[#162542] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition-all focus:outline-none focus:bg-white dark:focus:bg-[#1a2d52] ${
                       error
-                        ? 'border-red-400 focus:ring-2 focus:ring-red-400/20'
-                        : 'border-slate-200 dark:border-white/10 focus:border-[#0056b3] dark:focus:border-[#60a5fa] focus:ring-3 focus:ring-[#0056b3]/15'
+                        ? "border-red-400 focus:ring-2 focus:ring-red-400/20"
+                        : "border-slate-200 dark:border-white/10 focus:border-[#0056b3] dark:focus:border-[#60a5fa] focus:ring-3 focus:ring-[#0056b3]/15"
                     }`}
                   />
                 </div>
@@ -166,14 +186,29 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
-                      <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      <svg
+                        className="animate-spin h-4 w-4 text-white"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                          fill="none"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
                       </svg>
                       Verifying account...
                     </span>
                   ) : (
-                    'Continue to Password Reset'
+                    "Continue to Password Reset"
                   )}
                 </button>
               </div>
@@ -197,7 +232,7 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
           </div>
         )}
 
-        {step === 'reset' && (
+        {step === "reset" && (
           <div>
             <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#0056b3] dark:text-[#38bdf8] text-[11px] font-semibold mb-2 border border-blue-100 dark:border-blue-900/60">
               <KeyRound className="w-3 h-3 text-[#0056b3] dark:text-[#caff33]" />
@@ -208,10 +243,17 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
               Create new workspace password
             </h3>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              Set a strong enterprise password for <strong className="text-slate-800 dark:text-slate-200">{email}</strong>.
+              Set a strong enterprise password for{" "}
+              <strong className="text-slate-800 dark:text-slate-200">
+                {email}
+              </strong>
+              .
             </p>
 
-            <form onSubmit={handlePasswordResetSubmit} className="mt-4 space-y-3">
+            <form
+              onSubmit={handlePasswordResetSubmit}
+              className="mt-4 space-y-3"
+            >
               <div>
                 <label className="block text-xs font-semibold text-slate-700 dark:text-slate-200 mb-1">
                   New Password
@@ -219,11 +261,11 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                 <div className="relative">
                   <Lock className="absolute left-3.5 top-2.5 w-4 h-4 text-slate-400 dark:text-slate-500" />
                   <input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     value={newPassword}
                     onChange={(e) => {
                       setNewPassword(e.target.value);
-                      if (error) setError('');
+                      if (error) setError("");
                     }}
                     placeholder="Enter new password"
                     className="w-full pl-10 pr-10 py-2 text-sm rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-[#162542] text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#0056b3] dark:focus:border-[#60a5fa] focus:ring-2 focus:ring-[#0056b3]/15"
@@ -233,13 +275,20 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
                   </button>
                 </div>
 
                 {/* Lemon Green Segmented Progress Bar */}
                 {newPassword.length > 0 && (
-                  <PasswordStrengthMeter password={newPassword} showDetails={true} />
+                  <PasswordStrengthMeter
+                    password={newPassword}
+                    showDetails={true}
+                  />
                 )}
               </div>
 
@@ -250,11 +299,11 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                 <div className="relative">
                   <Lock className="absolute left-3.5 top-2.5 w-4 h-4 text-slate-400 dark:text-slate-500" />
                   <input
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     value={confirmPassword}
                     onChange={(e) => {
                       setConfirmPassword(e.target.value);
-                      if (error) setError('');
+                      if (error) setError("");
                     }}
                     placeholder="Re-enter password to confirm"
                     className="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-[#162542] text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-[#0056b3] dark:focus:border-[#60a5fa] focus:ring-2 focus:ring-[#0056b3]/15"
@@ -276,14 +325,29 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
-                      <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      <svg
+                        className="animate-spin h-4 w-4 text-white"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                          fill="none"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
                       </svg>
                       Updating password...
                     </span>
                   ) : (
-                    'Save New Password'
+                    "Save New Password"
                   )}
                 </button>
               </div>
@@ -291,7 +355,7 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
           </div>
         )}
 
-        {step === 'success' && (
+        {step === "success" && (
           <div className="text-center py-4">
             <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 mx-auto flex items-center justify-center border border-emerald-200 dark:border-emerald-800">
               <CheckCircle2 className="w-6 h-6" />
@@ -300,7 +364,11 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
               Password successfully updated!
             </h4>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-              Your NextSofthr account credentials for <strong className="text-slate-900 dark:text-white font-semibold">{email}</strong> have been secured. You can now sign in with your new password.
+              Your NextSofthr account credentials for{" "}
+              <strong className="text-slate-900 dark:text-white font-semibold">
+                {email}
+              </strong>{" "}
+              have been secured. You can now sign in with your new password.
             </p>
 
             <div className="mt-6">

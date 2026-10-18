@@ -116,7 +116,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       </div>
 
       {/* Desktop Sticky Sidebar Navigation */}
-      <aside className="hidden lg:block w-72 xl:w-80 shrink-0 no-print" aria-label="Table of contents">
+      <aside className="hidden lg:block self-stretch w-72 xl:w-80 shrink-0 no-print" aria-label="Table of contents">
         <div className="sticky top-24 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-4 overflow-hidden transition-colors">
           
           {/* Header & Reading Progress */}

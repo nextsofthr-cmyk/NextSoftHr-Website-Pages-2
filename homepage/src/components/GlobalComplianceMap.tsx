@@ -312,12 +312,12 @@ export const GlobalComplianceMap = ({ onOpenDemo }: GlobalComplianceMapProps) =>
       </div>
 
       {/* Main Map + Details Layout */}
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative z-10">
         
         {/* Left / Top: Interactive SVG Map Canvas */}
-        <div className="lg:col-span-8 bg-slate-900/90 rounded-2xl border border-slate-800 p-4 sm:p-6 overflow-hidden relative">
+        <div className="lg:col-span-8 bg-slate-900/90 rounded-2xl border border-slate-800 p-4 sm:p-6 overflow-hidden relative flex flex-col justify-between h-full">
           
-          <div className="relative w-full aspect-[2/1] min-h-[300px]">
+          <div className="relative w-full flex-1 flex items-center justify-center min-h-[380px] lg:min-h-[480px]">
             <svg
               viewBox="0 0 1000 500"
               className="w-full h-full select-none"
@@ -503,7 +503,7 @@ export const GlobalComplianceMap = ({ onOpenDemo }: GlobalComplianceMapProps) =>
         </div>
 
         {/* Right / Bottom: Selected Hub Partner Dossier */}
-        <div className="lg:col-span-4 bg-slate-900 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between space-y-6">
+        <div className="lg:col-span-4 bg-slate-900 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between space-y-6 h-full">
           
           <div>
             {/* Header / Partner Title */}
@@ -529,7 +529,7 @@ export const GlobalComplianceMap = ({ onOpenDemo }: GlobalComplianceMapProps) =>
 
             {/* Certified Partner Entity Card */}
             <div className="mt-4 p-4 rounded-xl bg-slate-950/80 border border-slate-800/90">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mb-1 flex items-center gap-1.5">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1 flex items-center gap-1.5">
                 <Landmark className="w-3.5 h-3.5 text-emerald-400" />
                 Active Local Compliance Partner
               </span>

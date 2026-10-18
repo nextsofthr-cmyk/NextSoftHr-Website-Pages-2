@@ -62,13 +62,14 @@ export const pt: TranslationDictionary = {
     }
   },
   hero: {
-    badgeEdition: 'NextSofthr Edição 2026',
-    badgeSubtitle: 'Sistema Operacional Global de Gestão de Pessoal e RH',
+    badgeEdition: 'NextSoftHr.',
+    badgeSubtitle: 'Sistema Operacional Pan-Africano e Global de Força de Trabalho',
     headlineStart: 'A Forma Mais Inteligente de Gerir',
     headlineHighlight: 'Pessoas, Folha Salarial',
     headlineEnd: '& Todo o Seu Negócio.',
     supportingHeadline: 'Uma plataforma inteligente integrada para RH, folha de pagamento, assiduidade, talentos, finanças e projetos.',
     description: 'A NextSofthr unifica a sua gestão de recursos humanos e as operações empresariais num só ecossistema robusto. Automatize o processamento salarial, acompanhe horários biométricos, recrute com apoio de IA e disponibilize ferramentas de autosserviço aos colaboradores onde quer que a sua empresa atue.',
+    ctaExploreDemo: 'Explorar Demonstração',
     ctaGetStarted: 'Começar Gratuitamente',
     ctaBookDemo: 'Agendar Demonstração',
     ctaTalkExpert: 'Falar com um Especialista em RH',

@@ -49,21 +49,23 @@ export const CTASection: React.FC<CTASectionProps> = ({
 
           {/* CTA Buttons */}
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={onOpenGetStarted}
+            <a
+              href="/signup"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#84CC16] hover:bg-[#74be12] text-[#0A2540] font-extrabold px-8 py-4 rounded-xl text-base shadow-xl shadow-[#84CC16]/25 hover:shadow-2xl transition-all cursor-pointer group"
             >
               <span>Get Started</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
 
-            <button
-              onClick={onOpenDemo}
+            <a
+              href="https://demo.scriptmaster.store/login"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/20 text-white font-bold px-7 py-4 rounded-xl text-base border border-white/20 backdrop-blur-md transition-all cursor-pointer"
             >
               <Calendar className="w-5 h-5 text-[#84CC16]" />
-              <span>Book a Demo</span>
-            </button>
+              <span>Explore Demo</span>
+            </a>
 
             <button
               onClick={onOpenContact}

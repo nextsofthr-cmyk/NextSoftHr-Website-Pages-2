@@ -54,7 +54,7 @@ export const CoreHrSection = ({ onOpenDemo }: CoreHrSectionProps) => {
         </div>
 
         {/* Interactive Feature Visual Split Showcase */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-14">
           
           {/* Left Column: Interactive Feature Selector Cards */}
           <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -65,7 +65,7 @@ export const CoreHrSection = ({ onOpenDemo }: CoreHrSectionProps) => {
                 <button
                   key={feat.id}
                   onClick={() => setActiveFeature(feat)}
-                  className={`p-4 rounded-2xl text-left transition-all border ${
+                  className={`p-4 rounded-2xl text-left transition-all border cursor-pointer ${
                     isSelected
                       ? 'bg-white dark:bg-slate-900 border-blue-600 dark:border-blue-500 shadow-md ring-2 ring-blue-600/20'
                       : 'bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
@@ -90,82 +90,102 @@ export const CoreHrSection = ({ onOpenDemo }: CoreHrSectionProps) => {
           </div>
 
           {/* Right Column: Live Interactive Profile & Org Preview */}
-          <div className="lg:col-span-6 sticky top-24">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xl overflow-hidden p-6">
+          <div className="lg:col-span-6 flex flex-col">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xl overflow-hidden p-6 sm:p-7 h-full flex flex-col justify-between">
               
-              <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-lime-400 p-0.5">
-                    <img 
-                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80" 
-                      alt="HR Consultant & Executive" 
-                      className="w-full h-full object-cover rounded-[14px]"
-                    />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1.5">
-                      <h4 className="font-extrabold text-base text-slate-900 dark:text-white">Dr. Elena Rostova</h4>
-                      <BadgeCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              {/* Profile Header */}
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-5">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-lime-400 p-0.5 shrink-0">
+                      <img 
+                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80" 
+                        alt="HR Consultant & Executive" 
+                        className="w-full h-full object-cover rounded-[14px]"
+                      />
                     </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">Staff AI Scientist • Emp ID: NX-1049</p>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <h4 className="font-extrabold text-base text-slate-900 dark:text-white">Dr. Elena Rostova</h4>
+                        <BadgeCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                      </div>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Staff AI Scientist • Emp ID: NX-1049</p>
+                    </div>
                   </div>
+
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-lime-100 dark:bg-lime-950/80 text-lime-800 dark:text-lime-300 border border-lime-300 dark:border-lime-800 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-lime-500 animate-pulse" />
+                    <span>Active Permanent</span>
+                  </span>
                 </div>
 
-                <span className="px-3 py-1 rounded-full text-xs font-bold bg-lime-100 dark:bg-lime-950/80 text-lime-800 dark:text-lime-300 border border-lime-300 dark:border-lime-800">
-                  Full-Time Permanent
-                </span>
-              </div>
-
-              {/* Dynamic content reflecting selected feature */}
-              <div className="space-y-4">
-                <div className="p-4 bg-blue-50/60 dark:bg-blue-950/40 rounded-2xl border border-blue-100 dark:border-blue-900/50">
-                  <span className="text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider block mb-1">
-                    Focused Capability: {activeFeature.title}
-                  </span>
+                {/* Dynamic capability card based on selection */}
+                <div className="p-4 bg-blue-50/70 dark:bg-blue-950/50 rounded-2xl border border-blue-100 dark:border-blue-900/60 mb-5">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[11px] font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider">
+                      Selected Module: {activeFeature.title}
+                    </span>
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-blue-200/80 dark:bg-blue-900/80 text-blue-900 dark:text-blue-200 font-mono">
+                      Live Preview
+                    </span>
+                  </div>
                   <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                     {activeFeature.desc}
                   </p>
                 </div>
 
-                {/* Simulated Org / Profile Details */}
-                <div className="grid grid-cols-2 gap-3 text-xs">
-                  <div className="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80">
+                {/* Simulated Org / Profile Details 4-box grid */}
+                <div className="grid grid-cols-2 gap-3 text-xs mb-5">
+                  <div className="p-3.5 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80">
                     <span className="text-slate-400 dark:text-slate-500 block text-[10px] uppercase font-semibold">Department</span>
                     <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">Product & Research</span>
                   </div>
-                  <div className="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80">
+                  <div className="p-3.5 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80">
                     <span className="text-slate-400 dark:text-slate-500 block text-[10px] uppercase font-semibold">Reports To</span>
                     <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">VP of AI Systems</span>
                   </div>
-                  <div className="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80">
+                  <div className="p-3.5 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80">
                     <span className="text-slate-400 dark:text-slate-500 block text-[10px] uppercase font-semibold">Work Location</span>
                     <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">Zurich HQ (Hybrid)</span>
                   </div>
-                  <div className="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80">
+                  <div className="p-3.5 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80">
                     <span className="text-slate-400 dark:text-slate-500 block text-[10px] uppercase font-semibold">Document Vault</span>
                     <span className="font-bold text-lime-700 dark:text-lime-400 text-sm">7/7 Verified</span>
                   </div>
                 </div>
 
-                {/* Audit & Policy sign-off status */}
-                <div className="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-lime-600 dark:text-lime-400" />
-                    <span className="text-slate-700 dark:text-slate-300 font-medium">2026 Global Code of Conduct Signed</span>
+                {/* Governance and Compliance Status */}
+                <div className="space-y-2.5 mb-5 text-xs">
+                  <div className="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-lime-600 dark:text-lime-400 shrink-0" />
+                      <span className="text-slate-700 dark:text-slate-300 font-medium">2026 Global Code of Conduct Signed</span>
+                    </div>
+                    <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">Timestamp: 09/01/26</span>
                   </div>
-                  <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">Timestamp: 09/01/26</span>
-                </div>
 
-                {/* Consultant imagery snippet */}
-                <div className="pt-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                  <span className="flex items-center gap-1.5">
-                    <Building className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                    Multi-tier Department Trees Supported
-                  </span>
-                  <span className="text-blue-600 dark:text-blue-400 font-bold hover:underline cursor-pointer">
-                    View Org Chart Preview →
-                  </span>
+                  <div className="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                      <span className="text-slate-700 dark:text-slate-300 font-medium">Granular RBAC: Senior Scientist Access</span>
+                    </div>
+                    <span className="font-mono text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">Audit Ready</span>
+                  </div>
                 </div>
+              </div>
+
+              {/* Bottom Org Chart Bar */}
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <Building className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  Multi-tier Department Trees Supported
+                </span>
+                <button
+                  onClick={onOpenDemo}
+                  className="text-blue-600 dark:text-blue-400 font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Explore Interactive Org Chart →</span>
+                </button>
               </div>
 
             </div>

@@ -484,12 +484,12 @@ export const CustomerSuccessStories = ({
                     <span>Simulate Similar Growth</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
-                  <button
-                    onClick={onOpenGetStarted}
-                    className="w-full sm:w-auto px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-xl border border-slate-700 transition-colors text-center"
+                  <a
+                    href="/sign-in?mode=signup"
+                    className="w-full sm:w-auto px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md shadow-blue-600/20 transition-all text-center flex items-center justify-center cursor-pointer"
                   >
                     Start Free Trial
-                  </button>
+                  </a>
                 </div>
 
               </div>

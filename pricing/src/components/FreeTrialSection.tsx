@@ -41,7 +41,7 @@ export const FreeTrialSection: React.FC<FreeTrialSectionProps> = ({
               <button
                 id="trial-section-start-btn"
                 onClick={onOpenTrial}
-                className="px-7 py-3.5 rounded-xl font-bold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] shadow-lg shadow-lime-500/20 hover:scale-[1.02] transition-all duration-150 flex items-center gap-2"
+                className="px-7 py-3.5 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/25 hover:scale-[1.02] transition-all duration-150 flex items-center gap-2"
               >
                 <span>Start Free Trial</span>
                 <ArrowRight className="w-4 h-4" />

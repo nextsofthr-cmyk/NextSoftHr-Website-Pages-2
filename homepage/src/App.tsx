@@ -48,7 +48,7 @@ export default function App() {
     <ThemeProvider>
       <LanguageProvider>
         <CurrencyProvider>
-          <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans selection:bg-lime-400 selection:text-slate-900 antialiased transition-colors duration-300">
+          <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans selection:bg-lime-400 selection:text-slate-900 antialiased transition-colors duration-300 w-full max-w-full overflow-x-hidden">
           {/* Sticky Primary Navigation */}
           <Navbar
             onOpenDemo={openDemo}
@@ -57,7 +57,7 @@ export default function App() {
           />
 
       {/* Main Page Sections */}
-      <main>
+      <main className="w-full max-w-full overflow-x-hidden">
         {/* 1. Hero Section */}
         <Hero
           onOpenDemo={openDemo}

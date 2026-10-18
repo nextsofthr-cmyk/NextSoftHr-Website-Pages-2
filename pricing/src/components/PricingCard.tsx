@@ -185,8 +185,8 @@ export const PricingCard: React.FC<PricingCardProps> = ({
             id={`plan-cta-${plan.id}`}
             onClick={() => onSelectPlan(plan)}
             className={`w-full py-3 px-4 rounded-xl text-sm font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
-              isProfessional
-                ? 'bg-[#A3E635] text-slate-950 hover:bg-[#84CC16] shadow-md shadow-lime-500/20 hover:shadow-lg'
+              ctaText.toLowerCase().includes('trial') || isProfessional
+                ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/20 hover:shadow-lg'
                 : isEnterprise
                 ? 'bg-[#0265DC] text-white hover:bg-[#004DB3] shadow-md shadow-blue-500/10'
                 : 'bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 shadow-sm'

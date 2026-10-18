@@ -80,6 +80,7 @@ export interface TranslationDictionary {
     headlineEnd: string;
     supportingHeadline: string;
     description: string;
+    ctaExploreDemo?: string;
     ctaGetStarted: string;
     ctaBookDemo: string;
     ctaTalkExpert: string;

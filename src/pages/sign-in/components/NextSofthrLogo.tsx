@@ -1,38 +1,38 @@
-import React from 'react';
+import React from "react";
 
 interface LogoProps {
-  variant?: 'light' | 'dark' | 'auto';
+  variant?: "light" | "dark" | "auto";
   showTagline?: boolean;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   className?: string;
 }
 
 export const NextSofthrLogo: React.FC<LogoProps> = ({
-  variant = 'auto',
+  variant = "auto",
   showTagline = false,
-  size = 'md',
-  className = '',
+  size = "md",
+  className = "",
 }) => {
   // Dimensions
   const iconSizes = {
-    sm: 'w-7 h-7',
-    md: 'w-9 h-9',
-    lg: 'w-11 h-11',
+    sm: "w-7 h-7",
+    md: "w-9 h-9",
+    lg: "w-11 h-11",
   };
 
   const textSizes = {
-    sm: 'text-lg',
-    md: 'text-2xl',
-    lg: 'text-3xl',
+    sm: "text-lg",
+    md: "text-2xl",
+    lg: "text-3xl",
   };
 
   const taglineSizes = {
-    sm: 'text-[10px]',
-    md: 'text-xs',
-    lg: 'text-sm',
+    sm: "text-[10px]",
+    md: "text-xs",
+    lg: "text-sm",
   };
 
-  const isLight = variant === 'light';
+  const isLight = variant === "light";
 
   return (
     <div className={`flex flex-col ${className}`}>
@@ -72,7 +72,11 @@ export const NextSofthrLogo: React.FC<LogoProps> = ({
         {/* Brand Wordmark */}
         <div className="flex flex-col leading-none">
           <div className={`font-extrabold tracking-tight ${textSizes[size]}`}>
-            <span className={isLight ? 'text-white' : 'text-[#0b1528] dark:text-white'}>
+            <span
+              className={
+                isLight ? "text-white" : "text-[#0b1528] dark:text-white"
+              }
+            >
               NextSoft
             </span>
             <span className="text-[#0056b3] dark:text-[#60a5fa] drop-shadow-sm font-black">
@@ -86,10 +90,10 @@ export const NextSofthrLogo: React.FC<LogoProps> = ({
       {showTagline && (
         <span
           className={`mt-1.5 font-medium tracking-wide ${
-            isLight ? 'text-blue-100/90' : 'text-slate-500 dark:text-slate-400'
+            isLight ? "text-blue-100/90" : "text-slate-500 dark:text-slate-400"
           } ${taglineSizes[size]}`}
         >
-          People. Payroll. Business. Simplified.
+          People. Payroll. Business. Simplified. Secured.
         </span>
       )}
     </div>

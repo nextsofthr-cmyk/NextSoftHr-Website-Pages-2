@@ -121,28 +121,16 @@ export const PAGES_CONFIG: PageMeta[] = [
     iconName: 'BookOpenCheck'
   },
   {
-    id: 'partner-commission-1',
-    slug: 'partner-commission-1',
-    title: 'Commission Schedule 1',
-    subtitle: 'Partner Revenue Share & Commission Tier Matrix',
+    id: 'partner-commission',
+    slug: 'partner-commission',
+    title: 'Partner Commission Hub',
+    subtitle: 'Schedule B, Commission Tiers & Earnings Simulator',
     category: 'Partners',
-    path: '/partner-commission-1',
-    aliases: ['/commission-schedule'],
-    badge: 'Tiers',
-    description: 'Transparent commission tiers, recurring revenue models, and payout timelines.',
+    path: '/partner-commission',
+    aliases: ['/partner-commission-1', '/partner-commission-2', '/commission-schedule', '/commission-hub'],
+    badge: 'Tiers & Calculator',
+    description: 'Commission tiers, the full 62-section Schedule B, earnings simulator, lead protection, statements, disputes and digital sign-off.',
     iconName: 'Percent'
-  },
-  {
-    id: 'partner-commission-2',
-    slug: 'partner-commission-2',
-    title: 'Commission Share Hub 2',
-    subtitle: 'Interactive Earnings Calculator & Bonus Schedule',
-    category: 'Partners',
-    path: '/partner-commission-2',
-    aliases: ['/commission-hub'],
-    badge: 'Calculator',
-    description: 'Simulate earnings, performance milestones, and volume-based reseller bonuses.',
-    iconName: 'TrendingUp'
   },
   {
     id: 'partners-agreement',
@@ -199,7 +187,7 @@ export const PAGES_CONFIG: PageMeta[] = [
     subtitle: 'Secure Multi-Tenant Authentication & Portal Access',
     category: 'Portal',
     path: '/sign-in',
-    aliases: ['/login', '/auth'],
+    aliases: ['/login', '/auth', '/signup', '/register'],
     badge: 'Portal',
     description: 'Access employee self-service, admin dashboard, biometric clocking, and payroll manager.',
     iconName: 'LogIn'

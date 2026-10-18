@@ -43,21 +43,23 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo, onOpenGetStarted
 
               {/* Dual Action Buttons */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-                <button
-                  onClick={onOpenGetStarted}
+                <a
+                  href="/signup"
                   className="px-8 py-4 rounded-xl font-extrabold text-base text-[#0A2540] bg-[#84CC16] hover:bg-[#73b612] shadow-lg shadow-lime-500/25 transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer"
                 >
                   <span>Get Started Free</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </a>
 
-                <button
-                  onClick={onOpenDemo}
+                <a
+                  href="https://demo.scriptmaster.store/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-8 py-4 rounded-xl font-bold text-base text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer"
                 >
                   <Play className="w-4 h-4 fill-current text-[#84CC16]" />
-                  <span>Book a Demo</span>
-                </button>
+                  <span>Explore Demo</span>
+                </a>
               </div>
 
               {/* Reassurance Badges requested */}

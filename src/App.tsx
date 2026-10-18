@@ -13,8 +13,7 @@ const Outsourcing = lazy(() => import('./pages/outsourcing/App'));
 const Training = lazy(() => import('./pages/training/App'));
 const Partners = lazy(() => import('./pages/partners/App'));
 const PartnerRegistry = lazy(() => import('./pages/partner-registry/App'));
-const PartnerCommission1 = lazy(() => import('./pages/partner-commission-1/App'));
-const PartnerCommission2 = lazy(() => import('./pages/partner-commission-2/App'));
+const PartnerCommission = lazy(() => import('./pages/partner-commission/App'));
 const PartnersAgreement = lazy(() => import('./pages/partners-agreement/App'));
 const Blog = lazy(() => import('./pages/blog/App'));
 const Contact = lazy(() => import('./pages/contact/App'));
@@ -96,13 +95,21 @@ class PageErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundar
   }
 }
 
+import { ThemeProvider } from './pages/homepage/context/ThemeContext';
+import { LanguageProvider } from './pages/homepage/context/LanguageContext';
+import { CurrencyProvider } from './pages/homepage/context/CurrencyContext';
+
 export default function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <PageErrorBoundary>
-        <Suspense fallback={<PageLoadingFallback />}>
-          <Routes>
+    <ThemeProvider>
+      <LanguageProvider>
+        <CurrencyProvider>
+          <Router>
+            <ScrollToTop />
+            <PageErrorBoundary>
+              <Suspense fallback={<PageLoadingFallback />}>
+                <div className="w-full max-w-full overflow-x-hidden min-h-screen">
+                  <Routes>
           {/* 1. Core Homepage */}
           <Route path="/" element={<Homepage />} />
           <Route path="/homepage" element={<Homepage />} />
@@ -140,11 +147,12 @@ export default function App() {
           <Route path="/partner-registry" element={<PartnerRegistry />} />
           <Route path="/directory" element={<Navigate to="/partner-registry" replace />} />
 
-          {/* 10 & 11. Partner Commission Tiers & Hub */}
-          <Route path="/partner-commission-1" element={<PartnerCommission1 />} />
-          <Route path="/commission-schedule" element={<Navigate to="/partner-commission-1" replace />} />
-          <Route path="/partner-commission-2" element={<PartnerCommission2 />} />
-          <Route path="/commission-hub" element={<Navigate to="/partner-commission-2" replace />} />
+          {/* 10. Partner Commission (merged schedule + hub) */}
+          <Route path="/partner-commission" element={<PartnerCommission />} />
+          <Route path="/partner-commission-1" element={<Navigate to="/partner-commission" replace />} />
+          <Route path="/partner-commission-2" element={<Navigate to="/partner-commission" replace />} />
+          <Route path="/commission-schedule" element={<Navigate to="/partner-commission" replace />} />
+          <Route path="/commission-hub" element={<Navigate to="/partner-commission" replace />} />
 
           {/* 12. Partner Agreement */}
           <Route path="/partners-agreement" element={<PartnersAgreement />} />
@@ -164,10 +172,13 @@ export default function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/help-center" element={<Navigate to="/faq" replace />} />
 
-          {/* 16. Sign In */}
+          {/* 16. Sign In & Sign Up */}
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/login" element={<Navigate to="/sign-in" replace />} />
           <Route path="/auth" element={<Navigate to="/sign-in" replace />} />
+          <Route path="/signup" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignIn />} />
+          <Route path="/register" element={<SignIn />} />
 
           {/* 17. Privacy Policy */}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -184,12 +195,16 @@ export default function App() {
 
           {/* Fallback to Home */}
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
-    </PageErrorBoundary>
+                  </Routes>
+                </div>
+              </Suspense>
+            </PageErrorBoundary>
 
       {/* Omnipresent Page Switcher and Directory */}
       <GlobalPageSwitcher />
     </Router>
+        </CurrencyProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }

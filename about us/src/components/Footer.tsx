@@ -1,19 +1,12 @@
-import React from 'react';
-import {
-  Phone,
-  Mail,
-  Globe,
-  MapPin,
-  ShieldCheck,
-  ArrowUp
-} from 'lucide-react';
-import { BRAND } from '../data/contentData';
-import { ThemeToggle } from './ThemeToggle';
-import { LanguageSwitcher } from './LanguageSwitcher';
+import React from "react";
+import { Phone, Mail, Globe, MapPin, ShieldCheck, ArrowUp } from "lucide-react";
+import { BRAND } from "../data/contentData";
+import { ThemeToggle } from "./ThemeToggle";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -25,7 +18,9 @@ export const Footer: React.FC = () => {
           <div className="col-span-2 space-y-4">
             <a href="#hero" className="flex items-center gap-2.5 group">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#0B3B73] to-[#0A2540] flex items-center justify-center shadow border border-blue-800/40">
-                <span className="text-white font-extrabold text-xl tracking-tight">N</span>
+                <span className="text-white font-extrabold text-xl tracking-tight">
+                  N
+                </span>
                 <span className="w-2 h-2 rounded-full bg-[#84CC16] -ml-1 -mt-3 ring-2 ring-[#0A2540]"></span>
               </div>
               <span className="text-2xl font-extrabold tracking-tight text-white flex items-center">
@@ -34,8 +29,9 @@ export const Footer: React.FC = () => {
             </a>
 
             <p className="text-xs text-slate-300 leading-relaxed max-w-sm">
-              All-in-one HR, Payroll and Business Management Platform designed for
-              micro, small, medium-sized and large businesses across Africa and worldwide.
+              All – One – Modern HR, Payroll and Business Management Platform
+              enabling organizations worldwide to manage their entire workforce
+              from one unified and intelligent platform.
             </p>
 
             <div className="pt-2 space-y-2 text-xs">
@@ -74,17 +70,26 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
-                <a href="#about-intro" className="hover:text-white transition-colors">
+                <a
+                  href="#about-intro"
+                  className="hover:text-white transition-colors"
+                >
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#our-story" className="hover:text-white transition-colors">
+                <a
+                  href="#our-story"
+                  className="hover:text-white transition-colors"
+                >
                   Our Story
                 </a>
               </li>
               <li>
-                <a href="#people" className="hover:text-white transition-colors">
+                <a
+                  href="#people"
+                  className="hover:text-white transition-colors"
+                >
                   Careers & Team
                 </a>
               </li>
@@ -94,7 +99,10 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="#people" className="hover:text-white transition-colors">
+                <a
+                  href="#people"
+                  className="hover:text-white transition-colors"
+                >
                   Partners
                 </a>
               </li>
@@ -108,37 +116,58 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
-                <a href="#platform" className="hover:text-white transition-colors">
+                <a
+                  href="#platform"
+                  className="hover:text-white transition-colors"
+                >
                   HR Management
                 </a>
               </li>
               <li>
-                <a href="#platform" className="hover:text-white transition-colors">
+                <a
+                  href="#platform"
+                  className="hover:text-white transition-colors"
+                >
                   Payroll Automation
                 </a>
               </li>
               <li>
-                <a href="#platform" className="hover:text-white transition-colors">
+                <a
+                  href="#platform"
+                  className="hover:text-white transition-colors"
+                >
                   Time & Attendance
                 </a>
               </li>
               <li>
-                <a href="#platform" className="hover:text-white transition-colors">
+                <a
+                  href="#platform"
+                  className="hover:text-white transition-colors"
+                >
                   Leave Management
                 </a>
               </li>
               <li>
-                <a href="#platform" className="hover:text-white transition-colors">
+                <a
+                  href="#platform"
+                  className="hover:text-white transition-colors"
+                >
                   Employee Management
                 </a>
               </li>
               <li>
-                <a href="#platform" className="hover:text-white transition-colors">
+                <a
+                  href="#platform"
+                  className="hover:text-white transition-colors"
+                >
                   Business Operations
                 </a>
               </li>
               <li>
-                <a href="#ai-future" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <a
+                  href="#ai-future"
+                  className="hover:text-white transition-colors flex items-center gap-1.5"
+                >
                   <span>AI Assistant</span>
                   <span className="bg-[#84CC16]/20 text-[#84CC16] text-[9px] font-bold px-1 rounded">
                     NEW
@@ -155,17 +184,26 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
-                <a href="#video-story" className="hover:text-white transition-colors">
+                <a
+                  href="#video-story"
+                  className="hover:text-white transition-colors"
+                >
                   Meet NextSofthr
                 </a>
               </li>
               <li>
-                <a href="#who-we-serve" className="hover:text-white transition-colors">
+                <a
+                  href="#who-we-serve"
+                  className="hover:text-white transition-colors"
+                >
                   Solutions by Industry
                 </a>
               </li>
               <li>
-                <a href="#built-for-africa" className="hover:text-white transition-colors">
+                <a
+                  href="#built-for-africa"
+                  className="hover:text-white transition-colors"
+                >
                   Tax & Pension Guides
                 </a>
               </li>
@@ -222,7 +260,9 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-[#84CC16]" />
             <span>
-              &copy; {new Date().getFullYear()} NextSofthr. All rights reserved. Built with African businesses in mind, designed for organizations worldwide.
+              &copy; {new Date().getFullYear()} NextSofthr. All rights reserved.
+              Built with African businesses in mind, designed for organizations
+              worldwide.
             </span>
           </div>
 

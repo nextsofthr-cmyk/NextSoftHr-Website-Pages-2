@@ -592,7 +592,7 @@ export const VideoIntroSection: React.FC<VideoIntroSectionProps> = ({
                 <button
                   type="button"
                   onClick={onOpenGetStarted}
-                  className="w-full py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/15 transition-all flex items-center justify-center cursor-pointer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all flex items-center justify-center cursor-pointer"
                 >
                   Start Free Trial
                 </button>

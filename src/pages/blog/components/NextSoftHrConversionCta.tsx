@@ -40,20 +40,22 @@ export const NextSoftHrConversionCta: React.FC<NextSoftHrConversionCtaProps> = (
 
 
           <div className="pt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            <button
-              onClick={onOpenGetStarted}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-slate-950 bg-[#8EE000] hover:bg-[#9EF01A] shadow-lg transition-all active:scale-[0.98] border border-[#7BC500]"
+            <a
+              href="/signup"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-slate-950 bg-[#8EE000] hover:bg-[#9EF01A] shadow-lg transition-all active:scale-[0.98] border border-[#7BC500] cursor-pointer"
             >
               <span>Get Started</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </a>
 
-            <button
-              onClick={onOpenBookDemo}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-white bg-white/10 hover:bg-white/15 border border-white/20 transition-all"
+            <a
+              href="https://demo.scriptmaster.store/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-white bg-white/10 hover:bg-white/15 border border-white/20 transition-all cursor-pointer"
             >
-              <span>Book a Demo</span>
-            </button>
+              <span>Explore Demo</span>
+            </a>
           </div>
         </div>
 

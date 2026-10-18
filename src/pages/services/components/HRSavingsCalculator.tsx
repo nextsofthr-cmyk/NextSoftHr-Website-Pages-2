@@ -540,7 +540,7 @@ export const HRSavingsCalculator: React.FC<HRSavingsCalculatorProps> = ({
                   <button
                     type="button"
                     onClick={onOpenGetStarted}
-                    className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-blue-950/70 hover:bg-slate-200 dark:hover:bg-blue-900 text-slate-800 dark:text-white font-bold text-xs sm:text-sm transition-all cursor-pointer"
+                    className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-600/20 transition-all cursor-pointer"
                   >
                     Start Free Trial
                   </button>

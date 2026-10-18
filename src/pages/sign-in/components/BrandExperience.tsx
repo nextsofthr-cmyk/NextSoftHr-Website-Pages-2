@@ -1,5 +1,4 @@
 import React from 'react';
-import { NextSofthrLogo } from './NextSofthrLogo';
 import {
   CheckCircle2,
   Sparkles,
@@ -17,7 +16,7 @@ interface BrandExperienceProps {
 
 export const BrandExperience: React.FC<BrandExperienceProps> = ({ t }) => {
   return (
-    <div className="relative w-full h-full flex flex-col justify-between p-8 lg:p-12 xl:p-14 overflow-hidden bg-gradient-to-br from-[#002244] via-[#003366] to-[#004494] text-white select-none">
+    <div className="relative w-full h-full flex flex-col gap-6 p-6 lg:p-8 overflow-hidden bg-gradient-to-br from-[#002244] via-[#003366] to-[#004494] text-white select-none">
       {/* Dynamic Background Mesh & Ambient Glow */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Subtle geometric grid */}
@@ -48,35 +47,39 @@ export const BrandExperience: React.FC<BrandExperienceProps> = ({ t }) => {
       {/* Top Header: Brand Logo & Global Positioning Badge */}
       <div className="relative z-10">
         <div className="flex items-center justify-between gap-4">
-          <NextSofthrLogo variant="light" size="lg" showTagline={true} />
+          <img
+            src="/next-soft-logo.png"
+            alt="NextSoftHr — Powering People. Driving Businesses"
+            className="h-14 w-auto object-contain"
+          />
         </div>
 
-        {/* "Built for Africa • Ready for the World" Badge */}
-        <div className="inline-flex items-center gap-2 mt-5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold tracking-wide">
+        {/* "Built for the Realities of Africa • Ready for the World" Badge */}
+        <div className="inline-flex items-center gap-2 mt-4 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold tracking-wide">
           <span className="flex h-2 w-2 relative">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#caff33] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#caff33]"></span>
           </span>
-          <span className="text-white/90">BUILT FOR AFRICA</span>
+          <span className="text-white/90">BUILT FOR THE REALITIES OF AFRICA.</span>
           <span className="text-[#caff33]">•</span>
           <span className="text-blue-200">READY FOR THE WORLD</span>
         </div>
       </div>
 
       {/* Middle Core Content: Value Proposition & Hero Visual Showcase */}
-      <div className="relative z-10 my-auto py-8">
+      <div className="relative z-10">
         {/* Main Headline */}
         <h1 className="text-3xl lg:text-4xl xl:text-[2.6rem] font-black tracking-tight leading-[1.18] text-white">
           {t.brandHeadline}
         </h1>
 
         {/* Supporting Copy */}
-        <p className="mt-4 text-base lg:text-lg text-blue-100/90 font-normal leading-relaxed max-w-xl">
+        <p className="mt-3 text-base lg:text-lg text-blue-100/90 font-normal leading-relaxed">
           {t.brandSupporting}
         </p>
 
         {/* Highlighting 7 Enterprise Features with Lemon Green Accents */}
-        <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-xl">
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           {t.features.map((feature, idx) => (
             <div
               key={idx}
@@ -91,7 +94,7 @@ export const BrandExperience: React.FC<BrandExperienceProps> = ({ t }) => {
         </div>
 
         {/* Interactive Floating Metric Card (Simulating Live African Enterprise HR Dashboard) */}
-        <div className="mt-8 p-4 rounded-2xl bg-white/[0.08] backdrop-blur-md border border-white/15 shadow-2xl max-w-xl">
+        <div className="mt-5 p-4 rounded-2xl bg-white/[0.08] backdrop-blur-md border border-white/15 shadow-2xl">
           <div className="flex items-center justify-between pb-3 border-b border-white/10">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-lg bg-[#caff33]/20 flex items-center justify-center text-[#caff33]">

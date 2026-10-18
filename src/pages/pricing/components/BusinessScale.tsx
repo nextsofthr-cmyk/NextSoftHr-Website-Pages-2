@@ -3,10 +3,10 @@ import { ArrowRight, CheckCircle2, TrendingUp } from 'lucide-react';
 import { BUSINESS_STAGES } from '../data/pricingData';
 
 interface BusinessScaleProps {
-  onSelectPlan: (planName: string) => void;
+  onSelectPlan?: (planName: string) => void;
 }
 
-export const BusinessScale: React.FC<BusinessScaleProps> = ({ onSelectPlan }) => {
+export const BusinessScale: React.FC<BusinessScaleProps> = () => {
   return (
     <section id="scale-section" className="py-20 bg-[#F8FAFC] dark:bg-[#070D1E] border-t border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,13 +76,15 @@ export const BusinessScale: React.FC<BusinessScaleProps> = ({ onSelectPlan }) =>
                   Ideal tier:{' '}
                   <span className="font-bold text-slate-900 dark:text-white">{stage.idealPlan}</span>
                 </div>
-                <button
-                  onClick={() => onSelectPlan(stage.idealPlan.split(' ')[0])}
+                <a
+                  id={`scale-stage-signup-${idx}`}
+                  href="/signup"
                   className="p-1.5 rounded-lg bg-slate-100 dark:bg-[#162447] hover:bg-[#A3E635] text-slate-700 dark:text-slate-300 hover:text-slate-950 transition-colors"
-                  title="Explore this tier"
+                  title="Sign up"
+                  aria-label={`Sign up for ${stage.idealPlan}`}
                 >
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </a>
               </div>
             </div>
           ))}

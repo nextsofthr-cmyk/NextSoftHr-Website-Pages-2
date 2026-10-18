@@ -155,7 +155,7 @@ export const GlobalPageSwitcher: React.FC = () => {
       <aside
         data-navigator="true"
         aria-label="Page navigation"
-        className="fixed bottom-5 right-5 z-[9999] flex flex-col items-end gap-2 font-sans select-none"
+        className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-[9999] flex flex-col items-end gap-2 font-sans select-none max-w-[calc(100vw-1.5rem)] overflow-hidden"
       >
         {isMinimized ? (
           <button
@@ -172,7 +172,7 @@ export const GlobalPageSwitcher: React.FC = () => {
             </span>
           </button>
         ) : (
-          <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-950/90 dark:bg-slate-900/95 text-white shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl border border-white/15 dark:border-slate-700/60 transition-all">
+          <div className="flex items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-2xl bg-slate-950/90 dark:bg-slate-900/95 text-white shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl border border-white/15 dark:border-slate-700/60 transition-all max-w-full overflow-hidden">
             {/* Prev Page Button */}
             <button
               onClick={goToPrev}

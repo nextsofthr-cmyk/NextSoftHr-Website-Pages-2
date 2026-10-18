@@ -62,13 +62,14 @@ export const es: TranslationDictionary = {
     }
   },
   hero: {
-    badgeEdition: 'NextSofthr Edición 2026',
-    badgeSubtitle: 'Sistema Operativo Todo-en-Uno para la Fuerza Laboral Global',
+    badgeEdition: 'NextSoftHr.',
+    badgeSubtitle: 'Sistema Operativo Panafricano y Global para la Fuerza Laboral',
     headlineStart: 'La Manera Más Inteligente de Gestionar',
     headlineHighlight: 'Personas, Nómina',
     headlineEnd: 'y Todo su Negocio.',
     supportingHeadline: 'Una plataforma inteligente única para RRHH, nómina, asistencia, talento, finanzas, proyectos y autoservicio del empleado.',
     description: 'NextSofthr unifica la gestión de personas y las operaciones empresariales en una única plataforma potente. Automatice la nómina, controle la asistencia con geolocalización, contrate con IA y proporcione a sus colaboradores las herramientas digitales que necesitan, dondequiera que opere su empresa.',
+    ctaExploreDemo: 'Explorar Demo',
     ctaGetStarted: 'Comenzar Gratis',
     ctaBookDemo: 'Reservar una Demo',
     ctaTalkExpert: 'Hablar con un Experto en Nómina',

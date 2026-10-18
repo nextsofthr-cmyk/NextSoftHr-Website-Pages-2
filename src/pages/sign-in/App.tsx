@@ -13,7 +13,6 @@ import DashboardPreview from './components/DashboardPreview';
 import Footer from './components/Footer';
 import SessionTimeoutToast from './components/SessionTimeoutToast';
 import { translations, LanguageKey } from './data/translations';
-import { HelpCircle, Sparkles } from 'lucide-react';
 import { useDeviceIdentifier } from './hooks/useDeviceIdentifier';
 import { ToastProvider } from './components/ToastNotification';
 
@@ -49,7 +48,18 @@ function SignInContent() {
 
   // Modal dialog states
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
-  const [isCreateAccountOpen, setIsCreateAccountOpen] = useState(false);
+  const [isCreateAccountOpen, setIsCreateAccountOpen] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      return (
+        url.searchParams.get('mode') === 'signup' ||
+        url.pathname.includes('signup') ||
+        url.pathname.includes('sign-up') ||
+        url.pathname.includes('register')
+      );
+    }
+    return false;
+  });
   const [legalModalType, setLegalModalType] = useState<LegalModalType>(null);
 
   const t = translations[currentLang] || translations.en;
@@ -90,67 +100,15 @@ function SignInContent() {
 
       {/* Main Split-Screen Container */}
       <div className="flex-1 flex flex-col lg:flex-row w-full min-h-[calc(100vh-60px)] lg:min-h-screen">
-        {/* Left Side: Brand Experience (~46% on desktop) - Step 1 in Desktop Entrance Sequence */}
-        <section className="hidden lg:block lg:w-[46%] xl:w-[45%] relative shrink-0 animate-fade-in-left">
+        {/* Left Side: Brand Experience (50% on desktop) - Step 1 in Desktop Entrance Sequence */}
+        <section className="hidden lg:block lg:w-1/2 relative shrink-0 animate-fade-in-left">
           <BrandExperience t={t} />
         </section>
 
-        {/* Right Side: Sign In Panel (~54% on desktop) - Step 2 & 3 in Staggered Sequence */}
-        <section className="flex-1 flex flex-col justify-between bg-gradient-to-b from-[#f0f7ff]/70 via-white to-slate-50 dark:from-[#0a1222] dark:via-[#0c1628] dark:to-[#08101e] p-4 sm:p-8 lg:p-12 overflow-y-auto transition-colors duration-200">
-          {/* Top Utilities Bar (Theme Toggle, Connection Status, Language Selector & Support Link) - Step 2 */}
-          <div className="w-full max-w-[540px] mx-auto flex items-center justify-between pb-4 animate-fade-in-down animation-delay-100">
-            <div className="lg:hidden flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium">
-              <span className="w-2 h-2 rounded-full bg-[#84b800] dark:bg-[#caff33]"></span>
-              <span>People. Payroll. Simplified.</span>
-            </div>
-
-            <div className="hidden lg:flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-              <a
-                href="https://www.nextsofthr.org"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-[#0056b3] dark:hover:text-[#caff33] transition-colors"
-              >
-                www.nextsofthr.org
-              </a>
-              <span className="text-slate-300 dark:text-slate-600">•</span>
-              <span className="text-[#0056b3] dark:text-[#38bdf8] font-medium">Enterprise Portal</span>
-            </div>
-
-            <div className="flex items-center gap-2.5">
-              {/* Theme Toggle */}
-              <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
-
-              {/* Visual Connection Status Indicator for Desktop Navbar */}
-              <ConnectionStatus variant="auto" />
-
-              <button
-                type="button"
-                onClick={() => setLegalModalType('help')}
-                className="hidden sm:inline-flex items-center gap-1 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-[#0056b3] dark:hover:text-[#caff33] transition-colors cursor-pointer"
-              >
-                <HelpCircle className="w-3.5 h-3.5" />
-                <span>Help</span>
-              </button>
-
-              <LanguageSelector
-                currentLang={currentLang}
-                onLanguageChange={setCurrentLang}
-                variant="light"
-              />
-            </div>
-          </div>
-
+        {/* Right Side: Sign In Panel (50% on desktop) - Step 2 & 3 in Staggered Sequence */}
+        <section className="lg:w-1/2 flex-1 flex flex-col justify-between bg-gradient-to-b from-[#f0f7ff]/70 via-white to-slate-50 dark:from-[#0a1222] dark:via-[#0c1628] dark:to-[#08101e] p-4 sm:p-8 lg:px-8 lg:pt-6 lg:pb-8 overflow-y-auto transition-colors duration-200">
           {/* Centered Sign In Card - Step 3 in Sequence */}
-          <div className="my-auto py-4 sm:py-6 flex flex-col items-center justify-center animate-fade-in-up animation-delay-200">
-            {/* Badge on tablet/mobile within main column */}
-            <div className="lg:hidden mb-6 text-center">
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#f7fee7] dark:bg-[#caff33]/15 text-[#003366] dark:text-[#caff33] text-xs font-bold border border-[#caff33] mb-3">
-                <Sparkles className="w-3.5 h-3.5 text-[#0056b3] dark:text-[#caff33]" />
-                Built for Africa • Ready for the World
-              </span>
-            </div>
-
+          <div className="pt-2 pb-4 sm:pb-6 flex flex-col items-center justify-start animate-fade-in-up animation-delay-200">
             <SignInCard
               t={t}
               onSuccessLogin={(email) => setUserEmail(email)}
@@ -160,7 +118,7 @@ function SignInContent() {
           </div>
 
           {/* Footer Component with 'Recently Accessed From' security transparency - Step 4 */}
-          <div className="w-full max-w-[540px] mx-auto pt-6 animate-fade-in-up animation-delay-300">
+          <div className="w-full pt-6 animate-fade-in-up animation-delay-300">
             <Footer
               t={t}
               onOpenLegal={(type) => setLegalModalType(type)}

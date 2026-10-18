@@ -293,14 +293,14 @@ export const SignInCard: React.FC<SignInCardProps> = ({
   }
 
   return (
-    <div className="w-full max-w-[480px] mx-auto animate-in fade-in slide-in-from-bottom-6 duration-700 ease-out fill-mode-both">
+    <div className="w-full animate-in fade-in slide-in-from-bottom-6 duration-700 ease-out fill-mode-both">
       {/* Main Authentication Card */}
       <div className="relative bg-white dark:bg-[#0f1c33] rounded-2xl shadow-xl shadow-slate-200/60 dark:shadow-black/50 border border-slate-200/90 dark:border-white/10 p-6 sm:p-9 transition-colors">
         {/* Lemon green top accent indicator */}
         <div className="absolute top-0 left-8 right-8 h-1 bg-gradient-to-r from-[#0056b3] via-[#004494] to-[#caff33] rounded-t-full" />
 
         {/* Card Header */}
-        <div className="mb-6 text-left">
+        <div className="mb-6 text-center">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#0056b3] dark:text-[#38bdf8] text-[11px] font-semibold mb-2.5 border border-blue-100 dark:border-blue-900/60">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0056b3] dark:bg-[#caff33]"></span>
             <span>Enterprise Authentication</span>

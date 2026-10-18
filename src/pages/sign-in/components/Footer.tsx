@@ -2,6 +2,7 @@ import React from 'react';
 import { LegalModalType } from './LegalModal';
 import { Translations } from '../data/translations';
 import { DeviceInfo } from '../hooks/useDeviceIdentifier';
+import { Link } from 'react-router-dom';
 import { ShieldCheck, Laptop, Globe, Clock, CheckCircle2 } from 'lucide-react';
 
 interface FooterProps {
@@ -58,25 +59,23 @@ export const Footer: React.FC<FooterProps> = ({
       {/* Main Copyright and Legal Navigation */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
         <div>
-          <span>© 2026 NextSofthr. {t.allRightsReserved}</span>
+          <span>© 2026 NextSoftHr. {t.allRightsReserved} Trademark of NextSoft-Group</span>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5">
-          <button
-            type="button"
-            onClick={() => onOpenLegal('privacy')}
+          <Link
+            to="/privacy-policy"
             className="hover:text-[#0056b3] dark:hover:text-[#caff33] transition-colors cursor-pointer"
           >
             {t.privacy}
-          </button>
+          </Link>
           <span className="text-slate-300 dark:text-slate-600">•</span>
-          <button
-            type="button"
-            onClick={() => onOpenLegal('terms')}
+          <Link
+            to="/terms-conditions"
             className="hover:text-[#0056b3] dark:hover:text-[#caff33] transition-colors cursor-pointer"
           >
             {t.terms}
-          </button>
+          </Link>
           <span className="text-slate-300 dark:text-slate-600">•</span>
           <button
             type="button"

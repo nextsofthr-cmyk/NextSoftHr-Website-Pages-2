@@ -12,6 +12,9 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { SECURITY_FEATURES } from '../data/pricingData';
+import { CardSlider } from './CardSlider';
+
+const SECURITY_PER_VIEW = { base: 1, sm: 2, lg: 4 };
 
 const ICONS_MAP: Record<string, React.ElementType> = {
   Server,
@@ -47,13 +50,16 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({ onLearnMoreSec
           </p>
         </div>
 
-        {/* 8 Security Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {SECURITY_FEATURES.map((item, idx) => {
+        {/* 8 Security Cards Slider */}
+        <CardSlider
+          id="security-slider"
+          ariaLabel="Security features"
+          items={SECURITY_FEATURES}
+          perView={SECURITY_PER_VIEW}
+          renderItem={(item, idx) => {
             const Icon = ICONS_MAP[item.iconName] || ShieldCheck;
             return (
               <div
-                key={item.title}
                 id={`security-card-${idx}`}
                 className="bg-white dark:bg-[#0B132B] rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 hover:border-[#0265DC] dark:hover:border-blue-500 hover:shadow-md transition-all duration-200 group"
               >
@@ -68,8 +74,8 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({ onLearnMoreSec
                 </p>
               </div>
             );
-          })}
-        </div>
+          }}
+        />
 
         {/* Security & Privacy Banner */}
         <div className="mt-10 bg-white dark:bg-[#0B132B] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xs transition-colors">

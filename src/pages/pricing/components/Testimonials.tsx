@@ -1,6 +1,9 @@
 import React from 'react';
 import { Quote, CheckCircle2, Star, Building2, MapPin } from 'lucide-react';
 import { TESTIMONIALS } from '../data/pricingData';
+import { CardSlider } from './CardSlider';
+
+const TESTIMONIALS_PER_VIEW = { base: 1, md: 2 };
 
 export const Testimonials: React.FC = () => {
   return (
@@ -20,11 +23,14 @@ export const Testimonials: React.FC = () => {
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {TESTIMONIALS.map((item, idx) => (
+        {/* Testimonials Slider */}
+        <CardSlider
+          id="testimonials-slider"
+          ariaLabel="Customer testimonials"
+          items={TESTIMONIALS}
+          perView={TESTIMONIALS_PER_VIEW}
+          renderItem={(item, idx) => (
             <div
-              key={item.name}
               id={`testimonial-card-${idx}`}
               className="bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200"
             >
@@ -75,8 +81,8 @@ export const Testimonials: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        />
       </div>
     </section>
   );

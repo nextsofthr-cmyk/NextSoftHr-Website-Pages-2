@@ -35,7 +35,7 @@ export const translations = {
   en: {
     common: {
       startFreeTrial: 'Start Free Trial',
-      bookDemo: 'Book a Demo',
+      bookDemo: 'Explore Demo',
       contactSales: 'Contact Sales',
       login: 'Sign In',
       freeTrial14Days: '14-Day Free Trial',
@@ -82,7 +82,7 @@ export const translations = {
       pill2: 'One connected workforce.',
       pill3: 'One simple subscription.',
       startTrialBtn: 'Start Free Trial',
-      bookDemoBtn: 'Book a Demo',
+      bookDemoBtn: 'Explore Demo',
       comparePlansBtn: 'View Plan Comparison ↓',
       dashboardView: 'NextSofthr Enterprise Suite — Live Operations View',
       aiAssistantStatus: 'AI Assistant: "September payroll reconciled, 100% compliant."',

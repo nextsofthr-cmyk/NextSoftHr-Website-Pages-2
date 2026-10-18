@@ -22,7 +22,6 @@ export const SocialProofPricingSection = ({
 }: SocialProofPricingProps) => {
   const { dict } = useLanguage();
   const { formatMoney, currencyInfo } = useCurrency();
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
 
   const handleScrollToCalculator = () => {
     const el = document.getElementById('savings-calculator');
@@ -138,7 +137,7 @@ export const SocialProofPricingSection = ({
 
         {/* Module 5: Transparent Pricing Plans */}
         <div id="pricing">
-          <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="text-center max-w-3xl mx-auto mb-12">
             <span className="px-3.5 py-1 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 uppercase tracking-wider mb-3 inline-block">
               {dict.pricing.badge}
             </span>
@@ -148,37 +147,13 @@ export const SocialProofPricingSection = ({
             <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg mt-3 leading-relaxed">
               {dict.pricing.description}
             </p>
-
-            {/* Annual / Monthly Toggle */}
-            <div className="flex items-center justify-center gap-3 mt-6">
-              <span className={`text-xs font-bold ${billingCycle === 'monthly' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>
-                {dict.pricing.monthly}
-              </span>
-              <button
-                onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'annual' : 'monthly')}
-                className="w-12 h-6 bg-blue-600 rounded-full p-0.5 transition-colors relative flex items-center cursor-pointer"
-              >
-                <div
-                  className={`w-5 h-5 bg-white rounded-full shadow-md transition-transform ${
-                    billingCycle === 'annual' ? 'translate-x-6' : 'translate-x-0'
-                  }`}
-                />
-              </button>
-              <div className="flex items-center gap-1.5">
-                <span className={`text-xs font-bold ${billingCycle === 'annual' ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>
-                  {dict.pricing.annual}
-                </span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-lime-400 text-slate-950">
-                  {dict.pricing.saveBadge}
-                </span>
-              </div>
-            </div>
           </div>
 
           {/* Pricing Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
             {PRICING_PLANS.map((plan) => {
-              const price = billingCycle === 'annual' ? plan.priceYearly : plan.priceMonthly;
+              const price = plan.priceMonthly;
+              const isFreeTrial = plan.ctaText.toLowerCase().includes('trial') || plan.id === 'starter';
               return (
                 <div
                   key={plan.id}
@@ -210,7 +185,7 @@ export const SocialProofPricingSection = ({
                         </div>
                       )}
                       <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">
-                        {billingCycle === 'annual' ? 'Billed annually' : 'Billed monthly'} • {currencyInfo.code}
+                        Billed monthly • {currencyInfo.code}
                       </p>
                     </div>
 
@@ -228,7 +203,7 @@ export const SocialProofPricingSection = ({
                     <button
                       onClick={plan.id === 'enterprise' ? onOpenExpert : onOpenGetStarted}
                       className={`w-full py-3 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                        plan.popular
+                        isFreeTrial || plan.popular
                           ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/30'
                           : 'bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white'
                       }`}

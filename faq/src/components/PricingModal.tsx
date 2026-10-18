@@ -223,8 +223,8 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, onO
                     onOpenDemo();
                   }}
                   className={`w-full py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-                    plan.popular
-                      ? 'bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-500 text-white shadow-xs'
+                    plan.cta.toLowerCase().includes('trial') || plan.popular
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-600/20'
                       : 'bg-slate-100 dark:bg-[#162752] hover:bg-slate-200 dark:hover:bg-[#1d3368] text-slate-800 dark:text-slate-200'
                   }`}
                 >

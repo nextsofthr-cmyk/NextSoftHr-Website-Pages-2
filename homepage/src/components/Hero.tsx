@@ -45,13 +45,12 @@ export const Hero = ({ onOpenDemo, onOpenGetStarted, onOpenExpert, onOpenPayslip
         
         {/* Top Trust / Category Tag */}
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-200/90 dark:border-slate-800 text-slate-800 dark:text-slate-200 text-xs font-semibold mb-4 animate-fadeIn">
-            <span className="flex h-2 w-2 relative">
+          <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-200/90 dark:border-slate-800 text-slate-800 dark:text-slate-200 text-xs font-semibold mb-4 animate-fadeIn">
+            <span className="flex h-2 w-2 relative shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-500 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-500"></span>
             </span>
             <span className="text-blue-700 dark:text-blue-400 font-bold">{dict.hero.badgeEdition}</span>
-            <span className="text-slate-300 dark:text-slate-700">•</span>
             <span className="text-slate-600 dark:text-slate-400">{dict.hero.badgeSubtitle}</span>
           </div>
 
@@ -76,28 +75,31 @@ export const Hero = ({ onOpenDemo, onOpenGetStarted, onOpenExpert, onOpenPayslip
 
           {/* Conversion CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-3.5 mt-8 w-full sm:w-auto">
-            <button
+            <a
               id="hero-get-started-cta"
-              onClick={onOpenGetStarted}
-              className="w-full sm:w-auto px-7 py-3.5 text-base font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5"
+              href="/signup"
+              className="w-full sm:w-auto px-7 py-3.5 text-base font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 cursor-pointer"
             >
               <span>{dict.hero.ctaGetStarted}</span>
               <ArrowRight className="w-4 h-4 text-lime-400 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
 
-            <button
-              id="hero-book-demo-cta"
-              onClick={onOpenDemo}
-              className="w-full sm:w-auto px-6 py-3.5 text-base font-bold text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5"
+            <a
+              id="hero-explore-demo-cta"
+              href="https://demo.scriptmaster.store/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-7 py-3.5 text-base font-bold text-slate-950 bg-[#84cc16] hover:bg-[#74be12] rounded-xl shadow-lg shadow-lime-500/25 transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 cursor-pointer"
             >
-              <Play className="w-4 h-4 text-blue-600 fill-blue-600/20" />
-              <span>{dict.hero.ctaBookDemo}</span>
-            </button>
+              <Play className="w-4 h-4 text-slate-950 fill-current" />
+              <span>Explore Demo</span>
+              <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
+            </a>
 
             <button
               id="hero-talk-expert-cta"
               onClick={onOpenExpert}
-              className="w-full sm:w-auto px-5 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 transition-colors flex items-center justify-center gap-1.5"
+              className="w-full sm:w-auto px-5 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <span>{dict.hero.ctaTalkExpert}</span>
               <span className="text-lime-600 dark:text-lime-400 font-bold">→</span>

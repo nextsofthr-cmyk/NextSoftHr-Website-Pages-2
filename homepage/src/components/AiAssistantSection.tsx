@@ -1,8 +1,9 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useRef, useCallback, type FormEvent } from 'react';
 import { 
   Sparkles, Bot, Send, CheckCircle, FileText, ArrowRight, 
   HelpCircle, ShieldCheck, Zap, UserCheck, TrendingUp, 
-  FileSpreadsheet, Clock, ShieldAlert, Award, BookOpen, BarChart3, Calculator
+  FileSpreadsheet, Clock, ShieldAlert, Award, BookOpen, BarChart3, Calculator,
+  ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { AI_PROMPTS, AI_CAPABILITIES } from '../data/mockData';
 import { AiPromptOption } from '../types';
@@ -19,6 +20,21 @@ export const AiAssistantSection = ({ onOpenDemo, onOpenPayslip }: AiAssistantSec
   const [customInput, setCustomInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [actionDone, setActionDone] = useState(false);
+
+  // AI Capabilities slider state
+  const [aiSliderPage, setAiSliderPage] = useState(0);
+  const aiSliderRef = useRef<HTMLDivElement>(null);
+  const aiItemsPerPage = 4;
+  const aiTotalPages = Math.ceil(AI_CAPABILITIES.length / aiItemsPerPage);
+
+  const goToAiPage = useCallback((page: number) => {
+    const clamped = Math.max(0, Math.min(page, aiTotalPages - 1));
+    setAiSliderPage(clamped);
+    if (aiSliderRef.current) {
+      const cardWidth = aiSliderRef.current.scrollWidth / AI_CAPABILITIES.length;
+      aiSliderRef.current.scrollTo({ left: clamped * aiItemsPerPage * cardWidth, behavior: 'smooth' });
+    }
+  }, [aiTotalPages]);
 
   const localizeValue = (val: any): string => {
     if (!val || typeof val !== 'string') return val ? String(val) : '';
@@ -369,7 +385,7 @@ export const AiAssistantSection = ({ onOpenDemo, onOpenPayslip }: AiAssistantSec
 
         </div>
 
-        {/* 12 AI Capabilities Grid */}
+        {/* 12 AI Capabilities Slider */}
         <div>
           <div className="text-center max-w-2xl mx-auto mb-10">
             <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
@@ -380,26 +396,81 @@ export const AiAssistantSection = ({ onOpenDemo, onOpenPayslip }: AiAssistantSec
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {AI_CAPABILITIES.map((cap, idx) => {
-              const IconComp = iconMap[cap.icon] || Sparkles;
-              return (
-                <div
-                  key={idx}
-                  className="p-5 rounded-2xl bg-slate-800/70 border border-slate-700/80 hover:border-lime-400/50 transition-all hover:-translate-y-1 group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/30 text-lime-400 flex items-center justify-center mb-3 group-hover:bg-lime-400 group-hover:text-slate-950 transition-colors">
-                    <IconComp className="w-5 h-5" />
-                  </div>
-                  <h4 className="font-bold text-base text-white group-hover:text-lime-300 transition-colors">
-                    {cap.title}
-                  </h4>
-                  <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                    {cap.desc}
-                  </p>
-                </div>
-              );
-            })}
+          {/* Slider Container */}
+          <div className="relative">
+            {/* Left Arrow */}
+            <button
+              onClick={() => goToAiPage(aiSliderPage - 1)}
+              disabled={aiSliderPage === 0}
+              className={`absolute left-0 sm:-left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-lg ${
+                aiSliderPage === 0
+                  ? 'bg-slate-800/50 text-slate-600 cursor-not-allowed'
+                  : 'bg-white/10 backdrop-blur-sm text-white hover:bg-lime-400 hover:text-slate-950 border border-slate-700 hover:border-lime-400'
+              }`}
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            {/* Right Arrow */}
+            <button
+              onClick={() => goToAiPage(aiSliderPage + 1)}
+              disabled={aiSliderPage >= aiTotalPages - 1}
+              className={`absolute right-0 sm:-right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-lg ${
+                aiSliderPage >= aiTotalPages - 1
+                  ? 'bg-slate-800/50 text-slate-600 cursor-not-allowed'
+                  : 'bg-white/10 backdrop-blur-sm text-white hover:bg-lime-400 hover:text-slate-950 border border-slate-700 hover:border-lime-400'
+              }`}
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            {/* Scrollable Track */}
+            <div
+              ref={aiSliderRef}
+              className="overflow-hidden"
+            >
+              <div
+                className="flex transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(-${aiSliderPage * 100}%)` }}
+              >
+                {AI_CAPABILITIES.map((cap, idx) => {
+                  const IconComp = iconMap[cap.icon] || Sparkles;
+                  return (
+                    <div
+                      key={idx}
+                      className="w-full sm:w-1/2 lg:w-1/4 shrink-0 px-2"
+                    >
+                      <div className="p-5 rounded-2xl bg-slate-800/70 border border-slate-700/80 hover:border-lime-400/50 transition-all hover:-translate-y-1 group h-full">
+                        <div className="w-10 h-10 rounded-xl bg-blue-600/30 text-lime-400 flex items-center justify-center mb-3 group-hover:bg-lime-400 group-hover:text-slate-950 transition-colors">
+                          <IconComp className="w-5 h-5" />
+                        </div>
+                        <h4 className="font-bold text-base text-white group-hover:text-lime-300 transition-colors">
+                          {cap.title}
+                        </h4>
+                        <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                          {cap.desc}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Pagination Dots */}
+          <div className="flex items-center justify-center gap-2 mt-8">
+            {Array.from({ length: aiTotalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goToAiPage(i)}
+                className={`rounded-full transition-all duration-300 ${
+                  i === aiSliderPage
+                    ? 'w-8 h-3 bg-lime-400'
+                    : 'w-3 h-3 bg-slate-700 hover:bg-slate-500'
+                }`}
+              />
+            ))}
           </div>
 
           {/* AI Call to action banner */}

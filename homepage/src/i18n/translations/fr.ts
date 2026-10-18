@@ -62,13 +62,14 @@ export const fr: TranslationDictionary = {
     }
   },
   hero: {
-    badgeEdition: 'NextSofthr Édition 2026',
-    badgeSubtitle: 'Système d’Exploitation Mondial de Gestion des Ressources Humaines',
+    badgeEdition: 'NextSoftHr.',
+    badgeSubtitle: 'Système d’Exploitation Panafricain et Mondial de Gestion des Ressources Humaines',
     headlineStart: 'La Façon la Plus Intelligente de Gérer',
     headlineHighlight: 'Vos Équipes, la Paie',
     headlineEnd: '& Votre Entreprise.',
     supportingHeadline: 'Une plateforme intelligente unique pour les RH, la paie, les présences, le recrutement, la finance et les projets.',
     description: 'NextSofthr unifie la gestion de votre capital humain et vos opérations commerciales au sein d’une infrastructure unique. Automatisez les déclarations fiscales, le calcul des salaires, suivez les présences biométriques et offrez des outils d’autonomie complets à vos collaborateurs, où que vous opériez.',
+    ctaExploreDemo: 'Explorer la Démo',
     ctaGetStarted: 'Commencer Gratuitement',
     ctaBookDemo: 'Réserver une Démo',
     ctaTalkExpert: 'Parler à un Spécialiste RH & Paie',
