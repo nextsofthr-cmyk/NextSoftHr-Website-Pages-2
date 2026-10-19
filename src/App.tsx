@@ -108,7 +108,7 @@ export default function App() {
             <ScrollToTop />
             <PageErrorBoundary>
               <Suspense fallback={<PageLoadingFallback />}>
-                <div className="w-full max-w-full overflow-x-hidden min-h-screen">
+                <div className="w-full max-w-full overflow-x-clip min-h-screen">
                   <Routes>
           {/* 1. Core Homepage */}
           <Route path="/" element={<Homepage />} />

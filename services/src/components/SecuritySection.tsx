@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { SECURITY_ITEMS } from '../data/servicesData';
 import { ComplianceCertification } from './ComplianceCertification';
+import { CardSlider } from './CardSlider';
 
 const securityIcons = [
   Lock,
@@ -43,25 +44,31 @@ export const SecuritySection: React.FC = () => {
           </p>
         </div>
 
-        {/* 8 Security Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SECURITY_ITEMS.map((item, idx) => {
+        {/* 8 Security Cards Slider: 4 in a row on desktop */}
+        <CardSlider
+          id="security-slider"
+          items={SECURITY_ITEMS}
+          perView={{ base: 1, sm: 2, lg: 4, xl: 4 }}
+          ariaLabel="Security features slider"
+          renderItem={(item, idx) => {
             const IconComp = securityIcons[idx] || ShieldCheck;
 
             return (
               <div
                 key={idx}
-                className="bg-white dark:bg-[#0A2540] rounded-2xl p-6 border border-slate-200/80 dark:border-blue-900/60 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md transition-all duration-200"
+                className="bg-white dark:bg-[#0A2540] rounded-2xl p-6 border border-slate-200/80 dark:border-blue-900/60 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full"
               >
-                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/60 text-[#0256C4] dark:text-blue-300 flex items-center justify-center mb-4">
-                  <IconComp className="w-5 h-5" />
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/60 text-[#0256C4] dark:text-blue-300 flex items-center justify-center mb-4">
+                    <IconComp className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-base font-bold text-[#0A2540] dark:text-white mb-2">{item.title}</h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{item.description}</p>
                 </div>
-                <h3 className="text-base font-bold text-[#0A2540] dark:text-white mb-2">{item.title}</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{item.description}</p>
               </div>
             );
-          })}
-        </div>
+          }}
+        />
 
         {/* Trust Badges Ribbon */}
         <div className="mt-12 p-6 rounded-2xl bg-white dark:bg-[#0A2540] border border-slate-200 dark:border-blue-900/60 flex flex-wrap items-center justify-around gap-6 text-xs text-slate-600 dark:text-slate-300 font-semibold">

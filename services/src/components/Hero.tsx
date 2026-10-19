@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Sparkles,
   ArrowRight,
@@ -13,7 +13,7 @@ import {
   Building2,
   Activity,
   Zap,
-} from 'lucide-react';
+} from "lucide-react";
 
 interface HeroProps {
   onOpenDemo: () => void;
@@ -21,7 +21,9 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
-  const [activeWidgetTab, setActiveWidgetTab] = useState<'payroll' | 'attendance' | 'headcount'>('payroll');
+  const [activeWidgetTab, setActiveWidgetTab] = useState<
+    "payroll" | "attendance" | "headcount"
+  >("payroll");
 
   return (
     <section className="relative overflow-hidden pt-8 pb-16 lg:pt-14 lg:pb-24 bg-gradient-to-b from-[#F0F5FD] via-white to-[#F8FAFC] dark:from-[#0A2540] dark:via-[#07182E] dark:to-[#07182E]">
@@ -41,17 +43,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
 
           {/* Main Headline */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0A2540] dark:text-white tracking-tight leading-[1.12] mb-6">
-            Everything Your Business Needs to Manage{' '}
+            Everything Your Business Needs to Manage{" "}
             <span className="text-[#0256C4] dark:text-blue-400 underline decoration-[#84CC16] decoration-4 underline-offset-8">
               People, Payroll
-            </span>{' '}
+            </span>{" "}
             &amp; Operations
           </h1>
 
           {/* Supporting Text */}
           <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-200 font-normal leading-relaxed mb-8 max-w-2xl mx-auto">
-            Simplify HR, automate payroll, manage attendance, empower employees and streamline business operations with
-            one intelligent platform built for African businesses and designed for the world.
+            Simplify HR, automate payroll, manage attendance, empower employees
+            and streamline business operations with one intelligent platform
+            built for African businesses and designed for the world.
           </p>
 
           {/* CTA Buttons */}
@@ -81,15 +84,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
           {/* Secondary reassurance text */}
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-300 font-medium flex items-center justify-center gap-2 flex-wrap">
             <span className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-200">
-              <CheckCircle2 className="w-4 h-4 text-[#84CC16]" /> No complicated setup
+              <CheckCircle2 className="w-4 h-4 text-[#84CC16]" /> No complicated
+              setup
             </span>
             <span className="text-slate-300 dark:text-slate-600">•</span>
             <span className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-200">
-              <CheckCircle2 className="w-4 h-4 text-[#84CC16]" /> No fragmented systems
+              <CheckCircle2 className="w-4 h-4 text-[#84CC16]" /> No fragmented
+              systems
             </span>
             <span className="text-slate-300 dark:text-slate-600">•</span>
             <span className="inline-flex items-center gap-1 text-[#0256C4] dark:text-[#84CC16] font-semibold">
-              <CheckCircle2 className="w-4 h-4 text-[#84CC16]" /> One connected platform
+              <CheckCircle2 className="w-4 h-4 text-[#84CC16]" /> One connected
+              platform
             </span>
           </p>
         </div>
@@ -114,7 +120,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
                   Multi-Currency: NGN • KES • GHS • ZAR • USD
                 </span>
                 <span className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold">
-                  <span className="w-2 h-2 rounded-full bg-[#84CC16] animate-ping" /> System Live
+                  <span className="w-2 h-2 rounded-full bg-[#84CC16] animate-ping" />{" "}
+                  System Live
                 </span>
               </div>
             </div>
@@ -126,7 +133,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
                 {/* Authentic African Professional Team Banner Preview */}
                 <div className="lg:col-span-7 relative rounded-xl overflow-hidden shadow-md border border-slate-200 group">
                   <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1200&auto=format&fit=crop"
+                    src="https://www.freepik.com/search?format=search&amp;query=payroll%20management
+
+https://img.freepik.com/free-photo/frustrated-young-mixed-race-female-entrepreneur-wearing-formal-shirt-
+
+eyeglasses_273609-
+
+13992.jpg?w=740&amp;t=st=1696962752~exp=1696963352~hmac=64db591e5a379007277aa55bf0c9a59cdb377a9b5"
                     alt="African professional HR executive and corporate team collaborating in a modern headquarters"
                     className="w-full h-56 sm:h-72 object-cover object-top group-hover:scale-102 transition-transform duration-500"
                     loading="eager"
@@ -136,13 +149,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
                       <span className="px-2 py-0.5 rounded-full bg-[#84CC16] text-[#0A2540] text-[11px] font-black uppercase tracking-wider">
                         Enterprise Team Hub
                       </span>
-                      <span className="text-xs text-slate-200 font-medium">Lagos • Nairobi • Accra • Johannesburg</span>
+                      <span className="text-xs text-slate-200 font-medium">
+                        Lagos • Nairobi • Accra • Johannesburg
+                      </span>
                     </div>
                     <h2 className="text-base sm:text-xl font-bold text-white leading-snug">
                       NextSofthr Connected Operations: 1,482 Active Personnel
                     </h2>
                     <p className="text-xs sm:text-sm text-slate-300 line-clamp-1 mt-0.5">
-                      Seamless statutory compliance, biometric sync &amp; multi-branch payroll approvals.
+                      Seamless statutory compliance, biometric sync &amp;
+                      multi-branch payroll approvals.
                     </p>
                   </div>
                 </div>
@@ -152,10 +168,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
                   {/* Total Employees */}
                   <div className="bg-white dark:bg-[#0D2644] p-3.5 sm:p-4 rounded-xl border border-slate-200 dark:border-blue-800/80 shadow-xs hover:border-blue-300 dark:hover:border-blue-600 transition-colors">
                     <div className="flex items-center justify-between text-slate-500 dark:text-slate-300 mb-2">
-                      <span className="text-xs font-semibold">Total Employees</span>
+                      <span className="text-xs font-semibold">
+                        Total Employees
+                      </span>
                       <Users className="w-4 h-4 text-[#0256C4] dark:text-blue-400" />
                     </div>
-                    <div className="text-xl sm:text-2xl font-extrabold text-[#0A2540] dark:text-white">1,482</div>
+                    <div className="text-xl sm:text-2xl font-extrabold text-[#0A2540] dark:text-white">
+                      1,482
+                    </div>
                     <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1">
                       <TrendingUp className="w-3 h-3" /> +24 this month
                     </div>
@@ -167,30 +187,45 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
                       <span className="text-xs font-semibold">Attendance</span>
                       <Clock className="w-4 h-4 text-[#84CC16]" />
                     </div>
-                    <div className="text-xl sm:text-2xl font-extrabold text-[#0A2540] dark:text-white">98.4%</div>
-                    <div className="text-[11px] font-bold text-blue-600 dark:text-blue-400 mt-1">1,458 clocked in</div>
+                    <div className="text-xl sm:text-2xl font-extrabold text-[#0A2540] dark:text-white">
+                      98.4%
+                    </div>
+                    <div className="text-[11px] font-bold text-blue-600 dark:text-blue-400 mt-1">
+                      1,458 clocked in
+                    </div>
                   </div>
 
                   {/* Payroll Summary */}
                   <div className="bg-white dark:bg-[#0D2644] p-3.5 sm:p-4 rounded-xl border border-slate-200 dark:border-blue-800/80 shadow-xs hover:border-blue-300 dark:hover:border-blue-600 transition-colors">
                     <div className="flex items-center justify-between text-slate-500 dark:text-slate-300 mb-2">
-                      <span className="text-xs font-semibold">Payroll Status</span>
+                      <span className="text-xs font-semibold">
+                        Payroll Status
+                      </span>
                       <CreditCard className="w-4 h-4 text-[#0256C4] dark:text-blue-400" />
                     </div>
                     <div className="text-sm sm:text-base font-extrabold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                      <CheckCircle2 className="w-4 h-4 text-[#84CC16]" /> Processed
+                      <CheckCircle2 className="w-4 h-4 text-[#84CC16]" />{" "}
+                      Processed
                     </div>
-                    <div className="text-[11px] text-slate-500 dark:text-slate-300 mt-1 font-mono font-medium">₦94.8M / $120k Disbursed</div>
+                    <div className="text-[11px] text-slate-500 dark:text-slate-300 mt-1 font-mono font-medium">
+                      ₦94.8M / $120k Disbursed
+                    </div>
                   </div>
 
                   {/* Leave Requests */}
                   <div className="bg-white dark:bg-[#0D2644] p-3.5 sm:p-4 rounded-xl border border-slate-200 dark:border-blue-800/80 shadow-xs hover:border-blue-300 dark:hover:border-blue-600 transition-colors">
                     <div className="flex items-center justify-between text-slate-500 dark:text-slate-300 mb-2">
-                      <span className="text-xs font-semibold">Leave Requests</span>
+                      <span className="text-xs font-semibold">
+                        Leave Requests
+                      </span>
                       <Calendar className="w-4 h-4 text-amber-500" />
                     </div>
-                    <div className="text-xl sm:text-2xl font-extrabold text-[#0A2540] dark:text-white">12</div>
-                    <div className="text-[11px] text-amber-600 dark:text-amber-400 font-bold mt-1">Pending Approval</div>
+                    <div className="text-xl sm:text-2xl font-extrabold text-[#0A2540] dark:text-white">
+                      12
+                    </div>
+                    <div className="text-[11px] text-amber-600 dark:text-amber-400 font-bold mt-1">
+                      Pending Approval
+                    </div>
                   </div>
                 </div>
               </div>
@@ -207,31 +242,31 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
 
                   <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-[#0A2540] rounded-lg text-xs font-semibold">
                     <button
-                      onClick={() => setActiveWidgetTab('payroll')}
+                      onClick={() => setActiveWidgetTab("payroll")}
                       className={`px-3 py-1 rounded-md transition-all ${
-                        activeWidgetTab === 'payroll'
-                          ? 'bg-white dark:bg-[#0256C4] text-[#0256C4] dark:text-white shadow-xs font-bold'
-                          : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                        activeWidgetTab === "payroll"
+                          ? "bg-white dark:bg-[#0256C4] text-[#0256C4] dark:text-white shadow-xs font-bold"
+                          : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
                       }`}
                     >
                       Payroll Processing
                     </button>
                     <button
-                      onClick={() => setActiveWidgetTab('attendance')}
+                      onClick={() => setActiveWidgetTab("attendance")}
                       className={`px-3 py-1 rounded-md transition-all ${
-                        activeWidgetTab === 'attendance'
-                          ? 'bg-white dark:bg-[#0256C4] text-[#0256C4] dark:text-white shadow-xs font-bold'
-                          : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                        activeWidgetTab === "attendance"
+                          ? "bg-white dark:bg-[#0256C4] text-[#0256C4] dark:text-white shadow-xs font-bold"
+                          : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
                       }`}
                     >
                       Live Attendance
                     </button>
                     <button
-                      onClick={() => setActiveWidgetTab('headcount')}
+                      onClick={() => setActiveWidgetTab("headcount")}
                       className={`px-3 py-1 rounded-md transition-all ${
-                        activeWidgetTab === 'headcount'
-                          ? 'bg-white dark:bg-[#0256C4] text-[#0256C4] dark:text-white shadow-xs font-bold'
-                          : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                        activeWidgetTab === "headcount"
+                          ? "bg-white dark:bg-[#0256C4] text-[#0256C4] dark:text-white shadow-xs font-bold"
+                          : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
                       }`}
                     >
                       HR Analytics
@@ -240,64 +275,118 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
                 </div>
 
                 {/* Tab 1: Payroll Processing Preview */}
-                {activeWidgetTab === 'payroll' && (
+                {activeWidgetTab === "payroll" && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
                     <div className="p-3 bg-blue-50/70 dark:bg-blue-950/50 rounded-lg border border-blue-100 dark:border-blue-900/60">
-                      <span className="text-[11px] font-bold text-blue-900 dark:text-blue-300 uppercase">Gross Payroll</span>
-                      <p className="text-base font-bold text-[#0A2540] dark:text-white">₦117,180,450</p>
-                      <span className="text-[11px] text-blue-700 dark:text-blue-400">Calculated for 382 staff</span>
+                      <span className="text-[11px] font-bold text-blue-900 dark:text-blue-300 uppercase">
+                        Gross Payroll
+                      </span>
+                      <p className="text-base font-bold text-[#0A2540] dark:text-white">
+                        ₦117,180,450
+                      </p>
+                      <span className="text-[11px] text-blue-700 dark:text-blue-400">
+                        Calculated for 382 staff
+                      </span>
                     </div>
                     <div className="p-3 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-lg border border-emerald-100 dark:border-emerald-900/60">
-                      <span className="text-[11px] font-bold text-emerald-900 dark:text-emerald-300 uppercase">Statutory Deductions</span>
-                      <p className="text-base font-bold text-emerald-800 dark:text-emerald-400">₦22,360,000</p>
-                      <span className="text-[11px] text-emerald-700 dark:text-emerald-400/80">PAYE, NHF &amp; Pension auto-split</span>
+                      <span className="text-[11px] font-bold text-emerald-900 dark:text-emerald-300 uppercase">
+                        Statutory Deductions
+                      </span>
+                      <p className="text-base font-bold text-emerald-800 dark:text-emerald-400">
+                        ₦22,360,000
+                      </p>
+                      <span className="text-[11px] text-emerald-700 dark:text-emerald-400/80">
+                        PAYE, NHF &amp; Pension auto-split
+                      </span>
                     </div>
                     <div className="p-3 bg-slate-50 dark:bg-[#0A2540] rounded-lg border border-slate-200 dark:border-blue-900/60">
-                      <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase">Bank Disbursement</span>
-                      <p className="text-base font-bold text-slate-900 dark:text-white">Direct Batch Export</p>
-                      <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">Ready for NIBSS / Bank API</span>
+                      <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase">
+                        Bank Disbursement
+                      </span>
+                      <p className="text-base font-bold text-slate-900 dark:text-white">
+                        Direct Batch Export
+                      </p>
+                      <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                        Ready for NIBSS / Bank API
+                      </span>
                     </div>
                   </div>
                 )}
 
                 {/* Tab 2: Attendance Preview */}
-                {activeWidgetTab === 'attendance' && (
+                {activeWidgetTab === "attendance" && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
                     <div className="p-3 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-lg border border-emerald-100 dark:border-emerald-900/60">
-                      <span className="text-[11px] font-bold text-emerald-900 dark:text-emerald-300 uppercase">On-Time Arrivals</span>
-                      <p className="text-base font-bold text-[#0A2540] dark:text-white">1,412 Employees (95.2%)</p>
-                      <span className="text-[11px] text-emerald-700 dark:text-emerald-400">Via mobile GPS &amp; turnstiles</span>
+                      <span className="text-[11px] font-bold text-emerald-900 dark:text-emerald-300 uppercase">
+                        On-Time Arrivals
+                      </span>
+                      <p className="text-base font-bold text-[#0A2540] dark:text-white">
+                        1,412 Employees (95.2%)
+                      </p>
+                      <span className="text-[11px] text-emerald-700 dark:text-emerald-400">
+                        Via mobile GPS &amp; turnstiles
+                      </span>
                     </div>
                     <div className="p-3 bg-amber-50/70 dark:bg-amber-950/40 rounded-lg border border-amber-100 dark:border-amber-900/60">
-                      <span className="text-[11px] font-bold text-amber-900 dark:text-amber-300 uppercase">Grace-Period Logins</span>
-                      <p className="text-base font-bold text-amber-800 dark:text-amber-400">46 Employees</p>
-                      <span className="text-[11px] text-amber-700 dark:text-amber-400/80">&lt; 15 mins commute window</span>
+                      <span className="text-[11px] font-bold text-amber-900 dark:text-amber-300 uppercase">
+                        Grace-Period Logins
+                      </span>
+                      <p className="text-base font-bold text-amber-800 dark:text-amber-400">
+                        46 Employees
+                      </p>
+                      <span className="text-[11px] text-amber-700 dark:text-amber-400/80">
+                        &lt; 15 mins commute window
+                      </span>
                     </div>
                     <div className="p-3 bg-blue-50/70 dark:bg-blue-950/50 rounded-lg border border-blue-100 dark:border-blue-900/60">
-                      <span className="text-[11px] font-bold text-blue-900 dark:text-blue-300 uppercase">Field / Remote Verified</span>
-                      <p className="text-base font-bold text-blue-900 dark:text-white">24 Staff in Transit</p>
-                      <span className="text-[11px] text-blue-700 dark:text-blue-400">Client site geofenced check-in</span>
+                      <span className="text-[11px] font-bold text-blue-900 dark:text-blue-300 uppercase">
+                        Field / Remote Verified
+                      </span>
+                      <p className="text-base font-bold text-blue-900 dark:text-white">
+                        24 Staff in Transit
+                      </p>
+                      <span className="text-[11px] text-blue-700 dark:text-blue-400">
+                        Client site geofenced check-in
+                      </span>
                     </div>
                   </div>
                 )}
 
                 {/* Tab 3: HR Analytics Preview */}
-                {activeWidgetTab === 'headcount' && (
+                {activeWidgetTab === "headcount" && (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
                     <div className="p-3 bg-purple-50/70 dark:bg-purple-950/40 rounded-lg border border-purple-100 dark:border-purple-900/60">
-                      <span className="text-[11px] font-bold text-purple-900 dark:text-purple-300 uppercase">Employee Retention</span>
-                      <p className="text-base font-bold text-[#0A2540] dark:text-white">96.4% Annual Benchmark</p>
-                      <span className="text-[11px] text-purple-700 dark:text-purple-400">+3.2% increase vs 2024</span>
+                      <span className="text-[11px] font-bold text-purple-900 dark:text-purple-300 uppercase">
+                        Employee Retention
+                      </span>
+                      <p className="text-base font-bold text-[#0A2540] dark:text-white">
+                        96.4% Annual Benchmark
+                      </p>
+                      <span className="text-[11px] text-purple-700 dark:text-purple-400">
+                        +3.2% increase vs 2024
+                      </span>
                     </div>
                     <div className="p-3 bg-blue-50/70 dark:bg-blue-950/50 rounded-lg border border-blue-100 dark:border-blue-900/60">
-                      <span className="text-[11px] font-bold text-blue-900 dark:text-blue-300 uppercase">Avg Performance Score</span>
-                      <p className="text-base font-bold text-[#0A2540] dark:text-white">4.8 / 5.0 Q3 Review</p>
-                      <span className="text-[11px] text-blue-700 dark:text-blue-400">92% OKR milestone alignment</span>
+                      <span className="text-[11px] font-bold text-blue-900 dark:text-blue-300 uppercase">
+                        Avg Performance Score
+                      </span>
+                      <p className="text-base font-bold text-[#0A2540] dark:text-white">
+                        4.8 / 5.0 Q3 Review
+                      </p>
+                      <span className="text-[11px] text-blue-700 dark:text-blue-400">
+                        92% OKR milestone alignment
+                      </span>
                     </div>
                     <div className="p-3 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-lg border border-emerald-100 dark:border-emerald-900/60">
-                      <span className="text-[11px] font-bold text-emerald-900 dark:text-emerald-300 uppercase">Onboarding Speed</span>
-                      <p className="text-base font-bold text-emerald-800 dark:text-emerald-400">3 Days to First Productivity</p>
-                      <span className="text-[11px] text-emerald-700 dark:text-emerald-400">Automated document collection</span>
+                      <span className="text-[11px] font-bold text-emerald-900 dark:text-emerald-300 uppercase">
+                        Onboarding Speed
+                      </span>
+                      <p className="text-base font-bold text-emerald-800 dark:text-emerald-400">
+                        3 Days to First Productivity
+                      </p>
+                      <span className="text-[11px] text-emerald-700 dark:text-emerald-400">
+                        Automated document collection
+                      </span>
                     </div>
                   </div>
                 )}
@@ -312,50 +401,66 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
               ✓
             </div>
             <div>
-              <div className="text-xs font-extrabold text-slate-900 dark:text-white">Payroll Processed</div>
-              <div className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold">100% Disbursed on Time</div>
+              <div className="text-xs font-extrabold text-slate-900 dark:text-white">
+                Payroll Processed
+              </div>
+              <div className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold">
+                100% Disbursed on Time
+              </div>
             </div>
           </div>
 
           {/* Card 2: 98% Attendance */}
           <div
             className="hidden md:flex items-center gap-3 absolute -bottom-5 -left-4 bg-white/95 dark:bg-[#0D2644]/95 backdrop-blur-md px-4 py-2.5 rounded-xl shadow-xl border border-slate-200 dark:border-blue-800 animate-float-slow"
-            style={{ animationDelay: '1.2s' }}
+            style={{ animationDelay: "1.2s" }}
           >
             <div className="w-8 h-8 rounded-lg bg-[#84CC16] flex items-center justify-center text-[#0A2540] font-black text-xs">
               98%
             </div>
             <div>
-              <div className="text-xs font-extrabold text-slate-900 dark:text-white">Punctual Attendance</div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-300">Biometric &amp; GPS Verified</div>
+              <div className="text-xs font-extrabold text-slate-900 dark:text-white">
+                Punctual Attendance
+              </div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-300">
+                Biometric &amp; GPS Verified
+              </div>
             </div>
           </div>
 
           {/* Card 3: 12 Leave Requests */}
           <div
             className="hidden md:flex items-center gap-3 absolute -top-6 -right-6 bg-white/95 dark:bg-[#0D2644]/95 backdrop-blur-md px-4 py-2.5 rounded-xl shadow-xl border border-slate-200 dark:border-blue-800 animate-float-slow"
-            style={{ animationDelay: '0.6s' }}
+            style={{ animationDelay: "0.6s" }}
           >
             <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xs">
               12
             </div>
             <div>
-              <div className="text-xs font-extrabold text-slate-900 dark:text-white">Leave Requests</div>
-              <div className="text-[11px] text-blue-600 dark:text-blue-400 font-semibold">1-Tap Manager Approval</div>
+              <div className="text-xs font-extrabold text-slate-900 dark:text-white">
+                Leave Requests
+              </div>
+              <div className="text-[11px] text-blue-600 dark:text-blue-400 font-semibold">
+                1-Tap Manager Approval
+              </div>
             </div>
           </div>
 
           {/* Card 4: +24 New Employees */}
           <div
             className="hidden md:flex items-center gap-3 absolute -bottom-5 -right-4 bg-white/95 dark:bg-[#0D2644]/95 backdrop-blur-md px-4 py-2.5 rounded-xl shadow-xl border border-slate-200 dark:border-blue-800 animate-float-slow"
-            style={{ animationDelay: '1.8s' }}
+            style={{ animationDelay: "1.8s" }}
           >
             <div className="w-8 h-8 rounded-lg bg-[#0A2540] dark:bg-blue-900 flex items-center justify-center text-[#84CC16] font-extrabold text-xs">
               +24
             </div>
             <div>
-              <div className="text-xs font-extrabold text-slate-900 dark:text-white">New Employees</div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-300">Digital Onboarding Complete</div>
+              <div className="text-xs font-extrabold text-slate-900 dark:text-white">
+                New Employees
+              </div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-300">
+                Digital Onboarding Complete
+              </div>
             </div>
           </div>
         </div>

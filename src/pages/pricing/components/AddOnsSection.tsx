@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Plus, Check, Sparkles, Layers, ArrowRight } from 'lucide-react';
+import { Plus, Check, Sparkles, Layers, ArrowRight, ChevronDown } from 'lucide-react';
 import { ADD_ONS, CURRENCIES } from '../data/pricingData';
 import { BillingCycle, CurrencyCode, AddOnItem } from '../types';
+
+const INITIAL_VISIBLE_ADDONS = 6;
 
 interface AddOnsSectionProps {
   billingCycle: BillingCycle;
@@ -15,6 +17,9 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
   onOpenBundleCheckout,
 }) => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [showAll, setShowAll] = useState(false);
+  const visibleAddOns = showAll ? ADD_ONS : ADD_ONS.slice(0, INITIAL_VISIBLE_ADDONS);
+  const hasMore = ADD_ONS.length > INITIAL_VISIBLE_ADDONS;
   const currencyConfig = CURRENCIES[selectedCurrency];
 
   const toggleAddOn = (id: string) => {
@@ -89,7 +94,7 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
 
         {/* Add-Ons Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {ADD_ONS.map((addon) => {
+          {visibleAddOns.map((addon) => {
             const isSelected = selectedIds.includes(addon.id);
             const priceUSD = billingCycle === 'yearly' ? addon.yearlyPrice : addon.monthlyPrice;
             const displayPrice = currencyConfig.format(priceUSD);
@@ -149,6 +154,22 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
             );
           })}
         </div>
+
+        {/* Load More / Show Less */}
+        {hasMore && (
+          <div className="mt-10 flex justify-center">
+            <button
+              id="addons-load-more-btn"
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+              aria-expanded={showAll}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#0265DC] hover:bg-[#0153B5] shadow-md shadow-blue-600/20 transition-all hover:-translate-y-0.5"
+            >
+              <span>{showAll ? 'Show Less' : `Load More (${ADD_ONS.length - INITIAL_VISIBLE_ADDONS})`}</span>
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showAll ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -13,6 +13,7 @@ import {
   Share2,
 } from 'lucide-react';
 import { INTEGRATION_CATEGORIES } from '../data/servicesData';
+import { CardSlider } from './CardSlider';
 
 interface IntegrationSectionProps {
   onOpenDemo: () => void;
@@ -80,15 +81,19 @@ export const IntegrationSection: React.FC<IntegrationSectionProps> = ({ onOpenDe
           </div>
         </div>
 
-        {/* 8 Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {INTEGRATION_CATEGORIES.map((cat, idx) => {
+        {/* 8 Categories Slider: 4 in a row on desktop */}
+        <CardSlider
+          id="integrations-slider"
+          items={INTEGRATION_CATEGORIES}
+          perView={{ base: 1, sm: 2, lg: 4, xl: 4 }}
+          ariaLabel="Integration categories slider"
+          renderItem={(cat, idx) => {
             const IconComp = catIcons[cat.name] || Layers;
 
             return (
               <div
                 key={idx}
-                className="bg-[#F8FAFC] dark:bg-[#0D2644] hover:bg-white dark:hover:bg-[#123860] rounded-2xl p-6 border border-slate-200/80 dark:border-blue-800/80 hover:border-[#0256C4]/40 dark:hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-200 flex flex-col justify-between group"
+                className="bg-[#F8FAFC] dark:bg-[#0D2644] hover:bg-white dark:hover:bg-[#123860] rounded-2xl p-6 border border-slate-200/80 dark:border-blue-800/80 hover:border-[#0256C4]/40 dark:hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-200 flex flex-col justify-between group h-full"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -129,8 +134,8 @@ export const IntegrationSection: React.FC<IntegrationSectionProps> = ({ onOpenDe
                 </div>
               </div>
             );
-          })}
-        </div>
+          }}
+        />
       </div>
     </section>
   );

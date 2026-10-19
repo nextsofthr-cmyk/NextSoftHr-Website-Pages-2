@@ -19,14 +19,14 @@ interface WhyNextSofthrProps {
 
 export const WhyNextSofthr: React.FC<WhyNextSofthrProps> = ({ onOpenDemo, onOpenGetStarted }) => {
   return (
-    <section id="why-us" className="py-20 bg-slate-50 dark:bg-[#07182E] relative overflow-hidden transition-colors">
+    <section id="why-us" className="py-20 bg-slate-50 dark:bg-[#07182E] relative overflow-x-clip transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Authentic African HR Professionals Collaborating in Modern Office */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left Column: image card */}
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-blue-900 group">
               <img
-                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop"
+                src="https://img.freepik.com/premium-photo/wideangle-shot-black-male-office-manager-signing-financial-documents-aigenerated_994744-1097.jpg?size=626&ext=jpg&ga=GA1.1.233311484.1695720566&semt=ais"
                 alt="African HR managers and business leaders collaborating enthusiastically in a modern corporate office"
                 className="w-full h-[480px] sm:h-[580px] object-cover object-center group-hover:scale-102 transition-transform duration-700"
               />
@@ -58,7 +58,7 @@ export const WhyNextSofthr: React.FC<WhyNextSofthrProps> = ({ onOpenDemo, onOpen
           </div>
 
           {/* Right Column: Why Businesses Choose NextSofthr (7 Core Pillars) */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 flex flex-col gap-5 lg:h-[580px]">
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/70 dark:bg-blue-950/80 text-[#0256C4] dark:text-[#84CC16] text-xs font-extrabold uppercase tracking-widest border border-blue-200 dark:border-blue-800 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16]" />
@@ -73,8 +73,11 @@ export const WhyNextSofthr: React.FC<WhyNextSofthrProps> = ({ onOpenDemo, onOpen
               </p>
             </div>
 
-            {/* 7 Pillars Grid / List */}
-            <div className="space-y-4 pt-2">
+            {/* 7 Pillars - scrolls inside so the column matches the image height */}
+            <div
+              id="why-us-scroll-list"
+              className="flex-1 min-h-0 max-h-[460px] lg:max-h-none overflow-y-auto overscroll-contain pr-2 -mr-2 space-y-4 [scrollbar-width:thin]"
+            >
               {WHY_CHOOSE_ITEMS.map((item, idx) => (
                 <div
                   key={idx}
@@ -101,7 +104,7 @@ export const WhyNextSofthr: React.FC<WhyNextSofthrProps> = ({ onOpenDemo, onOpen
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4 pt-1 shrink-0">
               <button
                 onClick={onOpenGetStarted}
                 className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#0256C4] hover:bg-[#024bb0] text-white font-bold text-sm shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2 group cursor-pointer"

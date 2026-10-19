@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Laptop,
   ShoppingBag,
@@ -17,9 +17,9 @@ import {
   ShieldCheck,
   ArrowRight,
   Filter,
-} from 'lucide-react';
-import { INDUSTRIES_LIST } from '../data/servicesData';
-import { IndustryItem } from '../types';
+} from "lucide-react";
+import { INDUSTRIES_LIST } from "../data/servicesData";
+import { IndustryItem } from "../types";
 
 interface IndustriesSectionProps {
   onSelectIndustry: (industry: IndustryItem) => void;
@@ -43,16 +43,23 @@ const industryIconMap: Record<string, React.FC<{ className?: string }>> = {
   security: ShieldCheck,
 };
 
-export const IndustriesSection: React.FC<IndustriesSectionProps> = ({ onSelectIndustry }) => {
-  const [filterCategory, setFilterCategory] = useState<'all' | 'corporate' | 'industrial' | 'service'>('all');
+export const IndustriesSection: React.FC<IndustriesSectionProps> = ({
+  onSelectIndustry,
+}) => {
+  const [filterCategory, setFilterCategory] = useState<
+    "all" | "corporate" | "industrial" | "service"
+  >("all");
 
   const filteredIndustries = INDUSTRIES_LIST.filter((ind) => {
-    if (filterCategory === 'all') return true;
+    if (filterCategory === "all") return true;
     return ind.category === filterCategory;
   });
 
   return (
-    <section id="industries" className="py-20 bg-slate-50 dark:bg-[#07182E] border-t border-slate-200/80 dark:border-blue-900/60 relative transition-colors">
+    <section
+      id="industries"
+      className="py-20 bg-slate-50 dark:bg-[#07182E] border-t border-slate-200/80 dark:border-blue-900/60 relative transition-colors"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
@@ -64,49 +71,50 @@ export const IndustriesSection: React.FC<IndustriesSectionProps> = ({ onSelectIn
             HR &amp; Business Management for Every Industry
           </h2>
           <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-            Every sector in Africa faces distinct operational challenges. NextSofthr provides specialized rosters,
-            statutory modules, and compliance workflows tailored to your sector.
+            Every sector in Africa faces distinct operational challenges.
+            NextSofthr provides specialized rosters, statutory modules, and
+            compliance workflows tailored to your sector.
           </p>
         </div>
 
         {/* Filter Tabs */}
         <div className="flex items-center justify-center gap-2 mb-10 overflow-x-auto pb-2 scrollbar-none">
           <button
-            onClick={() => setFilterCategory('all')}
+            onClick={() => setFilterCategory("all")}
             className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              filterCategory === 'all'
-                ? 'bg-[#0256C4] text-white shadow-md'
-                : 'bg-white dark:bg-[#0D2644] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-800'
+              filterCategory === "all"
+                ? "bg-[#0256C4] text-white shadow-md"
+                : "bg-white dark:bg-[#0D2644] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-800"
             }`}
           >
             All 15 Sectors
           </button>
           <button
-            onClick={() => setFilterCategory('corporate')}
+            onClick={() => setFilterCategory("corporate")}
             className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              filterCategory === 'corporate'
-                ? 'bg-[#0256C4] text-white shadow-md'
-                : 'bg-white dark:bg-[#0D2644] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-800'
+              filterCategory === "corporate"
+                ? "bg-[#0256C4] text-white shadow-md"
+                : "bg-white dark:bg-[#0D2644] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-800"
             }`}
           >
             Corporate &amp; Tech
           </button>
           <button
-            onClick={() => setFilterCategory('industrial')}
+            onClick={() => setFilterCategory("industrial")}
             className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              filterCategory === 'industrial'
-                ? 'bg-[#0256C4] text-white shadow-md'
-                : 'bg-white dark:bg-[#0D2644] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-800'
+              filterCategory === "industrial"
+                ? "bg-[#0256C4] text-white shadow-md"
+                : "bg-white dark:bg-[#0D2644] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-800"
             }`}
           >
             Industrial &amp; Agriculture
           </button>
           <button
-            onClick={() => setFilterCategory('service')}
+            onClick={() => setFilterCategory("service")}
             className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-              filterCategory === 'service'
-                ? 'bg-[#0256C4] text-white shadow-md'
-                : 'bg-white dark:bg-[#0D2644] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-800'
+              filterCategory === "service"
+                ? "bg-[#0256C4] text-white shadow-md"
+                : "bg-white dark:bg-[#0D2644] text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-blue-900/50 border border-slate-200 dark:border-blue-800"
             }`}
           >
             Service &amp; Hospitality
@@ -136,7 +144,9 @@ export const IndustriesSection: React.FC<IndustriesSectionProps> = ({ onSelectIn
                         <div className="w-8 h-8 rounded-lg bg-[#0256C4] flex items-center justify-center text-white shadow-sm">
                           <IconComp className="w-4 h-4" />
                         </div>
-                        <span className="font-bold text-sm text-white">{ind.name}</span>
+                        <span className="font-bold text-sm text-white">
+                          {ind.name}
+                        </span>
                       </div>
                     </div>
                   </div>
