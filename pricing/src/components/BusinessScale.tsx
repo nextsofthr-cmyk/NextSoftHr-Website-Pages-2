@@ -1,14 +1,19 @@
-import React from 'react';
-import { ArrowRight, CheckCircle2, TrendingUp } from 'lucide-react';
-import { BUSINESS_STAGES } from '../data/pricingData';
+import React from "react";
+import { ArrowRight, CheckCircle2, TrendingUp } from "lucide-react";
+import { BUSINESS_STAGES } from "../data/pricingData";
 
 interface BusinessScaleProps {
   onSelectPlan: (planName: string) => void;
 }
 
-export const BusinessScale: React.FC<BusinessScaleProps> = ({ onSelectPlan }) => {
+export const BusinessScale: React.FC<BusinessScaleProps> = ({
+  onSelectPlan,
+}) => {
   return (
-    <section id="scale-section" className="py-20 bg-[#F8FAFC] dark:bg-[#070D1E] border-t border-slate-200/80 dark:border-slate-800 transition-colors duration-200">
+    <section
+      id="scale-section"
+      className="py-20 bg-[#F8FAFC] dark:bg-[#070D1E] border-t border-slate-200/80 dark:border-slate-800 transition-colors duration-200"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -20,9 +25,15 @@ export const BusinessScale: React.FC<BusinessScaleProps> = ({ onSelectPlan }) =>
             Built for Every Stage of Your Business
           </h2>
           <p className="mt-4 text-slate-600 dark:text-slate-300 text-base sm:text-lg font-medium">
-            <span className="text-[#0265DC] dark:text-blue-400">Start small.</span>{' '}
-            <span className="text-[#65A30D] dark:text-[#A3E635]">Scale globally.</span>{' '}
-            <span className="text-slate-900 dark:text-white">Manage everything from one platform.</span>
+            <span className="text-[#0265DC] dark:text-blue-400">
+              Start small.
+            </span>{" "}
+            <span className="text-[#65A30D] dark:text-[#A3E635]">
+              Scale globally.
+            </span>{" "}
+            <span className="text-slate-900 dark:text-white">
+              Manage everything from one platform.
+            </span>
           </p>
         </div>
 
@@ -62,7 +73,10 @@ export const BusinessScale: React.FC<BusinessScaleProps> = ({ onSelectPlan }) =>
                 {/* Highlights */}
                 <div className="space-y-1.5 pt-3 border-t border-slate-100 dark:border-slate-800">
                   {stage.highlights.map((h, i) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 font-medium">
+                    <div
+                      key={i}
+                      className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 font-medium"
+                    >
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#65A30D] dark:text-[#A3E635] shrink-0" />
                       <span>{h}</span>
                     </div>
@@ -73,16 +87,20 @@ export const BusinessScale: React.FC<BusinessScaleProps> = ({ onSelectPlan }) =>
               {/* Recommended Tier Pill & Action */}
               <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                  Ideal tier:{' '}
-                  <span className="font-bold text-slate-900 dark:text-white">{stage.idealPlan}</span>
+                  Ideal tier:{" "}
+                  <span className="font-bold text-slate-900 dark:text-white">
+                    {stage.idealPlan}
+                  </span>
                 </div>
-                <button
-                  onClick={() => onSelectPlan(stage.idealPlan.split(' ')[0])}
+                <a
+                  id={`scale-stage-signup-${idx}`}
+                  href="/signup"
                   className="p-1.5 rounded-lg bg-slate-100 dark:bg-[#162447] hover:bg-[#A3E635] text-slate-700 dark:text-slate-300 hover:text-slate-950 transition-colors"
-                  title="Explore this tier"
+                  title="Sign up"
+                  aria-label={`Sign up for ${stage.idealPlan}`}
                 >
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </a>
               </div>
             </div>
           ))}

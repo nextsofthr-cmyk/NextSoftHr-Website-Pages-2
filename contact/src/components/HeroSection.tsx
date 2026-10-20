@@ -55,7 +55,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onTalkToTeam, onBookDe
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-10">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-10 flex-wrap">
               <button
                 id="hero-primary-cta"
                 onClick={onTalkToTeam}
@@ -72,6 +72,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onTalkToTeam, onBookDe
               >
                 <span>{t.hero.ctaSecondary}</span>
               </button>
+
+              <a
+                id="hero-live-demo-cta"
+                href="https://demo.scriptmaster.store/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-base text-white bg-[#1769E0] hover:bg-[#1258c2] shadow-lg shadow-[#1769E0]/25 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+              >
+                <span>Explore Live Demo</span>
+                <ArrowRight className="w-4 h-4 text-[#C8F000]" />
+              </a>
             </div>
 
             {/* Trust Badges */}

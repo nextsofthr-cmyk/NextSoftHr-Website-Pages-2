@@ -55,10 +55,10 @@ export const GlobalPresenceMap: React.FC = () => {
         </div>
 
         {/* Interactive Stylized Network Visualization */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Map & Network Canvas */}
-          <div className="lg:col-span-8 bg-[#0E274A] border border-white/15 rounded-3xl p-6 sm:p-8 relative shadow-2xl overflow-hidden min-h-[440px] flex flex-col justify-between">
+          <div className="lg:col-span-8 bg-[#0E274A] border border-white/15 rounded-3xl p-6 sm:p-8 relative shadow-2xl overflow-hidden min-h-[440px] flex flex-col justify-between h-full">
             
             {/* Background SVG Grid & Stylized Africa/Global Map Beams */}
             <svg
@@ -99,31 +99,31 @@ export const GlobalPresenceMap: React.FC = () => {
 
             {/* Nodes Visual Cloud */}
             <div className="relative z-10 py-8 min-h-[300px]">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 items-stretch">
                 {filteredNodes.map((node) => {
                   const isSelected = selectedNode.id === node.id;
                   return (
                     <button
                       key={node.id}
                       onClick={() => setSelectedNode(node)}
-                      className={`p-3 rounded-xl text-left transition-all duration-200 cursor-pointer flex flex-col justify-between border ${
+                      className={`p-3 rounded-xl text-left transition-all duration-200 cursor-pointer flex flex-col justify-between h-full min-h-[96px] border ${
                         isSelected
                           ? 'bg-[#1769E0] text-white border-[#C8F000] shadow-lg shadow-[#1769E0]/50 scale-102'
                           : 'bg-white/5 hover:bg-white/10 text-slate-200 border-white/10'
                       }`}
                     >
-                      <div className="flex items-center justify-between mb-1.5">
+                      <div className="flex items-center justify-between mb-1.5 w-full">
                         <span className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
                           {node.region}
                         </span>
                         <span
-                          className={`w-2 h-2 rounded-full ${
+                          className={`w-2 h-2 rounded-full shrink-0 ${
                             node.highlight ? 'bg-[#C8F000]' : 'bg-white/60'
                           }`}
                         ></span>
                       </div>
 
-                      <div className="font-extrabold text-sm tracking-tight text-white mb-0.5">
+                      <div className="font-extrabold text-sm tracking-tight text-white mb-0.5 line-clamp-1">
                         {node.country}
                       </div>
 
@@ -148,7 +148,7 @@ export const GlobalPresenceMap: React.FC = () => {
           </div>
 
           {/* Right Column: Selected Node Deep Dive */}
-          <div className="lg:col-span-4 bg-white/5 border border-white/15 rounded-3xl p-7 flex flex-col justify-between backdrop-blur-md">
+          <div className="lg:col-span-4 bg-white/5 border border-white/15 rounded-3xl p-7 flex flex-col justify-between backdrop-blur-md h-full">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase bg-[#C8F000] text-[#0B1F3A]">

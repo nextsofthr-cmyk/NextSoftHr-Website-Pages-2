@@ -3,6 +3,7 @@ import { TESTIMONIALS } from '../data/partnerData';
 import { Star, Quote, Award, TrendingUp, Sparkles, Download, CheckCircle2 } from 'lucide-react';
 import { PartnerBadge } from './PartnerBadge';
 import { PartnerBadgeOptions, downloadPartnerBadgeSvg } from '../utils/badgeGenerator';
+import { CardSlider } from './CardSlider';
 
 interface SuccessStoriesProps {
   onOpenBadgeModal?: (options?: PartnerBadgeOptions) => void;
@@ -76,91 +77,97 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onOpenBadgeModal
           </p>
         </div>
 
-        {/* 4 Testimonial Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {TESTIMONIALS.map((t) => {
-            const badge = getBadgeForTestimonial(t.id);
+        {/* 4 Testimonial Cards Slider (3 in a row on desktop) */}
+        <div className="mb-12">
+          <CardSlider
+            id="success-stories-slider"
+            ariaLabel="Partners Growing With NextSofthr"
+            items={TESTIMONIALS}
+            perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
+            renderItem={(t) => {
+              const badge = getBadgeForTestimonial(t.id);
 
-            return (
-              <div
-                key={t.id}
-                className="group relative rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#071D3E] dark:to-[#040E1F] border border-slate-200/90 dark:border-blue-800/80 p-8 hover:border-blue-500 dark:hover:border-[#B8F010] transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-xl dark:shadow-xl dark:hover:shadow-2xl dark:hover:shadow-blue-950/70 flex flex-col justify-between"
-              >
-                <div>
-                  {/* Header with Quote Icon, Partner Level Badge & Interactive SVG Credential */}
-                  <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-                    <div className="flex items-center gap-2">
-                      <Quote className="w-8 h-8 text-blue-600/30 dark:text-[#B8F010]/40 group-hover:text-blue-600 dark:group-hover:text-[#B8F010] transition-colors" />
-                      <div className="flex gap-1 text-amber-400 dark:text-[#B8F010]">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                        ))}
+              return (
+                <div
+                  key={t.id}
+                  className="group relative rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#071D3E] dark:to-[#040E1F] border border-slate-200/90 dark:border-blue-800/80 p-8 hover:border-blue-500 dark:hover:border-[#B8F010] transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-xl dark:shadow-xl dark:hover:shadow-2xl dark:hover:shadow-blue-950/70 flex flex-col justify-between h-full"
+                >
+                  <div>
+                    {/* Header with Quote Icon, Partner Level Badge & Interactive SVG Credential */}
+                    <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+                      <div className="flex items-center gap-2">
+                        <Quote className="w-8 h-8 text-blue-600/30 dark:text-[#B8F010]/40 group-hover:text-blue-600 dark:group-hover:text-[#B8F010] transition-colors" />
+                        <div className="flex gap-1 text-amber-400 dark:text-[#B8F010]">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        {/* Interactive Mini Certification Badge */}
+                        <button
+                          onClick={() => onOpenBadgeModal && onOpenBadgeModal(badge)}
+                          className="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/80 hover:bg-blue-100 dark:hover:bg-blue-800 text-blue-800 dark:text-[#B8F010] border border-blue-200 dark:border-[#B8F010]/30 text-[11px] font-bold flex items-center gap-1.5 transition-all shadow-xs"
+                          title={`Click to view & download official SVG certification badge for ${badge.partnerName}`}
+                        >
+                          <Award className="w-3.5 h-3.5 text-[#B8F010]" />
+                          <span>{t.partnerLevel} SVG Badge</span>
+                        </button>
+
+                        <button
+                          onClick={() => downloadPartnerBadgeSvg(badge)}
+                          className="p-1 rounded-full bg-slate-100 dark:bg-blue-950 hover:bg-slate-200 dark:hover:bg-blue-900 text-slate-600 dark:text-slate-300 transition-colors"
+                          title="Download SVG vector badge"
+                        >
+                          <Download className="w-3 h-3" />
+                        </button>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                      {/* Interactive Mini Certification Badge */}
-                      <button
-                        onClick={() => onOpenBadgeModal && onOpenBadgeModal(badge)}
-                        className="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/80 hover:bg-blue-100 dark:hover:bg-blue-800 text-blue-800 dark:text-[#B8F010] border border-blue-200 dark:border-[#B8F010]/30 text-[11px] font-bold flex items-center gap-1.5 transition-all shadow-xs"
-                        title={`Click to view & download official SVG certification badge for ${badge.partnerName}`}
-                      >
-                        <Award className="w-3.5 h-3.5 text-[#B8F010]" />
-                        <span>{t.partnerLevel} SVG Badge</span>
-                      </button>
+                    {/* Testimonial Quote */}
+                    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed italic mb-8">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                  </div>
 
-                      <button
-                        onClick={() => downloadPartnerBadgeSvg(badge)}
-                        className="p-1 rounded-full bg-slate-100 dark:bg-blue-950 hover:bg-slate-200 dark:hover:bg-blue-900 text-slate-600 dark:text-slate-300 transition-colors"
-                        title="Download SVG vector badge"
-                      >
-                        <Download className="w-3 h-3" />
-                      </button>
+                  {/* Partner Profile Footer with Mini SVG Avatar Badge */}
+                  <div className="pt-6 border-t border-slate-200 dark:border-blue-900/80 flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3.5">
+                      <div className="relative cursor-pointer" onClick={() => onOpenBadgeModal && onOpenBadgeModal(badge)}>
+                        <img
+                          src={t.avatar}
+                          alt={t.name}
+                          className="w-12 h-12 rounded-full object-cover border-2 border-blue-600 group-hover:border-[#B8F010] transition-colors shadow-sm"
+                        />
+                        <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#B8F010] border-2 border-[#040E1F] flex items-center justify-center text-[8px] font-black text-[#040E1F]">
+                          ✓
+                        </span>
+                      </div>
+
+                      <div>
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-[#B8F010] transition-colors">
+                          {t.name}
+                        </h4>
+                        <p className="text-xs text-blue-700 dark:text-blue-200 font-medium">
+                          {t.role}, {t.company}
+                        </p>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5">
+                          {t.flag} {t.country} • <span className="font-mono text-[10px] text-slate-600 dark:text-blue-300">{badge.partnerId}</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="hidden sm:flex flex-col text-right">
+                      <span className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-medium">Impact</span>
+                      <span className="text-xs font-bold text-blue-700 dark:text-[#B8F010] font-mono">{t.stats}</span>
                     </div>
                   </div>
 
-                  {/* Testimonial Quote */}
-                  <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed italic mb-8">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
                 </div>
-
-                {/* Partner Profile Footer with Mini SVG Avatar Badge */}
-                <div className="pt-6 border-t border-slate-200 dark:border-blue-900/80 flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3.5">
-                    <div className="relative cursor-pointer" onClick={() => onOpenBadgeModal && onOpenBadgeModal(badge)}>
-                      <img
-                        src={t.avatar}
-                        alt={t.name}
-                        className="w-12 h-12 rounded-full object-cover border-2 border-blue-600 group-hover:border-[#B8F010] transition-colors shadow-sm"
-                      />
-                      <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#B8F010] border-2 border-[#040E1F] flex items-center justify-center text-[8px] font-black text-[#040E1F]">
-                        ✓
-                      </span>
-                    </div>
-
-                    <div>
-                      <h4 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-[#B8F010] transition-colors">
-                        {t.name}
-                      </h4>
-                      <p className="text-xs text-blue-700 dark:text-blue-200 font-medium">
-                        {t.role}, {t.company}
-                      </p>
-                      <span className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5">
-                        {t.flag} {t.country} • <span className="font-mono text-[10px] text-slate-600 dark:text-blue-300">{badge.partnerId}</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="hidden sm:flex flex-col text-right">
-                    <span className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-medium">Impact</span>
-                    <span className="text-xs font-bold text-blue-700 dark:text-[#B8F010] font-mono">{t.stats}</span>
-                  </div>
-                </div>
-
-              </div>
-            );
-          })}
+              );
+            }}
+          />
         </div>
 
         {/* Official Certification Badge Studio Banner */}

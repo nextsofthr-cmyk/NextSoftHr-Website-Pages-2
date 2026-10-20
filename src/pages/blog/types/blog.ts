@@ -57,6 +57,7 @@ export interface Article {
     accent: string;
   };
   summary: string;
+  imageUrl?: string;
   sections: ArticleContentSection[];
   keyTakeaways: string[];
   targetIndustries?: string[];

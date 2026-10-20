@@ -54,7 +54,7 @@ export const NextSoftHrConversionCta: React.FC<NextSoftHrConversionCtaProps> = (
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-white bg-white/10 hover:bg-white/15 border border-white/20 transition-all cursor-pointer"
             >
-              <span>Explore Demo</span>
+              <span>Explore Live Demo</span>
             </a>
           </div>
         </div>

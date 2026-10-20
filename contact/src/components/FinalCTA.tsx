@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface FinalCTAProps {
@@ -32,13 +32,23 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onBookDemo, onTalkToSales })
         </p>
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto mb-10">
-          <button
-            onClick={onBookDemo}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto mb-10">
+          <a
+            href="https://demo.scriptmaster.store/login"
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full sm:w-auto px-8 py-4 rounded-xl font-extrabold text-base text-[#0B1F3A] bg-[#C8F000] hover:bg-[#bde300] shadow-xl shadow-black/20 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
           >
+            <span>Try Live Demo</span>
+            <ExternalLink className="w-4 h-4 text-[#0B1F3A]" />
+          </a>
+
+          <button
+            onClick={onBookDemo}
+            className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-base text-white bg-white/10 hover:bg-white/20 border border-white/30 backdrop-blur-sm transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
+          >
             <span>{t.finalCta.bookDemoBtn}</span>
-            <ArrowRight className="w-4 h-4 text-[#0B1F3A]" />
+            <ArrowRight className="w-4 h-4 text-white" />
           </button>
 
           <button

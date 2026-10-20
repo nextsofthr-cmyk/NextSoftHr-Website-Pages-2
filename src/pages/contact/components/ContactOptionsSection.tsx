@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Briefcase, Calendar, LifeBuoy, Handshake, Building2, HelpCircle } from 'lucide-react';
 import { EnquiryType } from '../types';
 import { useLanguage } from '../context/LanguageContext';
+import { CardSlider } from './CardSlider';
 
 interface ContactOptionsSectionProps {
   onSelectOption: (enquiryType: EnquiryType, focusMessage?: string) => void;
@@ -107,12 +108,16 @@ export const ContactOptionsSection: React.FC<ContactOptionsSectionProps> = ({ on
           </p>
         </div>
 
-        {/* 6 Interactive Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {cardItems.map((card) => (
+        {/* 6 Interactive Cards Slider (3 in a row on desktop) */}
+        <CardSlider
+          id="contact-options-slider"
+          ariaLabel="Contact options"
+          items={cardItems}
+          perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
+          renderItem={(card) => (
             <div
               key={card.id}
-              className="group relative bg-[#F7FAFC] hover:bg-white dark:bg-[#0E2038] dark:hover:bg-[#142d4f] rounded-2xl p-7 border border-slate-200/80 dark:border-white/10 hover:border-[#1769E0]/50 dark:hover:border-[#C8F000]/40 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
+              className="group relative bg-[#F7FAFC] hover:bg-white dark:bg-[#0E2038] dark:hover:bg-[#142d4f] rounded-2xl p-7 border border-slate-200/80 dark:border-white/10 hover:border-[#1769E0]/50 dark:hover:border-[#C8F000]/40 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer h-full"
               onClick={() => onSelectOption(card.enquiryType, `Hello NextSofthr Team, I am reaching out regarding ${card.headline}.`)}
             >
               <div>
@@ -147,8 +152,8 @@ export const ContactOptionsSection: React.FC<ContactOptionsSectionProps> = ({ on
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        />
 
       </div>
     </section>

@@ -3,6 +3,7 @@ import { INDUSTRY_INSIGHTS } from '../data/industryInsights';
 import { IndustryInsightItem } from '../types/blog';
 import { Building2, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { CardSlider } from './CardSlider';
 
 interface IndustryInsightsProps {
   onSelectIndustry: (industry: IndustryInsightItem) => void;
@@ -11,7 +12,6 @@ interface IndustryInsightsProps {
 export const IndustryInsights: React.FC<IndustryInsightsProps> = ({ onSelectIndustry }) => {
   const { t } = useLanguage();
   const [filterType, setFilterType] = useState<'all' | 'enterprise' | 'services' | 'operations'>('all');
-
 
   const getFilteredIndustries = () => {
     if (filterType === 'all') return INDUSTRY_INSIGHTS;
@@ -71,16 +71,20 @@ export const IndustryInsights: React.FC<IndustryInsightsProps> = ({ onSelectIndu
               </button>
             ))}
           </div>
-
         </div>
 
-        {/* 15 Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayed.map((item) => (
+        {/* 15 Cards Slider (3 in a row on desktop) */}
+        <CardSlider
+          id="industry-insights-slider"
+          key={filterType}
+          ariaLabel="HR Insights for Every Organization"
+          items={displayed}
+          perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
+          renderItem={(item) => (
             <div
               key={item.id}
               onClick={() => onSelectIndustry(item)}
-              className="group bg-slate-50 dark:bg-[#0B1E36] hover:bg-white dark:hover:bg-[#0E2442] rounded-2xl p-6 border border-slate-200 dark:border-[#1E3656] hover:border-[#0A3F7E]/40 dark:hover:border-[#8EE000]/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between cursor-pointer relative overflow-hidden"
+              className="group bg-slate-50 dark:bg-[#0B1E36] hover:bg-white dark:hover:bg-[#0E2442] rounded-2xl p-6 border border-slate-200 dark:border-[#1E3656] hover:border-[#0A3F7E]/40 dark:hover:border-[#8EE000]/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between cursor-pointer relative overflow-hidden h-full"
             >
               {/* Subtle top indicator bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-slate-200 dark:bg-[#1E3656] group-hover:bg-[#8EE000] transition-colors" />
@@ -122,8 +126,8 @@ export const IndustryInsights: React.FC<IndustryInsightsProps> = ({ onSelectIndu
 
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        />
       </div>
     </section>
   );

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Article } from '../types/blog';
 import { ArticleCardImage } from './ArticleCardImage';
-import { ArrowRight, Clock, Bookmark, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Clock, Bookmark } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { CardSlider } from './CardSlider';
 
 interface LatestArticlesGridProps {
   articles: Article[];
@@ -18,20 +19,6 @@ export const LatestArticlesGrid: React.FC<LatestArticlesGridProps> = ({
   onToggleBookmark,
 }) => {
   const { t } = useLanguage();
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
-
-  const totalPages = Math.ceil(articles.length / itemsPerPage) || 1;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentArticles = articles.slice(startIndex, startIndex + itemsPerPage);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    const element = document.getElementById('latest-insights-section');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <section id="latest-insights-section" className="py-12 bg-white dark:bg-[#061528] transition-colors duration-300">
@@ -48,12 +35,12 @@ export const LatestArticlesGrid: React.FC<LatestArticlesGridProps> = ({
             </h2>
           </div>
           <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-            {t('latest.page', 'Page')} {currentPage} {t('latest.of', 'of')} {totalPages} ({articles.length} articles)
+            ({articles.length} {t('latest.articlesCount', 'articles')})
           </div>
         </div>
 
         {/* Empty State */}
-        {currentArticles.length === 0 ? (
+        {articles.length === 0 ? (
           <div className="p-12 text-center bg-slate-50 dark:bg-[#0B1E36] rounded-2xl border border-dashed border-slate-300 dark:border-[#1E3656]">
             <p className="text-base font-semibold text-slate-700 dark:text-slate-300">
               {t('latest.noResults', 'No insights matched your active filters.')}
@@ -63,16 +50,19 @@ export const LatestArticlesGrid: React.FC<LatestArticlesGridProps> = ({
             </p>
           </div>
         ) : (
-
-          /* 3-Column Responsive Grid on Desktop */
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {currentArticles.map((article) => {
+          /* 3-in-a-row Card Slider */
+          <CardSlider
+            id="latest-insights-slider"
+            ariaLabel="Latest Insights"
+            items={articles}
+            perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
+            renderItem={(article) => {
               const isBookmarked = bookmarkedIds.includes(article.id);
               return (
                 <article
                   key={article.id}
                   onClick={() => onSelectArticle(article.slug)}
-                  className="group flex flex-col bg-slate-50/70 dark:bg-[#0B1E36] hover:bg-white dark:hover:bg-[#0E2442] rounded-2xl overflow-hidden border border-slate-200/90 dark:border-[#1E3656] shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer"
+                  className="group flex flex-col bg-slate-50/70 dark:bg-[#0B1E36] hover:bg-white dark:hover:bg-[#0E2442] rounded-2xl overflow-hidden border border-slate-200/90 dark:border-[#1E3656] shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer h-full"
                 >
                   {/* Card Visual with Bookmark Toggle */}
                   <div className="relative overflow-hidden">
@@ -80,6 +70,7 @@ export const LatestArticlesGrid: React.FC<LatestArticlesGridProps> = ({
                       <ArticleCardImage
                         category={article.category}
                         title={article.title}
+                        imageUrl={article.imageUrl}
                         size="card"
                       />
                     </div>
@@ -142,54 +133,12 @@ export const LatestArticlesGrid: React.FC<LatestArticlesGridProps> = ({
                         <span>{t('latest.readMore', 'Read More')}</span>
                         <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 text-[#8EE000]" />
                       </div>
-
                     </div>
                   </div>
                 </article>
               );
-            })}
-          </div>
-        )}
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="mt-12 pt-6 border-t border-slate-200 dark:border-[#1E3656] flex items-center justify-center gap-2">
-            <button
-              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-              disabled={currentPage === 1}
-              className="p-2 rounded-lg border border-slate-200 dark:border-[#1E3656] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#0E2442] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-              aria-label="Previous Page"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-
-            {Array.from({ length: totalPages }).map((_, i) => {
-              const page = i + 1;
-              const isActive = page === currentPage;
-              return (
-                <button
-                  key={page}
-                  onClick={() => handlePageChange(page)}
-                  className={`w-9 h-9 rounded-lg text-xs font-bold transition-all ${
-                    isActive
-                      ? 'bg-[#0A3F7E] dark:bg-[#2563EB] text-white shadow-xs'
-                      : 'border border-slate-200 dark:border-[#1E3656] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#0E2442]'
-                  }`}
-                >
-                  {page}
-                </button>
-              );
-            })}
-
-            <button
-              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-              disabled={currentPage === totalPages}
-              className="p-2 rounded-lg border border-slate-200 dark:border-[#1E3656] text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#0E2442] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-              aria-label="Next Page"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+            }}
+          />
         )}
       </div>
     </section>

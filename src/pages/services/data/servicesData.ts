@@ -821,7 +821,7 @@ export const EXPLORER_TABS: ExplorerTab[] = [
     metricValue: "18 Hours",
     metricChange: "Saved per month per HR manager",
     imageUrl:
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1200&auto=format&fit=crop",
+      "https://img.freepik.com/free-photo/multicultural-businesswomen-group-meeting_1157-47735.jpg?size=626&ext=jpg&ga=GA1.2.233311484.1695720566&semt=ais",
     imageAlt:
       "African business executive reviewing financial charts with team members in boardroom",
     mockupData: {
@@ -1077,7 +1077,7 @@ export const INDUSTRIES_LIST: IndustryItem[] = [
       "Sprint & OKR alignment",
     ],
     imageUrl:
-      "https://img.freepik.com/premium-photo/african-entrepreneur-having-business-call-coronavirus-sitting-workplace-wearing-face-mask-multiethnic-coworkers-working-respecting-social-distance-financial-company_16990631.jpg",
+      "https://img.magnific.com/premium-photo/african-entrepreneur-having-business-call-coronavirus-sitting-workplace-wearing-face-mask-multiethnic-coworkers-working-respecting-social-distance-financial-company_16990631.jpg",
     stat: "45% faster technical hiring",
   },
   {
@@ -1152,7 +1152,7 @@ export const INDUSTRIES_LIST: IndustryItem[] = [
       "Mobile time-punch",
     ],
     imageUrl:
-      "https://img.magnific.com/free-photo/african-american-guy-check-out-hotel_482257-78827.jpg",
+      "https://img.magnific.com/free-photo/young-couple-talking-videocall-after-arriving-hotel-waiting-check-sitting-lounge-area-happy-tourists-resting-couch-using-online-videoconference-chat_482257-67513.jpg",
     stat: "100% staff roster transparency",
   },
   {

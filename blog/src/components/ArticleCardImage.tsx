@@ -5,6 +5,7 @@ interface ArticleCardImageProps {
   category: string;
   title: string;
   slug?: string;
+  imageUrl?: string;
   size?: 'featured' | 'card' | 'thumbnail' | 'hero';
   className?: string;
 }
@@ -12,6 +13,7 @@ interface ArticleCardImageProps {
 export const ArticleCardImage: React.FC<ArticleCardImageProps> = ({
   category,
   title,
+  imageUrl,
   size = 'card',
   className = '',
 }) => {
@@ -95,6 +97,49 @@ export const ArticleCardImage: React.FC<ArticleCardImageProps> = ({
     card: 'h-48 sm:h-52',
     thumbnail: 'h-24 w-28 shrink-0',
   };
+
+  if (imageUrl) {
+    return (
+      <div
+        className={`relative w-full overflow-hidden bg-slate-900 text-white flex flex-col justify-between ${heightClasses[size]} ${className}`}
+      >
+        <img
+          src={imageUrl}
+          alt={title}
+          className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-slate-950/20 pointer-events-none" />
+
+        {/* Top Banner / Category Indicator */}
+        <div className="relative z-10 p-4 sm:p-5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/20 text-[#8EE000]">
+              <IconComponent className="w-4 h-4" />
+            </div>
+            <span className="text-[11px] font-semibold tracking-wider uppercase text-white bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10">
+              {details.badgeText}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#8EE000] animate-pulse" />
+            <span className="text-[10px] font-mono text-white">NextSoftHr</span>
+          </div>
+        </div>
+
+        {/* Bottom Editorial Caption */}
+        <div className="relative z-10 p-4 sm:p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#8EE000] block mb-1">
+            {category}
+          </span>
+          <p className="text-sm sm:text-base text-white font-bold line-clamp-2 drop-shadow-sm font-heading">
+            {title}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

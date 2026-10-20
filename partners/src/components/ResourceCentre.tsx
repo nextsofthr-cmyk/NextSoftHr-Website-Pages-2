@@ -12,6 +12,7 @@ import {
   FolderDown
 } from 'lucide-react';
 import { ResourceItem } from '../types';
+import { CardSlider } from './CardSlider';
 
 interface ResourceCentreProps {
   onDownloadResource: (resource: ResourceItem) => void;
@@ -55,69 +56,75 @@ export const ResourceCentre: React.FC<ResourceCentreProps> = ({ onDownloadResour
           </p>
         </div>
 
-        {/* 11 Resource Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-14">
-          {RESOURCE_ITEMS.map((res) => {
-            const Icon = getFormatIcon(res.format);
-            const isDownloaded = downloadedIds.includes(res.id);
+        {/* 11 Resource Cards Slider (3 in a row on desktop) */}
+        <div className="mb-14">
+          <CardSlider
+            id="partner-resource-centre-slider"
+            ariaLabel="Partner Resource Centre"
+            items={RESOURCE_ITEMS}
+            perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
+            renderItem={(res) => {
+              const Icon = getFormatIcon(res.format);
+              const isDownloaded = downloadedIds.includes(res.id);
 
-            return (
-              <div
-                key={res.id}
-                className="group rounded-2xl bg-white dark:bg-[#071D3E] border border-slate-200/90 dark:border-blue-800/80 p-5 flex flex-col justify-between hover:border-blue-500 dark:hover:border-[#B8F010] transition-all duration-200 hover:-translate-y-1 shadow-sm hover:shadow-md dark:shadow-md dark:hover:shadow-xl"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
-                      {res.category}
-                    </span>
-                    <span className="text-[11px] font-semibold text-blue-700 dark:text-[#B8F010]">
-                      {res.pagesOrDuration}
-                    </span>
+              return (
+                <div
+                  key={res.id}
+                  className="group rounded-2xl bg-white dark:bg-[#071D3E] border border-slate-200/90 dark:border-blue-800/80 p-5 flex flex-col justify-between hover:border-blue-500 dark:hover:border-[#B8F010] transition-all duration-200 hover:-translate-y-1 shadow-sm hover:shadow-md dark:shadow-md dark:hover:shadow-xl h-full"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                        {res.category}
+                      </span>
+                      <span className="text-[11px] font-semibold text-blue-700 dark:text-[#B8F010]">
+                        {res.pagesOrDuration}
+                      </span>
+                    </div>
+
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-700/70 flex items-center justify-center mb-3 group-hover:border-[#B8F010] transition-colors">
+                      <Icon className="w-5 h-5 text-blue-600 dark:text-[#B8F010]" />
+                    </div>
+
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-[#B8F010] transition-colors">
+                      {res.title}
+                    </h3>
+
+                    <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                      {res.description}
+                    </p>
                   </div>
 
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-700/70 flex items-center justify-center mb-3 group-hover:border-[#B8F010] transition-colors">
-                    <Icon className="w-5 h-5 text-blue-600 dark:text-[#B8F010]" />
+                  <div className="pt-3 border-t border-slate-200 dark:border-blue-900/60 flex items-center justify-between">
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                      {res.format}
+                    </span>
+
+                    <button
+                      onClick={() => handleDownload(res)}
+                      className={`text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all shadow-xs ${
+                        isDownloaded
+                          ? 'bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700'
+                          : 'bg-blue-50 dark:bg-blue-950 hover:bg-[#B8F010] text-blue-700 dark:text-blue-200 hover:text-[#040E1F] border border-blue-200 dark:border-blue-700'
+                      }`}
+                    >
+                      {isDownloaded ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                          <span>Ready</span>
+                        </>
+                      ) : (
+                        <>
+                          <Download className="w-3.5 h-3.5" />
+                          <span>Download</span>
+                        </>
+                      )}
+                    </button>
                   </div>
-
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1.5 group-hover:text-blue-600 dark:group-hover:text-[#B8F010] transition-colors">
-                    {res.title}
-                  </h3>
-
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-                    {res.description}
-                  </p>
                 </div>
-
-                <div className="pt-3 border-t border-slate-200 dark:border-blue-900/60 flex items-center justify-between">
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
-                    {res.format}
-                  </span>
-
-                  <button
-                    onClick={() => handleDownload(res)}
-                    className={`text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all shadow-xs ${
-                      isDownloaded
-                        ? 'bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700'
-                        : 'bg-blue-50 dark:bg-blue-950 hover:bg-[#B8F010] text-blue-700 dark:text-blue-200 hover:text-[#040E1F] border border-blue-200 dark:border-blue-700'
-                    }`}
-                  >
-                    {isDownloaded ? (
-                      <>
-                        <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                        <span>Ready</span>
-                      </>
-                    ) : (
-                      <>
-                        <Download className="w-3.5 h-3.5" />
-                        <span>Download</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+              );
+            }}
+          />
         </div>
 
         {/* Bottom Banner with All Resources Bundle */}

@@ -48,7 +48,7 @@ export const EventsTraining: React.FC<EventsTrainingProps> = ({ onRegisterClick 
           
           <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-blue-800/80 group h-64 shadow-md dark:shadow-xl">
             <img
-              src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&auto=format&fit=crop&q=80"
+              src="https://templates.envytheme.com/timido/assets/images/about/about4.jpg"
               alt="African HR & Business Consultants in workshop"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -68,7 +68,7 @@ export const EventsTraining: React.FC<EventsTrainingProps> = ({ onRegisterClick 
 
           <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-blue-800/80 group h-64 shadow-md dark:shadow-xl">
             <img
-              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&auto=format&fit=crop&q=80"
+              src="https://saaslyn-next.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcontact-thumb.3332d0fc.png&w=640&q=75"
               alt="Technology partners collaborating on SaaS"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -88,7 +88,7 @@ export const EventsTraining: React.FC<EventsTrainingProps> = ({ onRegisterClick 
 
           <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-blue-800/80 group h-64 shadow-md dark:shadow-xl">
             <img
-              src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&auto=format&fit=crop&q=80"
+              src="https://saaslyn-next.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fblog-thumb-3-2.60718b24.png&w=640&q=75"
               alt="African Business Conferences & Networking"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />

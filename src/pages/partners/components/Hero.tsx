@@ -121,7 +121,7 @@ export const Hero: React.FC<HeroProps> = ({ onApplyClick, onExploreClick }) => {
               {/* Collaborative Business Atmosphere Header */}
               <div className="relative rounded-xl overflow-hidden mb-4 border border-slate-200 dark:border-blue-800/80 group">
                 <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80"
+                  src="https://templates.envytheme.com/timido/assets/images/testimonials.jpg"
                   alt="African HR & Business Advisory Consultants collaborating on NextSofthr"
                   className="w-full h-52 object-cover object-center filter contrast-105 brightness-95 group-hover:scale-102 transition-transform duration-500"
                 />

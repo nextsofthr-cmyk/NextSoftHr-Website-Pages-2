@@ -2,6 +2,7 @@ import React from 'react';
 import { Clock, FolderKanban, ScanFace, FileCheck, Network, BarChart3, ArrowRight } from 'lucide-react';
 import { EnquiryType } from '../types';
 import { useLanguage } from '../context/LanguageContext';
+import { CardSlider } from './CardSlider';
 
 interface BusinessChallengesSectionProps {
   onSelectChallenge: (category: EnquiryType, challengeText: string) => void;
@@ -92,13 +93,17 @@ export const BusinessChallengesSection: React.FC<BusinessChallengesSectionProps>
           </p>
         </div>
 
-        {/* 6 Interactive Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {challengeItems.map((item) => (
+        {/* 6 Interactive Cards Slider (3 in a row on desktop) */}
+        <CardSlider
+          id="business-challenges-slider"
+          ariaLabel="Workplace challenges we solve"
+          items={challengeItems}
+          perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
+          renderItem={(item) => (
             <div
               key={item.id}
               onClick={() => onSelectChallenge(item.category, `Challenge: ${item.question}`)}
-              className="group p-6 rounded-2xl bg-[#F7FAFC] hover:bg-[#0B1F3A] dark:bg-[#0E2038] dark:hover:bg-[#132c4e] border border-slate-200 dark:border-white/10 hover:border-[#C8F000]/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
+              className="group p-6 rounded-2xl bg-[#F7FAFC] hover:bg-[#0B1F3A] dark:bg-[#0E2038] dark:hover:bg-[#132c4e] border border-slate-200 dark:border-white/10 hover:border-[#C8F000]/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer h-full"
             >
               <div>
                 <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 group-hover:bg-white/10 flex items-center justify-center mb-4 transition-colors">
@@ -121,8 +126,8 @@ export const BusinessChallengesSection: React.FC<BusinessChallengesSectionProps>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        />
 
       </div>
     </section>

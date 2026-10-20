@@ -2,6 +2,7 @@ import React from 'react';
 import { UserCheck, Laptop, Compass, Coins, Cpu, Building2, ArrowRight } from 'lucide-react';
 import { EnquiryType } from '../types';
 import { useLanguage } from '../context/LanguageContext';
+import { CardSlider } from './CardSlider';
 
 interface WhyContactSectionProps {
   onSelectOption: (enquiryType: EnquiryType, note?: string) => void;
@@ -90,13 +91,17 @@ export const WhyContactSection: React.FC<WhyContactSectionProps> = ({ onSelectOp
           </p>
         </div>
 
-        {/* 6 Benefit Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {benefits.map((benefit) => (
+        {/* 6 Benefit Cards Slider (3 in a row on desktop) */}
+        <CardSlider
+          id="why-contact-slider"
+          ariaLabel="Why consult NextSofthr"
+          items={benefits}
+          perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
+          renderItem={(benefit) => (
             <div
               key={benefit.id}
               onClick={() => onSelectOption(benefit.enquiryType, `I would like to schedule a ${benefit.title}.`)}
-              className="group bg-[#F7FAFC] hover:bg-white dark:bg-[#0E2038] dark:hover:bg-[#142d4f] rounded-2xl p-7 border border-slate-200/80 dark:border-white/10 hover:border-[#1769E0]/40 dark:hover:border-[#C8F000]/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer"
+              className="group bg-[#F7FAFC] hover:bg-white dark:bg-[#0E2038] dark:hover:bg-[#142d4f] rounded-2xl p-7 border border-slate-200/80 dark:border-white/10 hover:border-[#1769E0]/40 dark:hover:border-[#C8F000]/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer h-full"
             >
               <div>
                 <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 group-hover:bg-[#1769E0]/10 dark:group-hover:bg-[#1769E0]/30 border border-slate-200 dark:border-white/10 group-hover:border-[#1769E0]/30 flex items-center justify-center mb-5 shadow-xs transition-colors">
@@ -117,8 +122,8 @@ export const WhyContactSection: React.FC<WhyContactSectionProps> = ({ onSelectOp
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        />
 
       </div>
     </section>

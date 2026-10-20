@@ -3,6 +3,7 @@ import { RESOURCES_LIST } from '../data/resourcesHub';
 import { ResourceItem } from '../types/blog';
 import { Download, CheckCircle2, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { CardSlider } from './CardSlider';
 
 export const ResourcesHub: React.FC = () => {
   const { t } = useLanguage();
@@ -40,14 +41,17 @@ export const ResourcesHub: React.FC = () => {
           </div>
         </div>
 
-
-        {/* Resources Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {RESOURCES_LIST.map((item) => (
+        {/* Resources Slider (3 in a row on desktop) */}
+        <CardSlider
+          id="resources-hub-slider"
+          ariaLabel="More resources for your business"
+          items={RESOURCES_LIST}
+          perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
+          renderItem={(item) => (
             <div
               key={item.id}
               onClick={() => setActiveResource(item)}
-              className="bg-white dark:bg-[#0B1E36] hover:bg-[#F8FAFC] dark:hover:bg-[#0E2442] rounded-2xl p-6 border border-slate-200 dark:border-[#1E3656] hover:border-[#0A3F7E]/40 dark:hover:border-[#8EE000]/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between cursor-pointer group"
+              className="bg-white dark:bg-[#0B1E36] hover:bg-[#F8FAFC] dark:hover:bg-[#0E2442] rounded-2xl p-6 border border-slate-200 dark:border-[#1E3656] hover:border-[#0A3F7E]/40 dark:hover:border-[#8EE000]/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between cursor-pointer group h-full"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -77,8 +81,8 @@ export const ResourcesHub: React.FC = () => {
                 </span>
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        />
       </div>
 
       {/* Resource Modal / Download Lead Capture */}

@@ -284,6 +284,7 @@ export const BlogDetailsPage: React.FC<BlogDetailsPageProps> = ({
           <ArticleCardImage
             category={article.category}
             title={article.title}
+            imageUrl={article.imageUrl}
             size="hero"
           />
         </div>
@@ -504,12 +505,20 @@ export const BlogDetailsPage: React.FC<BlogDetailsPageProps> = ({
                 {t('details.nextStepDesc', 'Discover how NextSoftHr can help your organization manage people, payroll and workforce operations from one platform.')}
               </p>
               <div className="pt-2 flex flex-wrap items-center gap-3">
-                <button
-                  onClick={onOpenGetStarted}
+                <a
+                  href="https://demo.scriptmaster.store/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-6 py-3 rounded-xl text-xs font-bold text-slate-950 bg-[#8EE000] hover:bg-[#9EF01A] transition-all flex items-center gap-1.5 shadow-md border border-[#7BC500]"
                 >
-                  <span>{t('nav.getStarted', 'Explore NextSoftHr')}</span>
+                  <span>Explore Live Demo</span>
                   <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+                <button
+                  onClick={onOpenGetStarted}
+                  className="px-6 py-3 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all"
+                >
+                  <span>{t('nav.getStarted', 'Explore NextSoftHr')}</span>
                 </button>
                 <button
                   onClick={onOpenBookDemo}
@@ -708,7 +717,7 @@ export const BlogDetailsPage: React.FC<BlogDetailsPageProps> = ({
                   className="group bg-white dark:bg-[#0B1E36] rounded-2xl overflow-hidden border border-slate-200 dark:border-[#1E3656] hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between"
                 >
                   <div className="relative">
-                    <ArticleCardImage category={rel.category} title={rel.title} size="card" />
+                    <ArticleCardImage category={rel.category} title={rel.title} imageUrl={rel.imageUrl} size="card" />
                     <span className="absolute bottom-3 left-3 px-2 py-0.5 rounded text-[10px] font-bold bg-[#0A3F7E] dark:bg-[#1E40AF] text-white">
                       {rel.category}
                     </span>

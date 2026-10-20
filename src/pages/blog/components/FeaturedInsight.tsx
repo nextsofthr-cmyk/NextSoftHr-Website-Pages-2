@@ -44,6 +44,7 @@ export const FeaturedInsight: React.FC<FeaturedInsightProps> = ({
                 <ArticleCardImage
                   category={article.category}
                   title={article.title}
+                  imageUrl={article.imageUrl}
                   size="featured"
                   className="h-full"
                 />
