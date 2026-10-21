@@ -6,13 +6,11 @@ import {
   Phone,
   MapPin,
   ArrowRight,
-  Globe,
   Coins,
   Sparkles
 } from 'lucide-react';
 import { CurrencySelector } from '../pages/homepage/components/CurrencySelector';
 import { ThemeToggle } from '../pages/homepage/components/ThemeToggle';
-import { useLanguage } from '../pages/homepage/context/LanguageContext';
 
 export interface GlobalFooterProps {
   onNavigate?: (page: string) => void;
@@ -27,17 +25,7 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
   onOpenDemo,
   onOpenExpert,
 }) => {
-  const { t } = useLanguage();
   const navigate = useNavigate();
-
-  const translate = (key: string, fallback: string) => {
-    try {
-      const val = t(key, {}, fallback);
-      return val || fallback;
-    } catch {
-      return fallback;
-    }
-  };
 
   const handleTalkToExpert = () => {
     if (onOpenLeadModal) {
@@ -52,8 +40,10 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
   const handleCalculate = () => {
     if (onNavigate) {
       onNavigate("calculator");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       navigate('/outsourcing?view=calculator');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -61,7 +51,7 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
     if (onNavigate) {
       onNavigate(view);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (fallbackUrl && !view) {
+    } else if (fallbackUrl) {
       navigate(fallbackUrl);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -80,16 +70,10 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
               Transform Your Workforce Operations
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              {translate(
-                "footer.cta_title",
-                "Ready to outsource your HR & payroll with total peace of mind?",
-              )}
+              Ready to outsource your HR &amp; payroll with total peace of mind?
             </h3>
             <p className="text-sm text-slate-300 max-w-xl">
-              {translate(
-                "footer.cta_sub",
-                "Join leading African and multinational employers who trust NextSofthr for precision payroll, compliant statutory operations, and human HR expertise.",
-              )}
+              Join leading African and multinational employers who trust NextSofthr for precision payroll, compliant statutory operations, and human HR expertise.
             </p>
           </div>
 
@@ -98,14 +82,14 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
               onClick={handleTalkToExpert}
               className="px-6 py-3 bg-lime-400 hover:bg-lime-300 text-slate-950 font-bold text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer"
             >
-              <span>{translate("footer.talk_expert", "Talk to an Expert")}</span>
+              <span>Talk to an Expert</span>
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
               onClick={handleCalculate}
               className="px-5 py-3 bg-white/10 hover:bg-white/15 text-white font-medium text-sm rounded-xl transition-colors border border-white/10 cursor-pointer"
             >
-              {translate("footer.calculate_needs", "Calculate Your Needs")}
+              Calculate Your Needs
             </button>
           </div>
         </div>
@@ -122,9 +106,7 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
               />
             </Link>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
-              All – One – Modern HR, Payroll and Business Management Platform
-              enabling organizations worldwide to manage their entire workforce
-              from one unified and intelligent platform.
+              NextSofthr is a technology-powered HR, payroll and workforce outsourcing partner combining professional human support, intelligent automation, deep African compliance, and advanced analytics.
             </p>
 
             <div className="space-y-2 text-xs text-slate-300 pt-1">
@@ -140,7 +122,7 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-lime-400 shrink-0" />
-                <span>+2349158482622</span>
+                <span>+234 1 888 4768 / +254 20 765 0920</span>
               </div>
             </div>
 
@@ -160,308 +142,179 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
             </div>
           </div>
 
-          {/* Column 1: Products */}
+          {/* Column 1: Outsourcing Services */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              Products
+              Outsourcing
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
                 <button
-                  onClick={() => handleItemClick("outsourcing-payroll", "/services")}
+                  onClick={() => handleItemClick("outsourcing-payroll")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  HR Management
+                  Payroll Outsourcing
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleItemClick("outsourcing-hr-admin", "/services")}
+                  onClick={() => handleItemClick("outsourcing-hr-admin")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Payroll
+                  HR Administration
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleItemClick("outsourcing-managed-hr", "/services")}
+                  onClick={() => handleItemClick("outsourcing-managed-hr")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Attendance
+                  Managed HR Services
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleItemClick("outsourcing-recruitment", "/services")}
+                  onClick={() => handleItemClick("outsourcing-recruitment")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Shift &amp; Scheduling
+                  Recruitment &amp; Talent
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleItemClick("outsourcing-employee-admin", "/services")}
+                  onClick={() => handleItemClick("outsourcing-employee-admin")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Leave &amp; Time Off
+                  Employee Administration
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleItemClick("multi-company", "/services")}
+                  onClick={() => handleItemClick("multi-company")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Recruitment &amp; ATS
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("multi-company", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Performance Mgt
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("multi-company", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Manager/Employee ESS
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("multi-company", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  WhatsApp
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("multi-company", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Biometrics
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("multi-company", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Letters &amp; Offers
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("multi-company", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  AI Assistance
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("multi-company", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Rest API
+                  Enterprise Workforce
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Column 2: Business */}
+          {/* Column 2: Workforce Tech & Platform */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              Business
+              Platform &amp; Hubs
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
                 <button
-                  onClick={() => handleItemClick("outsourcing-time-attendance", "/services")}
+                  onClick={() => handleItemClick("outsourcing-time-attendance")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  CRM
+                  Time &amp; Attendance
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleItemClick("outsourcing-leave", "/services")}
+                  onClick={() => handleItemClick("outsourcing-leave")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Finance
+                  Leave Management
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleItemClick("multi-country", "/services")}
+                  onClick={() => handleItemClick("multi-country")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Assets
+                  Multi-Country African Payroll
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleItemClick("compliance", "/services")}
+                  onClick={() => handleItemClick("compliance")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Expense
+                  Compliance Center
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleItemClick("migration", "/services")}
+                  onClick={() => handleItemClick("migration")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Project
+                  Data Migration Center
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => handleItemClick("integrations", "/services")}
+                  onClick={() => handleItemClick("integrations")}
                   className="hover:text-white transition-colors cursor-pointer text-left"
                 >
-                  Payment
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("integrations", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Report
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("integrations", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Analytics
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("integrations", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Solutions
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("integrations", "/pricing")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Small Business
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("integrations", "/pricing")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Medium Business
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("integrations", "/pricing")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Enterprise
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleItemClick("integrations", "/services")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Industries
+                  Integrations Marketplace
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Company */}
+          {/* Column 3: Solutions & Company */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              Company
+              Company &amp; Support
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <Link to="/about-us" className="hover:text-white transition-colors">
-                  About Us
-                </Link>
+                <button
+                  onClick={() => handleItemClick("packages")}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  Outsourcing Packages
+                </button>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-white transition-colors">
-                  Contact Us
-                </Link>
+                <button
+                  onClick={() => handleItemClick("calculator")}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  ROI &amp; Efficiency Calculator
+                </button>
               </li>
               <li>
-                <Link to="/training" className="hover:text-white transition-colors">
-                  Training
-                </Link>
+                <button
+                  onClick={() => handleItemClick("implementation")}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  8-Phase Implementation
+                </button>
               </li>
               <li>
-                <Link to="/pricing" className="hover:text-white transition-colors">
-                  Pricing
-                </Link>
+                <button
+                  onClick={() => handleItemClick("security")}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  Security &amp; RBAC Architecture
+                </button>
               </li>
               <li>
-                <Link to="/partners" className="hover:text-white transition-colors">
-                  Partners
-                </Link>
+                <button
+                  onClick={() => handleItemClick("partners", "/partners")}
+                  className="hover:text-white transition-colors cursor-pointer text-left"
+                >
+                  Partner with NextSofthr
+                </button>
               </li>
               <li>
-                <Link to="/partner-registry" className="hover:text-lime-400 transition-colors">
-                  Partner Registry
-                </Link>
-              </li>
-              <li>
-                <Link to="/about-us" className="hover:text-lime-400 transition-colors">
-                  Career
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="hover:text-lime-400 transition-colors">
-                  Resources
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="hover:text-lime-400 transition-colors">
-                  Blogs
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="hover:text-lime-400 transition-colors">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="hover:text-lime-400 transition-colors">
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="hover:text-lime-400 transition-colors">
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="hover:text-lime-400 transition-colors">
-                  Product Update
-                </Link>
+                <button
+                  onClick={() => handleItemClick("portals")}
+                  className="hover:text-lime-400 transition-colors cursor-pointer text-left"
+                >
+                  Client &amp; Staff Portals
+                </button>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* African Markets Strip */}
+        {/* Supported Pan-African Payroll Hubs Strip */}
         <div className="py-6 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
           <div className="font-semibold text-slate-300">
             Supported Pan-African Payroll Hubs:
@@ -518,7 +371,7 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
           </div>
         </div>
 
-        {/* Currency, Theme Appearance & Language Selector in Footer */}
+        {/* Currency & Theme Appearance Controls Strip */}
         <div className="py-6 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-4 text-xs">
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2">

@@ -22,10 +22,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLeadModal }) =
               Transform Your Workforce Operations
             </span>
             <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              {t('footer.cta_title', 'Ready to outsource your HR & payroll with total peace of mind?')}
+              Ready to outsource your HR &amp; payroll with total peace of mind?
             </h3>
             <p className="text-sm text-slate-300 max-w-xl">
-              {t('footer.cta_sub', 'Join leading African and multinational employers who trust NextSofthr for precision payroll, compliant statutory operations, and human HR expertise.')}
+              Join leading African and multinational employers who trust NextSofthr for precision payroll, compliant statutory operations, and human HR expertise.
             </p>
           </div>
 
@@ -34,14 +34,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLeadModal }) =
               onClick={() => onOpenLeadModal('Full Outsourcing Consultation')}
               className="px-6 py-3 bg-lime-400 hover:bg-lime-300 text-slate-950 font-bold text-sm rounded-xl transition-all shadow-md flex items-center gap-2"
             >
-              <span>{t('footer.talk_expert', 'Talk to an Expert')}</span>
+              <span>Talk to an Expert</span>
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
               onClick={() => onNavigate('calculator')}
               className="px-5 py-3 bg-white/10 hover:bg-white/15 text-white font-medium text-sm rounded-xl transition-colors border border-white/10"
             >
-              {t('footer.calculate_needs', 'Calculate Your Needs')}
+              Calculate Your Needs
             </button>
           </div>
         </div>
