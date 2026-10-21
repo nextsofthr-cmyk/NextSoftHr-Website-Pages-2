@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationPage, PortalType } from './types';
 import { Navbar } from './components/layout/Navbar';
+import { OutsourcingSubHeader } from './components/layout/OutsourcingSubHeader';
 import { Footer } from './components/layout/Footer';
 import { StickyMobileCTA } from './components/layout/StickyMobileCTA';
 import { LeadModal } from './components/common/LeadModal';
@@ -41,12 +42,35 @@ import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<NavigationPage>('home');
+  const getPageFromUrl = (): NavigationPage => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const view = params.get('view') as NavigationPage | null;
+      if (view) return view;
+    } catch {
+      // ignore
+    }
+    return 'home';
+  };
+
+  const [currentPage, setCurrentPage] = useState<NavigationPage>(getPageFromUrl);
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [leadModalService, setLeadModalService] = useState('Payroll Outsourcing');
   const [wizardOpen, setWizardOpen] = useState(false);
   const [selectedPortal, setSelectedPortal] = useState<PortalType>('client-admin');
   const [floatingCopilotOpen, setFloatingCopilotOpen] = useState(false);
+
+  // Sync state on browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const page = getPageFromUrl();
+      setCurrentPage(page);
+      setWizardOpen(false);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const handleOpenLeadModal = (service: string = 'Payroll Outsourcing') => {
     setLeadModalService(service);
@@ -56,6 +80,19 @@ export default function App() {
   const handleNavigate = (page: NavigationPage) => {
     setCurrentPage(page);
     setWizardOpen(false);
+
+    try {
+      const url = new URL(window.location.href);
+      if (page === 'home') {
+        url.searchParams.delete('view');
+      } else {
+        url.searchParams.set('view', page);
+      }
+      window.history.pushState({ page }, '', url.toString());
+    } catch {
+      // ignore
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -96,6 +133,15 @@ export default function App() {
         onOpenPortals={handleOpenPortals}
       />
 
+      {/* Sticky Outsourcing Navigation Bar with Breadcrumbs & Solution Switcher */}
+      {currentPage !== 'home' && !wizardOpen && (
+        <OutsourcingSubHeader
+          currentPage={currentPage}
+          onNavigate={handleNavigate}
+          onOpenLeadModal={handleOpenLeadModal}
+        />
+      )}
+
       {/* Main Content Area */}
       <main className="flex-1">
         {/* Full-Screen Wizard Modal if active */}
@@ -127,27 +173,48 @@ export default function App() {
               <OutsourcingHub
                 onNavigate={handleNavigate}
                 onOpenLeadModal={handleOpenLeadModal}
+                onBack={() => handleNavigate('home')}
               />
             )}
 
             {currentPage === 'outsourcing-payroll' && (
-              <PayrollOutsourcing onOpenLeadModal={handleOpenLeadModal} />
+              <PayrollOutsourcing 
+                onOpenLeadModal={handleOpenLeadModal}
+                onNavigate={handleNavigate}
+                onBack={() => handleNavigate('home')}
+              />
             )}
 
             {currentPage === 'outsourcing-hr-admin' && (
-              <HRAdministration onOpenLeadModal={handleOpenLeadModal} />
+              <HRAdministration 
+                onOpenLeadModal={handleOpenLeadModal}
+                onNavigate={handleNavigate}
+                onBack={() => handleNavigate('home')}
+              />
             )}
 
             {currentPage === 'outsourcing-managed-hr' && (
-              <ManagedHR onOpenLeadModal={handleOpenLeadModal} />
+              <ManagedHR 
+                onOpenLeadModal={handleOpenLeadModal}
+                onNavigate={handleNavigate}
+                onBack={() => handleNavigate('home')}
+              />
             )}
 
             {currentPage === 'outsourcing-recruitment' && (
-              <RecruitmentOutsourcing onOpenLeadModal={handleOpenLeadModal} />
+              <RecruitmentOutsourcing 
+                onOpenLeadModal={handleOpenLeadModal}
+                onNavigate={handleNavigate}
+                onBack={() => handleNavigate('home')}
+              />
             )}
 
             {currentPage === 'outsourcing-employee-admin' && (
-              <EmployeeAdministration onOpenLeadModal={handleOpenLeadModal} />
+              <EmployeeAdministration 
+                onOpenLeadModal={handleOpenLeadModal}
+                onNavigate={handleNavigate}
+                onBack={() => handleNavigate('home')}
+              />
             )}
 
             {currentPage === 'outsourcing-time-attendance' && (
@@ -167,7 +234,11 @@ export default function App() {
             )}
 
             {currentPage === 'multi-company' && (
-              <EnterpriseHierarchy onOpenLeadModal={handleOpenLeadModal} />
+              <EnterpriseHierarchy 
+                onOpenLeadModal={handleOpenLeadModal}
+                onNavigate={handleNavigate}
+                onBack={() => handleNavigate('home')}
+              />
             )}
 
             {currentPage === 'packages' && (

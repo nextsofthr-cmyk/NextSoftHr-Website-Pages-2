@@ -15,14 +15,21 @@ import {
   Building
 } from 'lucide-react';
 import { SAMPLE_PAYROLL_DATA } from '../../data/mockData';
-import { PayrollRecord } from '../../types';
+import { PayrollRecord, NavigationPage } from '../../types';
 import { useCurrency } from '../../context/CurrencyContext';
+import { SolutionNavigationFooter } from '../layout/SolutionNavigationFooter';
 
 interface PayrollOutsourcingProps {
   onOpenLeadModal: (service?: string) => void;
+  onNavigate?: (page: NavigationPage) => void;
+  onBack?: () => void;
 }
 
-export const PayrollOutsourcing: React.FC<PayrollOutsourcingProps> = ({ onOpenLeadModal }) => {
+export const PayrollOutsourcing: React.FC<PayrollOutsourcingProps> = ({ 
+  onOpenLeadModal,
+  onNavigate,
+  onBack
+}) => {
   const { formatCurrency, currency } = useCurrency();
   const [selectedRecord, setSelectedRecord] = useState<PayrollRecord>(SAMPLE_PAYROLL_DATA[0]);
   const [showPayslipModal, setShowPayslipModal] = useState(false);
@@ -453,7 +460,7 @@ export const PayrollOutsourcing: React.FC<PayrollOutsourcingProps> = ({ onOpenLe
           <div className="text-center pt-4">
             <button
               onClick={() => onOpenLeadModal('Payroll Outsourcing Quote')}
-              className="px-8 py-3.5 bg-[#0F2D6B] dark:bg-blue-600 hover:bg-[#0A1E4A] dark:hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-all shadow-md inline-flex items-center gap-2"
+              className="px-8 py-3.5 bg-[#0F2D6B] dark:bg-blue-600 hover:bg-[#0A1E4A] dark:hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition-all shadow-md inline-flex items-center gap-2 cursor-pointer"
             >
               <span>Outsource Your Payroll Today</span>
               <ArrowRight className="w-4 h-4 text-lime-400" />
@@ -461,6 +468,15 @@ export const PayrollOutsourcing: React.FC<PayrollOutsourcingProps> = ({ onOpenLe
           </div>
         </div>
       </section>
+
+      {/* Explore Other Outsourcing Solutions & Return Home */}
+      {onNavigate && (
+        <SolutionNavigationFooter
+          currentSolutionId="outsourcing-payroll"
+          onNavigate={onNavigate}
+          onOpenLeadModal={onOpenLeadModal}
+        />
+      )}
     </div>
   );
 };

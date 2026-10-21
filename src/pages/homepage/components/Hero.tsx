@@ -84,6 +84,16 @@ export const Hero = ({ onOpenDemo, onOpenGetStarted, onOpenExpert, onOpenPayslip
               <ArrowRight className="w-4 h-4 text-lime-400 group-hover:translate-x-1 transition-transform" />
             </a>
 
+            <button
+              id="hero-book-demo-cta"
+              onClick={onOpenDemo}
+              className="w-full sm:w-auto px-7 py-3.5 text-base font-bold text-slate-900 dark:text-white bg-white hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600 rounded-xl shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 cursor-pointer"
+            >
+              <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <span>Book Demo</span>
+              <ArrowRight className="w-4 h-4 text-slate-400 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
+            </button>
+
             <a
               id="hero-explore-demo-cta"
               href="https://demo.scriptmaster.store/login"

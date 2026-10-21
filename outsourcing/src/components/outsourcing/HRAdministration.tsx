@@ -15,12 +15,20 @@ import {
   ShieldCheck,
   Sparkles
 } from 'lucide-react';
+import { NavigationPage } from '../../types';
+import { SolutionNavigationFooter } from '../layout/SolutionNavigationFooter';
 
 interface HRAdministrationProps {
   onOpenLeadModal: (service?: string) => void;
+  onNavigate?: (page: NavigationPage) => void;
+  onBack?: () => void;
 }
 
-export const HRAdministration: React.FC<HRAdministrationProps> = ({ onOpenLeadModal }) => {
+export const HRAdministration: React.FC<HRAdministrationProps> = ({ 
+  onOpenLeadModal,
+  onNavigate,
+  onBack
+}) => {
   const [activeStage, setActiveStage] = useState<'recruit' | 'onboard' | 'manage' | 'develop' | 'retain' | 'offboard'>('onboard');
 
   const lifecycleStages = [
@@ -294,7 +302,7 @@ export const HRAdministration: React.FC<HRAdministrationProps> = ({ onOpenLeadMo
           <div className="text-center pt-4">
             <button
               onClick={() => onOpenLeadModal('HR Admin Proposal')}
-              className="px-8 py-3.5 bg-lime-400 hover:bg-lime-300 text-slate-950 font-bold rounded-xl text-sm transition-all shadow-md inline-flex items-center gap-2"
+              className="px-8 py-3.5 bg-lime-400 hover:bg-lime-300 text-slate-950 font-bold rounded-xl text-sm transition-all shadow-md inline-flex items-center gap-2 cursor-pointer"
             >
               <span>Request HR Administration Proposal</span>
               <ArrowRight className="w-4 h-4" />
@@ -302,6 +310,15 @@ export const HRAdministration: React.FC<HRAdministrationProps> = ({ onOpenLeadMo
           </div>
         </div>
       </section>
+
+      {/* Explore Other Outsourcing Solutions & Return Home */}
+      {onNavigate && (
+        <SolutionNavigationFooter
+          currentSolutionId="outsourcing-hr-admin"
+          onNavigate={onNavigate}
+          onOpenLeadModal={onOpenLeadModal}
+        />
+      )}
     </div>
   );
 };

@@ -1,13 +1,20 @@
-import { useState } from 'react';
 import { 
-  Star, Play, Check, ArrowRight, ShieldCheck, 
-  Sparkles, CheckCircle2, Building, DollarSign 
+  Star, Play, Sparkles 
 } from 'lucide-react';
-import { TESTIMONIALS, PRICING_PLANS } from '../data/mockData';
+import { TESTIMONIALS } from '../data/mockData';
 import { HrSavingsCalculator } from './HrSavingsCalculator';
 import { GlobalImpactStats } from './GlobalImpactStats';
-import { useLanguage } from '../context/LanguageContext';
-import { useCurrency } from '../context/CurrencyContext';
+
+const AVATAR_COLORS = [
+  'bg-blue-600 text-white',
+  'bg-emerald-600 text-white',
+  'bg-indigo-600 text-white',
+  'bg-violet-600 text-white',
+  'bg-amber-600 text-white',
+  'bg-teal-600 text-white',
+  'bg-rose-600 text-white',
+  'bg-cyan-600 text-white',
+];
 
 interface SocialProofPricingProps {
   onOpenDemo: () => void;
@@ -20,8 +27,6 @@ export const SocialProofPricingSection = ({
   onOpenGetStarted,
   onOpenExpert
 }: SocialProofPricingProps) => {
-  const { dict } = useLanguage();
-  const { formatMoney, currencyInfo } = useCurrency();
 
   const handleScrollToCalculator = () => {
     const el = document.getElementById('savings-calculator');
@@ -70,11 +75,19 @@ export const SocialProofPricingSection = ({
                 </div>
 
                 <div className="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
-                  <img
-                    src={t.avatar}
-                    alt={t.author}
-                    className="w-10 h-10 rounded-full object-cover border border-slate-200 dark:border-slate-700"
-                  />
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs select-none shadow-xs border border-slate-200 dark:border-slate-700 shrink-0 ${
+                      AVATAR_COLORS[idx % AVATAR_COLORS.length]
+                    }`}
+                    aria-label={t.author}
+                  >
+                    {t.author
+                      .split(' ')
+                      .map((n) => n[0])
+                      .slice(0, 2)
+                      .join('')
+                      .toUpperCase()}
+                  </div>
                   <div>
                     <h4 className="font-bold text-xs text-slate-900 dark:text-white">{t.author}</h4>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400">{t.role}</p>
@@ -134,95 +147,6 @@ export const SocialProofPricingSection = ({
           onOpenGetStarted={onOpenGetStarted}
           onOpenDemo={onOpenDemo}
         />
-
-        {/* Module 5: Transparent Pricing Plans */}
-        <div id="pricing">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="px-3.5 py-1 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 uppercase tracking-wider mb-3 inline-block">
-              {dict.pricing.badge}
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              {dict.pricing.headline}
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg mt-3 leading-relaxed">
-              {dict.pricing.description}
-            </p>
-          </div>
-
-          {/* Pricing Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
-            {PRICING_PLANS.map((plan) => {
-              const price = plan.priceMonthly;
-              const isFreeTrial = plan.ctaText.toLowerCase().includes('trial') || plan.id === 'starter';
-              return (
-                <div
-                  key={plan.id}
-                  className={`rounded-3xl p-8 flex flex-col justify-between transition-all ${
-                    plan.popular
-                      ? 'bg-white dark:bg-slate-900 border-2 border-lime-500 shadow-xl relative scale-105 z-10'
-                      : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs'
-                  }`}
-                >
-                  {plan.popular && (
-                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-lime-400 text-slate-950 text-xs font-extrabold shadow-sm uppercase tracking-wider">
-                      {dict.pricing.popularChoice}
-                    </div>
-                  )}
-
-                  <div>
-                    <h3 className="font-extrabold text-xl text-slate-900 dark:text-white">{plan.name}</h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{plan.description}</p>
-
-                    <div className="my-6">
-                      {plan.id === 'enterprise' ? (
-                        <div className="text-3xl font-extrabold text-slate-900 dark:text-white">Custom</div>
-                      ) : (
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-4xl font-extrabold text-slate-900 dark:text-white">
-                            {formatMoney(price, { showDecimals: currencyInfo.decimals > 0 })}
-                          </span>
-                          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">{dict.pricing.perUserMonth}</span>
-                        </div>
-                      )}
-                      <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">
-                        Billed monthly • {currencyInfo.code}
-                      </p>
-                    </div>
-
-                    <div className="space-y-3 text-xs border-t border-slate-100 dark:border-slate-800 pt-6">
-                      {plan.features.map((f, i) => (
-                        <div key={i} className="flex items-center gap-2.5 text-slate-700 dark:text-slate-300">
-                          <Check className="w-4 h-4 text-lime-600 dark:text-lime-400 shrink-0 stroke-[2.5]" />
-                          <span>{f}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
-                    <button
-                      onClick={plan.id === 'enterprise' ? onOpenExpert : onOpenGetStarted}
-                      className={`w-full py-3 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                        isFreeTrial || plan.popular
-                          ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/30'
-                          : 'bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white'
-                      }`}
-                    >
-                      <span>{plan.ctaText}</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="text-center mt-10 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-lime-600 dark:text-lime-400" />
-            <span>{dict.pricing.guarantee}</span>
-          </div>
-        </div>
-
       </div>
     </section>
   );

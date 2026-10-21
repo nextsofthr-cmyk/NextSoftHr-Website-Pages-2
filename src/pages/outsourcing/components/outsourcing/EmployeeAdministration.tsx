@@ -14,12 +14,20 @@ import {
   Building,
   Briefcase
 } from 'lucide-react';
+import { NavigationPage } from '../../types';
+import { SolutionNavigationFooter } from '../layout/SolutionNavigationFooter';
 
 interface EmployeeAdministrationProps {
   onOpenLeadModal: (service?: string) => void;
+  onNavigate?: (page: NavigationPage) => void;
+  onBack?: () => void;
 }
 
-export const EmployeeAdministration: React.FC<EmployeeAdministrationProps> = ({ onOpenLeadModal }) => {
+export const EmployeeAdministration: React.FC<EmployeeAdministrationProps> = ({ 
+  onOpenLeadModal,
+  onNavigate,
+  onBack
+}) => {
   const [activeTab, setActiveTab] = useState<'profile' | 'contracts' | 'history' | 'benefits' | 'records'>('profile');
 
   const employeeData = {
@@ -310,6 +318,15 @@ export const EmployeeAdministration: React.FC<EmployeeAdministrationProps> = ({ 
           </div>
         </div>
       </section>
+
+      {/* Explore Other Outsourcing Solutions & Return Home */}
+      {onNavigate && (
+        <SolutionNavigationFooter
+          currentSolutionId="outsourcing-employee-admin"
+          onNavigate={onNavigate}
+          onOpenLeadModal={onOpenLeadModal}
+        />
+      )}
     </div>
   );
 };

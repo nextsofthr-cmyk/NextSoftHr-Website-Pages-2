@@ -2,6 +2,20 @@ import React from 'react';
 import { TESTIMONIALS } from '../data/academyData';
 import { Star, Quote, CheckCircle2 } from 'lucide-react';
 
+const getInitials = (name: string): string => {
+  if (!name) return 'NS';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+};
+
+const AVATAR_STYLES = [
+  'bg-blue-600 text-white border border-blue-400/40 dark:bg-blue-600 dark:text-white',
+  'bg-emerald-600 text-white border border-emerald-400/40 dark:bg-emerald-600 dark:text-white',
+  'bg-indigo-700 text-white border border-indigo-400/40 dark:bg-indigo-600 dark:text-white',
+  'bg-[#0F4C81] text-[#84CC16] border border-[#84CC16]/40 dark:bg-slate-800 dark:text-[#84CC16]',
+];
+
 export const StudentSuccessSection: React.FC = () => {
   return (
     <section className="py-16 bg-slate-50 dark:bg-[#0B1120] border-b border-slate-200/70 dark:border-slate-800 transition-colors">
@@ -22,7 +36,7 @@ export const StudentSuccessSection: React.FC = () => {
 
         {/* 4 Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS.map((t, idx) => (
             <div
               key={t.id}
               className="bg-white dark:bg-[#0F172A] rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-2xs hover:shadow-md hover:border-[#0F4C81]/30 dark:hover:border-blue-500/50 transition-all flex flex-col justify-between"
@@ -53,11 +67,12 @@ export const StudentSuccessSection: React.FC = () => {
 
               {/* Author Info */}
               <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3">
-                <img
-                  src={t.photo}
-                  alt={t.name}
-                  className="w-10 h-10 rounded-full object-cover border border-slate-200 dark:border-slate-700 flex-shrink-0"
-                />
+                <div
+                  aria-label={t.name}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs tracking-wider shrink-0 select-none shadow-xs ${AVATAR_STYLES[idx % AVATAR_STYLES.length]}`}
+                >
+                  {t.initials || getInitials(t.name)}
+                </div>
                 <div className="truncate">
                   <div className="flex items-center gap-1">
                     <span className="text-xs font-bold text-slate-900 dark:text-white truncate">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Users,
   Cpu,
@@ -9,11 +9,34 @@ import {
   Globe2,
   MapPin,
   CheckCircle,
-  ExternalLink
+  ExternalLink,
+  ShieldCheck,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 
 export const MissionVision: React.FC = () => {
   const [selectedHub, setSelectedHub] = useState<string>('lagos');
+  const [pillarItemsPerPage, setPillarItemsPerPage] = useState<number>(4);
+  const [pillarPage, setPillarPage] = useState<number>(0);
+  const [pillarTouchStart, setPillarTouchStart] = useState<number | null>(null);
+  const [pillarTouchEnd, setPillarTouchEnd] = useState<number | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setPillarItemsPerPage(1);
+      } else if (window.innerWidth < 1024) {
+        setPillarItemsPerPage(2);
+      } else {
+        setPillarItemsPerPage(4);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const missionPillars = [
     {
@@ -46,7 +69,52 @@ export const MissionVision: React.FC = () => {
       description: 'Actionable leadership intelligence that turns workforce data into sustainable commercial advantage.',
       icon: Trophy,
     },
+    {
+      title: 'Security & Trust',
+      description: 'Enterprise data sovereignty, role-based controls, and SOC-2 standard encryption for confidential payroll.',
+      icon: ShieldCheck,
+    },
+    {
+      title: 'Global Scale',
+      description: 'Multi-currency settlement and cross-border payroll architectures supporting seamless expansion worldwide.',
+      icon: Globe2,
+    },
   ];
+
+  const totalPillarPages = Math.ceil(missionPillars.length / pillarItemsPerPage);
+
+  useEffect(() => {
+    if (pillarPage >= totalPillarPages) {
+      setPillarPage(Math.max(0, totalPillarPages - 1));
+    }
+  }, [totalPillarPages, pillarPage]);
+
+  const handlePillarNext = () => {
+    setPillarPage((prev) => (prev + 1) % totalPillarPages);
+  };
+
+  const handlePillarPrev = () => {
+    setPillarPage((prev) => (prev - 1 + totalPillarPages) % totalPillarPages);
+  };
+
+  const onPillarTouchStart = (e: React.TouchEvent) => {
+    setPillarTouchEnd(null);
+    setPillarTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onPillarTouchMove = (e: React.TouchEvent) => {
+    setPillarTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onPillarTouchEnd = () => {
+    if (!pillarTouchStart || !pillarTouchEnd) return;
+    const distance = pillarTouchStart - pillarTouchEnd;
+    if (distance > 50) {
+      handlePillarNext();
+    } else if (distance < -50) {
+      handlePillarPrev();
+    }
+  };
 
   const globalHubs: Record<
     string,
@@ -147,27 +215,91 @@ export const MissionVision: React.FC = () => {
             </div>
           </div>
 
-          {/* 6 Supporting Visual Pillars */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
-            {missionPillars.map((pillar) => {
-              const Icon = pillar.icon;
-              return (
-                <div
-                  key={pillar.title}
-                  className="bg-white/10 dark:bg-[#0E2038]/60 hover:bg-white/15 dark:hover:bg-[#11243E] backdrop-blur-md border border-white/15 dark:border-blue-900/40 hover:border-[#84CC16]/50 dark:hover:border-[#84CC16]/50 rounded-2xl p-6 transition-all duration-300 group shadow-sm hover:shadow-lg"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#0A2540] dark:bg-[#162D4E] border border-[#84CC16]/40 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <Icon className="w-6 h-6 text-[#84CC16]" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#84CC16] transition-colors">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-sm text-slate-300 leading-relaxed">
-                    {pillar.description}
-                  </p>
-                </div>
-              );
-            })}
+          {/* Visual Pillars Slider (4 in a row) */}
+          <div
+            className="relative px-0 sm:px-6 focus:outline-hidden pt-4"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowLeft') handlePillarPrev();
+              if (e.key === 'ArrowRight') handlePillarNext();
+            }}
+            aria-label="Our mission pillars slider"
+          >
+            {/* Side Prev Arrow */}
+            <button
+              type="button"
+              onClick={handlePillarPrev}
+              aria-label="Previous pillars"
+              title="Previous pillars"
+              className="flex absolute -left-2 sm:-left-3 lg:-left-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/15 hover:bg-[#84CC16] hover:text-[#061124] text-white border border-white/20 backdrop-blur-md shadow-xl items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110 active:scale-95"
+            >
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+
+            {/* Side Next Arrow */}
+            <button
+              type="button"
+              onClick={handlePillarNext}
+              aria-label="Next pillars"
+              title="Next pillars"
+              className="flex absolute -right-2 sm:-right-3 lg:-right-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/15 hover:bg-[#84CC16] hover:text-[#061124] text-white border border-white/20 backdrop-blur-md shadow-xl items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110 active:scale-95"
+            >
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+
+            {/* Sliding Track Viewport */}
+            <div
+              className="overflow-hidden py-2"
+              onTouchStart={onPillarTouchStart}
+              onTouchMove={onPillarTouchMove}
+              onTouchEnd={onPillarTouchEnd}
+            >
+              <div
+                className="flex transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(-${pillarPage * 100}%)` }}
+              >
+                {missionPillars.map((pillar) => {
+                  const Icon = pillar.icon;
+                  return (
+                    <div
+                      key={pillar.title}
+                      className="w-full sm:w-1/2 lg:w-1/4 shrink-0 px-2.5 flex flex-col"
+                    >
+                      <div className="bg-white/10 dark:bg-[#0E2038]/60 hover:bg-white/15 dark:hover:bg-[#11243E] backdrop-blur-md border border-white/15 dark:border-blue-900/40 hover:border-[#84CC16]/50 dark:hover:border-[#84CC16]/50 rounded-2xl p-6 transition-all duration-300 group shadow-sm hover:shadow-lg flex flex-col justify-between h-full">
+                        <div>
+                          <div className="w-12 h-12 rounded-xl bg-[#0A2540] dark:bg-[#162D4E] border border-[#84CC16]/40 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <Icon className="w-6 h-6 text-[#84CC16]" />
+                          </div>
+                          <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#84CC16] transition-colors">
+                            {pillar.title}
+                          </h3>
+                          <p className="text-sm text-slate-300 leading-relaxed">
+                            {pillar.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Bottom Pagination Dots */}
+            <div className="mt-8 flex items-center justify-center gap-2" aria-label="Pagination controls">
+              {Array.from({ length: totalPillarPages }).map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  aria-label={`Go to slide page ${idx + 1}`}
+                  onClick={() => setPillarPage(idx)}
+                  className={`transition-all duration-300 rounded-full cursor-pointer ${
+                    pillarPage === idx
+                      ? 'w-8 h-2.5 bg-[#84CC16]'
+                      : 'w-2.5 h-2.5 bg-white/30 hover:bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>

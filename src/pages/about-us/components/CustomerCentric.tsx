@@ -56,7 +56,7 @@ export const CustomerCentric: React.FC<CustomerCentricProps> = ({ onOpenContact 
           <div className="lg:col-span-6 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-blue-900/40 group">
               <img
-                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1000&auto=format&fit=crop"
+                src="https://automation-saas-tailwind.pixels71.workers.dev/images/ns-avatar-12.jpg"
                 alt="African HR consultant guiding a business team in modern conference room"
                 className="w-full h-full object-cover min-h-[420px] max-h-[540px] group-hover:scale-102 transition-transform duration-700"
               />

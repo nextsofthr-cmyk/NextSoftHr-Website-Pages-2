@@ -217,14 +217,14 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
               </div>
 
               {/* Get Started CTA */}
-              <button
+              <a
                 id="calculator-get-started-btn"
-                onClick={() => onGetStarted(recommendedPlan.name, employeeCount)}
-                className="w-full mt-6 py-3.5 px-4 rounded-xl text-sm font-bold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] shadow-md shadow-lime-500/20 hover:shadow-lg transition-all duration-150 flex items-center justify-center gap-2"
+                href="/signup"
+                className="w-full mt-6 py-3.5 px-4 rounded-xl text-sm font-bold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] shadow-md shadow-lime-500/20 hover:shadow-lg transition-all duration-150 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>{t.calculator.getStartedBtn}</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </a>
 
               {/* Disclaimer */}
               <div className="mt-4 flex items-start gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 leading-tight">

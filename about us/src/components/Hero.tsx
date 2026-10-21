@@ -57,13 +57,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGetStarted, onOpenContact }) =
 
           {/* Action CTAs */}
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={onOpenGetStarted}
+            <a
+              href="/signup"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#84CC16] hover:bg-[#74be12] text-[#0A2540] font-extrabold px-8 py-4 rounded-xl text-base shadow-lg shadow-[#84CC16]/25 hover:shadow-xl transition-all group cursor-pointer"
             >
               <span>Get Started</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
 
             <button
               onClick={onOpenContact}

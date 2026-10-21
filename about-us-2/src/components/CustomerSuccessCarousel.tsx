@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   Quote,
   ChevronLeft,
@@ -11,32 +11,53 @@ import {
   Play,
   Pause,
   ArrowRight,
-  Briefcase
-} from 'lucide-react';
-import { CUSTOMER_SUCCESS_QUOTES } from '../data/contentData';
-import { CustomerSuccessQuote } from '../types';
+  Briefcase,
+} from "lucide-react";
+import { CUSTOMER_SUCCESS_QUOTES } from "../data/contentData";
+import { CustomerSuccessQuote } from "../types";
+
+const getInitials = (name: string): string => {
+  if (!name) return "NS";
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+};
+
+const AVATAR_BG_MAP: Record<string, string> = {
+  "quote-1": "bg-[#0B3B73] text-[#84CC16]",
+  "quote-2": "bg-emerald-600 text-white",
+  "quote-3": "bg-[#0A2540] text-[#38BDF8]",
+  "quote-4": "bg-purple-600 text-white",
+  "quote-5": "bg-blue-600 text-white",
+  "quote-6": "bg-teal-600 text-white",
+};
 
 interface CustomerSuccessCarouselProps {
   onOpenDemo?: (industry?: string) => void;
 }
 
-export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = ({ onOpenDemo }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+export const CustomerSuccessCarousel: React.FC<
+  CustomerSuccessCarouselProps
+> = ({ onOpenDemo }) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
+  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const categories = [
-    'All',
-    'Small Business Owner',
-    'HR Director',
-    'Operations & Finance',
-    'Founder & Executive',
+    "All",
+    "Small Business Owner",
+    "HR Director",
+    "Operations & Finance",
+    "Founder & Executive",
   ];
 
-  const filteredQuotes = selectedCategory === 'All'
-    ? CUSTOMER_SUCCESS_QUOTES
-    : CUSTOMER_SUCCESS_QUOTES.filter(q => q.personaCategory === selectedCategory);
+  const filteredQuotes =
+    selectedCategory === "All"
+      ? CUSTOMER_SUCCESS_QUOTES
+      : CUSTOMER_SUCCESS_QUOTES.filter(
+          (q) => q.personaCategory === selectedCategory,
+        );
 
   // Keep index within bounds if category filter changes
   useEffect(() => {
@@ -59,14 +80,17 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
   }, [isAutoPlaying, filteredQuotes.length, currentIndex]);
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + filteredQuotes.length) % filteredQuotes.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + filteredQuotes.length) % filteredQuotes.length,
+    );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % filteredQuotes.length);
   };
 
-  const activeQuote: CustomerSuccessQuote | undefined = filteredQuotes[currentIndex] || filteredQuotes[0];
+  const activeQuote: CustomerSuccessQuote | undefined =
+    filteredQuotes[currentIndex] || filteredQuotes[0];
 
   if (!activeQuote) return null;
 
@@ -92,24 +116,29 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
             Loved by Business Leaders Across Continents
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-            See how small business owners, HR directors, and operations executives eliminate administrative chaos, automate payroll, and empower their workforces with NextSofthr.
+            See how small business owners, HR directors, and operations
+            executives eliminate administrative chaos, automate payroll, and
+            empower their workforces with NextSofthr.
           </p>
 
           {/* Persona Category Filters */}
-          <div className="mt-8 flex flex-wrap justify-center gap-2" id="persona-filter-buttons">
+          <div
+            className="mt-8 flex flex-wrap justify-center gap-2"
+            id="persona-filter-buttons"
+          >
             {categories.map((cat) => (
               <button
                 key={cat}
-                id={`filter-${cat.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
+                id={`filter-${cat.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
                   selectedCategory === cat
-                    ? 'bg-[#0A2540] dark:bg-[#84CC16] text-white dark:text-[#0A2540] shadow-sm ring-2 ring-[#0A2540]/20'
-                    : 'bg-white dark:bg-[#0E2038] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#132A4A]'
+                    ? "bg-[#0A2540] dark:bg-[#84CC16] text-white dark:text-[#0A2540] shadow-sm ring-2 ring-[#0A2540]/20"
+                    : "bg-white dark:bg-[#0E2038] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#132A4A]"
                 }`}
               >
-                {cat === 'All' ? 'All Personas' : cat}
+                {cat === "All" ? "All Personas" : cat}
               </button>
             ))}
           </div>
@@ -131,12 +160,15 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
               <div className="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800 pb-8 lg:pb-0 lg:pr-8">
                 {/* Avatar with Verified Ring */}
                 <div className="relative mb-4">
-                  <img
-                    src={activeQuote.avatar}
-                    alt={activeQuote.name}
-                    className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover shadow-md border-2 border-white dark:border-[#0E2038] ring-4 ring-[#84CC16]/30"
-                    referrerPolicy="no-referrer"
-                  />
+                  <div
+                    className={`w-24 h-24 sm:w-28 sm:h-28 rounded-2xl shadow-md border-2 border-white dark:border-[#0E2038] ring-4 ring-[#84CC16]/30 flex items-center justify-center font-extrabold text-2xl sm:text-3xl tracking-wider select-none ${
+                      AVATAR_BG_MAP[activeQuote.id] ||
+                      "bg-[#0B3B73] text-[#84CC16]"
+                    }`}
+                    aria-label={activeQuote.name}
+                  >
+                    {getInitials(activeQuote.name)}
+                  </div>
                   {activeQuote.verifiedUser && (
                     <div
                       className="absolute -bottom-2 -right-2 bg-[#84CC16] text-[#0A2540] p-1.5 rounded-xl shadow-md border-2 border-white dark:border-[#0E2038] flex items-center justify-center"
@@ -148,8 +180,12 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
                 </div>
 
                 {/* Author Info */}
-                <h3 className="text-xl font-bold text-[#0A2540] dark:text-white leading-snug">{activeQuote.name}</h3>
-                <p className="text-sm font-semibold text-[#0B3B73] dark:text-[#38BDF8] mt-0.5">{activeQuote.role}</p>
+                <h3 className="text-xl font-bold text-[#0A2540] dark:text-white leading-snug">
+                  {activeQuote.name}
+                </h3>
+                <p className="text-sm font-semibold text-[#0B3B73] dark:text-[#38BDF8] mt-0.5">
+                  {activeQuote.role}
+                </p>
 
                 {/* Persona Tag */}
                 <span className="inline-flex items-center gap-1.5 mt-2.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
@@ -161,7 +197,9 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
                 <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 w-full flex flex-col gap-2 text-xs text-slate-500 dark:text-slate-400">
                   <div className="flex items-center gap-2 justify-center lg:justify-start">
                     <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                    <span className="font-medium text-slate-700 dark:text-slate-200">{activeQuote.companyName}</span>
+                    <span className="font-medium text-slate-700 dark:text-slate-200">
+                      {activeQuote.companyName}
+                    </span>
                   </div>
                   <div className="text-[11px] text-slate-500 dark:text-slate-400 italic">
                     {activeQuote.companyType}
@@ -189,7 +227,10 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
                 {/* Star Rating */}
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+                    <Star
+                      key={i}
+                      className="w-5 h-5 fill-amber-400 text-amber-400"
+                    />
                   ))}
                   <span className="ml-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                     Verified Customer Review
@@ -207,7 +248,9 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
                 {/* Company Type Pill & Footer Action */}
                 <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Sector:</span>
+                    <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">
+                      Sector:
+                    </span>
                     <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-md border border-slate-200 dark:border-slate-700">
                       {activeQuote.companyType}
                     </span>
@@ -220,7 +263,9 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
                       onClick={() => onOpenDemo(activeQuote.companyType)}
                       className="inline-flex items-center gap-2 text-xs font-bold text-[#0B3B73] dark:text-[#84CC16] hover:text-[#0A2540] dark:hover:text-white group cursor-pointer"
                     >
-                      <span>Explore solution for {activeQuote.personaCategory}</span>
+                      <span>
+                        Explore solution for {activeQuote.personaCategory}
+                      </span>
                       <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 text-[#84CC16]" />
                     </button>
                   )}
@@ -242,8 +287,8 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
                   onClick={() => setCurrentIndex(idx)}
                   className={`transition-all duration-300 rounded-full cursor-pointer ${
                     currentIndex === idx
-                      ? 'w-8 h-2.5 bg-[#0B3B73] dark:bg-[#84CC16]'
-                      : 'w-2.5 h-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600'
+                      ? "w-8 h-2.5 bg-[#0B3B73] dark:bg-[#84CC16]"
+                      : "w-2.5 h-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600"
                   }`}
                 />
               ))}
@@ -257,12 +302,20 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
               <button
                 id="carousel-autoplay-toggle"
                 type="button"
-                aria-label={isAutoPlaying ? 'Pause automatic carousel' : 'Play automatic carousel'}
+                aria-label={
+                  isAutoPlaying
+                    ? "Pause automatic carousel"
+                    : "Play automatic carousel"
+                }
                 onClick={() => setIsAutoPlaying(!isAutoPlaying)}
                 className="p-2 rounded-full border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-white transition cursor-pointer"
-                title={isAutoPlaying ? 'Pause rotation' : 'Start auto-rotation'}
+                title={isAutoPlaying ? "Pause rotation" : "Start auto-rotation"}
               >
-                {isAutoPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                {isAutoPlaying ? (
+                  <Pause className="w-4 h-4" />
+                ) : (
+                  <Play className="w-4 h-4" />
+                )}
               </button>
 
               <div className="flex items-center gap-2">
@@ -298,19 +351,25 @@ export const CustomerSuccessCarousel: React.FC<CustomerSuccessCarouselProps> = (
                 onClick={() => setCurrentIndex(idx)}
                 className={`p-3 rounded-xl border text-left transition-all duration-200 flex items-center gap-2.5 cursor-pointer ${
                   currentIndex === idx
-                    ? 'bg-white dark:bg-[#162D4E] border-[#0B3B73] dark:border-[#84CC16] shadow-md ring-2 ring-[#0B3B73]/10 dark:ring-[#84CC16]/20'
-                    : 'bg-white/70 dark:bg-[#0E2038]/70 border-slate-200/80 dark:border-slate-800 hover:bg-white dark:hover:bg-[#0E2038] hover:border-slate-300 dark:hover:border-slate-700'
+                    ? "bg-white dark:bg-[#162D4E] border-[#0B3B73] dark:border-[#84CC16] shadow-md ring-2 ring-[#0B3B73]/10 dark:ring-[#84CC16]/20"
+                    : "bg-white/70 dark:bg-[#0E2038]/70 border-slate-200/80 dark:border-slate-800 hover:bg-white dark:hover:bg-[#0E2038] hover:border-slate-300 dark:hover:border-slate-700"
                 }`}
               >
-                <img
-                  src={q.avatar}
-                  alt={q.name}
-                  className="w-8 h-8 rounded-full object-cover shrink-0"
-                  referrerPolicy="no-referrer"
-                />
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs shrink-0 select-none shadow-xs ${
+                    AVATAR_BG_MAP[q.id] || "bg-[#0B3B73] text-[#84CC16]"
+                  }`}
+                  aria-label={q.name}
+                >
+                  {getInitials(q.name)}
+                </div>
                 <div className="min-w-0">
-                  <div className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{q.name}</div>
-                  <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{q.personaCategory}</div>
+                  <div className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
+                    {q.name}
+                  </div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                    {q.personaCategory}
+                  </div>
                 </div>
               </button>
             ))}

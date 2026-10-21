@@ -84,34 +84,41 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onOpenBadgeModal
             ariaLabel="Partners Growing With NextSofthr"
             items={TESTIMONIALS}
             perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
+            gapClassName="gap-3.5 sm:gap-4 lg:gap-4"
             renderItem={(t) => {
               const badge = getBadgeForTestimonial(t.id);
+              const getInitials = (name: string) => {
+                const parts = name.replace(/^(Dr\.|Prof\.|Mr\.|Mrs\.|Ms\.)\s+/i, '').split(' ').filter(Boolean);
+                if (parts.length === 0) return 'NX';
+                if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+                return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+              };
 
               return (
                 <div
                   key={t.id}
-                  className="group relative rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#071D3E] dark:to-[#040E1F] border border-slate-200/90 dark:border-blue-800/80 p-8 hover:border-blue-500 dark:hover:border-[#B8F010] transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-xl dark:shadow-xl dark:hover:shadow-2xl dark:hover:shadow-blue-950/70 flex flex-col justify-between h-full"
+                  className="group relative rounded-2xl bg-white dark:bg-gradient-to-b dark:from-[#071D3E] dark:to-[#040E1F] border border-slate-200/90 dark:border-blue-800/80 p-5 sm:p-5.5 hover:border-blue-500 dark:hover:border-[#B8F010] transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-lg dark:shadow-lg dark:hover:shadow-blue-950/70 flex flex-col justify-between h-full"
                 >
                   <div>
                     {/* Header with Quote Icon, Partner Level Badge & Interactive SVG Credential */}
-                    <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-                      <div className="flex items-center gap-2">
-                        <Quote className="w-8 h-8 text-blue-600/30 dark:text-[#B8F010]/40 group-hover:text-blue-600 dark:group-hover:text-[#B8F010] transition-colors" />
-                        <div className="flex gap-1 text-amber-400 dark:text-[#B8F010]">
+                    <div className="flex items-center justify-between mb-3.5 flex-wrap gap-2.5">
+                      <div className="flex items-center gap-1.5">
+                        <Quote className="w-6 h-6 text-blue-600/30 dark:text-[#B8F010]/40 group-hover:text-blue-600 dark:group-hover:text-[#B8F010] transition-colors" />
+                        <div className="flex gap-0.5 text-amber-400 dark:text-[#B8F010]">
                           {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                            <Star key={i} className="w-3 h-3 fill-current" />
                           ))}
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1.5">
                         {/* Interactive Mini Certification Badge */}
                         <button
                           onClick={() => onOpenBadgeModal && onOpenBadgeModal(badge)}
-                          className="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/80 hover:bg-blue-100 dark:hover:bg-blue-800 text-blue-800 dark:text-[#B8F010] border border-blue-200 dark:border-[#B8F010]/30 text-[11px] font-bold flex items-center gap-1.5 transition-all shadow-xs"
+                          className="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/80 hover:bg-blue-100 dark:hover:bg-blue-800 text-blue-800 dark:text-[#B8F010] border border-blue-200 dark:border-[#B8F010]/30 text-[10px] font-bold flex items-center gap-1 transition-all shadow-xs"
                           title={`Click to view & download official SVG certification badge for ${badge.partnerName}`}
                         >
-                          <Award className="w-3.5 h-3.5 text-[#B8F010]" />
+                          <Award className="w-3 h-3 text-[#B8F010]" />
                           <span>{t.partnerLevel} SVG Badge</span>
                         </button>
 
@@ -126,41 +133,39 @@ export const SuccessStories: React.FC<SuccessStoriesProps> = ({ onOpenBadgeModal
                     </div>
 
                     {/* Testimonial Quote */}
-                    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed italic mb-8">
+                    <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed italic mb-4">
                       &ldquo;{t.quote}&rdquo;
                     </p>
                   </div>
 
-                  {/* Partner Profile Footer with Mini SVG Avatar Badge */}
-                  <div className="pt-6 border-t border-slate-200 dark:border-blue-900/80 flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3.5">
-                      <div className="relative cursor-pointer" onClick={() => onOpenBadgeModal && onOpenBadgeModal(badge)}>
-                        <img
-                          src={t.avatar}
-                          alt={t.name}
-                          className="w-12 h-12 rounded-full object-cover border-2 border-blue-600 group-hover:border-[#B8F010] transition-colors shadow-sm"
-                        />
-                        <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#B8F010] border-2 border-[#040E1F] flex items-center justify-center text-[8px] font-black text-[#040E1F]">
+                  {/* Partner Profile Footer with Name Initials Avatar */}
+                  <div className="pt-3.5 border-t border-slate-200 dark:border-blue-900/80 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="relative cursor-pointer shrink-0" onClick={() => onOpenBadgeModal && onOpenBadgeModal(badge)}>
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0A3F7E] via-[#0F2D6B] to-[#12398C] text-white font-extrabold flex items-center justify-center text-xs tracking-wider border-2 border-blue-600 group-hover:border-[#B8F010] transition-colors shadow-sm">
+                          {getInitials(t.name)}
+                        </div>
+                        <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#B8F010] border-2 border-[#040E1F] flex items-center justify-center text-[7px] font-black text-[#040E1F]">
                           ✓
                         </span>
                       </div>
 
                       <div>
-                        <h4 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-[#B8F010] transition-colors">
+                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-[#B8F010] transition-colors">
                           {t.name}
                         </h4>
-                        <p className="text-xs text-blue-700 dark:text-blue-200 font-medium">
+                        <p className="text-[11px] text-blue-700 dark:text-blue-200 font-medium line-clamp-1">
                           {t.role}, {t.company}
                         </p>
-                        <span className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5">
-                          {t.flag} {t.country} • <span className="font-mono text-[10px] text-slate-600 dark:text-blue-300">{badge.partnerId}</span>
+                        <span className="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5">
+                          {t.flag} {t.country} • <span className="font-mono text-[9px] text-slate-600 dark:text-blue-300">{badge.partnerId}</span>
                         </span>
                       </div>
                     </div>
 
-                    <div className="hidden sm:flex flex-col text-right">
-                      <span className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-medium">Impact</span>
-                      <span className="text-xs font-bold text-blue-700 dark:text-[#B8F010] font-mono">{t.stats}</span>
+                    <div className="hidden sm:flex flex-col text-right shrink-0">
+                      <span className="text-[9px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-medium">Impact</span>
+                      <span className="text-[11px] font-bold text-blue-700 dark:text-[#B8F010] font-mono">{t.stats}</span>
                     </div>
                   </div>
 

@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, type FormEvent } from 'react';
+import { useState, useRef, useCallback, useEffect, type FormEvent } from 'react';
 import { 
   Sparkles, Bot, Send, CheckCircle, FileText, ArrowRight, 
   HelpCircle, ShieldCheck, Zap, UserCheck, TrendingUp, 
@@ -21,20 +21,36 @@ export const AiAssistantSection = ({ onOpenDemo, onOpenPayslip }: AiAssistantSec
   const [isTyping, setIsTyping] = useState(false);
   const [actionDone, setActionDone] = useState(false);
 
-  // AI Capabilities slider state
+  // AI Capabilities responsive slider state
+  const [itemsPerPage, setItemsPerPage] = useState<number>(4);
   const [aiSliderPage, setAiSliderPage] = useState(0);
-  const aiSliderRef = useRef<HTMLDivElement>(null);
-  const aiItemsPerPage = 4;
-  const aiTotalPages = Math.ceil(AI_CAPABILITIES.length / aiItemsPerPage);
+
+  useEffect(() => {
+    const handleResize = () => {
+      let perPage = 4;
+      if (window.innerWidth < 640) perPage = 1;
+      else if (window.innerWidth < 1024) perPage = 2;
+      setItemsPerPage(perPage);
+      setAiSliderPage(prev => {
+        const maxPages = Math.ceil(AI_CAPABILITIES.length / perPage);
+        return Math.min(prev, Math.max(0, maxPages - 1));
+      });
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const aiTotalPages = Math.ceil(AI_CAPABILITIES.length / itemsPerPage);
 
   const goToAiPage = useCallback((page: number) => {
     const clamped = Math.max(0, Math.min(page, aiTotalPages - 1));
     setAiSliderPage(clamped);
-    if (aiSliderRef.current) {
-      const cardWidth = aiSliderRef.current.scrollWidth / AI_CAPABILITIES.length;
-      aiSliderRef.current.scrollTo({ left: clamped * aiItemsPerPage * cardWidth, behavior: 'smooth' });
-    }
   }, [aiTotalPages]);
+
+  const maxStartIndex = Math.max(0, AI_CAPABILITIES.length - itemsPerPage);
+  const currentStartIndex = Math.min(aiSliderPage * itemsPerPage, maxStartIndex);
+  const shiftPercentage = (currentStartIndex * 100) / AI_CAPABILITIES.length;
 
   const localizeValue = (val: any): string => {
     if (!val || typeof val !== 'string') return val ? String(val) : '';
@@ -425,13 +441,10 @@ export const AiAssistantSection = ({ onOpenDemo, onOpenPayslip }: AiAssistantSec
             </button>
 
             {/* Scrollable Track */}
-            <div
-              ref={aiSliderRef}
-              className="overflow-hidden"
-            >
+            <div className="overflow-hidden">
               <div
                 className="flex transition-transform duration-500 ease-out"
-                style={{ transform: `translateX(-${aiSliderPage * 100}%)` }}
+                style={{ transform: `translateX(-${shiftPercentage}%)` }}
               >
                 {AI_CAPABILITIES.map((cap, idx) => {
                   const IconComp = iconMap[cap.icon] || Sparkles;

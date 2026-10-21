@@ -163,13 +163,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
 
               {/* Get Started - Primary CTA with Lemon Green Accent */}
-              <button
-                onClick={onOpenGetStarted}
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-bold text-slate-950 bg-[#8EE000] hover:bg-[#9EF01A] rounded-lg shadow-sm hover:shadow transition-all active:scale-[0.98] whitespace-nowrap border border-[#7BC500]"
+              <a
+                href="/signup"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-bold text-slate-950 bg-[#8EE000] hover:bg-[#9EF01A] rounded-lg shadow-sm hover:shadow transition-all active:scale-[0.98] whitespace-nowrap border border-[#7BC500] cursor-pointer"
               >
                 <span>{t('nav.getStarted', 'Get Started')}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              </a>
 
               {/* Mobile menu trigger */}
               <button
@@ -281,15 +281,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   {t('nav.bookDemo', 'Book a Demo')}
                 </button>
-                <button
-                  onClick={() => {
-                    onOpenGetStarted();
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="w-full py-2.5 text-xs font-bold text-slate-950 bg-[#8EE000] hover:bg-[#9EF01A] rounded-lg text-center"
+                <a
+                  href="/signup"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full py-2.5 text-xs font-bold text-slate-950 bg-[#8EE000] hover:bg-[#9EF01A] rounded-lg text-center cursor-pointer block"
                 >
                   {t('nav.getStarted', 'Get Started')}
-                </button>
+                </a>
               </div>
 
               <div className="text-center pt-2 text-xs text-slate-500 dark:text-slate-400">

@@ -9,12 +9,13 @@ export interface PerView {
   xl?: number;
 }
 
-interface CardSliderProps<T> {
+export interface CardSliderProps<T> {
   id: string;
   items: T[];
   renderItem: (item: T, index: number) => React.ReactNode;
   perView: PerView;
   ariaLabel?: string;
+  gapClassName?: string;
 }
 
 const BREAKPOINTS: Array<[keyof PerView, number]> = [
@@ -34,7 +35,14 @@ const getPerView = (cfg: PerView): number => {
   return cfg.base;
 };
 
-export function CardSlider<T>({ id, items, renderItem, perView, ariaLabel }: CardSliderProps<T>) {
+export function CardSlider<T>({
+  id,
+  items,
+  renderItem,
+  perView,
+  ariaLabel,
+  gapClassName = 'gap-6 lg:gap-8',
+}: CardSliderProps<T>) {
   const [view, setView] = useState<number>(() => getPerView(perView));
   const [page, setPage] = useState(0);
 
@@ -76,7 +84,7 @@ export function CardSlider<T>({ id, items, renderItem, perView, ariaLabel }: Car
           {Array.from({ length: pageCount }).map((_, p) => (
             <div
               key={p}
-              className="w-full shrink-0 grid gap-6 lg:gap-8 items-stretch py-2 px-1"
+              className={`w-full shrink-0 grid ${gapClassName} items-stretch py-2 px-1`}
               style={{ gridTemplateColumns: `repeat(${view}, minmax(0, 1fr))` }}
               aria-hidden={p !== page}
             >

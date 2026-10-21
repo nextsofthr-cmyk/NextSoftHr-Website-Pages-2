@@ -89,7 +89,7 @@ export const BuiltForAfrica: React.FC<BuiltForAfricaProps> = ({ onOpenDemo }) =>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
           <div className="relative rounded-2xl overflow-hidden h-64 group shadow-md border border-transparent dark:border-slate-800">
             <img
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop"
+              src="https://img.freepik.com/free-photo/elegant-young-man-working-office_273609-5138.jpg?t=st=1697043701~exp=1697044301~hmac=cb4f2842c357ebf7b63168caa68336e02a5e3faaa37bb6257576dc37c2182261"
               alt="African corporate HR leadership"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -104,7 +104,7 @@ export const BuiltForAfrica: React.FC<BuiltForAfricaProps> = ({ onOpenDemo }) =>
 
           <div className="relative rounded-2xl overflow-hidden h-64 group shadow-md border border-transparent dark:border-slate-800">
             <img
-              src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?q=80&w=600&auto=format&fit=crop"
+              src="https://saaslyn-next.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fblog-thumb-1.7db2bab6.png&w=640&q=75"
               alt="African tech & product development team"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -119,7 +119,7 @@ export const BuiltForAfrica: React.FC<BuiltForAfricaProps> = ({ onOpenDemo }) =>
 
           <div className="relative rounded-2xl overflow-hidden h-64 group shadow-md border border-transparent dark:border-slate-800">
             <img
-              src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600&auto=format&fit=crop"
+              src="https://img.freepik.com/free-photo/people-working-their-office_23-2149196437.jpg?size=626&ext=jpg&ga=GA1.1.233311484.1695720566&semt=ais"
               alt="Business consultancy & advisory"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -134,7 +134,7 @@ export const BuiltForAfrica: React.FC<BuiltForAfricaProps> = ({ onOpenDemo }) =>
 
           <div className="relative rounded-2xl overflow-hidden h-64 group shadow-md border border-transparent dark:border-slate-800">
             <img
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop"
+              src="https://templates.envytheme.com/timido/assets/images/success-stories/success-stories3.jpg"
               alt="Cross-border and international remote teams"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />

@@ -16,13 +16,15 @@ import {
   Cpu
 } from 'lucide-react';
 import { NavigationPage } from '../../types';
+import { SolutionNavigationFooter } from '../layout/SolutionNavigationFooter';
 
 interface OutsourcingHubProps {
   onNavigate: (page: NavigationPage) => void;
   onOpenLeadModal: (service?: string) => void;
+  onBack?: () => void;
 }
 
-export const OutsourcingHub: React.FC<OutsourcingHubProps> = ({ onNavigate, onOpenLeadModal }) => {
+export const OutsourcingHub: React.FC<OutsourcingHubProps> = ({ onNavigate, onOpenLeadModal, onBack }) => {
   const serviceCards = [
     {
       id: 'outsourcing-payroll' as NavigationPage,
@@ -323,6 +325,13 @@ export const OutsourcingHub: React.FC<OutsourcingHubProps> = ({ onNavigate, onOp
           </div>
         </div>
       </section>
+
+      {/* Explore Other Outsourcing Solutions & Return Home */}
+      <SolutionNavigationFooter
+        currentSolutionId="outsourcing-hub"
+        onNavigate={onNavigate}
+        onOpenLeadModal={onOpenLeadModal}
+      />
     </div>
   );
 };

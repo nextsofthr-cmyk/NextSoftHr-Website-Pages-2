@@ -1,17 +1,20 @@
-import React from 'react';
-import { GlobalFooter } from '../../../../components/GlobalFooter';
-import { NavigationPage } from '../../types';
+import React from "react";
+import { NavigationPage } from "../../types";
+import { GlobalFooter } from "../../../../components/GlobalFooter";
 
 interface FooterProps {
-  onNavigate?: (page: NavigationPage) => void;
-  onOpenLeadModal?: (service?: string) => void;
+  onNavigate: (page: NavigationPage) => void;
+  onOpenLeadModal: (service?: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenLeadModal }) => {
+export const Footer: React.FC<FooterProps> = ({
+  onNavigate,
+  onOpenLeadModal,
+}) => {
   return (
     <GlobalFooter
-      onOpenDemo={() => onOpenLeadModal?.('Demo')}
-      onOpenExpert={() => onOpenLeadModal?.('Expert Consultation')}
+      onNavigate={onNavigate as (page: string) => void}
+      onOpenLeadModal={onOpenLeadModal}
     />
   );
 };

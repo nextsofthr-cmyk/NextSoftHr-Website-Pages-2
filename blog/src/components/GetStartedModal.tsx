@@ -17,7 +17,7 @@ export const GetStartedModal: React.FC<GetStartedModalProps> = ({ onClose }) => 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSuccess(true);
+    window.location.href = '/signup';
   };
 
   return (

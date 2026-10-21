@@ -3,6 +3,7 @@ import {
   ChevronDown,
   ArrowRight,
   Play,
+  Calendar,
   Shield,
   Globe,
   Sparkles,
@@ -136,6 +137,15 @@ export const FaqAndFooter = ({
               <ArrowRight className="w-4 h-4 text-lime-400 group-hover:translate-x-1 transition-transform" />
             </a>
 
+            <button
+              id="final-book-demo-cta"
+              onClick={onOpenDemo}
+              className="w-full sm:w-auto px-7 py-3.5 text-base font-bold text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 cursor-pointer"
+            >
+              <Calendar className="w-4 h-4 text-lime-400" />
+              <span>Book a Demo</span>
+            </button>
+
             <a
               id="final-explore-demo-cta"
               href="https://demo.scriptmaster.store/login"
@@ -144,7 +154,7 @@ export const FaqAndFooter = ({
               className="w-full sm:w-auto px-8 py-3.5 text-base font-bold text-slate-950 bg-[#84cc16] hover:bg-[#74be12] rounded-xl shadow-lg shadow-lime-500/25 transition-all flex items-center justify-center gap-2 group hover:-translate-y-0.5 cursor-pointer"
             >
               <Play className="w-4 h-4 text-slate-950 fill-current" />
-              <span>Explore Demo</span>
+              <span>Explore Free Demo</span>
               <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
             </a>
 

@@ -94,13 +94,13 @@ export const BusinessSizeSection: React.FC<BusinessSizeSectionProps> = ({
 
                 {/* Bottom CTA */}
                 <div className="p-5 sm:p-6 pt-0 mt-auto">
-                  <button
-                    onClick={onOpenGetStarted}
+                  <a
+                    href="/signup"
                     className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-[#0256C4] dark:text-blue-300 group-hover:bg-[#0256C4] group-hover:text-white border border-blue-200 dark:border-blue-800 group-hover:border-transparent transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span>Get Started</span>
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+                  </a>
                 </div>
               </div>
             );

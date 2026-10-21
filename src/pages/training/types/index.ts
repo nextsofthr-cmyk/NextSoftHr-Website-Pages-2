@@ -128,11 +128,12 @@ export interface Instructor {
 export interface Testimonial {
   id: string;
   name: string;
+  initials?: string;
   role: string;
   organization: string;
   courseCompleted: string;
   content: string;
-  photo: string;
+  photo?: string;
   rating: number;
   verifiedStudent: boolean;
 }

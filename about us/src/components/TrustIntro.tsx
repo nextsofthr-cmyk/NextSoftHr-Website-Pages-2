@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Users,
   Calculator,
@@ -6,8 +6,12 @@ import {
   UserCheck,
   Briefcase,
   Sparkles,
+  TrendingUp,
+  ShieldCheck,
   Check,
-  ArrowUpRight
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { CAPABILITY_HIGHLIGHTS } from '../data/contentData';
 
@@ -16,22 +20,86 @@ interface TrustIntroProps {
 }
 
 export const TrustIntro: React.FC<TrustIntroProps> = ({ onSelectModule }) => {
+  const [itemsPerPage, setItemsPerPage] = useState<number>(4);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Responsive items-per-page calculation: 4 on desktop, 2 on tablet, 1 on mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerPage(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerPage(2);
+      } else {
+        setItemsPerPage(4);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const totalPages = Math.ceil(CAPABILITY_HIGHLIGHTS.length / itemsPerPage);
+
+  // Ensure currentPage does not exceed totalPages on resize
+  useEffect(() => {
+    if (currentPage >= totalPages) {
+      setCurrentPage(Math.max(0, totalPages - 1));
+    }
+  }, [totalPages, currentPage]);
+
+  const handleNext = () => {
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const handlePrev = () => {
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  // Touch swipe support
+  const minSwipeDistance = 50;
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (distance > minSwipeDistance) {
+      handleNext();
+    } else if (distance < -minSwipeDistance) {
+      handlePrev();
+    }
+  };
+
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'Users':
-        return <Users className="w-6 h-6 text-[#0B3B73]" />;
+        return <Users className="w-6 h-6 text-[#0B3B73] dark:text-[#38BDF8]" />;
       case 'Calculator':
-        return <Calculator className="w-6 h-6 text-[#0B3B73]" />;
+        return <Calculator className="w-6 h-6 text-[#0B3B73] dark:text-[#38BDF8]" />;
       case 'Clock':
-        return <Clock className="w-6 h-6 text-[#0B3B73]" />;
+        return <Clock className="w-6 h-6 text-[#0B3B73] dark:text-[#38BDF8]" />;
       case 'UserCheck':
-        return <UserCheck className="w-6 h-6 text-[#0B3B73]" />;
+        return <UserCheck className="w-6 h-6 text-[#0B3B73] dark:text-[#38BDF8]" />;
       case 'Briefcase':
-        return <Briefcase className="w-6 h-6 text-[#0B3B73]" />;
+        return <Briefcase className="w-6 h-6 text-[#0B3B73] dark:text-[#38BDF8]" />;
       case 'Sparkles':
         return <Sparkles className="w-6 h-6 text-[#84CC16]" />;
+      case 'TrendingUp':
+        return <TrendingUp className="w-6 h-6 text-[#84CC16]" />;
+      case 'ShieldCheck':
+        return <ShieldCheck className="w-6 h-6 text-[#0B3B73] dark:text-[#38BDF8]" />;
       default:
-        return <Users className="w-6 h-6 text-[#0B3B73]" />;
+        return <Users className="w-6 h-6 text-[#0B3B73] dark:text-[#38BDF8]" />;
     }
   };
 
@@ -67,46 +135,110 @@ export const TrustIntro: React.FC<TrustIntroProps> = ({ onSelectModule }) => {
           </div>
         </div>
 
-        {/* 6 Capability Cards (Visual statistics & pillars without fabricated customer numbers) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {CAPABILITY_HIGHLIGHTS.map((cap, index) => (
-            <div
-              key={cap.title}
-              className="bg-[#F8FAFC] dark:bg-[#0E2038] hover:bg-[#F0F7FF] dark:hover:bg-[#132A4A] border border-slate-200/80 dark:border-blue-900/40 hover:border-blue-300 dark:hover:border-blue-600 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg group flex flex-col justify-between"
+        {/* Carousel Container with Side Arrows */}
+        <div 
+          className="relative px-0 sm:px-6 focus:outline-hidden"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowLeft') handlePrev();
+            if (e.key === 'ArrowRight') handleNext();
+          }}
+          aria-label="Technology capabilities slider"
+        >
+          {/* Side Prev Arrow */}
+          <button
+            type="button"
+            onClick={handlePrev}
+            aria-label="Previous capabilities"
+            title="Previous capabilities"
+            className="flex absolute -left-2 sm:-left-3 lg:-left-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white dark:bg-[#0a1c3b] border border-slate-200 dark:border-slate-700 text-[#0B3B73] dark:text-white shadow-xl hover:bg-[#0B3B73] hover:text-white dark:hover:bg-[#84CC16] dark:hover:text-[#061124] items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110 active:scale-95"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+
+          {/* Side Next Arrow */}
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Next capabilities"
+            title="Next capabilities"
+            className="flex absolute -right-2 sm:-right-3 lg:-right-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white dark:bg-[#0a1c3b] border border-slate-200 dark:border-slate-700 text-[#0B3B73] dark:text-white shadow-xl hover:bg-[#0B3B73] hover:text-white dark:hover:bg-[#84CC16] dark:hover:text-[#061124] items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110 active:scale-95"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+
+          {/* Sliding Track Viewport */}
+          <div 
+            className="overflow-hidden py-2"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <div 
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${currentPage * 100}%)` }}
             >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-white dark:bg-[#162D4E] shadow-sm border border-slate-100 dark:border-blue-800/40 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    {getIcon(cap.icon)}
-                  </div>
-                  <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-100/60 dark:bg-blue-950/80 text-[#0B3B73] dark:text-[#38BDF8]">
-                    {cap.badge}
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-bold text-[#0A2540] dark:text-white mb-2 group-hover:text-[#0B3B73] dark:group-hover:text-[#84CC16] transition-colors">
-                  {cap.title}
-                </h3>
-
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  {cap.description}
-                </p>
-              </div>
-
-              <div className="pt-6 mt-4 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between text-xs font-semibold text-[#0B3B73] dark:text-[#38BDF8]">
-                <span className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
-                  <Check className="w-3.5 h-3.5 text-[#84CC16]" />
-                  Integrated Capability
-                </span>
-                <button
-                  onClick={() => onSelectModule(cap.title)}
-                  className="inline-flex items-center gap-1 text-[#0B3B73] dark:text-[#84CC16] group-hover:text-[#0A2540] dark:group-hover:text-white hover:underline cursor-pointer"
+              {CAPABILITY_HIGHLIGHTS.map((cap) => (
+                <div 
+                  key={cap.title} 
+                  className="w-full sm:w-1/2 lg:w-1/4 shrink-0 px-2.5 flex flex-col"
                 >
-                  <span>Explore Module</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#84CC16]" />
-                </button>
-              </div>
+                  <div
+                    className="bg-[#F8FAFC] dark:bg-[#0E2038] hover:bg-[#F0F7FF] dark:hover:bg-[#132A4A] border border-slate-200/80 dark:border-blue-900/40 hover:border-blue-300 dark:hover:border-blue-600 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg group flex flex-col justify-between h-full"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="w-12 h-12 rounded-xl bg-white dark:bg-[#162D4E] shadow-sm border border-slate-100 dark:border-blue-800/40 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          {getIcon(cap.icon)}
+                        </div>
+                        <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-100/60 dark:bg-blue-950/80 text-[#0B3B73] dark:text-[#38BDF8]">
+                          {cap.badge}
+                        </span>
+                      </div>
+
+                      <h3 className="text-xl font-bold text-[#0A2540] dark:text-white mb-2 group-hover:text-[#0B3B73] dark:group-hover:text-[#84CC16] transition-colors">
+                        {cap.title}
+                      </h3>
+
+                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                        {cap.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-6 mt-4 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between text-xs font-semibold text-[#0B3B73] dark:text-[#38BDF8]">
+                      <span className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+                        <Check className="w-3.5 h-3.5 text-[#84CC16]" />
+                        Integrated Capability
+                      </span>
+                      <button
+                        onClick={() => onSelectModule(cap.title)}
+                        className="inline-flex items-center gap-1 text-[#0B3B73] dark:text-[#84CC16] group-hover:text-[#0A2540] dark:group-hover:text-white hover:underline cursor-pointer"
+                      >
+                        <span>Explore Module</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-[#84CC16]" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
+          </div>
+        </div>
+
+        {/* Bottom Pagination Dots */}
+        <div className="mt-8 flex items-center justify-center gap-2" aria-label="Pagination controls">
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              aria-label={`Go to slide page ${idx + 1}`}
+              onClick={() => setCurrentPage(idx)}
+              className={`transition-all duration-300 rounded-full cursor-pointer ${
+                currentPage === idx
+                  ? 'w-8 h-2.5 bg-[#0B3B73] dark:bg-[#84CC16]'
+                  : 'w-2.5 h-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-500'
+              }`}
+            />
           ))}
         </div>
 

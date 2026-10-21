@@ -69,6 +69,18 @@ export const CAPABILITY_HIGHLIGHTS = [
     icon: 'Sparkles',
     badge: 'NextGen AI',
   },
+  {
+    title: 'Performance & Appraisals',
+    description: 'Goal cascades, 360-degree feedback, competency matrices, and structured talent development roadmaps.',
+    icon: 'TrendingUp',
+    badge: 'Growth',
+  },
+  {
+    title: 'Compliance & Audit Vault',
+    description: 'Bank-grade audit logs, multi-entity tax engines, statutory filings, and encrypted contract repositories.',
+    icon: 'ShieldCheck',
+    badge: 'Enterprise',
+  },
 ];
 
 export const STORY_PHASES: StoryPhase[] = [
@@ -168,6 +180,20 @@ export const CORE_VALUES: ValueCard[] = [
     description:
       'We help businesses and their employees unlock their full potential by providing tools that drive productivity, clarity, and informed decision-making.',
     iconName: 'TrendingUp',
+  },
+  {
+    number: '07',
+    title: 'Excellence',
+    description:
+      'We hold ourselves to world-class software craftsmanship, benchmark security standards, and uncompromising attention to detail.',
+    iconName: 'Sparkles',
+  },
+  {
+    number: '08',
+    title: 'Empowerment',
+    description:
+      'We democratize enterprise-grade technology so organizations of every scale, from agile startups to continental enterprises, can thrive.',
+    iconName: 'Award',
   },
 ];
 
@@ -668,6 +694,18 @@ export const WHY_CHOOSE_US = [
     description: 'Built with an intimate understanding of African business realities while architected to support global enterprises effortlessly.',
     icon: 'Globe',
     benefit: 'Local tax & mobile money support coupled with global compliance',
+  },
+  {
+    title: 'Bank-Grade Security & Trust',
+    description: 'Protect sensitive payroll, compensation, and employee data with 256-bit encryption, role-based access, and continuous audit trails.',
+    icon: 'ShieldCheck',
+    benefit: 'Enterprise SOC-2 ready protocols & continuous encrypted backups',
+  },
+  {
+    title: 'Dedicated Human Support',
+    description: 'Get responsive, proactive support from real human implementation specialists who understand local payroll regulations and operations.',
+    icon: 'Headphones',
+    benefit: 'Under 15-minute average response time with dedicated account managers',
   },
 ];
 

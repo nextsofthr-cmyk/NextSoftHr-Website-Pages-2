@@ -514,12 +514,12 @@ export const BlogDetailsPage: React.FC<BlogDetailsPageProps> = ({
                   <span>Explore Live Demo</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </a>
-                <button
-                  onClick={onOpenGetStarted}
-                  className="px-6 py-3 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all"
+                <a
+                  href="/signup"
+                  className="px-6 py-3 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all flex items-center justify-center cursor-pointer"
                 >
-                  <span>{t('nav.getStarted', 'Explore NextSoftHr')}</span>
-                </button>
+                  <span>{t('nav.getStarted', 'Get Started')}</span>
+                </a>
                 <button
                   onClick={onOpenBookDemo}
                   className="px-6 py-3 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all"
@@ -677,12 +677,12 @@ export const BlogDetailsPage: React.FC<BlogDetailsPageProps> = ({
                 <p className="text-xs text-slate-300">
                   {t('cta.subtitle', 'Manage HR, payroll, attendance, talent, finance and business operations from one intelligent platform.')}
                 </p>
-                <button
-                  onClick={onOpenGetStarted}
-                  className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-slate-950 bg-[#8EE000] hover:bg-[#9EF01A] transition-all border border-[#7BC500]"
+                <a
+                  href="/signup"
+                  className="block w-full py-2.5 px-4 rounded-xl text-xs font-bold text-slate-950 bg-[#8EE000] hover:bg-[#9EF01A] transition-all border border-[#7BC500] text-center cursor-pointer"
                 >
-                  {t('nav.getStarted', 'Explore NextSoftHr')}
-                </button>
+                  {t('nav.getStarted', 'Get Started')}
+                </a>
               </div>
             </div>
           </aside>

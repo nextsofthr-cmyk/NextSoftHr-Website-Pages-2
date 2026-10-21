@@ -777,11 +777,20 @@ export const MainContactForm: React.FC<MainContactFormProps> = ({
                           className="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-xs text-white focus:border-[#C8F000] outline-none cursor-pointer"
                         >
                           <option value="None / Moving from legacy" className="text-[#0B1F3A]">None / Moving from legacy</option>
+                          <option value="QuickBooks" className="text-[#0B1F3A]">QuickBooks</option>
+                          <option value="FreshBooks" className="text-[#0B1F3A]">FreshBooks</option>
+                          <option value="ZohoBooks" className="text-[#0B1F3A]">ZohoBooks</option>
+                          <option value="Sage 50" className="text-[#0B1F3A]">Sage 50</option>
+                          <option value="Sage X3" className="text-[#0B1F3A]">Sage X3</option>
+                          <option value="Sage Pastel 200" className="text-[#0B1F3A]">Sage Pastel 200</option>
+                          <option value="Sage 300" className="text-[#0B1F3A]">Sage 300</option>
+                          <option value="Tally" className="text-[#0B1F3A]">Tally</option>
                           <option value="SAP / SuccessFactors" className="text-[#0B1F3A]">SAP / SuccessFactors</option>
                           <option value="Oracle NetSuite / Fusion" className="text-[#0B1F3A]">Oracle NetSuite / Fusion</option>
                           <option value="Microsoft Dynamics 365" className="text-[#0B1F3A]">Microsoft Dynamics 365</option>
                           <option value="Workday" className="text-[#0B1F3A]">Workday</option>
                           <option value="Custom In-house API" className="text-[#0B1F3A]">Custom In-house Database / API</option>
+                          <option value="Others" className="text-[#0B1F3A]">Others</option>
                         </select>
                       </div>
                     </div>

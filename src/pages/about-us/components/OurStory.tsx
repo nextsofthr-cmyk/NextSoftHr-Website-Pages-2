@@ -30,19 +30,19 @@ export const OurStory: React.FC = () => {
 
   const stageImages = [
     {
-      url: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop',
+      url: 'https://automation-saas-tailwind.pixels71.workers.dev/images/ns-img-16.jpg',
       caption: 'The Reality: African founders navigating disconnected manual paperwork and complex multi-entity payrolls.',
     },
     {
-      url: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop',
+      url: 'https://saaslyn-next.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fblog-thumb-2.05ff7554.png&w=640&q=75',
       caption: 'The Innovation: Engineering a modern system reflecting African commercial real-world operations.',
     },
     {
-      url: 'https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?q=80&w=800&auto=format&fit=crop',
+      url: 'https://ordainit.com/html/codox/codox/assets/img/about/about-5-1.jpg',
       caption: 'The Technology: Building an integrated cloud ecosystem uniting payroll, attendance, and HR.',
     },
     {
-      url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop',
+      url: 'https://img.freepik.com/free-photo/group-afro-americans-working-together_1303-8984.jpg?w=740&t=st=1697043446~exp=1697044046~hmac=af0d0249e084e01e2502b7dc44197e0d27aeb8b08ddd37543994be0e3ac13c34',
       caption: 'The Global Horizon: Connecting enterprise teams across African capitals and worldwide branches.',
     },
   ];

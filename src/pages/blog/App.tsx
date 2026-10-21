@@ -245,6 +245,10 @@ function BlogContent() {
     setArticles((prev) => prev.filter((a) => a.id !== id));
   };
 
+  const handleOpenGetStarted = () => {
+    window.location.href = '/signup';
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] dark:bg-[#061528] text-slate-900 dark:text-slate-100 transition-colors duration-300">
       {/* Sticky Global Navigation */}
@@ -252,7 +256,7 @@ function BlogContent() {
         currentView={currentRoute}
         onNavigate={navigateTo}
         onOpenBookDemo={() => setIsBookDemoOpen(true)}
-        onOpenGetStarted={() => setIsGetStartedOpen(true)}
+        onOpenGetStarted={handleOpenGetStarted}
         onOpenBookmarks={() => setIsBookmarksOpen(true)}
         onOpenCmsAdmin={() => setIsCmsAdminOpen(true)}
         bookmarkedCount={bookmarkedIds.length}
@@ -272,7 +276,7 @@ function BlogContent() {
             isBookmarked={bookmarkedIds.includes(currentArticle.id)}
             onToggleBookmark={handleToggleBookmark}
             onOpenBookDemo={() => setIsBookDemoOpen(true)}
-            onOpenGetStarted={() => setIsGetStartedOpen(true)}
+            onOpenGetStarted={handleOpenGetStarted}
           />
         ) : (
           /* BLOG LANDING PAGE: /blog */
@@ -283,7 +287,7 @@ function BlogContent() {
                 const el = document.getElementById('latest-insights-section');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              onExploreNextSoftHr={() => setIsGetStartedOpen(true)}
+              onExploreNextSoftHr={handleOpenGetStarted}
               onOpenBookDemo={() => setIsBookDemoOpen(true)}
             />
 
@@ -359,7 +363,7 @@ function BlogContent() {
 
             {/* 12. NextSoftHr Conversion CTA with Platform Mockup */}
             <NextSoftHrConversionCta
-              onOpenGetStarted={() => setIsGetStartedOpen(true)}
+              onOpenGetStarted={handleOpenGetStarted}
               onOpenBookDemo={() => setIsBookDemoOpen(true)}
             />
           </main>
@@ -370,7 +374,7 @@ function BlogContent() {
       <Footer
         onNavigate={navigateTo}
         onOpenBookDemo={() => setIsBookDemoOpen(true)}
-        onOpenGetStarted={() => setIsGetStartedOpen(true)}
+        onOpenGetStarted={handleOpenGetStarted}
         onOpenSitemap={() => setIsSitemapOpen(true)}
       />
 

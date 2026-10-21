@@ -13,12 +13,20 @@ import {
   Sparkles,
   ChevronRight
 } from 'lucide-react';
+import { NavigationPage } from '../../types';
+import { SolutionNavigationFooter } from '../layout/SolutionNavigationFooter';
 
 interface ManagedHRProps {
   onOpenLeadModal: (service?: string) => void;
+  onNavigate?: (page: NavigationPage) => void;
+  onBack?: () => void;
 }
 
-export const ManagedHR: React.FC<ManagedHRProps> = ({ onOpenLeadModal }) => {
+export const ManagedHR: React.FC<ManagedHRProps> = ({ 
+  onOpenLeadModal,
+  onNavigate,
+  onBack
+}) => {
   const [teamSize, setTeamSize] = useState<'growth' | 'midsize' | 'enterprise'>('midsize');
 
   const podConfigs = {
@@ -286,6 +294,15 @@ export const ManagedHR: React.FC<ManagedHRProps> = ({ onOpenLeadModal }) => {
           ))}
         </div>
       </section>
+
+      {/* Explore Other Outsourcing Solutions & Return Home */}
+      {onNavigate && (
+        <SolutionNavigationFooter
+          currentSolutionId="outsourcing-managed-hr"
+          onNavigate={onNavigate}
+          onOpenLeadModal={onOpenLeadModal}
+        />
+      )}
     </div>
   );
 };

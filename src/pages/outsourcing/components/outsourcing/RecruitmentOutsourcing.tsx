@@ -17,13 +17,20 @@ import {
   Filter
 } from 'lucide-react';
 import { SAMPLE_CANDIDATES } from '../../data/mockData';
-import { JobCandidate } from '../../types';
+import { JobCandidate, NavigationPage } from '../../types';
+import { SolutionNavigationFooter } from '../layout/SolutionNavigationFooter';
 
 interface RecruitmentOutsourcingProps {
   onOpenLeadModal: (service?: string) => void;
+  onNavigate?: (page: NavigationPage) => void;
+  onBack?: () => void;
 }
 
-export const RecruitmentOutsourcing: React.FC<RecruitmentOutsourcingProps> = ({ onOpenLeadModal }) => {
+export const RecruitmentOutsourcing: React.FC<RecruitmentOutsourcingProps> = ({ 
+  onOpenLeadModal,
+  onNavigate,
+  onBack
+}) => {
   const [candidates, setCandidates] = useState<JobCandidate[]>(SAMPLE_CANDIDATES);
   const [selectedCandidate, setSelectedCandidate] = useState<JobCandidate>(SAMPLE_CANDIDATES[0]);
   
@@ -315,7 +322,7 @@ export const RecruitmentOutsourcing: React.FC<RecruitmentOutsourcingProps> = ({ 
           <div className="text-center pt-4">
             <button
               onClick={() => onOpenLeadModal('Recruitment Consultation')}
-              className="px-8 py-3.5 bg-[#0F2D6B] hover:bg-[#0A1E4A] text-white font-bold rounded-xl text-sm transition-all shadow-md inline-flex items-center gap-2"
+              className="px-8 py-3.5 bg-[#0F2D6B] hover:bg-[#0A1E4A] text-white font-bold rounded-xl text-sm transition-all shadow-md inline-flex items-center gap-2 cursor-pointer"
             >
               <span>Scale Your Hiring with NextSofthr</span>
               <ArrowRight className="w-4 h-4 text-lime-400" />
@@ -323,6 +330,15 @@ export const RecruitmentOutsourcing: React.FC<RecruitmentOutsourcingProps> = ({ 
           </div>
         </div>
       </section>
+
+      {/* Explore Other Outsourcing Solutions & Return Home */}
+      {onNavigate && (
+        <SolutionNavigationFooter
+          currentSolutionId="outsourcing-recruitment"
+          onNavigate={onNavigate}
+          onOpenLeadModal={onOpenLeadModal}
+        />
+      )}
     </div>
   );
 };

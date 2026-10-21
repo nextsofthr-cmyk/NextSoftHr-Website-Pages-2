@@ -10,12 +10,20 @@ import {
   Layers, 
   Check
 } from 'lucide-react';
+import { NavigationPage } from '../../types';
+import { SolutionNavigationFooter } from '../layout/SolutionNavigationFooter';
 
 interface EnterpriseHierarchyProps {
   onOpenLeadModal: (service?: string) => void;
+  onNavigate?: (page: NavigationPage) => void;
+  onBack?: () => void;
 }
 
-export const EnterpriseHierarchy: React.FC<EnterpriseHierarchyProps> = ({ onOpenLeadModal }) => {
+export const EnterpriseHierarchy: React.FC<EnterpriseHierarchyProps> = ({ 
+  onOpenLeadModal,
+  onNavigate,
+  onBack
+}) => {
   const [selectedGroup, setSelectedGroup] = useState('Atlas Group International');
   const [selectedCompany, setSelectedCompany] = useState('Atlas FinTech Nigeria Ltd');
   const [selectedBranch, setSelectedBranch] = useState('Lagos Tech Center (VI)');
@@ -199,6 +207,15 @@ export const EnterpriseHierarchy: React.FC<EnterpriseHierarchyProps> = ({ onOpen
           </div>
         </div>
       </section>
+
+      {/* Explore Other Outsourcing Solutions & Return Home */}
+      {onNavigate && (
+        <SolutionNavigationFooter
+          currentSolutionId="multi-company"
+          onNavigate={onNavigate}
+          onOpenLeadModal={onOpenLeadModal}
+        />
+      )}
     </div>
   );
 };

@@ -93,14 +93,14 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
 
           {/* Action CTAs */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            <button
+            <a
               id="hero-start-trial-btn"
-              onClick={onOpenTrial}
-              className="px-6 py-3.5 rounded-xl font-bold text-slate-900 bg-[#A3E635] hover:bg-[#84CC16] shadow-md shadow-lime-500/20 hover:shadow-lg transition-all duration-200 flex items-center gap-2"
+              href="/signup"
+              className="px-6 py-3.5 rounded-xl font-bold text-slate-900 bg-[#A3E635] hover:bg-[#84CC16] shadow-md shadow-lime-500/20 hover:shadow-lg transition-all duration-200 flex items-center gap-2 cursor-pointer"
             >
               <span>{t.common.startFreeTrial}</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </a>
             <button
               id="hero-book-demo-btn"
               onClick={onOpenDemo}

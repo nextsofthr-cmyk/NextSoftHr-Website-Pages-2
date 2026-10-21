@@ -382,11 +382,17 @@ export const CustomerSuccessStories = ({
                   </p>
 
                   <div className="flex items-center gap-3.5 mt-5 pt-4 border-t border-blue-200/60 dark:border-slate-700">
-                    <img
-                      src={currentStory.avatar}
-                      alt={currentStory.author}
-                      className="w-11 h-11 rounded-full object-cover border-2 border-white dark:border-slate-600 shadow-xs"
-                    />
+                    <div
+                      className="w-11 h-11 rounded-full bg-blue-600 dark:bg-lime-400 text-white dark:text-slate-950 font-bold text-sm flex items-center justify-center border-2 border-white dark:border-slate-600 shadow-xs shrink-0 select-none"
+                      aria-label={currentStory.author}
+                    >
+                      {currentStory.author
+                        .split(' ')
+                        .map((n) => n[0])
+                        .slice(0, 2)
+                        .join('')
+                        .toUpperCase()}
+                    </div>
                     <div>
                       <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">
                         {currentStory.author}

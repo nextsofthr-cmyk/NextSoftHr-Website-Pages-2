@@ -57,13 +57,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <ArrowDown className="w-4 h-4 animate-bounce" />
               </button>
 
-              <button
-                onClick={onExploreNextSoftHr}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-[#0A3F7E] dark:text-white bg-white dark:bg-[#0E2442] border border-[#0A3F7E]/30 dark:border-[#1E3656] hover:bg-[#0A3F7E]/5 dark:hover:bg-[#122E54] hover:border-[#0A3F7E] dark:hover:border-[#8EE000] shadow-xs transition-all"
+              <a
+                href="/signup"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-[#0A3F7E] dark:text-white bg-white dark:bg-[#0E2442] border border-[#0A3F7E]/30 dark:border-[#1E3656] hover:bg-[#0A3F7E]/5 dark:hover:bg-[#122E54] hover:border-[#0A3F7E] dark:hover:border-[#8EE000] shadow-xs transition-all cursor-pointer"
               >
-                <span>{t('hero.ctaPlatform', 'Explore NextSoftHr')}</span>
+                <span>Get Started</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </a>
             </div>
 
             {/* Key Value Indicators */}

@@ -202,7 +202,7 @@ export const COURSES: Course[] = [
       photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
       bio: 'Over 14 years driving enterprise human resource systems and modern talent management.',
     },
-    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80',
+    image: 'https://mehedi.asiandevelopers.com/demo/rosano/assets/images/blog/blog-v1-1.jpg',
     description: 'Build a solid grounding in contemporary human resources: contracts, employee lifecycles, essential policies, and day-to-day HR operations.',
     longOverview:
       'This course delivers an immersive, practical foundation for anyone entering human resources or seeking structured operational competence. Designed for HR coordinators, office managers, and entrepreneurs, it blends fundamental labor standards with practical tools in the NextSoftHR platform ecosystem.',
@@ -291,7 +291,7 @@ export const COURSES: Course[] = [
       photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
       bio: '16+ years managing enterprise payroll runs, multi-country tax calculations, and statutory defense.',
     },
-    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
+    image: 'https://img.freepik.com/premium-photo/team-young-african-people-office-table-with-laptop_219728-4561.jpg?size=626&ext=jpg&ga=GA1.1.233311484.1695720566&semt=ais',
     description: 'Master practical payroll computations, gross-to-net calculations, statutory deductions, monthly reconciliation, and error-free payroll runs.',
     longOverview:
       'Gain hands-on mastery over complex salary structures, allowances, taxable benefits, overtime multipliers, and automated reconciliation sheets. This course bridges theoretical accounting with real-world monthly payroll operations, ensuring 100% computational integrity.',
@@ -464,7 +464,7 @@ export const COURSES: Course[] = [
       photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
       bio: 'Expert in Nigerian and Pan-African labor jurisprudence and mediation.',
     },
-    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80',
+    image: 'https://img.freepik.com/free-photo/cheerful-colleagues-communicating-workplace_74855-4005.jpg?size=626&ext=jpg&ga=GA1.2.233311484.1695720566&semt=ais',
     description: 'Transform organizational climate through proactive grievance procedures, disciplinary investigations, fair hearings, and constructive employee engagement.',
     longOverview:
       'Learn how to maintain harmonious workplace relationships, handle sensitive performance dismissals without litigation risk, and foster psychological safety while upholding company standards.',
@@ -687,7 +687,7 @@ export const COURSES: Course[] = [
       photo: 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=400&q=80',
       bio: 'Leading researcher in people analytics and human capital metrics modeling.',
     },
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+    image: 'https://img.freepik.com/free-photo/female-business-team-discussing-project-conference-room_74855-1864.jpg?size=626&ext=jpg&ga=GA1.2.233311484.1695720566&semt=ais',
     description: 'Transform HR data into board-level strategic intelligence: turnover forecasting, recruitment funnel ratios, payroll cost per revenue, and workforce productivity metrics.',
     longOverview:
       'Elevate HR from an administrative cost center to a strategic revenue driver. This course teaches you how to collect, clean, model, and visualize workforce metrics using real-world business intelligence workflows and NextSoftHR analytics.',
@@ -765,7 +765,7 @@ export const COURSES: Course[] = [
       photo: 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=400&q=80',
       bio: 'Leading researcher in AI-enabled organizational systems and workforce ethics.',
     },
-    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80',
+    image: 'https://img.freepik.com/free-photo/people-taking-part-business-event_23-2149346626.jpg?size=626&ext=jpg&ga=GA1.2.233311484.1695720566&semt=ais',
     description: 'Harness practical generative AI and machine learning to draft policies in minutes, synthesize resume screening, automate routine HR support, and augment payroll verification.',
     longOverview:
       'Learn how modern HR leaders 10x their productivity with responsible AI integration. This non-technical, highly practical course explores prompt engineering for HR, AI in screening workflows, policy generation, and strict ethical governance to protect candidate privacy.',
@@ -909,7 +909,7 @@ export const COURSES: Course[] = [
       photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
       bio: 'Executive coach who has mentored senior management across 15 countries.',
     },
-    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
+    image: 'https://img.freepik.com/free-photo/friendly-diverse-group-co-workers-having-casual-discussion-office-executives-during-friendly-discussion-month-reporting-creative-meeting-concept-business-finance-occupation-job_155003-45366.jpg?size=626&ext=jpg&ga=GA1.2.233311484.1695720566&semt=ais',
     description: 'Transition from high-performing individual contributor to inspirational people leader. Master delegation, psychological safety, and high-trust leadership.',
     longOverview:
       'Technical competence got you promoted; people leadership makes you successful. This program unpacks emotional intelligence, dynamic delegation, constructive feedback loops, and motivation in remote/hybrid teams.',
@@ -1363,48 +1363,48 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: 't1',
     name: 'Chidinma Osuagwu',
+    initials: 'CO',
     role: 'Head of People Operations',
     organization: 'FinBridge Africa, Lagos',
     courseCompleted: 'Payroll Compliance, Tax Law & Statutory Audit Defense',
     content:
       'The NextSoftHR Academy course paid for itself within two weeks. We completely restructured our pension and PAYE remittance schedules, which saved our firm over ₦4.2M during our state internal revenue audit.',
-    photo: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80',
     rating: 5,
     verifiedStudent: true,
   },
   {
     id: 't2',
     name: 'Oluwaseun Adeyemi',
+    initials: 'OA',
     role: 'Finance & Payroll Manager',
     organization: 'Apex Logistics Group',
     courseCompleted: 'Payroll Administration & End-to-End Processing',
     content:
       'Babatunde Adeleke is an exceptional instructor. He taught us practical, real-world reconciliation and gross-to-net models that eliminated all the monthly variances our team used to battle on payment nights.',
-    photo: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80',
     rating: 5,
     verifiedStudent: true,
   },
   {
     id: 't3',
     name: 'Khadijah Ibrahim',
+    initials: 'KI',
     role: 'HR Business Partner',
     organization: 'Trans-Saharan Energy Services',
     courseCompleted: 'AI for HR Professionals: Automation & Productivity',
     content:
       'I was hesitant about AI in HR, but this course was remarkably practical. I now draft customized company policies in minutes and use prompt rubrics to evaluate complex technical roles without losing the human touch.',
-    photo: 'https://images.unsplash.com/photo-1573497019236-17f8177b81e8?auto=format&fit=crop&w=400&q=80',
     rating: 5,
     verifiedStudent: true,
   },
   {
     id: 't4',
     name: 'Tariq Al-Mansoor',
+    initials: 'TA',
     role: 'Managing Director & Founder',
     organization: 'Meridian Capital Partners',
     courseCompleted: 'Strategic HR Management & Executive Advisory',
     content:
       'We enrolled our entire 18-person management team into NextSoftHR Corporate Training. The alignment in OKRs, communication, and attendance tracking was immediate. Essential for any scaling enterprise.',
-    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
     rating: 5,
     verifiedStudent: true,
   },
