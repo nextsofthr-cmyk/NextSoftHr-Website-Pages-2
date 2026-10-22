@@ -17,6 +17,18 @@ export const FeaturedPartners: React.FC<FeaturedPartnersProps> = ({
 }) => {
   const featured = partners.filter(p => p.isFeatured).slice(0, 4);
 
+  // Generate initials from company name (e.g. "TalentHR Africa" -> "TA")
+  const getCompanyInitials = (name: string): string => {
+    if (!name) return 'NS';
+    const clean = name.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+    const words = clean.split(/\s+/).filter(Boolean);
+    if (words.length === 0) return 'NS';
+    if (words.length === 1) {
+      return words[0].slice(0, 2).toUpperCase();
+    }
+    return (words[0][0] + words[1][0]).toUpperCase();
+  };
+
   return (
     <section className="py-16 md:py-20 bg-white dark:bg-[#061124] border-b border-slate-200 dark:border-slate-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,10 +65,14 @@ export const FeaturedPartners: React.FC<FeaturedPartnersProps> = ({
               className="bg-[#f8fafc] dark:bg-[#0a1c3b] rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500 p-5 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group"
             >
               <div>
-                {/* Logo and Tier */}
+                {/* Company Initials Avatar and Tier */}
                 <div className="flex items-start justify-between gap-3 mb-4">
-                  <div className="w-14 h-14 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#061227] shadow-xs shrink-0">
-                    <img src={partner.logo} alt={partner.companyName} className="w-full h-full object-cover" />
+                  <div 
+                    onClick={() => onViewProfile(partner)}
+                    className="w-14 h-14 rounded-xl shrink-0 bg-gradient-to-br from-[#0c2b64] via-[#0f357a] to-[#184ea8] text-[#c8f526] font-black text-lg flex items-center justify-center border-2 border-slate-100 dark:border-slate-700 shadow-sm cursor-pointer select-none group-hover:scale-105 group-hover:border-blue-500/50 transition-all tracking-wider"
+                    title={partner.companyName}
+                  >
+                    <span>{getCompanyInitials(partner.companyName)}</span>
                   </div>
                   <div className="flex flex-col items-end gap-1">
                     <PartnerTierBadge level={partner.partnerLevel} size="xs" showTooltip={true} />

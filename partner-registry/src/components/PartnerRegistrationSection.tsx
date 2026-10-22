@@ -38,22 +38,31 @@ export const PartnerRegistrationSection: React.FC<PartnerRegistrationSectionProp
     partnerType: 'HR Consultant',
     website: '',
     numberOfEmployees: '11-50',
-    servicesOffered: ['HR Implementation', 'Payroll Consulting'],
+    servicesOffered: ['HR Implementation', 'HR Consulting'],
     motivation: ''
   });
 
   const availableServices = [
     'HR Implementation',
-    'Payroll Implementation',
     'HR Consulting',
-    'Payroll Consulting',
-    'Employee Training',
-    'Data Migration',
-    'System Integration',
-    'Customization',
     'HR Outsourcing',
+    'Payroll (PAYE/Pension/NSITF)',
+    'Payroll Outsourcing',
+    'Shift & Attendance Scheduling',
+    'Accounting & Finance',
+    'Data Migration',
+    'Compliance Support',
+    'Company Incorporation',
+    'Returns & Filing',
+    'System Integration',
+    'Training & Development',
+    'Customization',
+    'Technical Support',
+    'Business Process Consulting',
+    'Payroll Implementation',
+    'Payroll Consulting',
     'Accounting / Bookkeeping',
-    'Technical Support'
+    'Employee Training'
   ];
 
   const handleCheckboxChange = (service: string) => {

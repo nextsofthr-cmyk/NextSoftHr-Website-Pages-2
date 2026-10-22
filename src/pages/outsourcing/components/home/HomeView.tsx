@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -15,7 +15,9 @@ import {
   Layers,
   Clock,
   Award,
-  ChevronRight
+  ChevronRight,
+  ChevronLeft,
+  CalendarCheck
 } from 'lucide-react';
 import { NavigationPage } from '../../types';
 
@@ -30,6 +32,176 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onOpenLeadModal,
   onOpenWizard
 }) => {
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [currentSlidePage, setCurrentSlidePage] = useState(0);
+
+  const checkSliderScroll = () => {
+    if (sliderRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+      setCanScrollLeft(scrollLeft > 20);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 20);
+
+      const maxScroll = Math.max(1, scrollWidth - clientWidth);
+      const ratio = scrollLeft / maxScroll;
+      const pageIdx = Math.min(3, Math.max(0, Math.round(ratio * 3)));
+      setCurrentSlidePage(pageIdx);
+    }
+  };
+
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (el) {
+      checkSliderScroll();
+      el.addEventListener('scroll', checkSliderScroll, { passive: true });
+      window.addEventListener('resize', checkSliderScroll);
+      return () => {
+        el.removeEventListener('scroll', checkSliderScroll);
+        window.removeEventListener('resize', checkSliderScroll);
+      };
+    }
+  }, []);
+
+  const slide = (direction: 'left' | 'right') => {
+    if (sliderRef.current) {
+      const cardWidth = sliderRef.current.clientWidth * 0.85;
+      const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
+      sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const scrollToSlidePage = (pageIdx: number) => {
+    if (sliderRef.current) {
+      const { scrollWidth, clientWidth } = sliderRef.current;
+      const maxScroll = scrollWidth - clientWidth;
+      const targetScroll = (maxScroll / 3) * pageIdx;
+      sliderRef.current.scrollTo({ left: targetScroll, behavior: 'smooth' });
+    }
+  };
+
+  const coreSolutions: {
+    id: NavigationPage;
+    badge: string;
+    title: string;
+    description: string;
+    icon: React.ComponentType<{ className?: string }>;
+    iconBg: string;
+    iconColor: string;
+    borderHover: string;
+    actionText: string;
+  }[] = [
+    {
+      id: 'outsourcing-payroll',
+      badge: 'Tier-1 Service',
+      title: 'Payroll Outsourcing',
+      description: 'Accurate, secure monthly payroll processing, salary calculations, allowances, statutory PAYE, pension remittances, and digital payslips.',
+      icon: CreditCard,
+      iconBg: 'bg-blue-50 dark:bg-blue-950/80',
+      iconColor: 'text-[#0F2D6B] dark:text-blue-300',
+      borderHover: 'hover:border-blue-400 dark:hover:border-lime-400',
+      actionText: 'View Payroll Dashboard'
+    },
+    {
+      id: 'outsourcing-hr-admin',
+      badge: 'Lifecycle Ops',
+      title: 'HR Administration Outsourcing',
+      description: 'Digital onboarding, personnel file management, official HR letters, leave approvals, attendance records, and policy administration.',
+      icon: Users,
+      iconBg: 'bg-lime-50 dark:bg-lime-950/60',
+      iconColor: 'text-lime-700 dark:text-lime-300',
+      borderHover: 'hover:border-lime-400 dark:hover:border-lime-400',
+      actionText: 'Inspect Employee Lifecycle'
+    },
+    {
+      id: 'outsourcing-managed-hr',
+      badge: 'Fractional & Retained',
+      title: 'Managed HR Services',
+      description: 'Your outsourced People Department. Dedicated senior HR business partners, employee relations, appraisals, and strategic steering.',
+      icon: Briefcase,
+      iconBg: 'bg-purple-50 dark:bg-purple-950/60',
+      iconColor: 'text-purple-700 dark:text-purple-300',
+      borderHover: 'hover:border-purple-400 dark:hover:border-lime-400',
+      actionText: 'Build Managed HR Pod'
+    },
+    {
+      id: 'outsourcing-recruitment',
+      badge: 'ATS & Sourcing',
+      title: 'Recruitment & Talent Outsourcing',
+      description: 'Find, hire, and onboard talent faster. Structured ATS pipeline, candidate screening, executive sourcing, and AI recruiter copilot.',
+      icon: Sparkles,
+      iconBg: 'bg-amber-50 dark:bg-amber-950/60',
+      iconColor: 'text-amber-700 dark:text-amber-300',
+      borderHover: 'hover:border-amber-400 dark:hover:border-lime-400',
+      actionText: 'Explore ATS Pipeline'
+    },
+    {
+      id: 'outsourcing-employee-admin',
+      badge: 'Master Records',
+      title: 'Employee Administration',
+      description: 'Single source of truth for contracts, emergency contacts, qualifications, department allocations, and employee status tracking.',
+      icon: Layers,
+      iconBg: 'bg-emerald-50 dark:bg-emerald-950/60',
+      iconColor: 'text-emerald-700 dark:text-emerald-300',
+      borderHover: 'hover:border-emerald-400 dark:hover:border-lime-400',
+      actionText: 'View Employee Master File'
+    },
+    {
+      id: 'multi-company',
+      badge: 'Multi-Entity',
+      title: 'Enterprise Workforce Management',
+      description: 'Multi-company holding structures, subsidiaries, regional branch hierarchies, and multi-currency consolidated workforce reporting.',
+      icon: Building2,
+      iconBg: 'bg-indigo-50 dark:bg-indigo-950/60',
+      iconColor: 'text-indigo-700 dark:text-indigo-300',
+      borderHover: 'hover:border-indigo-400 dark:hover:border-lime-400',
+      actionText: 'Simulate Hierarchy Tree'
+    },
+    {
+      id: 'analytics',
+      badge: 'Executive Intelligence',
+      title: 'Analytics & Reporting',
+      description: 'Gain executive clarity on labor spending, turnover risk, statutory tax schedule and operational velocity with real-time consolidated analytics.',
+      icon: TrendingUp,
+      iconBg: 'bg-cyan-50 dark:bg-cyan-950/60',
+      iconColor: 'text-cyan-700 dark:text-cyan-300',
+      borderHover: 'hover:border-cyan-400 dark:hover:border-lime-400',
+      actionText: 'Explore Analytics & Reporting'
+    },
+    {
+      id: 'outsourcing-time-attendance',
+      badge: 'Workforce Tracking',
+      title: 'Time & Attendance',
+      description: 'Know when your people start and end work. Eliminate buddy punching, manual register and attendance disputes. – Automate Clock-In - Attendance',
+      icon: Clock,
+      iconBg: 'bg-rose-50 dark:bg-rose-950/60',
+      iconColor: 'text-rose-700 dark:text-rose-300',
+      borderHover: 'hover:border-rose-400 dark:hover:border-lime-400',
+      actionText: 'Automate Clock-In - Attendance'
+    },
+    {
+      id: 'outsourcing-leave',
+      badge: 'Absence Automation',
+      title: 'Leave & Time-Off Mgt.',
+      description: 'Simplify leave request, approval and calendar. Eliminate conflict time-off, lost email request and spreadsheet balance. – Approve and Reject Leave.',
+      icon: CalendarCheck,
+      iconBg: 'bg-teal-50 dark:bg-teal-950/60',
+      iconColor: 'text-teal-700 dark:text-teal-300',
+      borderHover: 'hover:border-teal-400 dark:hover:border-lime-400',
+      actionText: 'Approve & Reject Leave'
+    },
+    {
+      id: 'multi-country',
+      badge: 'Pan-African',
+      title: 'Multi-Country African Payroll',
+      description: 'Run Multi-Entity, Multi-currency and multi-location payroll and Tax compliance across major African markets from one unified platform. – Interactive Payroll Jurisdiction.',
+      icon: Globe2,
+      iconBg: 'bg-blue-50 dark:bg-blue-950/60',
+      iconColor: 'text-blue-700 dark:text-blue-300',
+      borderHover: 'hover:border-blue-400 dark:hover:border-lime-400',
+      actionText: 'Interactive Payroll Jurisdiction'
+    }
+  ];
   const caseStudies = [
     {
       company: 'Apex Global Logistics Ltd',
@@ -77,15 +249,25 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
               onClick={() => onOpenLeadModal('General Outsourcing Inquiry')}
-              className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-lime-400 to-[#9AE616] hover:from-lime-300 hover:to-lime-400 text-slate-950 font-bold text-base rounded-xl transition-all shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 transform active:scale-95"
+              className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-lime-400 to-[#9AE616] hover:from-lime-300 hover:to-lime-400 text-slate-950 font-bold text-base rounded-xl transition-all shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 transform active:scale-95 cursor-pointer"
             >
               <span>Talk to an Outsourcing Expert</span>
               <ArrowRight className="w-4 h-4 text-slate-950" />
             </button>
 
+            {/* Outsourcing Pricing Link Button */}
+            <button
+              onClick={() => onNavigate('packages')}
+              className="w-full sm:w-auto px-7 py-4 bg-lime-400/15 hover:bg-lime-400/25 text-lime-300 hover:text-white font-semibold text-base rounded-xl transition-all border border-lime-400/35 hover:border-lime-400 flex items-center justify-center gap-2 shadow-lg backdrop-blur-sm cursor-pointer"
+            >
+              <CreditCard className="w-4 h-4 text-lime-400" />
+              <span>Outsourcing Pricing</span>
+              <ArrowRight className="w-4 h-4 text-lime-400" />
+            </button>
+
             <button
               onClick={() => onNavigate('outsourcing-hub')}
-              className="w-full sm:w-auto px-7 py-4 bg-white/10 hover:bg-white/15 text-white font-medium text-base rounded-xl transition-colors border border-white/20 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-7 py-4 bg-white/10 hover:bg-white/15 text-white font-medium text-base rounded-xl transition-colors border border-white/20 flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Explore Outsourcing Services</span>
             </button>
@@ -113,162 +295,111 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {/* 2. Six Major Service Lines Showcase */}
+      {/* 2. Core Service Lines Showcase Slider */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div className="space-y-2">
             <span className="text-xs font-bold text-blue-700 dark:text-lime-400 uppercase tracking-wider">
               Comprehensive Service Ecosystem
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Six Core Outsourcing Solutions
+              Core Outsourcing Solutions
             </h2>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-xl">
-              Scalable workforce operations engineered for African and multinational businesses.
+              Scalable workforce operations engineered for African and multinational businesses. Slide to explore our personal service platforms.
             </p>
           </div>
 
-          <button
-            onClick={() => onNavigate('outsourcing-hub')}
-            className="text-xs font-bold text-[#0F2D6B] dark:text-lime-400 hover:text-blue-900 dark:hover:text-lime-300 flex items-center gap-1.5 shrink-0"
-          >
-            <span>View All Outsourcing Services</span>
-            <ArrowRight className="w-3.5 h-3.5 text-lime-600 dark:text-lime-400" />
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Slider Navigation Arrows */}
+            <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-blue-950/70 p-1.5 rounded-xl border border-slate-200 dark:border-blue-900/50 shadow-xs">
+              <button
+                type="button"
+                onClick={() => slide('left')}
+                disabled={!canScrollLeft}
+                aria-label="Previous solutions"
+                title="Previous solutions"
+                className="p-2 rounded-lg text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-blue-900/60 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => slide('right')}
+                disabled={!canScrollRight}
+                aria-label="Next solutions"
+                title="Next solutions"
+                className="p-2 rounded-lg text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-blue-900/60 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            <button
+              onClick={() => onNavigate('outsourcing-hub')}
+              className="text-xs font-bold text-[#0F2D6B] dark:text-lime-400 hover:text-blue-900 dark:hover:text-lime-300 flex items-center gap-1.5 shrink-0 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-blue-900/50 hover:bg-slate-50 dark:hover:bg-blue-950/50 transition-colors"
+            >
+              <span>View All 10 Services</span>
+              <ArrowRight className="w-3.5 h-3.5 text-lime-600 dark:text-lime-400" />
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Card 1: Payroll */}
-          <div 
-            onClick={() => onNavigate('outsourcing-payroll')}
-            className="group p-7 bg-white dark:bg-[#0B1A3D] rounded-2xl border border-slate-200 dark:border-blue-900/50 shadow-sm hover:shadow-xl dark:shadow-blue-950/40 hover:border-blue-400 dark:hover:border-lime-400 transition-all cursor-pointer flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/80 text-[#0F2D6B] dark:text-blue-300 flex items-center justify-center group-hover:bg-[#0F2D6B] dark:group-hover:bg-lime-400 group-hover:text-lime-400 dark:group-hover:text-slate-950 transition-colors">
-                <CreditCard className="w-6 h-6" />
+        {/* Horizontal Card Slider Container */}
+        <div 
+          ref={sliderRef}
+          className="flex gap-6 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none]"
+          tabIndex={0}
+          aria-label="Core Outsourcing Solutions Slider"
+        >
+          {coreSolutions.map((solution) => {
+            const IconComponent = solution.icon;
+            return (
+              <div 
+                key={solution.id}
+                onClick={() => onNavigate(solution.id)}
+                className={`group p-7 bg-white dark:bg-[#0B1A3D] rounded-2xl border border-slate-200 dark:border-blue-900/50 shadow-sm hover:shadow-xl dark:shadow-blue-950/40 ${solution.borderHover} transition-all cursor-pointer flex flex-col justify-between w-[85vw] sm:w-[350px] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start`}
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className={`w-12 h-12 rounded-xl ${solution.iconBg} ${solution.iconColor} flex items-center justify-center group-hover:bg-[#0F2D6B] dark:group-hover:bg-lime-400 group-hover:text-lime-400 dark:group-hover:text-slate-950 transition-colors`}>
+                      <IconComponent className="w-6 h-6" />
+                    </div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 dark:bg-blue-950/60 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-blue-900/40">
+                      {solution.badge}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#0F2D6B] dark:group-hover:text-lime-300 transition-colors">
+                    {solution.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed min-h-[4.5rem]">
+                    {solution.description}
+                  </p>
+                </div>
+                <div className="pt-6 border-t border-slate-100 dark:border-blue-900/40 flex items-center justify-between text-xs font-bold text-[#0F2D6B] dark:text-lime-400 mt-6">
+                  <span>{solution.actionText}</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-lime-600 dark:text-lime-400 group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#0F2D6B] dark:group-hover:text-lime-300 transition-colors">
-                Payroll Outsourcing
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Accurate, secure monthly payroll processing, salary calculations, allowances, statutory PAYE, pension remittances, and digital payslips.
-              </p>
-            </div>
-            <div className="pt-6 border-t border-slate-100 dark:border-blue-900/40 flex items-center justify-between text-xs font-bold text-[#0F2D6B] dark:text-lime-400 mt-6">
-              <span>View Payroll Dashboard</span>
-              <ArrowRight className="w-3.5 h-3.5 text-lime-600 dark:text-lime-400 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
+            );
+          })}
+        </div>
 
-          {/* Card 2: HR Admin */}
-          <div 
-            onClick={() => onNavigate('outsourcing-hr-admin')}
-            className="group p-7 bg-white dark:bg-[#0B1A3D] rounded-2xl border border-slate-200 dark:border-blue-900/50 shadow-sm hover:shadow-xl dark:shadow-blue-950/40 hover:border-lime-400 dark:hover:border-lime-400 transition-all cursor-pointer flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-lime-50 dark:bg-lime-950/60 text-lime-700 dark:text-lime-300 flex items-center justify-center group-hover:bg-[#0F2D6B] dark:group-hover:bg-lime-400 group-hover:text-lime-400 dark:group-hover:text-slate-950 transition-colors">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#0F2D6B] dark:group-hover:text-lime-300 transition-colors">
-                HR Administration Outsourcing
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Digital onboarding, personnel file management, official HR letters, leave approvals, attendance records, and policy administration.
-              </p>
-            </div>
-            <div className="pt-6 border-t border-slate-100 dark:border-blue-900/40 flex items-center justify-between text-xs font-bold text-[#0F2D6B] dark:text-lime-400 mt-6">
-              <span>Inspect Employee Lifecycle</span>
-              <ArrowRight className="w-3.5 h-3.5 text-lime-600 dark:text-lime-400 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          {/* Card 3: Managed HR */}
-          <div 
-            onClick={() => onNavigate('outsourcing-managed-hr')}
-            className="group p-7 bg-white dark:bg-[#0B1A3D] rounded-2xl border border-slate-200 dark:border-blue-900/50 shadow-sm hover:shadow-xl dark:shadow-blue-950/40 hover:border-purple-400 dark:hover:border-lime-400 transition-all cursor-pointer flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 flex items-center justify-center group-hover:bg-[#0F2D6B] dark:group-hover:bg-lime-400 group-hover:text-lime-400 dark:group-hover:text-slate-950 transition-colors">
-                <Briefcase className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#0F2D6B] dark:group-hover:text-lime-300 transition-colors">
-                Managed HR Services
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Your outsourced People Department. Dedicated senior HR business partners, employee relations, appraisals, and strategic steering.
-              </p>
-            </div>
-            <div className="pt-6 border-t border-slate-100 dark:border-blue-900/40 flex items-center justify-between text-xs font-bold text-[#0F2D6B] dark:text-lime-400 mt-6">
-              <span>Build Managed HR Pod</span>
-              <ArrowRight className="w-3.5 h-3.5 text-lime-600 dark:text-lime-400 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          {/* Card 4: Recruitment */}
-          <div 
-            onClick={() => onNavigate('outsourcing-recruitment')}
-            className="group p-7 bg-white dark:bg-[#0B1A3D] rounded-2xl border border-slate-200 dark:border-blue-900/50 shadow-sm hover:shadow-xl dark:shadow-blue-950/40 hover:border-amber-400 dark:hover:border-lime-400 transition-all cursor-pointer flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 flex items-center justify-center group-hover:bg-[#0F2D6B] dark:group-hover:bg-lime-400 group-hover:text-lime-400 dark:group-hover:text-slate-950 transition-colors">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#0F2D6B] dark:group-hover:text-lime-300 transition-colors">
-                Recruitment & Talent Outsourcing
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Find, hire, and onboard talent faster. Structured ATS pipeline, candidate screening, executive sourcing, and AI recruiter copilot.
-              </p>
-            </div>
-            <div className="pt-6 border-t border-slate-100 dark:border-blue-900/40 flex items-center justify-between text-xs font-bold text-[#0F2D6B] dark:text-lime-400 mt-6">
-              <span>Explore ATS Pipeline</span>
-              <ArrowRight className="w-3.5 h-3.5 text-lime-600 dark:text-lime-400 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          {/* Card 5: Employee Admin */}
-          <div 
-            onClick={() => onNavigate('outsourcing-employee-admin')}
-            className="group p-7 bg-white dark:bg-[#0B1A3D] rounded-2xl border border-slate-200 dark:border-blue-900/50 shadow-sm hover:shadow-xl dark:shadow-blue-950/40 hover:border-emerald-400 dark:hover:border-lime-400 transition-all cursor-pointer flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 flex items-center justify-center group-hover:bg-[#0F2D6B] dark:group-hover:bg-lime-400 group-hover:text-lime-400 dark:group-hover:text-slate-950 transition-colors">
-                <Layers className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#0F2D6B] dark:group-hover:text-lime-300 transition-colors">
-                Employee Administration
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Single source of truth for contracts, emergency contacts, qualifications, department allocations, and employee status tracking.
-              </p>
-            </div>
-            <div className="pt-6 border-t border-slate-100 dark:border-blue-900/40 flex items-center justify-between text-xs font-bold text-[#0F2D6B] dark:text-lime-400 mt-6">
-              <span>View Employee Master File</span>
-              <ArrowRight className="w-3.5 h-3.5 text-lime-600 dark:text-lime-400 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          {/* Card 6: Enterprise Workforce */}
-          <div 
-            onClick={() => onNavigate('multi-company')}
-            className="group p-7 bg-white dark:bg-[#0B1A3D] rounded-2xl border border-slate-200 dark:border-blue-900/50 shadow-sm hover:shadow-xl dark:shadow-blue-950/40 hover:border-indigo-400 dark:hover:border-lime-400 transition-all cursor-pointer flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 flex items-center justify-center group-hover:bg-[#0F2D6B] dark:group-hover:bg-lime-400 group-hover:text-lime-400 dark:group-hover:text-slate-950 transition-colors">
-                <Building2 className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#0F2D6B] dark:group-hover:text-lime-300 transition-colors">
-                Enterprise Workforce Management
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Multi-company holding structures, subsidiaries, regional branch hierarchies, and multi-currency consolidated workforce reporting.
-              </p>
-            </div>
-            <div className="pt-6 border-t border-slate-100 dark:border-blue-900/40 flex items-center justify-between text-xs font-bold text-[#0F2D6B] dark:text-lime-400 mt-6">
-              <span>Simulate Hierarchy Tree</span>
-              <ArrowRight className="w-3.5 h-3.5 text-lime-600 dark:text-lime-400 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
+        {/* Slider Pagination Dots */}
+        <div className="mt-6 flex items-center justify-center gap-2 px-2">
+          {[0, 1, 2, 3].map((pageIdx) => (
+            <button
+              key={pageIdx}
+              type="button"
+              onClick={() => scrollToSlidePage(pageIdx)}
+              aria-label={`Go to slide group ${pageIdx + 1}`}
+              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                currentSlidePage === pageIdx 
+                  ? 'w-8 bg-lime-400 dark:bg-lime-400 shadow-xs' 
+                  : 'w-2.5 bg-slate-300 hover:bg-slate-400 dark:bg-white/20 dark:hover:bg-white/40'
+              }`}
+            />
+          ))}
         </div>
       </section>
 

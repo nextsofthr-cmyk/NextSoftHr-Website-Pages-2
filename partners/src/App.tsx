@@ -102,7 +102,7 @@ export default function App() {
         {/* Section 2: Hero */}
         <Hero
           onApplyClick={() => handleApplyClick()}
-          onExploreBenefits={() => scrollToSection('benefits')}
+          onExploreClick={() => scrollToSection('benefits')}
         />
 
         {/* Section 3: Trust Strip */}

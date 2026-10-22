@@ -253,7 +253,10 @@ export default function App() {
             )}
 
             {currentPage === 'implementation' && (
-              <ImplementationTimeline onOpenLeadModal={handleOpenLeadModal} />
+              <ImplementationTimeline 
+                onOpenLeadModal={handleOpenLeadModal} 
+                onNavigate={handleNavigate}
+              />
             )}
 
             {currentPage === 'migration' && (

@@ -68,6 +68,18 @@ export const PartnerCard: React.FC<PartnerCardProps> = ({
     }
   };
 
+  // Generate initials from company name (e.g. "TalentHR Africa" -> "TA")
+  const getCompanyInitials = (name: string): string => {
+    if (!name) return 'NS';
+    const clean = name.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+    const words = clean.split(/\s+/).filter(Boolean);
+    if (words.length === 0) return 'NS';
+    if (words.length === 1) {
+      return words[0].slice(0, 2).toUpperCase();
+    }
+    return (words[0][0] + words[1][0]).toUpperCase();
+  };
+
   if (viewMode === 'list') {
     return (
       <div className={`bg-white dark:bg-[#0a1c3b] rounded-2xl border ${
@@ -76,14 +88,14 @@ export const PartnerCard: React.FC<PartnerCardProps> = ({
           : 'border-slate-200 dark:border-slate-800 hover:border-blue-500/50 dark:hover:border-blue-500/70 shadow-sm'
       } p-5 hover:shadow-lg transition-all duration-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 group`}>
         
-        {/* Left Info & Logo */}
+        {/* Left Info & Company Initials */}
         <div className="flex items-start gap-4">
-          <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-[#061227] relative">
-            <img 
-              src={partner.logo} 
-              alt={partner.companyName} 
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-            />
+          <div 
+            onClick={() => onViewProfile(partner)}
+            className="w-16 h-16 rounded-xl shrink-0 bg-gradient-to-br from-[#0c2b64] via-[#0f357a] to-[#184ea8] text-[#c8f526] font-black text-xl flex items-center justify-center border-2 border-slate-100 dark:border-slate-700 shadow-sm cursor-pointer select-none group-hover:scale-105 group-hover:border-blue-500/50 transition-all tracking-wider"
+            title={partner.companyName}
+          >
+            <span>{getCompanyInitials(partner.companyName)}</span>
           </div>
 
           <div>
@@ -193,13 +205,9 @@ export const PartnerCard: React.FC<PartnerCardProps> = ({
         : 'border-slate-200 dark:border-slate-800 hover:border-blue-400/80 dark:hover:border-blue-500/70 shadow-sm'
     } hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group`}>
       
-      {/* Top Banner / Cover */}
-      <div className="relative h-28 bg-gradient-to-r from-[#0c2b64] to-[#123e8f] overflow-hidden">
-        <img 
-          src={partner.coverImage} 
-          alt="" 
-          className="w-full h-full object-cover opacity-25 group-hover:scale-105 transition-transform duration-500"
-        />
+      {/* Top Banner */}
+      <div className="relative h-24 bg-gradient-to-r from-[#071938] via-[#0c2b64] to-[#123e8f] overflow-hidden">
+        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#c8f526_1px,transparent_1px)] [background-size:12px_12px]" />
         
         {/* Floating Top Left: Verified NextSofthr Partner Badge, Top-Tier Badge & Compare Toggle */}
         <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 z-10 flex-wrap max-w-[70%]">
@@ -237,13 +245,13 @@ export const PartnerCard: React.FC<PartnerCardProps> = ({
           <PartnerTierBadge level={partner.partnerLevel} size="xs" showTooltip={true} />
         </div>
 
-        {/* Logo overlapping banner */}
-        <div className="absolute -bottom-5 left-5 w-14 h-14 rounded-xl border-2 border-white dark:border-[#0a1c3b] bg-white dark:bg-[#0a1c3b] shadow-md overflow-hidden">
-          <img 
-            src={partner.logo} 
-            alt={partner.companyName} 
-            className="w-full h-full object-cover"
-          />
+        {/* Company Initials Avatar overlapping banner */}
+        <div 
+          onClick={() => onViewProfile(partner)}
+          className="absolute -bottom-5 left-5 w-14 h-14 rounded-xl border-2 border-white dark:border-[#0a1c3b] bg-gradient-to-br from-[#0c2b64] via-[#0f357a] to-[#184ea8] text-[#c8f526] font-black text-lg flex items-center justify-center shadow-md cursor-pointer select-none group-hover:scale-105 transition-transform tracking-wider"
+          title={partner.companyName}
+        >
+          <span>{getCompanyInitials(partner.companyName)}</span>
         </div>
 
         {/* Real-Time Availability Status Indicator Badge on Banner */}

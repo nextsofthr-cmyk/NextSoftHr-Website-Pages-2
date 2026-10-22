@@ -12,13 +12,29 @@ import {
   Rocket, 
   Headphones
 } from 'lucide-react';
+import { NavigationPage } from '../../types';
 
 interface ImplementationTimelineProps {
   onOpenLeadModal: (service?: string) => void;
+  onNavigate?: (page: NavigationPage) => void;
 }
 
-export const ImplementationTimeline: React.FC<ImplementationTimelineProps> = ({ onOpenLeadModal }) => {
+export const ImplementationTimeline: React.FC<ImplementationTimelineProps> = ({ 
+  onOpenLeadModal,
+  onNavigate 
+}) => {
   const [activePhase, setActivePhase] = useState(1);
+
+  const handleGoToMigration = () => {
+    if (onNavigate) {
+      onNavigate('migration');
+    } else {
+      const url = new URL(window.location.href);
+      url.searchParams.set('view', 'migration');
+      window.history.pushState({}, '', url.toString());
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+  };
 
   const phases = [
     {
@@ -109,11 +125,28 @@ export const ImplementationTimeline: React.FC<ImplementationTimelineProps> = ({ 
 
       {/* 8-Phase Timeline (Horizontal on Desktop, Vertical on Mobile) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-2 mb-10">
-          <span className="text-xs font-bold text-blue-700 uppercase tracking-wider">Predictable 8-Phase Roadmap</span>
-          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-            From Scoping to Parallel Run & Go-Live
-          </h2>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div className="space-y-2 text-left">
+            <span className="text-xs font-bold text-blue-700 uppercase tracking-wider">Predictable 8-Phase Roadmap</span>
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              From Scoping to Parallel Run & Go-Live
+            </h2>
+            <p className="text-sm text-slate-600 max-w-2xl">
+              Our structured 8-phase onboarding framework guarantees complete data integrity, zero disruption to paychecks, and verified statutory compliance.
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              id="header-data-migration-procedure-btn"
+              onClick={handleGoToMigration}
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-blue-50/70 text-[#0F2D6B] border border-blue-900/20 hover:border-[#0F2D6B] text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all group shrink-0"
+            >
+              <Database className="w-4 h-4 text-blue-700" />
+              <span>Data Migration Procedure</span>
+              <ArrowRight className="w-3.5 h-3.5 text-blue-700 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
         </div>
 
         {/* Desktop Horizontal Stepper */}
@@ -182,15 +215,53 @@ export const ImplementationTimeline: React.FC<ImplementationTimelineProps> = ({ 
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
-                <div className="space-y-2">
-                  <h4 className="font-bold text-slate-900 uppercase text-xs tracking-wider text-blue-700">
-                    Phase Objectives & Activities
-                  </h4>
-                  <p className="text-slate-600 leading-relaxed text-sm">{current.summary}</p>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <h4 className="font-bold text-blue-700 uppercase text-xs tracking-wider">
+                      Phase Objectives & Activities
+                    </h4>
+                    <p className="text-slate-600 leading-relaxed text-sm">{current.summary}</p>
+                  </div>
+
+                  {/* Left-hand side button: Data Migration Procedure */}
+                  {current.num === 4 ? (
+                    <div className="pt-2 p-4 bg-blue-50/70 rounded-xl border border-blue-200/80 space-y-2">
+                      <div className="text-xs font-bold text-[#0F2D6B]">
+                        Phase 04 Dedicated Migration Protocol
+                      </div>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        Access our automated schema validation, legacy data extraction pipeline, and parallel reconciliation reports.
+                      </p>
+                      <div>
+                        <button
+                          type="button"
+                          id="data-migration-procedure-btn"
+                          onClick={handleGoToMigration}
+                          className="inline-flex items-center gap-2.5 px-4 py-2.5 bg-[#0F2D6B] hover:bg-[#0A1E4A] text-white text-xs sm:text-sm font-bold rounded-xl shadow-md hover:shadow-lg transition-all group"
+                        >
+                          <Database className="w-4 h-4 text-lime-400 group-hover:rotate-12 transition-transform" />
+                          <span>Data Migration Procedure</span>
+                          <ArrowRight className="w-4 h-4 text-lime-400 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="pt-1">
+                      <button
+                        type="button"
+                        onClick={handleGoToMigration}
+                        className="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 text-xs font-semibold rounded-lg transition-colors group"
+                      >
+                        <Database className="w-3.5 h-3.5 text-blue-700" />
+                        <span>Data Migration Procedure</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2">
-                  <h4 className="font-bold text-slate-900 uppercase text-xs tracking-wider text-blue-700">
+                  <h4 className="font-bold text-blue-700 uppercase text-xs tracking-wider">
                     Key Deliverables & Sign-Offs
                   </h4>
                   <div className="space-y-1.5">

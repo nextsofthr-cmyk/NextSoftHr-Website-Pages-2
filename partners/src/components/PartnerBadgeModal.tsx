@@ -1,32 +1,32 @@
-import React, { useState, useMemo } from 'react';
-import { 
-  PartnerBadgeOptions, 
-  BadgeStyleVariant, 
+import React, { useState, useMemo } from "react";
+import {
+  PartnerBadgeOptions,
+  BadgeStyleVariant,
   BadgeTier,
-  generatePartnerBadgeSvg, 
-  downloadPartnerBadgeSvg, 
-  downloadPartnerBadgePng, 
+  generatePartnerBadgeSvg,
+  downloadPartnerBadgeSvg,
+  downloadPartnerBadgePng,
   generatePartnerBadgeEmbedCode,
   TOP_TIER_PARTNER_PRESETS,
   TIER_THEMES,
-  generateSecurityHash
-} from '../utils/badgeGenerator';
-import { 
-  X, 
-  Download, 
-  Copy, 
-  Check, 
-  ShieldCheck, 
-  Sparkles, 
-  ExternalLink, 
-  Sliders, 
-  Award, 
-  CheckCircle2, 
+  generateSecurityHash,
+} from "../utils/badgeGenerator";
+import {
+  X,
+  Download,
+  Copy,
+  Check,
+  ShieldCheck,
+  Sparkles,
+  ExternalLink,
+  Sliders,
+  Award,
+  CheckCircle2,
   Image as ImageIcon,
   Code2,
   FileCode,
-  Share2
-} from 'lucide-react';
+  Share2,
+} from "lucide-react";
 
 interface PartnerBadgeModalProps {
   isOpen: boolean;
@@ -37,22 +37,31 @@ interface PartnerBadgeModalProps {
 export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
   isOpen,
   onClose,
-  initialOptions
+  initialOptions,
 }) => {
-  const defaultOpts: PartnerBadgeOptions = initialOptions || TOP_TIER_PARTNER_PRESETS[0];
+  const defaultOpts: PartnerBadgeOptions =
+    initialOptions || TOP_TIER_PARTNER_PRESETS[0];
 
-  const [partnerName, setPartnerName] = useState<string>(defaultOpts.partnerName);
+  const [partnerName, setPartnerName] = useState<string>(
+    defaultOpts.partnerName,
+  );
   const [tier, setTier] = useState<BadgeTier>(defaultOpts.tier);
   const [partnerId, setPartnerId] = useState<string>(defaultOpts.partnerId);
   const [year, setYear] = useState<number | string>(defaultOpts.year || 2026);
-  const [specialization, setSpecialization] = useState<string>(defaultOpts.specialization || 'Enterprise Cloud HR & Payroll');
-  const [region, setRegion] = useState<string>(defaultOpts.region || 'West Africa & Global');
-  const [styleVariant, setStyleVariant] = useState<BadgeStyleVariant>(defaultOpts.styleVariant || 'crest');
+  const [specialization, setSpecialization] = useState<string>(
+    defaultOpts.specialization || "Enterprise Cloud HR & Payroll",
+  );
+  const [region, setRegion] = useState<string>(
+    defaultOpts.region || "West Africa & Global",
+  );
+  const [styleVariant, setStyleVariant] = useState<BadgeStyleVariant>(
+    defaultOpts.styleVariant || "crest",
+  );
 
   const [copiedEmbed, setCopiedEmbed] = useState<boolean>(false);
   const [copiedSvg, setCopiedSvg] = useState<boolean>(false);
   const [isDownloadingPng, setIsDownloadingPng] = useState<boolean>(false);
-  const [activeCodeTab, setActiveCodeTab] = useState<'embed' | 'svg'>('embed');
+  const [activeCodeTab, setActiveCodeTab] = useState<"embed" | "svg">("embed");
 
   // Sync state if initialOptions changes when opening
   React.useEffect(() => {
@@ -61,9 +70,11 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
       setTier(initialOptions.tier);
       setPartnerId(initialOptions.partnerId);
       setYear(initialOptions.year || 2026);
-      setSpecialization(initialOptions.specialization || 'Enterprise Cloud HR & Payroll');
-      setRegion(initialOptions.region || 'West Africa & Global');
-      setStyleVariant(initialOptions.styleVariant || 'crest');
+      setSpecialization(
+        initialOptions.specialization || "Enterprise Cloud HR & Payroll",
+      );
+      setRegion(initialOptions.region || "West Africa & Global");
+      setStyleVariant(initialOptions.styleVariant || "crest");
     }
   }, [initialOptions]);
 
@@ -77,9 +88,17 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
       specialization,
       region,
       styleVariant,
-      securityHash: generateSecurityHash(partnerId, partnerName, tier)
+      securityHash: generateSecurityHash(partnerId, partnerName, tier),
     };
-  }, [partnerName, tier, partnerId, year, specialization, region, styleVariant]);
+  }, [
+    partnerName,
+    tier,
+    partnerId,
+    year,
+    specialization,
+    region,
+    styleVariant,
+  ]);
 
   // Generate dynamic SVG string
   const currentSvg = useMemo(() => {
@@ -122,15 +141,14 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
     setTier(preset.tier);
     setPartnerId(preset.partnerId);
     setYear(preset.year || 2026);
-    setSpecialization(preset.specialization || 'Enterprise Cloud HR & Payroll');
-    setRegion(preset.region || 'West Africa & Global');
+    setSpecialization(preset.specialization || "Enterprise Cloud HR & Payroll");
+    setRegion(preset.region || "West Africa & Global");
     if (preset.styleVariant) setStyleVariant(preset.styleVariant);
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200">
       <div className="relative w-full max-w-5xl rounded-3xl bg-white dark:bg-[#040E1F] border border-slate-200 dark:border-blue-800/80 shadow-2xl overflow-hidden my-auto">
-        
         {/* Top Header Bar */}
         <div className="px-6 py-4.5 bg-slate-50 dark:bg-[#071D3E] border-b border-slate-200 dark:border-blue-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -147,7 +165,8 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Official accreditation seals for verified NextSofthr channel partners
+                Official accreditation seals for verified NextSofthr channel
+                partners
               </p>
             </div>
           </div>
@@ -162,10 +181,8 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
 
         {/* Modal Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 max-h-[85vh] overflow-y-auto">
-          
           {/* Left Column: Badge Live Rendering & Download Suite (7 cols) */}
           <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-blue-900/60 bg-gradient-to-b from-slate-50/50 to-white dark:from-[#030914] dark:to-[#040E1F]">
-            
             {/* Style Selector Tabs */}
             <div className="mb-6">
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2">
@@ -173,23 +190,45 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
               </span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {[
-                  { id: 'crest', label: 'Crest Seal', desc: 'Classic Medallion', icon: '🎖️' },
-                  { id: 'shield', label: 'Heraldic Shield', desc: 'Enterprise Cyber', icon: '🛡️' },
-                  { id: 'hex', label: 'Tech Hexagon', desc: 'Cloud & AI Node', icon: '⬡' },
-                  { id: 'compact', label: 'Signature Banner', desc: 'Email & Website', icon: '🏷️' },
+                  {
+                    id: "crest",
+                    label: "Crest Seal",
+                    desc: "Classic Medallion",
+                    icon: "🎖️",
+                  },
+                  {
+                    id: "shield",
+                    label: "Heraldic Shield",
+                    desc: "Enterprise Cyber",
+                    icon: "🛡️",
+                  },
+                  {
+                    id: "hex",
+                    label: "Tech Hexagon",
+                    desc: "Cloud & AI Node",
+                    icon: "⬡",
+                  },
+                  {
+                    id: "compact",
+                    label: "Signature Banner",
+                    desc: "Email & Website",
+                    icon: "🏷️",
+                  },
                 ].map((s) => (
                   <button
                     key={s.id}
                     onClick={() => setStyleVariant(s.id as BadgeStyleVariant)}
                     className={`p-2.5 rounded-xl border text-left transition-all ${
                       styleVariant === s.id
-                        ? 'bg-blue-50 dark:bg-blue-900/60 border-blue-600 dark:border-[#B8F010] shadow-sm text-slate-900 dark:text-white'
-                        : 'bg-white dark:bg-blue-950/40 border-slate-200 dark:border-blue-900/60 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-blue-700'
+                        ? "bg-blue-50 dark:bg-blue-900/60 border-blue-600 dark:border-[#B8F010] shadow-sm text-slate-900 dark:text-white"
+                        : "bg-white dark:bg-blue-950/40 border-slate-200 dark:border-blue-900/60 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-blue-700"
                     }`}
                   >
                     <span className="text-base block mb-0.5">{s.icon}</span>
                     <span className="text-xs font-bold block">{s.label}</span>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 block">{s.desc}</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 block">
+                      {s.desc}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -198,13 +237,13 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
             {/* Live Interactive SVG Canvas Display */}
             <div className="relative py-8 px-4 rounded-3xl bg-slate-900/5 dark:bg-[#020611] border-2 border-dashed border-slate-300 dark:border-blue-900/80 flex items-center justify-center min-h-[340px] shadow-inner overflow-hidden group">
               {/* Subtle background glow */}
-              <div 
+              <div
                 className="absolute inset-0 opacity-20 pointer-events-none blur-3xl transition-all duration-500"
                 style={{ backgroundColor: theme.accentColor }}
               />
 
               {/* Dynamic SVG Rendered */}
-              <div 
+              <div
                 className="relative z-10 w-full max-w-[340px] sm:max-w-[400px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105 filter drop-shadow-2xl"
                 dangerouslySetInnerHTML={{ __html: currentSvg }}
               />
@@ -234,7 +273,11 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
                   className="px-5 py-3 rounded-2xl bg-blue-600 dark:bg-blue-900 hover:bg-blue-500 dark:hover:bg-blue-800 text-white font-bold text-xs transition-all flex items-center justify-center gap-2 shadow"
                 >
                   <ImageIcon className="w-4 h-4" />
-                  <span>{isDownloadingPng ? 'Rendering PNG...' : 'Download High-Res PNG'}</span>
+                  <span>
+                    {isDownloadingPng
+                      ? "Rendering PNG..."
+                      : "Download High-Res PNG"}
+                  </span>
                 </button>
               </div>
 
@@ -243,21 +286,21 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
                 <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 dark:border-blue-900/60">
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => setActiveCodeTab('embed')}
+                      onClick={() => setActiveCodeTab("embed")}
                       className={`text-[11px] font-bold px-2 py-1 rounded-md transition-colors ${
-                        activeCodeTab === 'embed'
-                          ? 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-[#B8F010]'
-                          : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
+                        activeCodeTab === "embed"
+                          ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-[#B8F010]"
+                          : "text-slate-500 hover:text-slate-900 dark:hover:text-slate-300"
                       }`}
                     >
                       HTML Embed Snippet
                     </button>
                     <button
-                      onClick={() => setActiveCodeTab('svg')}
+                      onClick={() => setActiveCodeTab("svg")}
                       className={`text-[11px] font-bold px-2 py-1 rounded-md transition-colors ${
-                        activeCodeTab === 'svg'
-                          ? 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-[#B8F010]'
-                          : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
+                        activeCodeTab === "svg"
+                          ? "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-[#B8F010]"
+                          : "text-slate-500 hover:text-slate-900 dark:hover:text-slate-300"
                       }`}
                     >
                       Raw SVG XML
@@ -265,10 +308,14 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
                   </div>
 
                   <button
-                    onClick={activeCodeTab === 'embed' ? handleCopyEmbed : handleCopySvg}
+                    onClick={
+                      activeCodeTab === "embed"
+                        ? handleCopyEmbed
+                        : handleCopySvg
+                    }
                     className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-700 dark:text-[#B8F010] hover:underline"
                   >
-                    {(activeCodeTab === 'embed' ? copiedEmbed : copiedSvg) ? (
+                    {(activeCodeTab === "embed" ? copiedEmbed : copiedSvg) ? (
                       <>
                         <Check className="w-3 h-3 text-emerald-500" />
                         <span>Copied to Clipboard!</span>
@@ -283,19 +330,16 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
                 </div>
 
                 <div className="font-mono text-[10px] text-slate-600 dark:text-slate-300 overflow-x-auto max-h-20 whitespace-pre p-1 bg-slate-50 dark:bg-[#030914] rounded-lg">
-                  {activeCodeTab === 'embed' 
+                  {activeCodeTab === "embed"
                     ? generatePartnerBadgeEmbedCode(currentBadgeOptions)
                     : currentSvg}
                 </div>
               </div>
-
             </div>
-
           </div>
 
           {/* Right Column: Customizer & Verification Certificate (5 cols) */}
           <div className="lg:col-span-5 p-6 sm:p-8 space-y-6 bg-white dark:bg-[#040E1F]">
-            
             {/* Quick Top-Tier Presets */}
             <div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2.5">
@@ -308,19 +352,25 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
                     onClick={() => handleSelectPreset(p)}
                     className={`w-full text-left p-2.5 rounded-xl border text-xs flex items-center justify-between transition-all ${
                       partnerId === p.partnerId
-                        ? 'bg-blue-50 dark:bg-blue-900/50 border-blue-500 dark:border-[#B8F010] text-slate-900 dark:text-white'
-                        : 'bg-slate-50 dark:bg-blue-950/30 border-slate-200 dark:border-blue-900/60 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-blue-950'
+                        ? "bg-blue-50 dark:bg-blue-900/50 border-blue-500 dark:border-[#B8F010] text-slate-900 dark:text-white"
+                        : "bg-slate-50 dark:bg-blue-950/30 border-slate-200 dark:border-blue-900/60 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-blue-950"
                     }`}
                   >
                     <div>
-                      <span className="font-bold block truncate max-w-[210px]">{p.partnerName}</span>
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">{p.partnerId}</span>
+                      <span className="font-bold block truncate max-w-[210px]">
+                        {p.partnerName}
+                      </span>
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                        {p.partnerId}
+                      </span>
                     </div>
-                    <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded ${
-                      p.tier === 'platinum' 
-                        ? 'bg-[#B8F010] text-[#040E1F]' 
-                        : 'bg-amber-400 text-slate-950'
-                    }`}>
+                    <span
+                      className={`text-[10px] font-black uppercase px-2 py-0.5 rounded ${
+                        p.tier === "platinum"
+                          ? "bg-[#B8F010] text-[#040E1F]"
+                          : "bg-amber-400 text-slate-950"
+                      }`}
+                    >
                       {p.tier}
                     </span>
                   </button>
@@ -354,18 +404,28 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
                   Accreditation Tier
                 </label>
                 <div className="grid grid-cols-2 gap-2">
-                  {(['platinum', 'gold', 'silver', 'bronze'] as BadgeTier[]).map((tId) => (
+                  {(
+                    ["platinum", "gold", "silver", "bronze"] as BadgeTier[]
+                  ).map((tId) => (
                     <button
                       key={tId}
                       type="button"
                       onClick={() => setTier(tId)}
                       className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize border text-center transition-all ${
                         tier === tId
-                          ? 'bg-blue-600 dark:bg-[#B8F010] text-white dark:text-[#040E1F] border-transparent shadow-sm'
-                          : 'bg-slate-50 dark:bg-blue-950/60 border-slate-200 dark:border-blue-900 text-slate-700 dark:text-slate-300'
+                          ? "bg-blue-600 dark:bg-[#B8F010] text-white dark:text-[#040E1F] border-transparent shadow-sm"
+                          : "bg-slate-50 dark:bg-blue-950/60 border-slate-200 dark:border-blue-900 text-slate-700 dark:text-slate-300"
                       }`}
                     >
-                      {tId} ({tId === 'platinum' ? '40%' : tId === 'gold' ? '30%' : tId === 'silver' ? '20%' : '15%'})
+                      {tId} (
+                      {tId === "platinum"
+                        ? "40%"
+                        : tId === "gold"
+                          ? "30%"
+                          : tId === "silver"
+                            ? "20%"
+                            : "15%"}
+                      )
                     </button>
                   ))}
                 </div>
@@ -429,28 +489,44 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
 
               <div className="space-y-1 text-[11px]">
                 <div className="flex justify-between">
-                  <span className="text-slate-500 dark:text-slate-400">Security Hash:</span>
-                  <span className="font-mono font-bold text-slate-900 dark:text-white">{currentBadgeOptions.securityHash}</span>
+                  <span className="text-slate-500 dark:text-slate-400">
+                    Security Hash:
+                  </span>
+                  <span className="font-mono font-bold text-slate-900 dark:text-white">
+                    {currentBadgeOptions.securityHash}
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500 dark:text-slate-400">Issuing Authority:</span>
-                  <span className="font-semibold text-slate-800 dark:text-blue-200">NextSofthr Global Operations</span>
+                  <span className="text-slate-500 dark:text-slate-400">
+                    Issuing Authority:
+                  </span>
+                  <span className="font-semibold text-slate-800 dark:text-blue-200">
+                    NextSofthr Global Operations
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500 dark:text-slate-400">Valid Through:</span>
-                  <span className="font-semibold text-slate-800 dark:text-blue-200">December 2027</span>
+                  <span className="text-slate-500 dark:text-slate-400">
+                    Valid Through:
+                  </span>
+                  <span className="font-semibold text-slate-800 dark:text-blue-200">
+                    December 2027
+                  </span>
                 </div>
               </div>
 
               <div className="pt-2 border-t border-slate-200 dark:border-blue-800 flex items-center justify-between text-[10px]">
-                <span className="text-slate-500 dark:text-slate-400">Direct Verification URL:</span>
+                <span className="text-slate-500 dark:text-slate-400">
+                  Direct Verification URL:
+                </span>
                 <a
                   href={`https://nextsofthr.com/partners/verify?id=${encodeURIComponent(partnerId)}`}
                   target="_blank"
                   rel="noreferrer"
                   onClick={(e) => {
                     e.preventDefault();
-                    alert(`Verified credential for ${partnerName} (${tier.toUpperCase()} Partner, ID: ${partnerId}). Authenticated by NextSofthr Partner Registry.`);
+                    alert(
+                      `Verified credential for ${partnerName} (${tier.toUpperCase()} Partner, ID: ${partnerId}). Authenticated by NextSofthr Partner Registry.`,
+                    );
                   }}
                   className="font-mono text-blue-700 dark:text-[#B8F010] flex items-center gap-1 hover:underline"
                 >
@@ -459,11 +535,8 @@ export const PartnerBadgeModal: React.FC<PartnerBadgeModalProps> = ({
                 </a>
               </div>
             </div>
-
           </div>
-
         </div>
-
       </div>
     </div>
   );

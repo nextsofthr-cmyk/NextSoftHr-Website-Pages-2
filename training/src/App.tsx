@@ -307,13 +307,13 @@ function AcademyApp() {
           onViewSessionCourse={(courseId) => handleQuickCourseSelect(courseId)}
         />
 
-        {/* Section 15: Experienced Instructors Faculty */}
-        <InstructorsSection
+        {/* Section 15: Experienced Instructors Faculty - Learn From Experienced Professionals */}
+        {/* <InstructorsSection
           onSelectCourseByName={(courseName) => {
             setSearchTerm(courseName);
             handleScrollToSection('courses-section');
           }}
-        />
+        /> */}
 
         {/* Section 16: Student Success & Testimonials */}
         <StudentSuccessSection />

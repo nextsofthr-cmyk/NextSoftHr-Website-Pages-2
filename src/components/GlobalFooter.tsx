@@ -47,6 +47,22 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
     }
   };
 
+  const handleItemNavigation = (href: string, e?: React.MouseEvent) => {
+    if (onNavigate && href.startsWith('/outsourcing?view=')) {
+      e?.preventDefault();
+      const page = href.split('view=')[1];
+      onNavigate(page);
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('view', page);
+        window.history.pushState({ page }, '', url.toString());
+      } catch {}
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleItemClick = (view: string, fallbackUrl?: string) => {
     if (onNavigate) {
       onNavigate(view);
@@ -106,7 +122,7 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
               />
             </Link>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
-              NextSofthr is a technology-powered HR, payroll and workforce outsourcing partner combining professional human support, intelligent automation, deep African compliance, and advanced analytics.
+              All – One – Modern HR, Payroll and Business Management Platform enabling organizations worldwide to manage their entire workforce from one unified and intelligent platform.
             </p>
 
             <div className="space-y-2 text-xs text-slate-300 pt-1">
@@ -122,7 +138,9 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-lime-400 shrink-0" />
-                <span>+234 1 888 4768 / +254 20 765 0920</span>
+                <a href="tel:+2349158482622" className="hover:text-white transition-colors">
+                  +2349158482622
+                </a>
               </div>
             </div>
 
@@ -142,173 +160,224 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
             </div>
           </div>
 
-          {/* Column 1: Outsourcing Services */}
+          {/* First Column: Products */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              Outsourcing
+              Products
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <button
-                  onClick={() => handleItemClick("outsourcing-payroll")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Payroll Outsourcing
-                </button>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  HR Management
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("outsourcing-hr-admin")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  HR Administration
-                </button>
+                <Link to="/outsourcing?view=outsourcing-payroll" onClick={(e) => handleItemNavigation('/outsourcing?view=outsourcing-payroll', e)} className="hover:text-white transition-colors">
+                  Payroll
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("outsourcing-managed-hr")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Managed HR Services
-                </button>
+                <Link to="/outsourcing?view=outsourcing-time-attendance" onClick={(e) => handleItemNavigation('/outsourcing?view=outsourcing-time-attendance', e)} className="hover:text-white transition-colors">
+                  Attendance
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("outsourcing-recruitment")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Recruitment &amp; Talent
-                </button>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Shift &amp; Scheduling
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("outsourcing-employee-admin")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Employee Administration
-                </button>
+                <Link to="/outsourcing?view=outsourcing-leave" onClick={(e) => handleItemNavigation('/outsourcing?view=outsourcing-leave', e)} className="hover:text-white transition-colors">
+                  Leave &amp; Time Off
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("multi-company")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Enterprise Workforce
-                </button>
+                <Link to="/outsourcing?view=outsourcing-recruitment" onClick={(e) => handleItemNavigation('/outsourcing?view=outsourcing-recruitment', e)} className="hover:text-white transition-colors">
+                  Recruitment &amp; ATS
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Performance Mgt.
+                </Link>
+              </li>
+              <li>
+                <Link to="/outsourcing?view=portals" onClick={(e) => handleItemNavigation('/outsourcing?view=portals', e)} className="hover:text-white transition-colors">
+                  Manager/Employee ESS
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  WhatsApp
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Biometrics
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Letters &amp; Offers
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  AI Assistance
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Rest API
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 2: Workforce Tech & Platform */}
+          {/* Second Column: Business */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              Platform &amp; Hubs
+              Business
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <button
-                  onClick={() => handleItemClick("outsourcing-time-attendance")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Time &amp; Attendance
-                </button>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  CRM
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("outsourcing-leave")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Leave Management
-                </button>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Finance
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("multi-country")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Multi-Country African Payroll
-                </button>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Assets
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("compliance")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Compliance Center
-                </button>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Expense
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("migration")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Data Migration Center
-                </button>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Projects
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("integrations")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Integrations Marketplace
-                </button>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Payment
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Reports
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Analytics
+                </Link>
+              </li>
+              <li>
+                <Link to="/pricing" onClick={(e) => handleItemNavigation('/pricing', e)} className="hover:text-white transition-colors">
+                  Solutions
+                </Link>
+              </li>
+              <li>
+                <Link to="/pricing" onClick={(e) => handleItemNavigation('/pricing', e)} className="hover:text-white transition-colors">
+                  Small Business
+                </Link>
+              </li>
+              <li>
+                <Link to="/pricing" onClick={(e) => handleItemNavigation('/pricing', e)} className="hover:text-white transition-colors">
+                  Medium Business
+                </Link>
+              </li>
+              <li>
+                <Link to="/pricing" onClick={(e) => handleItemNavigation('/pricing', e)} className="hover:text-white transition-colors">
+                  Enterprises
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" onClick={(e) => handleItemNavigation('/services', e)} className="hover:text-white transition-colors">
+                  Industries
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Solutions & Company */}
+          {/* Third Column: Company */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-              Company &amp; Support
+              Company
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <button
-                  onClick={() => handleItemClick("packages")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Outsourcing Packages
-                </button>
+                <Link to="/about-us" onClick={(e) => handleItemNavigation('/about-us', e)} className="hover:text-white transition-colors">
+                  About Us
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("calculator")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  ROI &amp; Efficiency Calculator
-                </button>
+                <Link to="/contact" onClick={(e) => handleItemNavigation('/contact', e)} className="hover:text-white transition-colors">
+                  Contact Us
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("implementation")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  8-Phase Implementation
-                </button>
+                <Link to="/training" onClick={(e) => handleItemNavigation('/training', e)} className="hover:text-white transition-colors">
+                  Training
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("security")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Security &amp; RBAC Architecture
-                </button>
+                <Link to="/pricing" onClick={(e) => handleItemNavigation('/pricing', e)} className="hover:text-white transition-colors">
+                  Pricing
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("partners", "/partners")}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
-                >
-                  Partner with NextSofthr
-                </button>
+                <Link to="/partners" onClick={(e) => handleItemNavigation('/partners', e)} className="hover:text-white transition-colors">
+                  Partners
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => handleItemClick("portals")}
-                  className="hover:text-lime-400 transition-colors cursor-pointer text-left"
-                >
-                  Client &amp; Staff Portals
-                </button>
+                <Link to="/partner-registry" onClick={(e) => handleItemNavigation('/partner-registry', e)} className="hover:text-lime-400 transition-colors">
+                  Partner Registry
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" onClick={(e) => handleItemNavigation('/contact', e)} className="hover:text-white transition-colors">
+                  Career
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" onClick={(e) => handleItemNavigation('/blog', e)} className="hover:text-white transition-colors">
+                  Resources
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" onClick={(e) => handleItemNavigation('/blog', e)} className="hover:text-white transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" onClick={(e) => handleItemNavigation('/faq', e)} className="hover:text-white transition-colors">
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" onClick={(e) => handleItemNavigation('/faq', e)} className="hover:text-white transition-colors">
+                  Documentation
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" onClick={(e) => handleItemNavigation('/contact', e)} className="hover:text-white transition-colors">
+                  Help Center
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" onClick={(e) => handleItemNavigation('/blog', e)} className="hover:text-white transition-colors">
+                  Product Updates
+                </Link>
               </li>
             </ul>
           </div>

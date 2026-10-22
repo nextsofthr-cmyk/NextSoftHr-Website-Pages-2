@@ -345,10 +345,10 @@ export const GlobalPartnerMap: React.FC<GlobalPartnerMapProps> = ({ onSelectCoun
         </div>
 
         {/* Map & Preview Card Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* Stylized World Vector Map Container (lg:col-span-8) */}
-          <div className="lg:col-span-8 bg-[#0b214a]/90 dark:bg-[#0a1c3b]/90 border border-blue-800/80 dark:border-slate-800 rounded-2xl md:rounded-3xl p-4 sm:p-6 shadow-2xl relative">
+          {/* Stylized World Vector Map Container (lg:col-span-8, Sticky on scroll) */}
+          <div className="lg:col-span-8 lg:sticky lg:top-24 self-start bg-[#0b214a]/90 dark:bg-[#0a1c3b]/90 border border-blue-800/80 dark:border-slate-800 rounded-2xl md:rounded-3xl p-4 sm:p-6 shadow-2xl relative">
             
             {/* Quick Zoom & Regional Focus Panel (Accessible Navigation Hub) */}
             <div className="mb-4 pb-4 border-b border-blue-800/60 dark:border-slate-800">
@@ -886,7 +886,7 @@ export const GlobalPartnerMap: React.FC<GlobalPartnerMapProps> = ({ onSelectCoun
           </div>
 
           {/* Detailed Selected Country Panel (lg:col-span-4) */}
-          <div className="lg:col-span-4 bg-[#0b214a]/95 dark:bg-[#0a1c3b]/95 border border-blue-700/80 dark:border-slate-800 rounded-2xl md:rounded-3xl p-6 shadow-2xl relative flex flex-col justify-between">
+          <div className="lg:col-span-4 self-start bg-[#0b214a]/95 dark:bg-[#0a1c3b]/95 border border-blue-700/80 dark:border-slate-800 rounded-2xl md:rounded-3xl p-6 shadow-2xl relative flex flex-col justify-between">
             <div>
               {/* Flag + Country Name */}
               <div className="flex items-center justify-between">
@@ -926,13 +926,14 @@ export const GlobalPartnerMap: React.FC<GlobalPartnerMapProps> = ({ onSelectCoun
 
               {/* Available Services */}
               <div className="mt-5">
-                <div className="text-xs font-bold uppercase text-slate-400 tracking-wider mb-2">
-                  Specialized Services Available
+                <div className="text-xs font-bold uppercase text-slate-400 tracking-wider mb-2 flex items-center justify-between">
+                  <span>Specialized Services Available</span>
+                  <span className="text-[10px] text-[#c8f526] font-mono font-semibold">({active.availableServices.length})</span>
                 </div>
-                <ul className="space-y-1.5">
+                <ul className="space-y-1.5 max-h-56 overflow-y-auto pr-1 scrollbar-thin">
                   {active.availableServices.map((service, idx) => (
                     <li key={idx} className="flex items-center gap-2 text-xs text-slate-200">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8f526]"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8f526] shrink-0"></span>
                       <span>{service}</span>
                     </li>
                   ))}

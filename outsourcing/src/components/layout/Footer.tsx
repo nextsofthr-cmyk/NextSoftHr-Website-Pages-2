@@ -58,7 +58,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLeadModal }) =
               />
             </a>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
-              NextSofthr is a technology-powered HR, payroll and workforce outsourcing partner combining professional human support, intelligent automation, deep African compliance, and advanced analytics.
+              All – One – Modern HR, Payroll and Business Management Platform enabling organizations worldwide to manage their entire workforce from one unified and intelligent platform.
             </p>
             
             <div className="space-y-2 text-xs text-slate-300 pt-1">
@@ -72,7 +72,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLeadModal }) =
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-lime-400 shrink-0" />
-                <span>+234 1 888 4768 / +254 20 765 0920</span>
+                <a href="tel:+2349158482622" className="hover:text-white transition-colors">
+                  +2349158482622
+                </a>
               </div>
             </div>
 
@@ -82,113 +84,166 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLeadModal }) =
             </div>
           </div>
 
-          {/* Column 1: Outsourcing Services */}
+          {/* First Column: Products */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Outsourcing</h4>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Products</h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <button onClick={() => onNavigate('outsourcing-payroll')} className="hover:text-white transition-colors">
-                  Payroll Outsourcing
+                <a href="/services" className="hover:text-white transition-colors">
+                  HR Management
+                </a>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('outsourcing-payroll')} className="hover:text-white transition-colors text-left">
+                  Payroll
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('outsourcing-hr-admin')} className="hover:text-white transition-colors">
-                  HR Administration
+                <button onClick={() => onNavigate('outsourcing-time-attendance')} className="hover:text-white transition-colors text-left">
+                  Attendance
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('outsourcing-managed-hr')} className="hover:text-white transition-colors">
-                  Managed HR Services
+                <a href="/services" className="hover:text-white transition-colors">
+                  Shift &amp; Scheduling
+                </a>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('outsourcing-leave')} className="hover:text-white transition-colors text-left">
+                  Leave &amp; Time Off
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('outsourcing-recruitment')} className="hover:text-white transition-colors">
-                  Recruitment & Talent
+                <button onClick={() => onNavigate('outsourcing-recruitment')} className="hover:text-white transition-colors text-left">
+                  Recruitment &amp; ATS
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('outsourcing-employee-admin')} className="hover:text-white transition-colors">
-                  Employee Administration
+                <a href="/services" className="hover:text-white transition-colors">
+                  Performance Mgt.
+                </a>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('portals')} className="hover:text-white transition-colors text-left">
+                  Manager/Employee ESS
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('multi-company')} className="hover:text-white transition-colors">
-                  Enterprise Workforce
-                </button>
+                <a href="/services" className="hover:text-white transition-colors">
+                  WhatsApp
+                </a>
+              </li>
+              <li>
+                <a href="/services" className="hover:text-white transition-colors">
+                  Biometrics
+                </a>
+              </li>
+              <li>
+                <a href="/services" className="hover:text-white transition-colors">
+                  Letters &amp; Offers
+                </a>
+              </li>
+              <li>
+                <a href="/services" className="hover:text-white transition-colors">
+                  AI Assistance
+                </a>
+              </li>
+              <li>
+                <a href="/services" className="hover:text-white transition-colors">
+                  Rest API
+                </a>
               </li>
             </ul>
           </div>
 
-          {/* Column 2: Workforce Tech & Platform */}
+          {/* Second Column: Business */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Platform & Hubs</h4>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Business</h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <button onClick={() => onNavigate('outsourcing-time-attendance')} className="hover:text-white transition-colors">
-                  Time & Attendance
-                </button>
+                <a href="/services" className="hover:text-white transition-colors">CRM</a>
               </li>
               <li>
-                <button onClick={() => onNavigate('outsourcing-leave')} className="hover:text-white transition-colors">
-                  Leave Management
-                </button>
+                <a href="/services" className="hover:text-white transition-colors">Finance</a>
               </li>
               <li>
-                <button onClick={() => onNavigate('multi-country')} className="hover:text-white transition-colors">
-                  Multi-Country African Payroll
-                </button>
+                <a href="/services" className="hover:text-white transition-colors">Assets</a>
               </li>
               <li>
-                <button onClick={() => onNavigate('compliance')} className="hover:text-white transition-colors">
-                  Compliance Center
-                </button>
+                <a href="/services" className="hover:text-white transition-colors">Expense</a>
               </li>
               <li>
-                <button onClick={() => onNavigate('migration')} className="hover:text-white transition-colors">
-                  Data Migration Center
-                </button>
+                <a href="/services" className="hover:text-white transition-colors">Projects</a>
               </li>
               <li>
-                <button onClick={() => onNavigate('integrations')} className="hover:text-white transition-colors">
-                  Integrations Marketplace
-                </button>
+                <a href="/services" className="hover:text-white transition-colors">Payment</a>
+              </li>
+              <li>
+                <a href="/services" className="hover:text-white transition-colors">Reports</a>
+              </li>
+              <li>
+                <a href="/services" className="hover:text-white transition-colors">Analytics</a>
+              </li>
+              <li>
+                <a href="/pricing" className="hover:text-white transition-colors">Solutions</a>
+              </li>
+              <li>
+                <a href="/pricing" className="hover:text-white transition-colors">Small Business</a>
+              </li>
+              <li>
+                <a href="/pricing" className="hover:text-white transition-colors">Medium Business</a>
+              </li>
+              <li>
+                <a href="/pricing" className="hover:text-white transition-colors">Enterprises</a>
+              </li>
+              <li>
+                <a href="/services" className="hover:text-white transition-colors">Industries</a>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Solutions & Company */}
+          {/* Third Column: Company */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Company & Support</h4>
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider">Company</h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <button onClick={() => onNavigate('packages')} className="hover:text-white transition-colors">
-                  Outsourcing Packages
-                </button>
+                <a href="/about-us" className="hover:text-white transition-colors">About Us</a>
               </li>
               <li>
-                <button onClick={() => onNavigate('calculator')} className="hover:text-white transition-colors">
-                  ROI & Efficiency Calculator
-                </button>
+                <a href="/contact" className="hover:text-white transition-colors">Contact Us</a>
               </li>
               <li>
-                <button onClick={() => onNavigate('implementation')} className="hover:text-white transition-colors">
-                  8-Phase Implementation
-                </button>
+                <a href="/training" className="hover:text-white transition-colors">Training</a>
               </li>
               <li>
-                <button onClick={() => onNavigate('security')} className="hover:text-white transition-colors">
-                  Security & RBAC Architecture
-                </button>
+                <a href="/pricing" className="hover:text-white transition-colors">Pricing</a>
               </li>
               <li>
-                <button onClick={() => onNavigate('partners')} className="hover:text-white transition-colors">
-                  Partner with NextSofthr
-                </button>
+                <a href="/partners" className="hover:text-white transition-colors">Partners</a>
               </li>
               <li>
-                <button onClick={() => onNavigate('portals')} className="hover:text-lime-400 transition-colors">
-                  Client & Staff Portals
-                </button>
+                <a href="/partner-registry" className="hover:text-lime-400 transition-colors">Partner Registry</a>
+              </li>
+              <li>
+                <a href="/contact" className="hover:text-white transition-colors">Career</a>
+              </li>
+              <li>
+                <a href="/blog" className="hover:text-white transition-colors">Resources</a>
+              </li>
+              <li>
+                <a href="/blog" className="hover:text-white transition-colors">Blog</a>
+              </li>
+              <li>
+                <a href="/faq" className="hover:text-white transition-colors">FAQ</a>
+              </li>
+              <li>
+                <a href="/faq" className="hover:text-white transition-colors">Documentation</a>
+              </li>
+              <li>
+                <a href="/contact" className="hover:text-white transition-colors">Help Center</a>
+              </li>
+              <li>
+                <a href="/blog" className="hover:text-white transition-colors">Product Updates</a>
               </li>
             </ul>
           </div>

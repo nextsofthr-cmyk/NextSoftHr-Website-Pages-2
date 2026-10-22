@@ -1,18 +1,71 @@
 import { ContactOptionCard, BusinessChallenge, NetworkNode, EnquiryType } from '../types';
 
+export interface RegionalEmailDesk {
+  id: string;
+  badge: string;
+  title: string;
+  email: string;
+  region: string;
+}
+
 export const BRAND = {
   name: 'NextSofthr',
   website: 'www.nextsofthr.org',
   websiteUrl: 'https://www.nextsofthr.org',
-  phone: '+234 915 848 2622',
+  phone: '+2349158482622',
   phoneRaw: '+2349158482622',
   whatsappRaw: '2349158482622',
-  email: 'contact@nextsofthr.org',
+  email: 'hello@nextsofthr.org',
   salesEmail: 'sales@nextsofthr.org',
   supportEmail: 'support@nextsofthr.org',
   address: 'NextSofthr Global Operations, Victoria Island, Lagos & Nairobi Tech Corridor',
   responseTimeStatement: 'Our advisory and support team typically replies within 2 to 4 business hours during regular operating windows (GMT+1 / EAT).',
 };
+
+export const REGIONAL_EMAILS: RegionalEmailDesk[] = [
+  {
+    id: 'hello',
+    badge: 'HQ Desk',
+    title: 'General Inquiries',
+    email: 'hello@nextsofthr.org',
+    region: 'Global Coordination & All Inquiries',
+  },
+  {
+    id: 'global',
+    badge: 'Global',
+    title: 'Global & Enterprise',
+    email: 'global@nextsofthr.org',
+    region: 'UK, US, Europe & Cross-Border',
+  },
+  {
+    id: 'wa',
+    badge: 'WA Desk',
+    title: 'West Africa Desk',
+    email: 'wa@nextsofthr.org',
+    region: 'Nigeria, Ghana, Senegal & ECOWAS',
+  },
+  {
+    id: 'ea',
+    badge: 'EA Desk',
+    title: 'East Africa Desk',
+    email: 'ea@nextsofthr.org',
+    region: 'Kenya, Rwanda, Uganda & EAC',
+  },
+  {
+    id: 'na',
+    badge: 'NA Desk',
+    title: 'North Africa Desk',
+    email: 'na@nextsofthr.org',
+    region: 'Egypt, Morocco, Tunisia & MENA',
+  },
+  {
+    id: 'sa',
+    badge: 'SA Desk',
+    title: 'Southern Africa Desk',
+    email: 'sa@nextsofthr.org',
+    region: 'South Africa, Botswana & SADC',
+  },
+];
 
 export const COUNTRIES = [
   'Nigeria',

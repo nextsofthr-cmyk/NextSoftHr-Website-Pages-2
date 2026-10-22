@@ -11,7 +11,11 @@ import {
   Home, 
   Check, 
   Compass,
-  ArrowUpRight
+  ArrowUpRight,
+  TrendingUp,
+  Clock,
+  CalendarCheck,
+  Globe2
 } from 'lucide-react';
 import { NavigationPage } from '../../types';
 
@@ -69,6 +73,34 @@ export const SIX_CORE_SOLUTIONS: {
     shortTitle: 'Enterprise Hierarchy',
     icon: Building2,
     tagline: 'Multi-entity corporate governance, regional branches & consolidated reporting'
+  },
+  {
+    id: 'analytics',
+    title: 'Analytics & Reporting',
+    shortTitle: 'Analytics',
+    icon: TrendingUp,
+    tagline: 'Labor spending visibility, turnover risk & real-time consolidated analytics'
+  },
+  {
+    id: 'outsourcing-time-attendance',
+    title: 'Time & Attendance',
+    shortTitle: 'Time & Attendance',
+    icon: Clock,
+    tagline: 'Automate clock-in, eliminate buddy punching and manual registers'
+  },
+  {
+    id: 'outsourcing-leave',
+    title: 'Leave & Time-Off Mgt.',
+    shortTitle: 'Leave & Time-Off',
+    icon: CalendarCheck,
+    tagline: 'Simplify leave requests, approval calendars and eliminate disputes'
+  },
+  {
+    id: 'multi-country',
+    title: 'Multi-Country African Payroll',
+    shortTitle: 'Multi-Country',
+    icon: Globe2,
+    tagline: 'Run multi-entity, multi-currency payroll & tax compliance across Africa'
   }
 ];
 

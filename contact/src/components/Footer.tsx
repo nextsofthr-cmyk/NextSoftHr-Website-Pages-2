@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
             </a>
 
             <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-              All-in-one HR, Payroll and Business Management Platform designed for micro, small, medium-sized and large businesses across Africa and worldwide.
+              All – One – Modern HR, Payroll and Business Management Platform enabling organizations worldwide to manage their entire workforce from one unified and intelligent platform.
             </p>
 
             {/* Direct Contact Snapshot */}
@@ -71,13 +71,27 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Solutions Column */}
+          {/* First Column: Products */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Solutions</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Products</h4>
             <ul className="space-y-2 text-xs">
-              {['HR Management', 'Payroll', 'Recruitment', 'Time & Attendance', 'Leave Management', 'Performance Management', 'Business Management', 'AI HR Assistant'].map((item) => (
+              {[
+                'HR Management',
+                'Payroll',
+                'Attendance',
+                'Shift & Scheduling',
+                'Leave & Time Off',
+                'Recruitment & ATS',
+                'Performance Mgt.',
+                'Manager/Employee ESS',
+                'WhatsApp',
+                'Biometrics',
+                'Letters & Offers',
+                'AI Assistance',
+                'Rest API'
+              ].map((item) => (
                 <li key={item}>
-                  <a href="#contact-form" className="hover:text-white hover:underline transition-colors">
+                  <a href="/services" className="hover:text-white transition-colors">
                     {item}
                   </a>
                 </li>
@@ -85,31 +99,68 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Company Column */}
+          {/* Second Column: Business */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Business</h4>
+            <ul className="space-y-2 text-xs">
+              {[
+                'CRM',
+                'Finance',
+                'Assets',
+                'Expense',
+                'Projects',
+                'Payment',
+                'Reports',
+                'Analytics',
+                'Solutions',
+                'Small Business',
+                'Medium Business',
+                'Enterprises',
+                'Industries',
+              ].map((item) => (
+                <li key={item}>
+                  <a
+                    href={item === 'Solutions' || item === 'Small Business' || item === 'Medium Business' || item === 'Enterprises' ? '/pricing' : '/services'}
+                    className="hover:text-white transition-colors"
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Third Column: Company */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">Company</h4>
             <ul className="space-y-2 text-xs">
-              {['About NextSofthr', 'Contact Us', 'Careers', 'Partners', 'Blog'].map((item) => (
-                <li key={item}>
-                  <a href="#contact-options" className="hover:text-white hover:underline transition-colors">
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources Column */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Resources</h4>
-            <ul className="space-y-2 text-xs">
-              {['Help Center', 'FAQs', 'Documentation', 'Guides', 'Product Updates'].map((item) => (
-                <li key={item}>
-                  <a href="#faq" className="hover:text-white hover:underline transition-colors">
-                    {item}
-                  </a>
-                </li>
-              ))}
+              {[
+                'About Us',
+                'Contact Us',
+                'Training',
+                'Pricing',
+                'Partners',
+                'Partner Registry',
+                'Career',
+                'Resources',
+                'Blog',
+                'FAQ',
+                'Documentation',
+                'Help Center',
+                'Product Updates',
+              ].map((item) => {
+                let href = `/${item.toLowerCase().replace(/ /g, '-')}`;
+                if (item === 'Resources' || item === 'Blog' || item === 'Product Updates') href = '/blog';
+                if (item === 'Help Center') href = '/contact';
+                if (item === 'Documentation') href = '/faq';
+                return (
+                  <li key={item}>
+                    <a href={href} className="hover:text-white transition-colors">
+                      {item}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

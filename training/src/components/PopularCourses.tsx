@@ -21,6 +21,32 @@ interface PopularCoursesProps {
   onEnrollCourse: (course: Course) => void;
 }
 
+const getCourseInitials = (title: string): string => {
+  if (!title) return 'NS';
+  const clean = title.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+  const words = clean.split(/\s+/).filter(Boolean);
+  if (words.length === 0) return 'NS';
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  const stopWords = new Set(['and', 'for', 'the', 'in', 'of', 'to', 'with', 'a', 'an']);
+  const meaningfulWords = words.filter((w) => !stopWords.has(w.toLowerCase()));
+  const targetWords = meaningfulWords.length >= 2 ? meaningfulWords : words;
+  return (targetWords[0][0] + targetWords[1][0]).toUpperCase();
+};
+
+const getInstructorInitials = (name: string): string => {
+  if (!name) return 'NS';
+  const titles = new Set(['dr', 'dr.', 'mr', 'mr.', 'mrs', 'mrs.', 'ms', 'ms.', 'prof', 'prof.', 'engr', 'engr.']);
+  const words = name
+    .replace(/[^a-zA-Z0-9\s]/g, '')
+    .trim()
+    .split(/\s+/)
+    .filter((w) => !titles.has(w.toLowerCase()));
+  if (words.length === 0) return name.slice(0, 2).toUpperCase();
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + words[words.length - 1][0]).toUpperCase();
+};
+
+
 export const PopularCourses: React.FC<PopularCoursesProps> = ({
   courses,
   onViewCourse,
@@ -179,7 +205,7 @@ export const PopularCourses: React.FC<PopularCoursesProps> = ({
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent pointer-events-none" />
 
                       {/* Category & Skill Level Badges */}
-                      <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">
+                      <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap z-10">
                         <span className="px-2.5 py-1 rounded text-[11px] font-bold bg-[#0F4C81] dark:bg-blue-600 text-white shadow-xs">
                           {course.category}
                         </span>
@@ -220,13 +246,13 @@ export const PopularCourses: React.FC<PopularCoursesProps> = ({
                       </button>
 
                       {/* Format pill at bottom */}
-                      <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-white text-xs font-medium">
+                      <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-white text-xs font-medium z-10">
                         <Video className="w-3.5 h-3.5 text-[#84CC16]" />
                         <span>{course.format}</span>
                       </div>
 
                       {/* Rating at bottom right */}
-                      <div className="absolute bottom-3 right-3 flex items-center gap-1 bg-slate-900/80 backdrop-blur-xs px-2 py-0.5 rounded text-[11px] font-semibold text-white">
+                      <div className="absolute bottom-3 right-3 flex items-center gap-1 bg-slate-900/80 backdrop-blur-xs px-2 py-0.5 rounded text-[11px] font-semibold text-white z-10">
                         <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                         <span>{course.rating.toFixed(2)}</span>
                       </div>
@@ -262,11 +288,12 @@ export const PopularCourses: React.FC<PopularCoursesProps> = ({
 
                       {/* Instructor Info */}
                       <div className="mt-4 pt-3.5 border-t border-slate-100 dark:border-slate-800 flex items-center gap-2.5">
-                        <img
-                          src={course.instructor.photo}
-                          alt={course.instructor.name}
-                          className="w-7 h-7 rounded-full object-cover border border-slate-200 dark:border-slate-700"
-                        />
+                        <div
+                          className="w-7 h-7 rounded-full bg-[#0F4C81] dark:bg-blue-600 text-[#84CC16] font-bold text-xs flex items-center justify-center border border-slate-200 dark:border-slate-700 shrink-0 shadow-xs"
+                          title={course.instructor.name}
+                        >
+                          {getInstructorInitials(course.instructor.name)}
+                        </div>
                         <div className="text-xs truncate">
                           <span className="font-semibold text-slate-800 dark:text-slate-200 block truncate">
                             {course.instructor.name}

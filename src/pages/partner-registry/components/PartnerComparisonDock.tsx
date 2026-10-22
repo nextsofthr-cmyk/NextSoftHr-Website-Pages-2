@@ -63,14 +63,10 @@ export const PartnerComparisonDock: React.FC<PartnerComparisonDockProps> = ({
             {comparedPartners.map((partner) => (
               <div 
                 key={partner.id}
-                className="relative group w-8 h-8 rounded-full border-2 border-[#071938] bg-white overflow-hidden shadow-xs shrink-0"
+                className="relative group w-8 h-8 rounded-full border-2 border-[#071938] bg-gradient-to-br from-[#0c2b64] to-[#184ea8] text-[#c8f526] font-black text-xs flex items-center justify-center overflow-hidden shadow-xs shrink-0 select-none"
                 title={partner.companyName}
               >
-                <img 
-                  src={partner.logo} 
-                  alt={partner.companyName} 
-                  className="w-full h-full object-cover"
-                />
+                <span>{partner.companyName.trim().slice(0, 2).toUpperCase()}</span>
                 {/* Remove button */}
                 <button
                   type="button"

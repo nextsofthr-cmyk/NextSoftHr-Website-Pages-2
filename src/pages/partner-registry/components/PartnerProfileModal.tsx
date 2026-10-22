@@ -49,6 +49,15 @@ export const PartnerProfileModal: React.FC<PartnerProfileModalProps> = ({
 
   const { formatCurrency, currentCurrency } = useCurrency();
 
+  const getCompanyInitials = (name: string): string => {
+    if (!name) return 'NS';
+    const clean = name.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+    const words = clean.split(/\s+/).filter(Boolean);
+    if (words.length === 0) return 'NS';
+    if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+    return (words[0][0] + words[1][0]).toUpperCase();
+  };
+
   const getBudgetRange = (p: Partner) => {
     switch (p.partnerLevel) {
       case 'Strategic Partner':
@@ -107,12 +116,8 @@ export const PartnerProfileModal: React.FC<PartnerProfileModalProps> = ({
         </button>
 
         {/* 1. Cover Section */}
-        <div className="relative h-44 sm:h-56 bg-gradient-to-r from-[#071938] via-[#0c2b64] to-[#124296] overflow-hidden">
-          <img 
-            src={partner.coverImage} 
-            alt={partner.companyName} 
-            className="w-full h-full object-cover opacity-30 mix-blend-overlay"
-          />
+        <div className="relative h-40 sm:h-48 bg-gradient-to-r from-[#071938] via-[#0c2b64] to-[#124296] overflow-hidden">
+          <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#c8f526_1px,transparent_1px)] [background-size:14px_14px]"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-[#071938] via-transparent to-transparent"></div>
 
           {/* Partner Level & Location Pills in Cover */}
@@ -135,14 +140,10 @@ export const PartnerProfileModal: React.FC<PartnerProfileModalProps> = ({
         <div className="px-6 sm:px-8 pb-6 border-b border-slate-200 dark:border-slate-800 relative bg-white dark:bg-[#061124] transition-colors">
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 -mt-14 sm:-mt-16">
             
-            {/* Logo + Basic Info */}
+            {/* Company Initials Avatar + Basic Info */}
             <div className="flex items-end gap-4">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-4 border-white dark:border-[#0a1c3b] bg-white dark:bg-[#0a1c3b] shadow-xl overflow-hidden shrink-0">
-                <img 
-                  src={partner.logo} 
-                  alt={partner.companyName} 
-                  className="w-full h-full object-cover"
-                />
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-4 border-white dark:border-[#0a1c3b] bg-gradient-to-br from-[#0c2b64] via-[#0f357a] to-[#184ea8] text-[#c8f526] font-black text-3xl sm:text-4xl flex items-center justify-center shadow-xl shrink-0 select-none tracking-wider">
+                <span>{getCompanyInitials(partner.companyName)}</span>
               </div>
 
               <div className="pt-2">

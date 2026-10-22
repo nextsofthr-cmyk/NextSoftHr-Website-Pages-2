@@ -1408,6 +1408,30 @@ export const TESTIMONIALS: Testimonial[] = [
     rating: 5,
     verifiedStudent: true,
   },
+  {
+    id: 't5',
+    name: 'Folake Adeleke',
+    initials: 'FA',
+    role: 'Chief Human Resources Officer',
+    organization: 'Zenith Retail Network, Accra',
+    courseCompleted: 'People Analytics & Workforce Forecasting',
+    content:
+      'The predictive workforce modeling techniques we adopted transformed our board presentations. We reduced high-performer turnover by 31% across all six regional distribution centers in West Africa.',
+    rating: 5,
+    verifiedStudent: true,
+  },
+  {
+    id: 't6',
+    name: 'Kwabena Boateng',
+    initials: 'KB',
+    role: 'Senior People Operations Lead',
+    organization: 'Sahel Tech Innovations, Nairobi',
+    courseCompleted: 'Talent Acquisition & Global Recruitment Architecture',
+    content:
+      'NextSoftHR Training Academy provided our recruitment team with structured behavioral rubrics and streamlined hiring workflows. Our average time-to-hire dropped from 44 days to just 18 days.',
+    rating: 5,
+    verifiedStudent: true,
+  },
 ];
 
 export const FAQS = [

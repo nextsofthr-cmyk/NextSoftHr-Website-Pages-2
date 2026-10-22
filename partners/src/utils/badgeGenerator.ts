@@ -294,6 +294,10 @@ function renderShieldBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierTh
   const hash = escapeXml(opts.securityHash);
   const region = escapeXml(opts.region.toUpperCase());
 
+  // Dynamic font sizing for shield typography to prevent any border collision
+  const pNameFontSize = pName.length > 28 ? 13 : pName.length > 20 ? 15 : 17;
+  const specFontSize = spec.length > 28 ? 9 : spec.length > 20 ? 10 : 11.5;
+
   // Shield Path coordinates: width 500, height 580
   // Top horizontal with chamfers: (50, 40) -> (450, 40)
   // Curves down to pointed tip at (250, 530)
@@ -394,48 +398,51 @@ function renderShieldBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierTh
     </g>
 
     <!-- Partner Full Business Name -->
-    <g transform="translate(250, 315)">
-      <text x="0" y="0" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="800" text-anchor="middle" letter-spacing="0.5">
+    <g transform="translate(250, 310)">
+      <text x="0" y="0" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="${pNameFontSize}" font-weight="800" text-anchor="middle" letter-spacing="0.5" ${pName.length > 24 ? 'textLength="300" lengthAdjust="spacingAndGlyphs"' : ''}>
         ${pName}
       </text>
-      <text x="0" y="24" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1.5">
+      <text x="0" y="22" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="${specFontSize}" font-weight="700" text-anchor="middle" letter-spacing="1" ${spec.length > 24 ? 'textLength="260" lengthAdjust="spacingAndGlyphs"' : ''}>
         ${spec}
       </text>
-      <text x="0" y="44" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" text-anchor="middle" letter-spacing="1">
+      <text x="0" y="40" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="600" text-anchor="middle" letter-spacing="0.8">
         REGION: ${region}
       </text>
     </g>
 
     <!-- Security Micro-Bar & Hash -->
-    <g transform="translate(250, 400)">
-      <line x1="-120" y1="0" x2="120" y2="0" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
+    <g transform="translate(250, 382)">
+      <line x1="-110" y1="0" x2="110" y2="0" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
       
       <!-- Security Barcode-like dashes -->
       <g stroke="url(#${uid}-metalGrad)" stroke-width="1.5" opacity="0.65">
-        <line x1="-90" y1="-8" x2="-90" y2="8" />
-        <line x1="-80" y1="-5" x2="-80" y2="5" />
-        <line x1="-70" y1="-10" x2="-70" y2="10" />
-        <line x1="-60" y1="-4" x2="-60" y2="4" />
-        <line x1="60" y1="-4" x2="60" y2="4" />
-        <line x1="70" y1="-10" x2="70" y2="10" />
-        <line x1="80" y1="-5" x2="80" y2="5" />
-        <line x1="90" y1="-8" x2="90" y2="8" />
+        <line x1="-85" y1="-7" x2="-85" y2="7" />
+        <line x1="-75" y1="-4" x2="-75" y2="4" />
+        <line x1="-65" y1="-9" x2="-65" y2="9" />
+        <line x1="65" y1="-9" x2="65" y2="9" />
+        <line x1="75" y1="-4" x2="75" y2="4" />
+        <line x1="85" y1="-7" x2="85" y2="7" />
       </g>
 
       <rect x="-65" y="-12" width="130" height="24" rx="4" fill="#040E1F" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
-      <text x="0" y="4" fill="#FFFFFF" font-family="ui-monospace, monospace" font-size="12" font-weight="800" text-anchor="middle">
+      <text x="0" y="4" fill="#FFFFFF" font-family="ui-monospace, monospace" font-size="11.5" font-weight="800" text-anchor="middle">
         ${pId}
       </text>
     </g>
 
-    <!-- Bottom Shield Tail: Cryptographic Verification Stamp -->
-    <g transform="translate(250, 460)">
-      <text x="0" y="0" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" letter-spacing="2" text-anchor="middle">
-        VERIFIED CREDENTIAL • VALID ${year}
+    <!-- Bottom Shield Tail: Cryptographic Verification Stamp (Inside Shield Bounds) -->
+    <g transform="translate(250, 418)">
+      <text x="0" y="0" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" letter-spacing="1" textLength="145" lengthAdjust="spacingAndGlyphs" text-anchor="middle">
+        VERIFIED CREDENTIAL
       </text>
-      <text x="0" y="16" fill="#64748B" font-family="ui-monospace, monospace" font-size="9" text-anchor="middle">
+      <text x="0" y="15" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" letter-spacing="1" text-anchor="middle">
+        VALID ${year}
+      </text>
+      <text x="0" y="31" fill="#64748B" font-family="ui-monospace, monospace" font-size="8" font-weight="600" text-anchor="middle" letter-spacing="0.5" textLength="105" lengthAdjust="spacingAndGlyphs">
         ${hash}
       </text>
+      <!-- Bottom Apex Cyber Node -->
+      <circle cx="0" cy="45" r="2.5" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
     </g>
   </g>
 </svg>`;
@@ -452,13 +459,18 @@ function renderHexBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierTheme
   const spec = escapeXml(opts.specialization.toUpperCase());
   const hash = escapeXml(opts.securityHash);
 
+  // Dynamic font sizing for company name & specialization to guarantee zero overflow
+  const pNameFontSize = pName.length > 26 ? 12.5 : pName.length > 20 ? 14 : 15.5;
+  const specFontSize = spec.length > 26 ? 10 : 11;
+  const tierFontSize = theme.label.length > 16 ? 15 : 17;
+
   // Hexagon with vertical symmetry: center 250, 270, radius ~240
-  // Top vertex (250, 30), (458, 150), (458, 390), (250, 510), (42, 390), (42, 150)
+  // Top vertex (250, 25), (465, 149), (465, 391), (250, 515), (35, 391), (35, 149)
   const hexOuterPoints = "250,25 465,149 465,391 250,515 35,391 35,149";
   const hexInnerPoints = "250,42 448,157 448,383 250,498 52,383 52,157";
   const hexCorePoints  = "250,58 432,165 432,375 250,482 68,375 68,165";
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 540" width="500" height="540" role="img" aria-label="NextSofthr Certified ${theme.label} Tech Hexagon - ${pName}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 540" width="500" height="540" style="width: 100%; height: auto; max-width: 100%; display: block;" role="img" aria-label="NextSofthr Certified ${theme.label} Tech Hexagon - ${pName}">
   <title>NextSofthr Cloud Partner Certification - ${pName}</title>
   <defs>
     <radialGradient id="${uid}-hexBg" cx="50%" cy="40%" r="60%">
@@ -500,61 +512,64 @@ function renderHexBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierTheme
     </g>
 
     <!-- Top Status Beacon -->
-    <g transform="translate(250, 100)">
-      <rect x="-110" y="-14" width="220" height="28" rx="14" fill="#040F22" stroke="url(#${uid}-metalGrad)" stroke-width="1" />
-      <circle cx="-85" cy="0" r="4" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
-      <text x="8" y="4" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="900" letter-spacing="2.5" text-anchor="middle">
+    <g transform="translate(250, 98)">
+      <rect x="-95" y="-12" width="190" height="24" rx="12" fill="#040F22" stroke="url(#${uid}-metalGrad)" stroke-width="1" />
+      <circle cx="-75" cy="0" r="3" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
+      <text x="8" y="3.5" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="900" letter-spacing="1.5" text-anchor="middle">
         ACTIVE VERIFIED NODE
       </text>
     </g>
 
     <!-- Center Icon: Cloud / Chip Engine -->
-    <g transform="translate(250, 175)">
-      <circle cx="0" cy="0" r="42" fill="${theme.accentGlow}" filter="url(#${uid}-glow)" />
-      <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="${theme.surfaceDark}" stroke="url(#${uid}-metalGrad)" stroke-width="3" />
+    <g transform="translate(250, 168)">
+      <circle cx="0" cy="0" r="38" fill="${theme.accentGlow}" filter="url(#${uid}-glow)" />
+      <polygon points="0,-26 22,-13 22,13 0,26 -22,13 -22,-13" fill="${theme.surfaceDark}" stroke="url(#${uid}-metalGrad)" stroke-width="2.5" />
       <!-- Stylized Cloud / Server Core -->
-      <path d="M -12 6 C -15 6 -17 3 -17 0 C -17 -3 -15 -6 -12 -6 C -12 -9 -9 -12 -5 -12 C -1 -12 2 -9 3 -6 C 6 -6 8 -4 8 -1 C 8 2 6 6 3 6 Z" fill="url(#${uid}-metalGrad)" />
-      <circle cx="0" cy="1" r="3" fill="${theme.accentColor}" />
+      <path d="M -11 5 C -14 5 -16 2 -16 0 C -16 -3 -14 -5 -11 -5 C -11 -8 -8 -11 -4 -11 C -1 -11 2 -8 3 -5 C 5 -5 7 -3 7 -1 C 7 2 5 5 2 5 Z" fill="url(#${uid}-metalGrad)" />
+      <circle cx="0" cy="1" r="2.5" fill="${theme.accentColor}" />
     </g>
 
     <!-- Tier Plaque Banner -->
-    <g transform="translate(250, 245)">
-      <rect x="-150" y="-18" width="300" height="36" rx="6" fill="#020714" stroke="url(#${uid}-metalGrad)" stroke-width="2.5" />
-      <text x="0" y="7" fill="url(#${uid}-metalGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="900" letter-spacing="3" text-anchor="middle">
+    <g transform="translate(250, 235)">
+      <rect x="-140" y="-17" width="280" height="34" rx="6" fill="#020714" stroke="url(#${uid}-metalGrad)" stroke-width="2" />
+      <text x="0" y="5.5" fill="url(#${uid}-metalGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="${tierFontSize}" font-weight="900" letter-spacing="2" text-anchor="middle">
         ${theme.label}
       </text>
     </g>
 
-    <!-- Partner Business Identity -->
-    <g transform="translate(250, 312)">
-      <text x="0" y="0" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="800" text-anchor="middle" letter-spacing="0.5">
+    <!-- Partner Business Identity (Secure Central Placement) -->
+    <g transform="translate(250, 298)">
+      <text x="0" y="0" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="${pNameFontSize}" font-weight="800" text-anchor="middle" letter-spacing="0.4">
         ${pName}
       </text>
-      <text x="0" y="22" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">
+      <text x="0" y="20" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="${specFontSize}" font-weight="700" text-anchor="middle" letter-spacing="0.8">
         ${spec}
       </text>
-      <text x="0" y="42" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" text-anchor="middle" letter-spacing="0.5">
+      <text x="0" y="38" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle" letter-spacing="0.8">
         NEXTSOFTHR CLOUD ECOSYSTEM
       </text>
     </g>
 
-    <!-- ID & Security Seal -->
-    <g transform="translate(250, 395)">
-      <line x1="-130" y1="0" x2="130" y2="0" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
-      <rect x="-70" y="-12" width="140" height="24" rx="4" fill="#040F22" stroke="url(#${uid}-metalGrad)" stroke-width="1" />
-      <text x="0" y="4" fill="#FFFFFF" font-family="ui-monospace, monospace" font-size="11" font-weight="800" text-anchor="middle">
+    <!-- ID & Security Seal (Y=368, Inside Hex Core Width) -->
+    <g transform="translate(250, 368)">
+      <line x1="-110" y1="0" x2="-68" y2="0" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
+      <rect x="-65" y="-11" width="130" height="22" rx="4" fill="#040F22" stroke="url(#${uid}-metalGrad)" stroke-width="1" />
+      <text x="0" y="3.5" fill="#FFFFFF" font-family="ui-monospace, monospace" font-size="10.5" font-weight="800" text-anchor="middle">
         ${pId} • ${year}
       </text>
+      <line x1="68" y1="0" x2="110" y2="0" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
     </g>
 
-    <!-- Bottom Cryptographic Ledger Proof -->
-    <g transform="translate(250, 445)">
-      <text x="0" y="0" fill="${theme.accentColor}" font-family="ui-monospace, monospace" font-size="10" font-weight="700" text-anchor="middle" letter-spacing="1">
+    <!-- Bottom Cryptographic Ledger Proof (Inside Hexagon, Zero Overflow) -->
+    <g transform="translate(250, 404)">
+      <text x="0" y="0" fill="${theme.accentColor}" font-family="ui-monospace, monospace" font-size="9.5" font-weight="700" text-anchor="middle" letter-spacing="1">
         ${hash}
       </text>
-      <text x="0" y="16" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" letter-spacing="1">
+      <text x="0" y="15" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="700" text-anchor="middle" letter-spacing="0.5" textLength="190" lengthAdjust="spacingAndGlyphs">
         SECURE CLOUD CERTIFICATION PROTOCOL
       </text>
+      <!-- Apex Cyber Indicator -->
+      <circle cx="0" cy="28" r="3" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
     </g>
   </g>
 </svg>`;
@@ -572,7 +587,11 @@ function renderCompactBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierT
   const spec = escapeXml(opts.specialization.toUpperCase());
   const hash = escapeXml(opts.securityHash);
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" width="640" height="180" role="img" aria-label="NextSofthr Certified ${theme.label} Banner - ${pName}">
+  const pNameFontSize = pName.length > 28 ? 11 : pName.length > 20 ? 12 : 13;
+  const specFontSize = spec.length > 28 ? 8.5 : 9.5;
+  const tierFontSize = theme.label.length > 16 ? 14 : 16;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" width="640" height="180" style="width: 100%; height: auto; max-width: 100%; display: block;" role="img" aria-label="NextSofthr Certified ${theme.label} Banner - ${pName}">
   <title>NextSofthr Certified Partner Banner - ${pName}</title>
   <defs>
     <linearGradient id="${uid}-bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -601,66 +620,65 @@ function renderCompactBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierT
 
   <g filter="url(#${uid}-shadow)">
     <!-- Container Card -->
-    <rect x="10" y="10" width="620" height="160" rx="16" fill="url(#${uid}-bgGrad)" stroke="url(#${uid}-metalGrad)" stroke-width="2.5" />
+    <rect x="8" y="8" width="624" height="164" rx="14" fill="url(#${uid}-bgGrad)" stroke="url(#${uid}-metalGrad)" stroke-width="2.5" />
     
     <!-- Accent Left Glow Border -->
-    <rect x="10" y="10" width="6" height="160" rx="3" fill="${theme.accentColor}" />
+    <rect x="8" y="8" width="5" height="164" rx="2.5" fill="${theme.accentColor}" />
 
     <!-- Left Mini Crest Seal -->
-    <g transform="translate(95, 90)">
-      <!-- Outer Seal Ring -->
-      <circle cx="0" cy="0" r="54" fill="${theme.surfaceDark}" stroke="url(#${uid}-metalGrad)" stroke-width="3" />
-      <circle cx="0" cy="0" r="47" fill="none" stroke="${theme.accentColor}" stroke-width="1.5" stroke-dasharray="3 4" />
-      
-      <!-- Tier Medallion Core -->
-      <circle cx="0" cy="0" r="38" fill="url(#${uid}-bgGrad)" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
-      
-      <!-- Tier Diamond Motif -->
-      <polygon points="0,-16 16,0 0,16 -16,0" fill="url(#${uid}-metalGrad)" />
-      <circle cx="0" cy="0" r="4" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
+    <g transform="translate(75, 90)">
+      <circle cx="0" cy="0" r="46" fill="${theme.surfaceDark}" stroke="url(#${uid}-metalGrad)" stroke-width="2.5" />
+      <circle cx="0" cy="0" r="40" fill="none" stroke="${theme.accentColor}" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.8" />
+      <circle cx="0" cy="32" r="32" fill="url(#${uid}-bgGrad)" stroke="url(#${uid}-metalGrad)" stroke-width="1.2" />
+      <polygon points="0,-13 13,0 0,13 -13,0" fill="url(#${uid}-metalGrad)" />
+      <circle cx="0" cy="0" r="3.5" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
 
       <!-- Seal Mini Ribbon -->
-      <rect x="-35" y="24" width="70" height="14" rx="3" fill="#040E1F" stroke="url(#${uid}-metalGrad)" stroke-width="1" />
-      <text x="0" y="34" fill="url(#${uid}-metalGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="900" letter-spacing="1" text-anchor="middle">
+      <rect x="-28" y="19" width="56" height="13" rx="3" fill="#040E1F" stroke="url(#${uid}-metalGrad)" stroke-width="1" />
+      <text x="0" y="28.5" fill="url(#${uid}-metalGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="900" letter-spacing="1" text-anchor="middle">
         ${year}
       </text>
     </g>
 
-    <!-- Right Side Information Hierarchy -->
-    <g transform="translate(180, 42)">
-      <!-- Organization Title & Badge -->
-      <div style="display: flex;"></div>
-      <text x="0" y="0" fill="url(#${uid}-metalGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="900" letter-spacing="2.5">
+    <!-- Middle Information Hierarchy -->
+    <g transform="translate(138, 38)">
+      <!-- Eyebrow Organization Title -->
+      <text x="0" y="0" fill="url(#${uid}-metalGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="8.8" font-weight="900" letter-spacing="1.2" textLength="320" lengthAdjust="spacing">
         NEXTSOFTHR CERTIFIED PARTNER PROGRAM
       </text>
 
       <!-- Tier Title Plaque -->
-      <text x="0" y="24" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="900" letter-spacing="1">
+      <text x="0" y="23" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="${tierFontSize}" font-weight="900" letter-spacing="1.2">
         ${theme.label}
       </text>
 
       <!-- Partner Org Name -->
-      <text x="0" y="46" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800">
+      <text x="0" y="45" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="${pNameFontSize}" font-weight="800" letter-spacing="0.3">
         ${pName}
       </text>
 
-      <!-- Specialization & Region -->
-      <text x="0" y="66" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600">
+      <!-- Specialization -->
+      <text x="0" y="65" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="${specFontSize}" font-weight="600" letter-spacing="0.3">
         ${spec}
+      </text>
+
+      <!-- Subtitle Credential -->
+      <text x="0" y="83" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="600" letter-spacing="0.6">
+        OFFICIAL VERIFIED CREDENTIAL • ${year}
       </text>
     </g>
 
-    <!-- Right-Hand Verification Pill Stamp -->
-    <g transform="translate(525, 90)">
-      <rect x="-80" y="-36" width="160" height="72" rx="10" fill="#030914" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
-      <circle cx="-55" cy="-14" r="4" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
-      <text x="-44" y="-10" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800">
+    <!-- Right-Hand Verification Stamp -->
+    <g transform="translate(555, 90)">
+      <rect x="-59" y="-35" width="118" height="70" rx="10" fill="#030914" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
+      <circle cx="-42" cy="-14" r="3" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
+      <text x="0" y="-11" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" letter-spacing="0.5" text-anchor="middle">
         VERIFIED ACTIVE
       </text>
-      <text x="0" y="10" fill="url(#${uid}-metalGrad)" font-family="ui-monospace, monospace" font-size="11" font-weight="800" text-anchor="middle">
+      <text x="0" y="8" fill="url(#${uid}-metalGrad)" font-family="ui-monospace, monospace" font-size="10.5" font-weight="800" text-anchor="middle">
         ${pId}
       </text>
-      <text x="0" y="26" fill="#64748B" font-family="ui-monospace, monospace" font-size="8" text-anchor="middle">
+      <text x="0" y="23" fill="#94A3B8" font-family="ui-monospace, monospace" font-size="7.5" text-anchor="middle">
         ${hash}
       </text>
     </g>

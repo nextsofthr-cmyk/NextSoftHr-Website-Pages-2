@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { 
   Search, 
   Filter, 
@@ -17,14 +17,12 @@ import {
   Sparkles,
   ArrowUpDown,
   CheckCircle2,
-  FileDown,
   ChevronRight,
   ShieldCheck
 } from 'lucide-react';
 import { Partner, FilterState } from '../types';
 import { COUNTRIES_DATA } from '../data/countries';
 import { PartnerCard } from './PartnerCard';
-import { ExportPdfModal } from './ExportPdfModal';
 import { PartnerCategoryBadge } from './PartnerCategoryBadge';
 import { CategoryStandardsModal } from './CategoryStandardsModal';
 import { PartnerTierBadge, TopTierBadge, VerifiedBadge } from './PartnerTierBadge';
@@ -51,7 +49,6 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
 }) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const { t } = useLanguage();
-  const [isExportPdfOpen, setIsExportPdfOpen] = useState(false);
   const [isCategoryStandardsOpen, setIsCategoryStandardsOpen] = useState(false);
   const [isTierTrustOpen, setIsTierTrustOpen] = useState(false);
   const [comparedPartnerIds, setComparedPartnerIds] = useState<string[]>([]);
@@ -59,6 +56,39 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
+
+  const asideRef = useRef<HTMLElement>(null);
+  const mainRef = useRef<HTMLElement>(null);
+  const [sidebarHeight, setSidebarHeight] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (window.innerWidth >= 1024 && asideRef.current) {
+        const h = asideRef.current.offsetHeight;
+        if (h > 0) {
+          setSidebarHeight(h);
+        }
+      } else {
+        setSidebarHeight(undefined);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+
+    let observer: ResizeObserver | null = null;
+    if (asideRef.current && typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(() => {
+        updateHeight();
+      });
+      observer.observe(asideRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateHeight);
+      if (observer) observer.disconnect();
+    };
+  }, [filters]);
 
   const handleToggleCompare = (partner: Partner) => {
     setComparedPartnerIds(prev => {
@@ -113,16 +143,22 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
 
   const services = [
     'HR Implementation',
-    'Payroll Implementation',
     'HR Consulting',
-    'Payroll Consulting',
-    'Employee Training',
-    'Data Migration',
-    'System Integration',
-    'Customization',
-    'Compliance Support',
     'HR Outsourcing',
+    'Payroll (PAYE/Pension/NSITF)',
     'Payroll Outsourcing',
+    'Payroll Implementation',
+    'Payroll Consulting',
+    'Shift & Attendance Scheduling',
+    'Accounting & Finance',
+    'Data Migration',
+    'Compliance Support',
+    'Company Incorporation',
+    'Returns & Filing',
+    'System Integration',
+    'Training & Development',
+    'Employee Training',
+    'Customization',
     'Technical Support',
     'Business Process Consulting'
   ];
@@ -372,20 +408,7 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
               </button>
             </div>
 
-            {/* Export to PDF Button */}
-            <button
-              type="button"
-              id="export-directory-pdf-btn"
-              onClick={() => setIsExportPdfOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0c2b64] hover:bg-blue-800 text-white font-bold text-xs shadow-sm transition-all cursor-pointer group shrink-0"
-              title="Export clean, branded PDF summary of currently filtered partners"
-            >
-              <FileDown className="w-3.5 h-3.5 text-[#c8f526] group-hover:translate-y-0.5 transition-transform" />
-              <span>{t('directory.export_pdf', undefined, 'Export PDF')}</span>
-              <span className="hidden sm:inline-block px-1.5 py-0.2 rounded-md bg-blue-900/90 text-[#c8f526] text-[10px] font-black">
-                {filteredPartners.length}
-              </span>
-            </button>
+
 
           </div>
 
@@ -695,10 +718,10 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
         )}
 
         {/* Main Grid: Filters Sidebar + Results Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* Desktop Filter Sidebar (lg:col-span-3) */}
-          <aside className="hidden lg:block lg:col-span-3 sticky top-24 bg-white dark:bg-[#0a1c3b] rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-6">
+          {/* Desktop Filter Sidebar (lg:col-span-3) - Stays stationary */}
+          <aside ref={asideRef} className="hidden lg:block lg:col-span-3 lg:sticky lg:top-24 self-start bg-white dark:bg-[#0a1c3b] rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-6">
             
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2 font-black text-sm text-[#0c2b64] dark:text-white">
@@ -953,8 +976,12 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
 
           </aside>
 
-          {/* Results Grid / List (lg:col-span-9) */}
-          <main className="lg:col-span-9">
+          {/* Results Grid / List (lg:col-span-9) - Right-hand side scrolls and aligns equal with left sidebar */}
+          <main 
+            ref={mainRef}
+            style={sidebarHeight ? { height: `${sidebarHeight}px`, maxHeight: `${sidebarHeight}px`, scrollbarWidth: 'none', msOverflowStyle: 'none' } : { scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            className="lg:col-span-9 self-start min-w-0 lg:overflow-y-auto pr-0 sm:pr-1 pb-5 scrollbar-none no-scrollbar"
+          >
             {filteredPartners.length === 0 ? (
               <div className="bg-white dark:bg-[#0a1c3b] rounded-3xl border border-slate-200 dark:border-slate-800 p-12 text-center shadow-sm">
                 <div className="w-16 h-16 rounded-full bg-blue-50 dark:bg-blue-950/80 text-blue-800 dark:text-[#c8f526] flex items-center justify-center mx-auto mb-4">
@@ -998,7 +1025,7 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
                       disabled={currentPage === 1}
                       onClick={() => {
                         setCurrentPage(prev => Math.max(prev - 1, 1));
-                        window.scrollTo({ top: 600, behavior: 'smooth' });
+                        mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
                       className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-[#0a1c3b] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
@@ -1010,7 +1037,7 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
                         key={i}
                         onClick={() => {
                           setCurrentPage(i + 1);
-                          window.scrollTo({ top: 600, behavior: 'smooth' });
+                          mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
                         className={`w-9 h-9 rounded-xl text-xs font-bold transition-colors ${
                           currentPage === i + 1
@@ -1026,7 +1053,7 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
                       disabled={currentPage === totalPages}
                       onClick={() => {
                         setCurrentPage(prev => Math.min(prev + 1, totalPages));
-                        window.scrollTo({ top: 600, behavior: 'smooth' });
+                        mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
                       className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-[#0a1c3b] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 disabled:opacity-40 disabled:cursor-not-allowed"
                     >
@@ -1204,19 +1231,6 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
                 </select>
               </div>
 
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileFiltersOpen(false);
-                    setIsExportPdfOpen(true);
-                  }}
-                  className="w-full py-2.5 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 text-[#0c2b64] dark:text-[#c8f526] text-xs font-bold flex items-center justify-center gap-2 transition-colors"
-                >
-                  <FileDown className="w-4 h-4 text-blue-800 dark:text-[#c8f526]" />
-                  <span>Export PDF Summary ({filteredPartners.length} Partners)</span>
-                </button>
-              </div>
 
               <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-2">
                 <button
@@ -1238,13 +1252,7 @@ export const DirectorySection: React.FC<DirectorySectionProps> = ({
         </div>
       )}
 
-      {/* Export to PDF Modal */}
-      <ExportPdfModal
-        isOpen={isExportPdfOpen}
-        onClose={() => setIsExportPdfOpen(false)}
-        partners={filteredPartners}
-        filters={filters}
-      />
+
 
       {/* Partner Category Accreditation Standards Modal */}
       <CategoryStandardsModal

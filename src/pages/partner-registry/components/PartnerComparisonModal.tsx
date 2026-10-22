@@ -265,12 +265,8 @@ export const PartnerComparisonModal: React.FC<PartnerComparisonModalProps> = ({
                     <div>
                       {/* Logo & Verification */}
                       <div className="flex items-start gap-3 mb-2.5">
-                        <div className="w-12 h-12 rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-[#061227] overflow-hidden shrink-0 shadow-xs">
-                          <img 
-                            src={partner.logo} 
-                            alt={partner.companyName} 
-                            className="w-full h-full object-cover"
-                          />
+                        <div className="w-12 h-12 rounded-xl border border-slate-100 dark:border-slate-700 bg-gradient-to-br from-[#0c2b64] via-[#0f357a] to-[#184ea8] text-[#c8f526] font-black text-base flex items-center justify-center shrink-0 shadow-xs select-none">
+                          <span>{partner.companyName.trim().slice(0, 2).toUpperCase()}</span>
                         </div>
                         <div className="min-w-0 pr-6">
                           <h4 
@@ -665,7 +661,9 @@ export const PartnerComparisonModal: React.FC<PartnerComparisonModalProps> = ({
                     >
                       <div>
                         <div className="flex items-center gap-2 mb-3">
-                          <img src={p.logo} alt="" className="w-8 h-8 rounded-lg object-cover border" />
+                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0c2b64] to-[#184ea8] text-[#c8f526] font-black text-xs flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700 select-none">
+                            <span>{p.companyName.trim().slice(0, 2).toUpperCase()}</span>
+                          </div>
                           <h4 className="font-black text-[#0c2b64] dark:text-white text-sm truncate">
                             {p.companyName}
                           </h4>

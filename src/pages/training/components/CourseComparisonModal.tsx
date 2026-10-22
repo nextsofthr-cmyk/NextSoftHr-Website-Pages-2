@@ -31,6 +31,32 @@ interface CourseComparisonModalProps {
   onEnrollCourse: (course: Course) => void;
 }
 
+const getCourseInitials = (title: string): string => {
+  if (!title) return 'NS';
+  const clean = title.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+  const words = clean.split(/\s+/).filter(Boolean);
+  if (words.length === 0) return 'NS';
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  const stopWords = new Set(['and', 'for', 'the', 'in', 'of', 'to', 'with', 'a', 'an']);
+  const meaningfulWords = words.filter((w) => !stopWords.has(w.toLowerCase()));
+  const targetWords = meaningfulWords.length >= 2 ? meaningfulWords : words;
+  return (targetWords[0][0] + targetWords[1][0]).toUpperCase();
+};
+
+const getInstructorInitials = (name: string): string => {
+  if (!name) return 'NS';
+  const titles = new Set(['dr', 'dr.', 'mr', 'mr.', 'mrs', 'mrs.', 'ms', 'ms.', 'prof', 'prof.', 'engr', 'engr.']);
+  const words = name
+    .replace(/[^a-zA-Z0-9\s]/g, '')
+    .trim()
+    .split(/\s+/)
+    .filter((w) => !titles.has(w.toLowerCase()));
+  if (words.length === 0) return name.slice(0, 2).toUpperCase();
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + words[words.length - 1][0]).toUpperCase();
+};
+
+
 export const CourseComparisonModal: React.FC<CourseComparisonModalProps> = ({
   isOpen,
   onClose,
@@ -424,11 +450,12 @@ export const CourseComparisonModal: React.FC<CourseComparisonModalProps> = ({
                     </div>
                     {selectedCourses.map((c) => (
                       <div key={c.id} className="md:px-3 flex items-center gap-2">
-                        <img
-                          src={c.instructor.photo}
-                          alt={c.instructor.name}
-                          className="w-7 h-7 rounded-full object-cover border border-slate-200 dark:border-slate-700 flex-shrink-0"
-                        />
+                        <div
+                          className="w-7 h-7 rounded-full bg-[#0F4C81] dark:bg-blue-600 text-[#84CC16] font-bold text-xs flex items-center justify-center border border-slate-200 dark:border-slate-700 shrink-0 shadow-xs"
+                          title={c.instructor.name}
+                        >
+                          {getInstructorInitials(c.instructor.name)}
+                        </div>
                         <div className="truncate">
                           <span className="font-bold text-slate-900 dark:text-white block truncate">
                             {c.instructor.name}
