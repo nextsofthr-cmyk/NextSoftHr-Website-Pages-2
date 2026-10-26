@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Check, Sparkles, ArrowRight, ShieldCheck, Headphones, Zap } from 'lucide-react';
 import { PricingPlan, BillingCycle, CurrencyCode } from '../types';
 import { CURRENCIES } from '../data/pricingData';
@@ -237,14 +238,14 @@ export const PricingCard: React.FC<PricingCardProps> = ({
         {isOutsourcing ? (
           <div className="flex flex-col gap-2">
             {/* Button 1: Explore Outsourcing Prices */}
-            <a
+            <Link
               id="plan-cta-outsourcing-prices"
-              href="/outsourcing-pricing"
+              to="/outsourcing-pricing"
               className="w-full py-3 px-4 rounded-xl text-sm font-bold bg-[#0265DC] text-white hover:bg-[#004DB3] shadow-md shadow-blue-500/10 transition-all duration-200 flex items-center justify-center gap-2"
             >
               <span>{(t.plans as any).outsourcingCta1 || 'Explore Outsourcing Prices'}</span>
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
 
             {/* Button 2: Explore Demo */}
             <button

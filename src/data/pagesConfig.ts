@@ -85,6 +85,18 @@ export const PAGES_CONFIG: PageMeta[] = [
     iconName: 'Globe2'
   },
   {
+    id: 'outsourcing-pricing',
+    slug: 'outsourcing-pricing',
+    title: 'Outsourcing Pricing',
+    subtitle: 'Transparent Retainers, Live Quotation & ROI Calculator',
+    category: 'Solutions',
+    path: '/outsourcing-pricing',
+    aliases: ['/outsourcing/pricing'],
+    badge: 'Retainers & ROI',
+    description: 'Dedicated outsourcing pricing, payroll retainers, interactive quotation wizard & ROI savings calculator.',
+    iconName: 'Receipt'
+  },
+  {
     id: 'training',
     slug: 'training',
     title: 'Training Academy',

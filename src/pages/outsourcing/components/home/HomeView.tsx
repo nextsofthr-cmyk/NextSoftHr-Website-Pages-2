@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -256,15 +257,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </button>
 
             {/* Outsourcing Pricing Link Button */}
-            <a
+            <Link
               id="hero-outsourcing-pricing-btn"
-              href="/outsourcing-pricing"
+              to="/outsourcing-pricing"
               className="w-full sm:w-auto px-7 py-4 bg-lime-400/15 hover:bg-lime-400/25 text-lime-300 hover:text-white font-semibold text-base rounded-xl transition-all border border-lime-400/35 hover:border-lime-400 flex items-center justify-center gap-2 shadow-lg backdrop-blur-sm cursor-pointer"
             >
               <CreditCard className="w-4 h-4 text-lime-400" />
               <span>Outsourcing Pricing</span>
               <ArrowRight className="w-4 h-4 text-lime-400" />
-            </a>
+            </Link>
 
             <button
               onClick={() => onNavigate('outsourcing-hub')}

@@ -302,7 +302,7 @@ export const GlobalPageSwitcher: React.FC = () => {
                   autoFocus
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search across all 19 pages (e.g., Payroll, Pricing, Outsourcing, Training, Partners, Sign In)..."
+                  placeholder={`Search across all ${PAGES_CONFIG.length} pages (e.g., Payroll, Pricing, Outsourcing, Training, Partners, Sign In)...`}
                   className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-slate-700/80 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all"
                 />
                 {searchQuery && (
