@@ -17,6 +17,7 @@ export const ArticleCardImage: React.FC<ArticleCardImageProps> = ({
   size = 'card',
   className = '',
 }) => {
+  const [imageError, setImageError] = React.useState(false);
   // Select icon and aesthetic accents according to category
   const getCategoryDetails = () => {
     switch (category.toLowerCase()) {
@@ -98,7 +99,7 @@ export const ArticleCardImage: React.FC<ArticleCardImageProps> = ({
     thumbnail: 'h-24 w-28 shrink-0',
   };
 
-  if (imageUrl) {
+  if (imageUrl && !imageError) {
     return (
       <div
         className={`relative w-full overflow-hidden bg-slate-900 text-white flex flex-col justify-between ${heightClasses[size]} ${className}`}
@@ -106,6 +107,7 @@ export const ArticleCardImage: React.FC<ArticleCardImageProps> = ({
         <img
           src={imageUrl}
           alt={title}
+          onError={() => setImageError(true)}
           className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
           loading="lazy"
         />

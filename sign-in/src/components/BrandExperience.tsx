@@ -1,15 +1,13 @@
 import React from 'react';
-import { NextSofthrLogo } from './NextSofthrLogo';
 import {
   CheckCircle2,
-  Sparkles,
   TrendingUp,
   ShieldCheck,
   Globe2,
   Users2,
-  Building2,
 } from 'lucide-react';
 import { Translations } from '../data/translations';
+import { TestimonialSlider } from './TestimonialSlider';
 
 interface BrandExperienceProps {
   t: Translations;
@@ -17,7 +15,7 @@ interface BrandExperienceProps {
 
 export const BrandExperience: React.FC<BrandExperienceProps> = ({ t }) => {
   return (
-    <div className="relative w-full h-full flex flex-col justify-between p-8 lg:p-12 xl:p-14 overflow-hidden bg-gradient-to-br from-[#002244] via-[#003366] to-[#004494] text-white select-none">
+    <div className="relative w-full h-full flex flex-col justify-between p-6 lg:p-8 xl:p-10 overflow-hidden bg-gradient-to-br from-[#002244] via-[#003366] to-[#004494] text-white select-none">
       {/* Dynamic Background Mesh & Ambient Glow */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Subtle geometric grid */}
@@ -46,37 +44,44 @@ export const BrandExperience: React.FC<BrandExperienceProps> = ({ t }) => {
       </div>
 
       {/* Top Header: Brand Logo & Global Positioning Badge */}
-      <div className="relative z-10">
-        <div className="flex items-center justify-between gap-4">
-          <NextSofthrLogo variant="light" size="lg" showTagline={true} />
+      <div className="relative z-10 shrink-0">
+        <div className="flex flex-col items-start">
+          <img
+            src="/next-soft-logo.png"
+            alt="NextSoftHr — Powering People. Driving Businesses"
+            className="h-14 w-auto object-contain"
+          />
+          <p className="mt-2 text-xs sm:text-sm font-semibold tracking-wide text-blue-100/90">
+            People. HR. Payroll. Business. Simplified. Secured.
+          </p>
         </div>
 
-        {/* "Built for Africa • Ready for the World" Badge */}
-        <div className="inline-flex items-center gap-2 mt-5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold tracking-wide">
+        {/* "Built for the Realities of Africa • Ready for the World" Badge */}
+        <div className="inline-flex items-center gap-2 mt-4 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold tracking-wide">
           <span className="flex h-2 w-2 relative">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#caff33] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#caff33]"></span>
           </span>
-          <span className="text-white/90">BUILT FOR AFRICA</span>
+          <span className="text-white/90">BUILT FOR THE REALITIES OF AFRICA.</span>
           <span className="text-[#caff33]">•</span>
           <span className="text-blue-200">READY FOR THE WORLD</span>
         </div>
       </div>
 
       {/* Middle Core Content: Value Proposition & Hero Visual Showcase */}
-      <div className="relative z-10 my-auto py-8">
+      <div className="relative z-10 my-auto py-3">
         {/* Main Headline */}
         <h1 className="text-3xl lg:text-4xl xl:text-[2.6rem] font-black tracking-tight leading-[1.18] text-white">
           {t.brandHeadline}
         </h1>
 
         {/* Supporting Copy */}
-        <p className="mt-4 text-base lg:text-lg text-blue-100/90 font-normal leading-relaxed max-w-xl">
+        <p className="mt-3 text-base lg:text-lg text-blue-100/90 font-normal leading-relaxed">
           {t.brandSupporting}
         </p>
 
         {/* Highlighting 7 Enterprise Features with Lemon Green Accents */}
-        <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-xl">
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           {t.features.map((feature, idx) => (
             <div
               key={idx}
@@ -89,51 +94,39 @@ export const BrandExperience: React.FC<BrandExperienceProps> = ({ t }) => {
             </div>
           ))}
         </div>
+      </div>
 
-        {/* Interactive Floating Metric Card (Simulating Live African Enterprise HR Dashboard) */}
-        <div className="mt-8 p-4 rounded-2xl bg-white/[0.08] backdrop-blur-md border border-white/15 shadow-2xl max-w-xl">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#caff33]/20 flex items-center justify-center text-[#caff33]">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <div>
-                <div className="text-xs font-semibold text-white flex items-center gap-1.5">
-                  NextSofthr AI Insights
-                  <span className="px-1.5 py-0.2 bg-[#caff33] text-[#003366] text-[10px] font-extrabold rounded">
-                    ACTIVE
-                  </span>
-                </div>
-                <div className="text-[11px] text-blue-200/80">
-                  Payroll processed in NGN, KES, ZAR, GHS &amp; USD
-                </div>
-              </div>
-            </div>
-            <div className="text-right">
-              <span className="text-xs font-mono font-bold text-[#caff33]">
-                100%
-              </span>
-              <span className="block text-[10px] text-blue-200/70">
-                Statutory Compliance
-              </span>
-            </div>
+      {/* Image after Welcome Back section before Testimonial (Made longer to reduce spacing) */}
+      <div className="relative z-10 shrink-0 my-3 rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-white/[0.05]">
+        <img
+          src="/assets/images/hero_african_hr_team_1789551904753.jpg"
+          alt="NextSoftHr Enterprise Platform"
+          className="w-full h-48 sm:h-56 lg:h-64 object-cover object-center"
+          onError={(e) => {
+            e.currentTarget.src =
+              'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80';
+          }}
+        />
+      </div>
+
+      {/* Client Testimonials Slider */}
+      <div className="relative z-10 shrink-0">
+        <TestimonialSlider variant="dark" />
+
+        <div className="mt-2.5 px-1 flex items-center justify-between text-xs text-blue-200/80">
+          <div className="flex items-center gap-1.5">
+            <Users2 className="w-3.5 h-3.5 text-[#caff33]" />
+            <span>Trusted by 12,000+ businesses across 34 countries</span>
           </div>
-
-          <div className="pt-3 flex items-center justify-between text-xs text-blue-100">
-            <div className="flex items-center gap-2">
-              <Users2 className="w-3.5 h-3.5 text-[#caff33]" />
-              <span>12,000+ businesses across 34 countries</span>
-            </div>
-            <div className="flex items-center gap-1 text-[11px] font-medium text-[#caff33]">
-              <TrendingUp className="w-3.5 h-3.5" />
-              <span>99.98% Uptime</span>
-            </div>
+          <div className="flex items-center gap-1 text-[11px] font-medium text-[#caff33]">
+            <TrendingUp className="w-3.5 h-3.5" />
+            <span>99.98% Uptime</span>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar: African Presence Hubs & Security Seal */}
-      <div className="relative z-10 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-blue-200/80">
+      <div className="relative z-10 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-blue-200/80 shrink-0">
         <div className="flex items-center gap-2">
           <Globe2 className="w-4 h-4 text-[#caff33]" />
           <span>Lagos • Nairobi • Johannesburg • Kigali • Accra • London</span>

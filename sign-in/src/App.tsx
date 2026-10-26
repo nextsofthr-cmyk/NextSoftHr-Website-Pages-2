@@ -11,6 +11,7 @@ import CreateAccountModal from './components/CreateAccountModal';
 import LegalModal, { LegalModalType } from './components/LegalModal';
 import DashboardPreview from './components/DashboardPreview';
 import Footer from './components/Footer';
+import { TestimonialSlider } from './components/TestimonialSlider';
 import SessionTimeoutToast from './components/SessionTimeoutToast';
 import { translations, LanguageKey } from './data/translations';
 import { HelpCircle, Sparkles } from 'lucide-react';
@@ -156,6 +157,11 @@ export default function App() {
               onForgotPassword={() => setIsForgotPasswordOpen(true)}
               onCreateAccount={() => setIsCreateAccountOpen(true)}
             />
+
+            {/* Mobile-Only Testimonial Slider */}
+            <div className="lg:hidden w-full max-w-[480px] mx-auto mt-6">
+              <TestimonialSlider variant="adaptive" />
+            </div>
           </div>
 
           {/* Footer Component with 'Recently Accessed From' security transparency - Step 4 */}

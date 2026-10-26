@@ -11,6 +11,7 @@ import CreateAccountModal from './components/CreateAccountModal';
 import LegalModal, { LegalModalType } from './components/LegalModal';
 import DashboardPreview from './components/DashboardPreview';
 import Footer from './components/Footer';
+import { TestimonialSlider } from './components/TestimonialSlider';
 import SessionTimeoutToast from './components/SessionTimeoutToast';
 import { translations, LanguageKey } from './data/translations';
 import { useDeviceIdentifier } from './hooks/useDeviceIdentifier';
@@ -115,6 +116,11 @@ function SignInContent() {
               onForgotPassword={() => setIsForgotPasswordOpen(true)}
               onCreateAccount={() => setIsCreateAccountOpen(true)}
             />
+
+            {/* Mobile-Only Testimonial Slider (Shows the 3 customer stories on smaller screens) */}
+            <div className="lg:hidden w-full max-w-[480px] mx-auto mt-6">
+              <TestimonialSlider variant="adaptive" />
+            </div>
           </div>
 
           {/* Footer Component with 'Recently Accessed From' security transparency - Step 4 */}

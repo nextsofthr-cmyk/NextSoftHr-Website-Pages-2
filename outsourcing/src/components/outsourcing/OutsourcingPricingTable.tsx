@@ -28,7 +28,7 @@ export interface OutsourcingPricingRow {
   recommended?: string;
   isCustomQuote?: boolean;
   monthlyActualNGN: number;
-  monthlyDiscountedNGN: number;
+  monthlyDiscountedNGN: number | null;
   yearlyActualNGN: number;
   yearlyDiscountedNGN: number;
   keyInclusions: string[];
@@ -43,10 +43,10 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
       'Outsources the administration, monitoring and coordination of employee attendance, working hours, shifts and staff schedules, without the payroll platform.',
     bestFor:
       'for companies with shift workers, multiple locations, variable working hours, overtime, absenteeism or frequent changes in staffing requirements.',
-    monthlyActualNGN: 1500,
-    monthlyDiscountedNGN: 1500,
-    yearlyActualNGN: 18000,
-    yearlyDiscountedNGN: 15000,
+    monthlyActualNGN: 3500,
+    monthlyDiscountedNGN: null,
+    yearlyActualNGN: 42000,
+    yearlyDiscountedNGN: 33600,
     keyInclusions: [
       'Capture daily clock-in and clock-out records.',
       'Monitor lateness, early departures and absenteeism.',
@@ -74,10 +74,10 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
       'Precision payroll processing and statutory filings without administrative friction.',
     bestFor:
       'Businesses with internal HR that need dedicated payroll calculations and compliance accuracy.',
-    monthlyActualNGN: 2000,
-    monthlyDiscountedNGN: 2000,
-    yearlyActualNGN: 24000,
-    yearlyDiscountedNGN: 20000,
+    monthlyActualNGN: 4000,
+    monthlyDiscountedNGN: null,
+    yearlyActualNGN: 48000,
+    yearlyDiscountedNGN: 38400,
     keyInclusions: [
       'Complete monthly gross-to-net payroll processing',
       'Overtime, allowance & Bonus Calculations',
@@ -100,10 +100,10 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
       'Hands-on operational employee administration, leave, and documentation.',
     bestFor:
       'Companies seeking structured personnel files, contracts, and lifecycle coordination.',
-    monthlyActualNGN: 2500,
-    monthlyDiscountedNGN: 2500,
-    yearlyActualNGN: 30000,
-    yearlyDiscountedNGN: 25000,
+    monthlyActualNGN: 5500,
+    monthlyDiscountedNGN: null,
+    yearlyActualNGN: 66000,
+    yearlyDiscountedNGN: 52800,
     keyInclusions: [
       'Centralized employee personnel files & digital archiving',
       'End-to-end digital onboarding & off boarding workflows',
@@ -128,10 +128,10 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
       'Our flagship integrated workforce engine. One unified outsourcing partner. Mid-sized to growing enterprises wanting seamless HR data flows into payroll.',
     bestFor:
       'Mid-sized to growing enterprises wanting seamless HR data flows into payroll.',
-    monthlyActualNGN: 3800,
-    monthlyDiscountedNGN: 3800,
-    yearlyActualNGN: 45600,
-    yearlyDiscountedNGN: 38000,
+    monthlyActualNGN: 9000,
+    monthlyDiscountedNGN: null,
+    yearlyActualNGN: 108000,
+    yearlyDiscountedNGN: 86400,
     keyInclusions: [
       'Everything in Payroll Only + HR Administration',
       'Unified cloud Employee Self-Service (ESS) & Manager (MSS) portal',
@@ -149,10 +149,10 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
       'Your outsourced people department: dedicated HR team + advanced tech.',
     bestFor:
       'Organizations requiring strategic guidance, employee relations, and policy leadership.',
-    monthlyActualNGN: 5500,
-    monthlyDiscountedNGN: 5500,
-    yearlyActualNGN: 66000,
-    yearlyDiscountedNGN: 55000,
+    monthlyActualNGN: 22000,
+    monthlyDiscountedNGN: null,
+    yearlyActualNGN: 264000,
+    yearlyDiscountedNGN: 211200,
     keyInclusions: [
       'Dedicated Senior HR Business Partner & Payroll Lead',
       'Employee handbook & statutory policy drafting and regular reviews',
@@ -176,10 +176,10 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
       'Consolidate fragmented personnel folders, physical contracts, and salary spreadsheets into a verified single source of truth managed and maintained.',
     bestFor:
       'businesses with many employees, multiple branches, frequent recruitment, high staff turnover, or limited internal HR capacity.',
-    monthlyActualNGN: 2200,
-    monthlyDiscountedNGN: 2200,
-    yearlyActualNGN: 26400,
-    yearlyDiscountedNGN: 22000,
+    monthlyActualNGN: 4500,
+    monthlyDiscountedNGN: null,
+    yearlyActualNGN: 54000,
+    yearlyDiscountedNGN: 43200,
     keyInclusions: [
       'Employee Records and Personnel Files',
       'Employee Letter & Document',
@@ -201,10 +201,10 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
       'Bespoke multi-company, multi-country and currency workforce outsourcing for large scale groups.',
     bestFor:
       'Pan-African and multinational groups with complex branch hierarchies and holding companies.',
-    monthlyActualNGN: 7500,
-    monthlyDiscountedNGN: 7500,
-    yearlyActualNGN: 90000,
-    yearlyDiscountedNGN: 75000,
+    monthlyActualNGN: 25000,
+    monthlyDiscountedNGN: null,
+    yearlyActualNGN: 300000,
+    yearlyDiscountedNGN: 240000,
     keyInclusions: [
       'Workforce Onboarding and off boarding',
       'Deployment Coordination & Administration',
@@ -223,15 +223,16 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
   {
     id: 'recruitment-talent',
     name: 'Recruitment & Talent',
-    badge: 'Talent Engine',
+    badge: 'Request Quote',
+    isCustomQuote: true,
     subtitle:
       'NextSoftHr acts as your dedicated talent acquisition engine. Combining human headhunters with intelligent ATS workflows and AI assistance.',
     bestFor:
       'organizations that need to attract, recruit, screen, assess, and hire qualified employees without maintaining a large internal recruitment team. It is particularly useful for businesses experiencing rapid growth, high staff turnover, skills shortages, or frequent recruitment needs.',
-    monthlyActualNGN: 4500,
-    monthlyDiscountedNGN: 4500,
-    yearlyActualNGN: 54000,
-    yearlyDiscountedNGN: 45000,
+    monthlyActualNGN: 0,
+    monthlyDiscountedNGN: null,
+    yearlyActualNGN: 0,
+    yearlyDiscountedNGN: 0,
     keyInclusions: [
       'Workforce planning & headcount modeling',
       'AI-assisted job description creation',
@@ -250,16 +251,16 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
   {
     id: 'custom-outsourcing',
     name: 'Custom Outsourcing',
-    badge: "Let's Talk",
+    badge: 'Request Quote',
     isCustomQuote: true,
     subtitle:
-      'Tailored multi-entity HR, payroll, custom API integrations, and SLA guarantees for large enterprises. Let’s Talk',
+      'Tailored multi-entity HR, payroll, custom API integrations, and SLA guarantees for large enterprises. Request Quote',
     bestFor:
       'Businesses with Unlimited employees & custom instances',
     recommended:
       '500+ employees / Multi-country operations',
     monthlyActualNGN: 0,
-    monthlyDiscountedNGN: 0,
+    monthlyDiscountedNGN: null,
     yearlyActualNGN: 0,
     yearlyDiscountedNGN: 0,
     keyInclusions: [
@@ -425,7 +426,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                   Actual Price
                 </th>
                 <th scope="col" className="py-2.5 px-4 text-center bg-lime-50/30 dark:bg-lime-950/30 text-lime-700 dark:text-lime-300 w-[15%]">
-                  Discounted
+                  Discounted 20%
                 </th>
               </tr>
             </thead>
@@ -440,11 +441,11 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                 const yearlyDiscounted = row.yearlyDiscountedNGN;
 
                 const totalMonthlyActual = monthlyActual * headcount;
-                const totalMonthlyDiscounted = monthlyDiscounted * headcount;
+                const totalMonthlyDiscounted = monthlyDiscounted !== null ? monthlyDiscounted * headcount : null;
                 const totalYearlyActual = yearlyActual * headcount;
                 const totalYearlyDiscounted = yearlyDiscounted * headcount;
 
-                const annualSavingsPercent = isCustom 
+                const annualSavingsPercent = isCustom || !yearlyActual
                   ? 0 
                   : Math.round(((yearlyActual - yearlyDiscounted) / yearlyActual) * 100);
 
@@ -534,7 +535,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                         {isCustom ? (
                           <div className="space-y-1">
                             <span className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-mono">
-                              Custom Quote
+                              Request Quote
                             </span>
                             <span className="text-[10px] text-slate-400 block">Tiered Retainer</span>
                           </div>
@@ -556,23 +557,16 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                       </div>
                     </td>
 
-                    {/* 3. Employ/Monthly -> Discounted 0% */}
+                    {/* 3. Employ/Monthly -> Discounted */}
                     <td className="py-7 px-4 align-middle text-center bg-blue-50/20 dark:bg-blue-950/15 border-r border-slate-200/80 dark:border-slate-800">
                       <div className="flex flex-col items-center justify-center space-y-3">
                         {isCustom ? (
-                          <>
+                          <div className="py-2">
                             <span className="text-sm sm:text-base font-black text-blue-700 dark:text-blue-300 font-mono">
-                              Custom Quote
+                              Request Quote
                             </span>
-                            <button
-                              onClick={() => handleAction(row.name, 'Monthly')}
-                              className="w-full py-2.5 px-3 rounded-xl font-bold text-xs bg-[#0265DC] hover:bg-[#004DB3] text-white shadow-xs transition-all flex items-center justify-center gap-1 cursor-pointer"
-                            >
-                              <span>Let’s Talk</span>
-                              <PhoneCall className="w-3 h-3" />
-                            </button>
-                          </>
-                        ) : (
+                          </div>
+                        ) : monthlyDiscounted !== null ? (
                           <>
                             <div>
                               <div className="text-xl sm:text-2xl font-black text-blue-700 dark:text-blue-300 font-mono tracking-tight">
@@ -581,18 +575,34 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                               <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium block">
                                 / emp / month
                               </span>
-                              <span className="inline-block mt-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
-                                0% Discount
-                              </span>
                             </div>
 
-                            {headcount > 1 && (
+                            {headcount > 1 && totalMonthlyDiscounted !== null && (
                               <div className="w-full p-1.5 rounded-lg bg-white dark:bg-[#071328] border border-blue-200/60 dark:border-blue-900/60 text-center text-[10px]">
                                 <span className="font-extrabold text-blue-900 dark:text-blue-200 font-mono block">
                                   {formatCurrency(totalMonthlyDiscounted)} / mo
                                 </span>
                               </div>
                             )}
+
+                            <button
+                              onClick={() => handleAction(row.name, 'Monthly')}
+                              className="w-full py-2.5 px-3 rounded-xl font-bold text-xs bg-[#0265DC] hover:bg-[#004DB3] text-white shadow-xs transition-all flex items-center justify-center gap-1 cursor-pointer"
+                            >
+                              <span>Select Monthly</span>
+                              <ArrowRight className="w-3 h-3" />
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <div className="py-1">
+                              <div className="text-2xl sm:text-3xl font-black text-slate-400 dark:text-slate-500 font-mono tracking-widest">
+                                —
+                              </div>
+                              <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium block mt-0.5">
+                                No Monthly Discount
+                              </span>
+                            </div>
 
                             <button
                               onClick={() => handleAction(row.name, 'Monthly')}
@@ -612,7 +622,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                         {isCustom ? (
                           <div className="space-y-1">
                             <span className="text-sm sm:text-base font-black text-slate-900 dark:text-white font-mono">
-                              Custom Quote
+                              Request Quote
                             </span>
                             <span className="text-[10px] text-slate-400 block">Annual Agreement</span>
                           </div>
@@ -641,21 +651,11 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                     <td className="py-7 px-4 align-middle text-center bg-lime-50/20 dark:bg-lime-950/15">
                       <div className="flex flex-col items-center justify-center space-y-3">
                         {isCustom ? (
-                          <>
-                            <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-lime-400 text-slate-950 border border-lime-500">
-                              Volume Discount
-                            </span>
+                          <div className="py-2">
                             <span className="text-sm sm:text-base font-black text-slate-900 dark:text-lime-300 font-mono">
-                              Bespoke SLA
+                              Request Quote
                             </span>
-                            <button
-                              onClick={() => handleAction(row.name, 'Yearly')}
-                              className="w-full py-2.5 px-3 rounded-xl font-bold text-xs bg-[#84CC16] hover:bg-[#65A30D] text-slate-950 shadow-xs transition-all flex items-center justify-center gap-1 cursor-pointer"
-                            >
-                              <span>Let’s Talk</span>
-                              <PhoneCall className="w-3 h-3" />
-                            </button>
-                          </>
+                          </div>
                         ) : (
                           <>
                             <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-lime-400 text-slate-950 border border-lime-500 shadow-2xs">
