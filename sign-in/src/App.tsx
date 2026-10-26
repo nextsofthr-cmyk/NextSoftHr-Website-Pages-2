@@ -73,7 +73,7 @@ export default function App() {
     >
       {/* Mobile Top Brand Header (Shown only on small screens < lg) */}
       <header className="lg:hidden w-full bg-gradient-to-r from-[#002244] via-[#003366] to-[#004494] text-white px-4 sm:px-5 py-3.5 border-b border-white/10 flex items-center justify-between shadow-md animate-fade-in-down">
-        <NextSofthrLogo variant="light" size="sm" showTagline={false} />
+        <NextSofthrLogo variant="light" size="sm" showTagline={true} />
         <div className="flex items-center gap-2">
           {/* Theme Toggle on mobile header */}
           <ThemeToggle isDark={isDark} onToggle={toggleTheme} variant="dark" />

@@ -49,7 +49,7 @@ export interface PricingPlan {
   recommendedEmployeeRange: string;
   keyFeatures: string[];
   ctaText: string;
-  ctaAction: 'trial' | 'enterprise';
+  ctaAction: 'trial' | 'enterprise' | 'outsourcing';
   supportLevel: string;
   upgradeIndicator?: string;
   highlightText?: string;

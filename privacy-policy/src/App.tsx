@@ -89,9 +89,9 @@ export default function App() {
 
       {/* Main Content Two-Column Layout */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start relative">
           {/* Left Column: Sticky Table of Contents (3 cols on desktop) */}
-          <div className="lg:col-span-4 xl:col-span-3">
+          <div className="lg:col-span-4 xl:col-span-3 lg:self-start lg:sticky lg:top-28 z-20">
             <TableOfContents
               activeId={activeSection}
               onSelect={(id) => setActiveSection(id)}

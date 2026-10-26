@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { CheckCircle2, Globe, Phone } from 'lucide-react';
 import { Header, TabType } from './components/Header';
 import { CalculatorView } from './components/Calculator';
@@ -9,8 +9,8 @@ import { StatementLedger } from './components/StatementLedger';
 import { DisputeCenter } from './components/DisputeCenter';
 import { DigitalExecution } from './components/DigitalExecution';
 import { PrintDocument } from './components/PrintDocument';
-import { LanguageProvider } from '../homepage/context/LanguageContext';
 import { useCommissionLanguage } from './context/LanguageContext';
+import { useTheme } from '../homepage/context/ThemeContext';
 import { GlobalHeader } from '../../components/GlobalHeader';
 import { GlobalFooter } from '../../components/GlobalFooter';
 import {
@@ -26,25 +26,13 @@ import {
   DisputeRecord,
 } from './types';
 
-const THEME_KEY = 'nextsofthr-theme';
-
-function getInitialDarkMode(): boolean {
-  try {
-    const saved = localStorage.getItem(THEME_KEY);
-    if (saved === 'dark') return true;
-    if (saved === 'light') return false;
-  } catch {
-    // storage unavailable, fall through to system preference
-  }
-  return typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-}
-
 function PartnerCommissionPage() {
   const { t } = useCommissionLanguage();
+  const { theme } = useTheme();
+  const isDarkMode = theme === 'dark';
   const [activeTab, setActiveTab] = useState<TabType>('simulator');
   const [targetSectionId, setTargetSectionId] = useState<number | null>(null);
   const [isPrinting, setIsPrinting] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(getInitialDarkMode);
 
   // App state seeded with realistic operational data
   const [statements, setStatements] = useState<CommissionStatementItem[]>(INITIAL_STATEMENTS);
@@ -52,15 +40,6 @@ function PartnerCommissionPage() {
   const [executionData, setExecutionData] = useState<PartnerExecutionData>(INITIAL_EXECUTION_DATA);
   const [disputes, setDisputes] = useState<DisputeRecord[]>(INITIAL_DISPUTES);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDarkMode);
-    try {
-      localStorage.setItem(THEME_KEY, isDarkMode ? 'dark' : 'light');
-    } catch {
-      // ignore storage failures
-    }
-  }, [isDarkMode]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -113,8 +92,6 @@ function PartnerCommissionPage() {
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        isDarkMode={isDarkMode}
-        toggleTheme={() => setIsDarkMode((d) => !d)}
         onPrint={() => setIsPrinting(true)}
         onJumpToSection={navigateToSection}
       />
@@ -184,9 +161,5 @@ function PartnerCommissionPage() {
 }
 
 export default function App() {
-  return (
-    <LanguageProvider>
-      <PartnerCommissionPage />
-    </LanguageProvider>
-  );
+  return <PartnerCommissionPage />;
 }

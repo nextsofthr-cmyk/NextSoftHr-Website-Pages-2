@@ -151,7 +151,7 @@ export const CurrencySelector = ({
   // Compact variant
   if (variant === 'compact') {
     return (
-      <div className={`relative inline-block text-left ${className}`} ref={dropdownRef}>
+      <div className={`relative inline-block text-left ${className} ${isOpen ? 'z-50' : ''}`} ref={dropdownRef}>
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
@@ -194,7 +194,7 @@ export const CurrencySelector = ({
 
   // Default Header Dropdown Variant
   return (
-    <div className={`relative inline-block text-left ${className}`} ref={dropdownRef}>
+    <div className={`relative inline-block text-left ${className} ${isOpen ? 'z-50' : ''}`} ref={dropdownRef}>
       <button
         id="header-currency-selector-btn"
         type="button"

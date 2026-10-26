@@ -166,11 +166,11 @@ export const PRICING_PLANS: PricingPlan[] = [
     name: "Starter",
     tagline:
       "For small businesses getting started with professional HR and payroll management.",
-    monthlyPrice: 29,
-    yearlyPrice: 24,
+    monthlyPrice: 15,
+    yearlyPrice: 15,
     perEmployeeAfterLimit: 2,
-    employeeAllowanceText: "Includes up to 15 employees",
-    recommendedEmployeeRange: "10 – 30 employees",
+    employeeAllowanceText: "Up to 15 Employees Included",
+    recommendedEmployeeRange: "10 – 50 Employees",
     keyFeatures: [
       "Employee management & profiles",
       "Basic HR dashboard & analytics",
@@ -189,15 +189,15 @@ export const PRICING_PLANS: PricingPlan[] = [
   },
   {
     id: "professional",
-    name: "Professional",
+    name: "Pay As You Scale",
     isPopular: true,
     tagline:
       "For growing businesses needing advanced HR, automated payroll and workforce management.",
-    monthlyPrice: 79,
-    yearlyPrice: 64,
-    perEmployeeAfterLimit: 3,
-    employeeAllowanceText: "Includes up to 50 employees",
-    recommendedEmployeeRange: "30 – 150 employees",
+    monthlyPrice: 1.5,
+    yearlyPrice: 16,
+    perEmployeeAfterLimit: 1.5,
+    employeeAllowanceText: "Starting from 10 Employees",
+    recommendedEmployeeRange: "10 – 10K Employees",
     highlightText: "Most Popular Choice for Scaling Teams",
     keyFeatures: [
       "Everything in Starter, plus:",
@@ -223,13 +223,13 @@ export const PRICING_PLANS: PricingPlan[] = [
     name: "Business",
     tagline:
       "For established businesses managing larger teams, multiple branches and complex operations.",
-    monthlyPrice: 179,
-    yearlyPrice: 144,
+    monthlyPrice: 230,
+    yearlyPrice: 185,
     perEmployeeAfterLimit: 3.5,
-    employeeAllowanceText: "Includes up to 150 employees",
-    recommendedEmployeeRange: "150 – 800 employees",
+    employeeAllowanceText: "Up to 100 Employees Included",
+    recommendedEmployeeRange: "250 – 1,000 Employees",
     keyFeatures: [
-      "Everything in Professional, plus:",
+      "Everything in Pay As You Scale, plus:",
       "Multiple branches & multi-company structure",
       "Advanced payroll processing & custom formulas",
       "Granular role-based employee permissions",
@@ -255,7 +255,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     monthlyPrice: 0,
     yearlyPrice: 0,
     employeeAllowanceText: "Unlimited employees & locations",
-    recommendedEmployeeRange: "800+ employees",
+    recommendedEmployeeRange: "1,000+ Employees/Multi-Country Operations",
     keyFeatures: [
       "Everything in Business, plus:",
       "Unlimited scalability & custom architecture",
@@ -274,6 +274,38 @@ export const PRICING_PLANS: PricingPlan[] = [
     ctaAction: "enterprise",
     supportLevel: "24/7 Dedicated Account Manager & SLAs",
     upgradeIndicator: "Full custom security, SSO & Enterprise SLA",
+  },
+  {
+    id: "outsourcing",
+    name: "Outsourcing",
+    tagline:
+      "Tailored for single or multi-entity payroll, custom API integrations, and SLA guarantees for small, medium and large enterprises. Best for businesses looking for Outsourcing their administration, monitoring and coordination of employee attendance, working hours, shifts and staff schedules, payroll, HR and other Business Tools.",
+    monthlyPrice: 0,
+    yearlyPrice: 0,
+    employeeAllowanceText: "Small, medium and large enterprises",
+    recommendedEmployeeRange: "Small, medium and large enterprises",
+    keyFeatures: [
+      "Employee Administration",
+      "Leave & Time-Off",
+      "Attendance, Shift & Roster",
+      "Payroll Outsourcing",
+      "HR Administration",
+      "HR & Payroll",
+      "Managed HR Service",
+      "Recruitment & Talent",
+      "Enterprise Workforce",
+      "Custom Outsourcing",
+      "Enterprise Support",
+      "Custom onboarding & training",
+      "SLA-backed support",
+      "Custom integrations available",
+      "Volume & multi-site discounts",
+      "Dedicated account manager",
+    ],
+    ctaText: "Explore Outsourcing Prices",
+    ctaAction: "outsourcing",
+    supportLevel: "24/7 dedicated support engineer & 99.99% Uptime SLA",
+    upgradeIndicator: "Dedicated Outsourced Operations",
   },
 ];
 
@@ -359,7 +391,7 @@ export const BUSINESS_STAGES: BusinessStage[] = [
     headline: "Eliminate spreadsheets and manual paperwork",
     description:
       "Empower a lean management team with automated onboarding, accurate time tracking, and error-free payroll in minutes.",
-    idealPlan: "Starter or Professional",
+    idealPlan: "Starter or Pay As You Scale",
     highlights: [
       "1-Click monthly payroll",
       "Direct employee mobile portal",
@@ -372,7 +404,7 @@ export const BUSINESS_STAGES: BusinessStage[] = [
     headline: "Standardize operations across multiple departments",
     description:
       "Coordinate rotating shifts, manage applicant pipelines, enforce customized approval policies, and leverage AI insights.",
-    idealPlan: "Professional",
+    idealPlan: "Pay As You Scale",
     highlights: [
       "Multi-department budgeting",
       "Shift scheduling & overtime caps",

@@ -246,7 +246,7 @@ export default function App() {
           </div>
 
           {/* Sticky Sidebar: Table of Contents & Interactive Search */}
-          <div className="hidden lg:block lg:col-span-4 sticky top-24">
+          <div className="hidden lg:block lg:col-span-4 lg:sticky lg:top-28 lg:self-start z-20">
             <TableOfContents
               activeSectionId={activeSectionId}
               searchQuery={searchQuery}

@@ -15,6 +15,9 @@ import {
 import { TermSection } from '../data/termsData';
 import { useLanguage } from '../i18n/LanguageContext';
 
+// Scrollable panel that holds the terms document on desktop
+export const TERMS_PANEL_ID = 'terms-conditions-content';
+
 interface TableOfContentsProps {
   sections: TermSection[];
   activeId: string;
@@ -116,8 +119,8 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       </div>
 
       {/* Desktop Sticky Sidebar Navigation */}
-      <aside className="hidden lg:block self-stretch w-72 xl:w-80 shrink-0 no-print" aria-label="Table of contents">
-        <div className="sticky top-24 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-4 overflow-hidden transition-colors">
+      <aside className="hidden lg:block self-stretch z-20 w-72 xl:w-80 shrink-0 no-print" aria-label="Table of contents">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-4 overflow-hidden transition-colors h-full flex flex-col">
           
           {/* Header & Reading Progress */}
           <div className="pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -158,7 +161,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
 
           {/* Nav List with Smooth Scrolling and active highlights */}
           <nav
-            className="max-h-[calc(100vh-270px)] overflow-y-auto pr-1 space-y-0.5"
+            className="flex-1 min-h-0 overflow-y-auto no-scrollbar space-y-0.5"
             aria-label="Table of contents links"
           >
             {filteredSections.length === 0 ? (

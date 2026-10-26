@@ -136,7 +136,7 @@ export const LanguageSelector = ({
 
   // Standard Dropdown variant (Header & General)
   return (
-    <div className={`relative inline-block text-left ${className}`} ref={dropdownRef}>
+    <div className={`relative inline-block text-left ${className} ${isOpen ? 'z-50' : ''}`} ref={dropdownRef}>
       <button
         id="navbar-language-selector-btn"
         type="button"

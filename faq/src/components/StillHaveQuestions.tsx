@@ -51,30 +51,36 @@ export const StillHaveQuestions: React.FC<StillHaveQuestionsProps> = ({
                 )}
               </p>
 
-              {/* Action Buttons */}
+              {/* Action Buttons: Book a Demo, Contact Support, Explore Live Demo */}
               <div className="flex flex-wrap items-center gap-3.5 mb-8">
                 <button
+                  id="still-have-questions-book-demo-btn"
                   onClick={onOpenDemo}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-bold text-slate-950 bg-lime-400 hover:bg-lime-300 rounded-xl transition-all shadow-md"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-bold text-slate-950 bg-lime-400 hover:bg-lime-300 rounded-xl transition-all shadow-md cursor-pointer"
                 >
                   <Calendar className="w-4 h-4 text-slate-900" />
                   <span>{t("cta.bookDemo", "Book a Demo")}</span>
                 </button>
+
                 <button
+                  id="still-have-questions-contact-support-btn"
                   onClick={onOpenSupport}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-blue-800/80 hover:bg-blue-800 rounded-xl border border-blue-700 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-blue-800/80 hover:bg-blue-800 rounded-xl border border-blue-700 transition-colors cursor-pointer"
                 >
                   <Headphones className="w-4 h-4 text-lime-300" />
                   <span>{t("cta.contactSupport", "Contact Support")}</span>
                 </button>
-                oooo
-                <button
-                  onClick={onOpenSupport}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-blue-800/80 hover:bg-blue-800 rounded-xl border border-blue-700 transition-colors"
+
+                <a
+                  id="still-have-questions-explore-demo-link"
+                  href="https://demo.scriptmaster.store/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-blue-900 bg-white hover:bg-slate-100 rounded-xl border border-white/20 shadow-sm transition-all cursor-pointer"
                 >
-                  <Headphones className="w-4 h-4 text-lime-300" />
-                  <span>{t("cta.contactSupport", "Contact Support")}</span>
-                </button>
+                  <span>{t("cta.exploreLiveDemo", "Explore Live Demo")}</span>
+                  <ArrowRight className="w-4 h-4 text-blue-900" />
+                </a>
               </div>
 
               {/* Trust Features Strip */}

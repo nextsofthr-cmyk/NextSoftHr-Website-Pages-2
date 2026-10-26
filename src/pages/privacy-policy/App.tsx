@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { TableOfContents, TOC_ENTRIES } from './components/TableOfContents';
+import { TableOfContents, TOC_ENTRIES, POLICY_PANEL_ID } from './components/TableOfContents';
 import { PolicyContent } from './components/PolicyContent';
 import { TrustSection } from './components/TrustSection';
 import { Footer } from './components/Footer';
@@ -16,6 +16,7 @@ import { AdminPolicyEditorModal } from './components/AdminPolicyEditorModal';
 import { LiveChatWidget } from './components/LiveChatWidget';
 import { useTheme } from './hooks/useTheme';
 import { useLanguage } from './hooks/useLanguage';
+import { getReadingLine, usePinnedScrollPanel } from '../../utils/scrollPanel';
 
 export default function App() {
   const { theme, resolvedTheme, toggleTheme } = useTheme();
@@ -31,28 +32,35 @@ export default function App() {
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
   const [adminModalOpen, setAdminModalOpen] = useState(false);
 
-  // Scrollspy observer for sticky Table of Contents
+  // Page scrolling drives the policy panel on desktop
+  usePinnedScrollPanel(POLICY_PANEL_ID);
+
+  // Scrollspy for the Table of Contents (content panel on desktop, window on mobile)
   useEffect(() => {
+    const panel = document.getElementById(POLICY_PANEL_ID);
+
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 160;
+      const readingLine = getReadingLine(POLICY_PANEL_ID);
 
       for (let i = TOC_ENTRIES.length - 1; i >= 0; i--) {
         const item = TOC_ENTRIES[i];
         const el = document.getElementById(item.id);
-        if (el) {
-          const top = el.offsetTop;
-          if (scrollPosition >= top) {
-            setActiveSection(item.id);
-            break;
-          }
+        if (el && el.getBoundingClientRect().top <= readingLine) {
+          setActiveSection(item.id);
+          return;
         }
       }
+      setActiveSection(TOC_ENTRIES[0].id);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    panel?.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      panel?.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleAdminSave = (newDate: string, newVersion: string) => {
@@ -89,9 +97,10 @@ export default function App() {
 
       {/* Main Content Two-Column Layout */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column: Sticky Table of Contents (3 cols on desktop) */}
-          <div className="lg:col-span-4 xl:col-span-3 lg:self-stretch">
+        <div data-scroll-track>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start relative lg:sticky lg:top-28 lg:h-[calc(100vh-8.5rem)] lg:grid-rows-[minmax(0,1fr)]">
+          {/* Left Column: Table of Contents — its height sets the height of the row (3 cols on desktop) */}
+          <div className="lg:col-span-4 xl:col-span-3 lg:h-full z-20">
             <TableOfContents
               activeId={activeSection}
               onSelect={(id) => setActiveSection(id)}
@@ -99,17 +108,25 @@ export default function App() {
             />
           </div>
 
-          {/* Right Column: 16 Detailed Policy Sections (8-9 cols on desktop) */}
-          <div className="lg:col-span-8 xl:col-span-9 bg-white dark:bg-[#0c1527] p-6 sm:p-10 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xs transition-colors duration-200">
-            <PolicyContent
-              lastUpdatedDate={lastUpdatedDate}
-              version={version}
-              searchQuery={searchQuery}
-              onOpenCookiesModal={() => setCookieModalOpen(true)}
-              onOpenPrivacyModal={() => setPrivacyModalOpen(true)}
-              t={t}
-            />
+          {/* Right Column: 16 Detailed Policy Sections (8-9 cols on desktop), scrolls inside to match the sidebar height */}
+          <div className="lg:col-span-8 xl:col-span-9 lg:self-stretch lg:relative">
+            <div
+              id={POLICY_PANEL_ID}
+              className="lg:absolute lg:inset-0 lg:overflow-hidden bg-white dark:bg-[#0c1527] rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xs transition-colors duration-200"
+            >
+              <div className="p-6 sm:p-10">
+                <PolicyContent
+                  lastUpdatedDate={lastUpdatedDate}
+                  version={version}
+                  searchQuery={searchQuery}
+                  onOpenCookiesModal={() => setCookieModalOpen(true)}
+                  onOpenPrivacyModal={() => setPrivacyModalOpen(true)}
+                  t={t}
+                />
+              </div>
+            </div>
           </div>
+        </div>
         </div>
       </main>
 

@@ -3,6 +3,7 @@ import { Header } from './components/Header';
 import { PricingHero } from './components/PricingHero';
 import { BillingToggle } from './components/BillingToggle';
 import { PricingCard } from './components/PricingCard';
+import { CardSlider } from './components/CardSlider';
 import { PricingCalculator } from './components/PricingCalculator';
 import { FeatureComparison } from './components/FeatureComparison';
 import { AISection } from './components/AISection';
@@ -58,14 +59,14 @@ function PricingContent() {
 
   // Modal States
   const [trialModalOpen, setTrialModalOpen] = useState(false);
-  const [selectedPlanForTrial, setSelectedPlanForTrial] = useState('Professional');
+  const [selectedPlanForTrial, setSelectedPlanForTrial] = useState('Pay As You Scale');
   const [trialEmployeeCount, setTrialEmployeeCount] = useState(50);
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [salesModalOpen, setSalesModalOpen] = useState(false);
   const [securityModalOpen, setSecurityModalOpen] = useState(false);
 
   // Handlers
-  const handleOpenTrial = (planName: string = 'Professional', empCount: number = 50) => {
+  const handleOpenTrial = (planName: string = 'Pay As You Scale', empCount: number = 50) => {
     setSelectedPlanForTrial(planName);
     setTrialEmployeeCount(empCount);
     setTrialModalOpen(true);
@@ -100,7 +101,7 @@ function PricingContent() {
   };
 
   const handleAddOnsCheckout = (items: AddOnItem[], total: number) => {
-    handleOpenTrial(`Professional + ${items.length} Add-on(s)`);
+    handleOpenTrial(`Pay As You Scale + ${items.length} Add-on(s)`);
   };
 
   const scrollToPricing = () => {
@@ -152,18 +153,27 @@ function PricingContent() {
               onChangeCurrency={setSelectedCurrency}
             />
 
-            {/* 4 Pricing Cards Grid */}
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-              {PRICING_PLANS.map((plan) => (
-                <PricingCard
-                  key={plan.id}
-                  plan={plan}
-                  billingCycle={billingCycle}
-                  selectedCurrency={selectedCurrency}
-                  onSelectPlan={handleSelectPlan}
-                  onOpenEnterpriseDemo={handleOpenDemo}
-                />
-              ))}
+            {/* 3 in a row Sliding Pricing Cards */}
+            <div className="mt-8">
+              <CardSlider
+                id="pricing-plans-slider"
+                ariaLabel="NextSofthr pricing plans"
+                items={PRICING_PLANS}
+                perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
+                stepMode="item"
+                gap={24}
+                renderItem={(plan) => (
+                  <div className="h-full flex flex-col">
+                    <PricingCard
+                      plan={plan}
+                      billingCycle={billingCycle}
+                      selectedCurrency={selectedCurrency}
+                      onSelectPlan={handleSelectPlan}
+                      onOpenEnterpriseDemo={handleOpenDemo}
+                    />
+                  </div>
+                )}
+              />
             </div>
           </div>
         </section>
@@ -273,7 +283,7 @@ function PricingContent() {
 
       {/* Subtle Limited Time Trial Bonus Banner triggering at page bottom */}
       <LimitedTrialBonusBanner
-        onClaimBonus={() => handleOpenTrial('Professional (With Limited Trial Bonus)')}
+        onClaimBonus={() => handleOpenTrial('Pay As You Scale (With Limited Trial Bonus)')}
       />
     </div>
   );

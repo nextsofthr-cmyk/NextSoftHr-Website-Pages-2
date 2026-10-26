@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { TableOfContents } from './components/TableOfContents';
+import { TableOfContents, TERMS_PANEL_ID } from './components/TableOfContents';
 import { TermsContent } from './components/TermsContent';
 import { ContactCTA } from './components/ContactCTA';
 import { Footer } from './components/Footer';
@@ -11,6 +11,7 @@ import { LiveChatWidget } from './components/LiveChatWidget';
 import { TERMS_SECTIONS } from './data/termsData';
 import { useLanguage, LanguageProvider } from './i18n/LanguageContext';
 import { ArrowUp, ChevronRight, ShieldCheck, Scale, Search, Check } from 'lucide-react';
+import { isPanelScrolling, scrollToSection, usePinnedScrollPanel } from '../../utils/scrollPanel';
 
 function TermsContentPage() {
   const { t, sections } = useLanguage();
@@ -55,19 +56,29 @@ function TermsContentPage() {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
+  // Page scrolling drives the terms panel on desktop
+  usePinnedScrollPanel(TERMS_PANEL_ID);
+
   // Scroll listener for reading progress & back-to-top
   useEffect(() => {
+    const panel = document.getElementById(TERMS_PANEL_ID);
+
     const handleScroll = () => {
       const totalScroll = document.documentElement.scrollTop;
-      const windowHeight =
-        document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scroll = `${(totalScroll / windowHeight) * 100}`;
-      setScrollProgress(Math.min(100, Math.max(0, Number(scroll))));
+      // Reading progress follows the content panel on desktop, the window on mobile
+      const scroller = isPanelScrolling(panel) ? panel : document.documentElement;
+      const scrollable = scroller.scrollHeight - scroller.clientHeight;
+      const scroll = scrollable > 0 ? (scroller.scrollTop / scrollable) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, scroll)));
       setShowBackToTop(totalScroll > 500);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    panel?.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      panel?.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   // IntersectionObserver to observe sections and highlight the current one in the TOC
@@ -130,10 +141,7 @@ function TermsContentPage() {
 
   const handleSelectSection = (id: string) => {
     setActiveId(id);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToSection(id, TERMS_PANEL_ID, 112);
   };
 
   const scrollToTop = () => {
@@ -182,7 +190,8 @@ function TermsContentPage() {
           </div>
         )}
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+        <div data-scroll-track>
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:sticky lg:top-28 lg:h-[calc(100vh-8.5rem)]">
           
           {/* Left Column: Sticky "On This Page" Navigation */}
           <TableOfContents
@@ -192,8 +201,10 @@ function TermsContentPage() {
             scrollProgress={scrollProgress}
           />
 
-          {/* Right Column: Complete Terms & Conditions Document */}
-          <div className="flex-1 w-full min-w-0">
+          {/* Right Column: Complete Terms & Conditions Document, page scroll moves it inside a panel matching the sidebar height */}
+          <div className="flex-1 w-full min-w-0 lg:self-stretch lg:relative">
+          <div id={TERMS_PANEL_ID} className="lg:absolute lg:inset-0 lg:overflow-hidden">
+          <div>
             {filteredSections.length === 0 ? (
               <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-12 text-center space-y-4">
                 <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 mx-auto flex items-center justify-center">
@@ -225,7 +236,10 @@ function TermsContentPage() {
             {/* Bottom Contact CTA */}
             <ContactCTA onOpenContact={() => setContactModalOpen(true)} />
           </div>
+          </div>
+          </div>
 
+        </div>
         </div>
       </main>
 

@@ -116,8 +116,8 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       </div>
 
       {/* Desktop Sticky Sidebar Navigation */}
-      <aside className="hidden lg:block w-72 xl:w-80 shrink-0 no-print" aria-label="Table of contents">
-        <div className="sticky top-24 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-4 overflow-hidden transition-colors">
+      <aside className="hidden lg:block self-start sticky top-28 z-20 w-72 xl:w-80 shrink-0 no-print" aria-label="Table of contents">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-4 overflow-hidden transition-colors max-h-[calc(100vh-8.5rem)] flex flex-col">
           
           {/* Header & Reading Progress */}
           <div className="pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -158,7 +158,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
 
           {/* Nav List with Smooth Scrolling and active highlights */}
           <nav
-            className="max-h-[calc(100vh-270px)] overflow-y-auto pr-1 space-y-0.5"
+            className="max-h-[calc(100vh-270px)] overflow-y-auto no-scrollbar space-y-0.5"
             aria-label="Table of contents links"
           >
             {filteredSections.length === 0 ? (

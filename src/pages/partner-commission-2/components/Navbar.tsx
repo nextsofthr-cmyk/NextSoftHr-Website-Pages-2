@@ -30,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onPrint
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80 shadow-2xl print:hidden">
+    <header className="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80 shadow-2xl print:hidden">
       {/* Top corporate sub-bar */}
       <div className="bg-gradient-to-r from-slate-900 via-indigo-950/60 to-slate-900 border-b border-slate-800/50 text-xs text-slate-300 py-1.5 px-4 sm:px-8 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-4">

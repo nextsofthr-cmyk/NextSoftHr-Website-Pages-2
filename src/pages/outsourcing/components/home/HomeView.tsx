@@ -256,14 +256,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
             </button>
 
             {/* Outsourcing Pricing Link Button */}
-            <button
-              onClick={() => onNavigate('packages')}
+            <a
+              id="hero-outsourcing-pricing-btn"
+              href="/outsourcing-pricing"
               className="w-full sm:w-auto px-7 py-4 bg-lime-400/15 hover:bg-lime-400/25 text-lime-300 hover:text-white font-semibold text-base rounded-xl transition-all border border-lime-400/35 hover:border-lime-400 flex items-center justify-center gap-2 shadow-lg backdrop-blur-sm cursor-pointer"
             >
               <CreditCard className="w-4 h-4 text-lime-400" />
               <span>Outsourcing Pricing</span>
               <ArrowRight className="w-4 h-4 text-lime-400" />
-            </button>
+            </a>
 
             <button
               onClick={() => onNavigate('outsourcing-hub')}

@@ -10,6 +10,7 @@ const AboutUs2 = lazy(() => import('./pages/about-us-2/App'));
 const Services = lazy(() => import('./pages/services/App'));
 const Pricing = lazy(() => import('./pages/pricing/App'));
 const Outsourcing = lazy(() => import('./pages/outsourcing/App'));
+const OutsourcingPricing = lazy(() => import('./pages/outsourcing-pricing/App'));
 const Training = lazy(() => import('./pages/training/App'));
 const Partners = lazy(() => import('./pages/partners/App'));
 const PartnerRegistry = lazy(() => import('./pages/partner-registry/App'));
@@ -133,6 +134,8 @@ export default function App() {
           {/* 6. Outsourcing */}
           <Route path="/outsourcing" element={<Outsourcing />} />
           <Route path="/bpo" element={<Navigate to="/outsourcing" replace />} />
+          <Route path="/outsourcing-pricing" element={<OutsourcingPricing />} />
+          <Route path="/outsourcing/pricing" element={<Navigate to="/outsourcing-pricing" replace />} />
 
           {/* 7. Training Academy */}
           <Route path="/training" element={<Training />} />

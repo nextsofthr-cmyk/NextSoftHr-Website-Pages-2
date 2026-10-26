@@ -22,7 +22,7 @@ export const CurrencyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         return saved;
       }
     }
-    return 'USD';
+    return 'NGN';
   });
 
   const setSelectedCurrency = (curr: CurrencyCode) => {

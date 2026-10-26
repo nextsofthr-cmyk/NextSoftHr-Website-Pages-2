@@ -2,6 +2,10 @@ import React from 'react';
 import { Search, Printer, ChevronRight, X } from 'lucide-react';
 import { POLICY_SECTIONS } from '../data/policyData';
 import { SupportedLanguage, TRANSLATIONS } from '../data/translations';
+import { scrollToSection } from '../../../utils/scrollPanel';
+
+// Scrollable panel that holds the policy clauses on desktop
+export const POLICY_PANEL_ID = 'refund-policy-content';
 
 interface TableOfContentsProps {
   activeSectionId: string;
@@ -44,7 +48,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
   });
 
   return (
-    <aside className="w-full bg-white dark:bg-[#131D31] rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs space-y-5 transition-colors duration-200">
+    <aside className="w-full bg-white dark:bg-[#131D31] rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4 transition-colors duration-200 h-full flex flex-col">
       {/* Search Input */}
       <div>
         <div className="flex items-center justify-between mb-2">
@@ -98,15 +102,15 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       </div>
 
       {/* Clause Directory */}
-      <div>
-        <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
+      <div className="flex-1 flex flex-col min-h-0">
+        <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5 shrink-0">
           <span>{t.tableOfContents.tableTitle}</span>
           <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">
             {filteredSections.length} {t.tableOfContents.of} 25
           </span>
         </div>
 
-        <div className="max-h-[50vh] overflow-y-auto space-y-1 pr-1">
+        <div className="flex-1 overflow-y-auto no-scrollbar space-y-1">
           {filteredSections.length === 0 ? (
             <div className="p-3 text-center text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-[#0F172A] rounded-lg border border-transparent dark:border-slate-800">
               {t.tableOfContents.noClausesMatch}
@@ -118,6 +122,10 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
                 <a
                   key={sec.id}
                   href={`#${sec.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(sec.id, POLICY_PANEL_ID, 96);
+                  }}
                   className={`group flex items-start gap-2.5 p-2 rounded-lg text-xs transition-colors ${
                     isActive
                       ? 'bg-[#0A3B7B]/10 dark:bg-[#38BDF8]/15 text-[#0A3B7B] dark:text-[#38BDF8] font-bold border-l-2 border-[#0A3B7B] dark:border-[#38BDF8]'

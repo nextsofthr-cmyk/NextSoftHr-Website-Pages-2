@@ -89,7 +89,7 @@ export const NextSofthrLogo: React.FC<LogoProps> = ({
             isLight ? 'text-blue-100/90' : 'text-slate-500 dark:text-slate-400'
           } ${taglineSizes[size]}`}
         >
-          People. Payroll. Business. Simplified.
+          People. HR. Payroll. Business. Simplified. Secured.
         </span>
       )}
     </div>

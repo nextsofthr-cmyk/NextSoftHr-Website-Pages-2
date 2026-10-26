@@ -101,7 +101,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   ].some(p => location.pathname.startsWith(p));
 
   return (
-    <header className="sticky top-0 z-40 w-full transition-all">
+    <header className="sticky top-0 z-50 w-full transition-all">
       {/* Top micro announcement bar */}
       <div className="bg-slate-900 text-white text-xs py-1.5 px-4 border-b border-slate-800">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -227,7 +227,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
             {/* 7. Insights (Dropdown with 3 structured groups) */}
             <div 
               ref={dropdownRef}
-              className="relative"
+              className="relative z-50"
               onMouseEnter={() => setInsightsDropdown(true)}
               onMouseLeave={() => setInsightsDropdown(false)}
             >
@@ -249,7 +249,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
               {insightsDropdown && (
                 <div 
                   id="insights-mega-menu"
-                  className="absolute top-full right-0 lg:-right-20 xl:right-0 xl:left-auto w-[680px] max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 p-6 grid grid-cols-3 gap-6 animate-fadeIn z-50 mt-1"
+                  className="absolute top-full right-0 lg:-right-20 xl:right-0 xl:left-auto w-[680px] max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 p-6 grid grid-cols-3 gap-6 animate-fadeIn z-60 mt-1"
                 >
                   {/* Column 1: Who we Are */}
                   <div className="space-y-3">
@@ -465,7 +465,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           </nav>
 
           {/* Action CTAs, Language Selector, Currency Selector & Theme Toggle */}
-          <div className="hidden xl:flex items-center gap-1.5 shrink-0">
+          <div className="hidden xl:flex items-center gap-2 shrink-0">
             {/* Country / Currency Selector Dropdown */}
             <CurrencySelector variant="dropdown" />
 
@@ -761,7 +761,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
       {/* Built-in Fallback Demo Modal for pages without modal handlers */}
       {localDemoOpen && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fadeIn"
+          className="fixed inset-0 z-70 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fadeIn"
           role="dialog"
           aria-modal="true"
         >
@@ -835,7 +835,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
       {/* Built-in Fallback Get Started Modal */}
       {localGetStartedOpen && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fadeIn"
+          className="fixed inset-0 z-70 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fadeIn"
           role="dialog"
           aria-modal="true"
         >

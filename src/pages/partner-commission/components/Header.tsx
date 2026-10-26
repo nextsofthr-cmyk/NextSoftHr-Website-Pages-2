@@ -2,8 +2,6 @@ import React from 'react';
 import { 
   Building2, 
   Printer, 
-  Sun, 
-  Moon, 
   Globe,
   Calculator, 
   FileText, 
@@ -17,15 +15,14 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { useCommissionLanguage } from '../context/LanguageContext';
-import { LanguageSelector } from '../../homepage/components/LanguageSelector';
 
 export type TabType = 'simulator' | 'schedule' | 'tiers' | 'leads' | 'statements' | 'disputes' | 'acceptance';
 
 interface HeaderProps {
   activeTab: TabType;
   setActiveTab: (tab: TabType) => void;
-  isDarkMode: boolean;
-  toggleTheme: () => void;
+  isDarkMode?: boolean;
+  toggleTheme?: () => void;
   onPrint: () => void;
   onJumpToSection: (sectionId: number) => void;
 }
@@ -51,7 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800/80 shadow-md dark:shadow-2xl transition-colors no-print">
+    <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800/80 shadow-md dark:shadow-2xl transition-colors no-print">
       {/* Top Corporate Utility Bar */}
       <div className="bg-slate-100 dark:bg-gradient-to-r dark:from-slate-900 dark:via-indigo-950/60 dark:to-slate-900 border-b border-slate-200 dark:border-slate-800/50 text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 py-1.5 px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2 transition-colors">
         <div className="flex items-center gap-3">
@@ -91,7 +88,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Main Navigation Row */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 relative z-30">
         {/* Brand identity */}
         <div
           onClick={() => setActiveTab('simulator')}
@@ -117,25 +114,8 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Right Action Tools: Language Switcher, Dark/Light Toggle, Print */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {/* Shared site-wide language switcher (same as homepage) */}
-          <LanguageSelector variant="dropdown" />
-
-          {/* Dark / Light Mode Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            aria-label={isDarkMode ? t('nav.light_mode') : t('nav.dark_mode')}
-            title={isDarkMode ? t('nav.light_mode') : t('nav.dark_mode')}
-            className="p-2 rounded-lg bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-amber-400 border border-slate-300 dark:border-slate-700/80 shadow-xs transition-all cursor-pointer"
-          >
-            {isDarkMode ? (
-              <Sun className="w-4 h-4 text-amber-400 animate-spin-slow" />
-            ) : (
-              <Moon className="w-4 h-4 text-slate-700" />
-            )}
-          </button>
-
+        {/* Right Action Tools: Print */}
+        <div className="flex items-center gap-2 sm:gap-3 relative z-30">
           {/* Print / Save PDF Button */}
           <button
             onClick={onPrint}

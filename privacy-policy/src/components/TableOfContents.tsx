@@ -50,7 +50,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
 
     const targetEl = document.getElementById(id);
     if (targetEl) {
-      const yOffset = -90; // account for sticky header
+      const yOffset = -120; // account for sticky header
       const y = targetEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
@@ -119,7 +119,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       <aside
         id="table-of-contents-sidebar"
         aria-label="Privacy Policy Table of Contents"
-        className="hidden lg:block sticky top-24 self-start bg-white dark:bg-[#0c1527] rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-2xs transition-colors duration-200"
+        className="hidden lg:block w-full bg-white dark:bg-[#0c1527] rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-2xs transition-colors duration-200"
       >
         <div className="flex items-center justify-between pb-3.5 border-b border-slate-100 dark:border-slate-800/80">
           <div className="flex items-center gap-2">
@@ -134,7 +134,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
           </div>
         </div>
 
-        <nav className="mt-3 space-y-0.5 max-h-[calc(100vh-170px)] overflow-y-auto pr-1">
+        <nav className="mt-3 space-y-0.5 max-h-[calc(100vh-14rem)] overflow-y-auto no-scrollbar">
           {TOC_ENTRIES.map((entry) => {
             const isActive = entry.id === activeId;
             const title = t.toc.items[entry.key];

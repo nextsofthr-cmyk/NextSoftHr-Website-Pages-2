@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { PolicySummaryCard } from './components/PolicySummaryCard';
-import { TableOfContents } from './components/TableOfContents';
+import { TableOfContents, POLICY_PANEL_ID } from './components/TableOfContents';
 import { PolicySectionCard } from './components/PolicySectionCard';
 import { FaqSection } from './components/FaqSection';
 import { ContactSection } from './components/ContactSection';
@@ -20,6 +20,7 @@ import { NextSoftLogo } from './components/NextSoftLogo';
 import { LiveSupportChat } from './components/LiveSupportChat';
 import { SupportedLanguage, TRANSLATIONS } from './data/translations';
 import { ArrowUp, FileText } from 'lucide-react';
+import { getReadingLine, usePinnedScrollPanel } from '../../utils/scrollPanel';
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -75,19 +76,23 @@ export default function App() {
     }
   }, [isDark]);
 
+  // Page scrolling drives the policy panel on desktop
+  usePinnedScrollPanel(POLICY_PANEL_ID);
+
   // Scrollspy & Back to Top listener
   useEffect(() => {
+    const panel = document.getElementById(POLICY_PANEL_ID);
+
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 400);
 
-      // Find current section in view
-      const scrollPosition = window.scrollY + 200;
+      // Find current section in view (content panel on desktop, window on mobile)
+      const readingLine = getReadingLine(POLICY_PANEL_ID, 200);
       for (const section of POLICY_SECTIONS) {
         const element = document.getElementById(section.id);
         if (element) {
-          const top = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
+          const { top, bottom } = element.getBoundingClientRect();
+          if (readingLine >= top && readingLine < bottom) {
             setActiveSectionId(section.id);
             break;
           }
@@ -96,7 +101,11 @@ export default function App() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    panel?.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      panel?.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handlePrint = () => {
@@ -182,9 +191,12 @@ export default function App() {
         <div id="partner-policy" className="scroll-mt-24" />
         <div id="commercial-terms" className="scroll-mt-24" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Main Content: 25 Detailed Policy Sections */}
-          <div className="lg:col-span-8 space-y-8">
+        <div data-scroll-track>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start lg:sticky lg:top-28 lg:h-[calc(100vh-8.5rem)] lg:grid-rows-[minmax(0,1fr)]">
+          {/* Main Content: 25 Detailed Policy Sections, page scroll moves it inside a panel matching the sidebar height */}
+          <div className="lg:col-span-8 lg:self-stretch lg:relative">
+          <div id={POLICY_PANEL_ID} className="lg:absolute lg:inset-0 lg:overflow-hidden">
+          <div className="space-y-8">
             {/* Filter Status Feedback */}
             {(searchQuery.trim() !== '' || selectedCategory !== 'All') && (
               <div className="p-4 bg-slate-50 dark:bg-[#131D31] border border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-between text-xs text-slate-600 dark:text-slate-300 transition-colors">
@@ -244,9 +256,11 @@ export default function App() {
               ))
             )}
           </div>
+          </div>
+          </div>
 
-          {/* Sticky Sidebar: Table of Contents & Interactive Search */}
-          <div className="hidden lg:block lg:col-span-4 sticky top-24">
+          {/* Sidebar: Table of Contents & Interactive Search — its height sets the height of the row */}
+          <div className="hidden lg:block lg:col-span-4 lg:h-full z-20">
             <TableOfContents
               activeSectionId={activeSectionId}
               searchQuery={searchQuery}
@@ -257,6 +271,7 @@ export default function App() {
               currentLang={currentLang}
             />
           </div>
+        </div>
         </div>
       </main>
 

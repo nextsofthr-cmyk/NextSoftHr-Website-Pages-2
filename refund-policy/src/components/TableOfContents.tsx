@@ -44,7 +44,7 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
   });
 
   return (
-    <aside className="w-full bg-white dark:bg-[#131D31] rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs space-y-5 transition-colors duration-200">
+    <aside className="w-full bg-white dark:bg-[#131D31] rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4 transition-colors duration-200 max-h-[calc(100vh-8.5rem)] flex flex-col">
       {/* Search Input */}
       <div>
         <div className="flex items-center justify-between mb-2">
@@ -98,15 +98,15 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
       </div>
 
       {/* Clause Directory */}
-      <div>
-        <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
+      <div className="flex-1 flex flex-col min-h-0">
+        <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5 shrink-0">
           <span>{t.tableOfContents.tableTitle}</span>
           <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500 tabular-nums">
             {filteredSections.length} {t.tableOfContents.of} 25
           </span>
         </div>
 
-        <div className="max-h-[50vh] overflow-y-auto space-y-1 pr-1">
+        <div className="flex-1 overflow-y-auto no-scrollbar space-y-1">
           {filteredSections.length === 0 ? (
             <div className="p-3 text-center text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-[#0F172A] rounded-lg border border-transparent dark:border-slate-800">
               {t.tableOfContents.noClausesMatch}

@@ -46,12 +46,15 @@ export const BrandExperience: React.FC<BrandExperienceProps> = ({ t }) => {
 
       {/* Top Header: Brand Logo & Global Positioning Badge */}
       <div className="relative z-10">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col items-start">
           <img
             src="/next-soft-logo.png"
             alt="NextSoftHr — Powering People. Driving Businesses"
             className="h-14 w-auto object-contain"
           />
+          <p className="mt-2 text-xs sm:text-sm font-semibold tracking-wide text-blue-100/90">
+            People. HR. Payroll. Business. Simplified. Secured.
+          </p>
         </div>
 
         {/* "Built for the Realities of Africa • Ready for the World" Badge */}

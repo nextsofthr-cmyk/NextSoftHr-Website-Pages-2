@@ -159,15 +159,15 @@ export const FeatureComparison: React.FC<FeatureComparisonProps> = ({ onSelectPl
                     <span className="inline-block px-2 py-0.5 rounded-full bg-[#A3E635] text-slate-950 text-[10px] font-extrabold uppercase mr-1">
                       Popular
                     </span>
-                    Professional
+                    Pay As You Scale
                     <div className="text-[11px] font-normal text-slate-500 dark:text-slate-400 normal-case mt-0.5">
-                      Up to 50 staff
+                      From 10 staff
                     </div>
                   </th>
                   <th className="p-4 sm:p-5 text-center font-bold text-slate-800 dark:text-slate-200 w-[15%]">
                     Business
                     <div className="text-[11px] font-normal text-slate-500 dark:text-slate-400 normal-case mt-0.5">
-                      Up to 150 staff
+                      Up to 100 staff
                     </div>
                   </th>
                   <th className="p-4 sm:p-5 text-center font-bold text-slate-800 dark:text-slate-200 w-[15%]">
@@ -246,10 +246,10 @@ export const FeatureComparison: React.FC<FeatureComparisonProps> = ({ onSelectPl
                   </td>
                   <td className="p-4 text-center bg-blue-50/60 dark:bg-blue-950/30 border-x border-blue-100 dark:border-blue-900/40">
                     <button
-                      onClick={() => onSelectPlan('Professional')}
+                      onClick={() => onSelectPlan('Pay As You Scale')}
                       className="px-3 py-2 rounded-lg text-xs font-extrabold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] shadow-sm w-full"
                     >
-                      Choose Pro
+                      Choose Scale
                     </button>
                   </td>
                   <td className="p-4 text-center">
