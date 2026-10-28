@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ShieldCheck,
   Building2,
@@ -747,20 +748,18 @@ export const PolicyContent: React.FC<PolicyContentProps> = ({
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="mailto:privacy@nextsofthr.org"
-                className="px-4 py-2 bg-white text-slate-900 text-xs font-semibold rounded-lg hover:bg-slate-100 transition-colors shadow-2xs"
+              <Link
+                to="/contact"
+                className="px-4 py-2 bg-white text-slate-900 text-xs font-semibold rounded-lg hover:bg-slate-100 transition-colors shadow-2xs inline-block"
               >
                 {t.policy.sec16.contactBtn}
-              </a>
-              <a
-                href="https://www.nextsofthr.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg transition-colors border border-white/20"
+              </Link>
+              <Link
+                to="/about-us"
+                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg transition-colors border border-white/20 inline-block"
               >
                 {t.policy.sec16.visitBtn}
-              </a>
+              </Link>
             </div>
           </div>
 

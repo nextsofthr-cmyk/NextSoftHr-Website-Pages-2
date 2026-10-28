@@ -53,10 +53,17 @@ export const FinalCta: React.FC<FinalCtaProps> = ({ onApplyClick, onContactClick
                 </button>
 
                 <a
-                  href="tel:+2349158482622"
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-blue-950 hover:bg-blue-900 text-white font-bold text-base border border-blue-700 hover:border-blue-500 transition-all shadow-sm"
+                  href="/contact"
+                  id="final-call-consultation-btn"
+                  onClick={(e) => {
+                    if (onContactClick) {
+                      e.preventDefault();
+                      onContactClick();
+                    }
+                  }}
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-blue-950 hover:bg-blue-900 text-white font-bold text-base border border-blue-700 hover:border-blue-500 transition-all shadow-sm group hover:-translate-y-0.5"
                 >
-                  <Phone className="w-4 h-4 text-[#B8F010]" />
+                  <Phone className="w-4 h-4 text-[#B8F010] transition-transform group-hover:scale-110" />
                   <span>{strings.nav.hotlineTitle}</span>
                 </a>
               </div>

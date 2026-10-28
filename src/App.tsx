@@ -149,6 +149,7 @@ export default function App() {
 
           {/* 9. Partner Registry */}
           <Route path="/partner-registry" element={<PartnerRegistry />} />
+          <Route path="/partners-registry" element={<Navigate to="/partner-registry" replace />} />
           <Route path="/directory" element={<Navigate to="/partner-registry" replace />} />
 
           {/* 10. Partner Commission (merged schedule + hub) */}
@@ -167,10 +168,12 @@ export default function App() {
           <Route path="/news" element={<Navigate to="/blog" replace />} />
           <Route path="/articles" element={<Navigate to="/blog" replace />} />
 
-          {/* Job Hunt & Recruitment Hub */}
+          {/* Recruitment Marketplace (Job Hunt) */}
           <Route path="/job-hunt" element={<JobHunt />} />
+          <Route path="/recruitment-marketplace" element={<Navigate to="/job-hunt" replace />} />
           <Route path="/jobs" element={<Navigate to="/job-hunt" replace />} />
           <Route path="/careers" element={<Navigate to="/job-hunt" replace />} />
+          <Route path="/career" element={<Navigate to="/job-hunt" replace />} />
 
           {/* 14. Contact */}
           <Route path="/contact" element={<Contact />} />

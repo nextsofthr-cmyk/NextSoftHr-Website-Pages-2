@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Sparkles, TrendingUp, Users, ShieldCheck, DollarSign, CheckCircle2, ChevronRight } from 'lucide-react';
+import { ArrowRight, Sparkles, TrendingUp, Users, ShieldCheck, DollarSign, CheckCircle2, ChevronRight, Award } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface HeroProps {
@@ -60,25 +60,34 @@ export const Hero: React.FC<HeroProps> = ({ onApplyClick, onExploreClick }) => {
               {h.subtitle}
             </p>
 
-            {/* Dual CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10">
+            {/* Hero CTAs - Single Straight Line Row */}
+            <div className="flex flex-row items-center gap-2 sm:gap-2.5 xl:gap-3 overflow-x-auto no-scrollbar sm:overflow-visible flex-nowrap w-full mb-10 pb-1">
               <button
                 id="hero-become-partner-btn"
                 onClick={onApplyClick}
-                className="inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl bg-[#B8F010] text-[#040E1F] font-extrabold text-base hover:bg-[#CBFF1A] transition-all transform hover:-translate-y-1 shadow-lg shadow-[#B8F010]/25 group"
+                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2.5 rounded-xl bg-[#B8F010] text-[#040E1F] font-extrabold text-xs sm:text-sm hover:bg-[#CBFF1A] transition-all transform hover:-translate-y-0.5 shadow-md shadow-[#B8F010]/20 group whitespace-nowrap shrink-0"
               >
                 <span>{h.ctaApply}</span>
-                <ArrowRight className={`w-5 h-5 text-[#040E1F] transition-transform ${isRTL ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`} />
+                <ArrowRight className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#040E1F] transition-transform ${isRTL ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`} />
               </button>
 
               <button
                 id="hero-explore-btn"
                 onClick={onExploreClick}
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white dark:bg-blue-950/70 text-slate-800 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white font-bold text-base border border-slate-300 dark:border-blue-700/60 hover:border-blue-500 transition-all hover:bg-slate-50 dark:hover:bg-blue-900/50 shadow-sm"
+                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2.5 rounded-xl bg-white dark:bg-blue-950/70 text-slate-800 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white font-bold text-xs sm:text-sm border border-slate-300 dark:border-blue-700/60 hover:border-blue-500 transition-all hover:bg-slate-50 dark:hover:bg-blue-900/50 shadow-sm whitespace-nowrap shrink-0"
               >
                 <span>{h.ctaExplore}</span>
-                <ChevronRight className={`w-4 h-4 text-blue-600 dark:text-blue-300 ${isRTL ? 'rotate-180' : ''}`} />
+                <ChevronRight className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-300 ${isRTL ? 'rotate-180' : ''}`} />
               </button>
+
+              <a
+                href="/partners-registry"
+                id="hero-explore-partner-registry-btn"
+                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2.5 rounded-xl bg-blue-600/10 dark:bg-blue-900/40 text-blue-700 dark:text-[#B8F010] hover:bg-blue-600/20 dark:hover:bg-blue-900/60 font-bold text-xs sm:text-sm border border-blue-300 dark:border-blue-600/60 transition-all shadow-sm group hover:-translate-y-0.5 whitespace-nowrap shrink-0"
+              >
+                <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 dark:text-[#B8F010] transition-transform group-hover:scale-110" />
+                <span>Explore Partner Registry</span>
+              </a>
             </div>
 
             {/* Trust Highlights Strip Under CTAs */}

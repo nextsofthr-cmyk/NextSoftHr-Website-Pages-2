@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Globe, Phone, Mail, Clock, ShieldCheck, ArrowRight, LifeBuoy, Handshake } from 'lucide-react';
 import { SupportedLanguage, TRANSLATIONS } from '../data/translations';
 
@@ -43,14 +44,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
               {/* Exact Prompt Buttons */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={onOpenSupportModal}
+                <Link
+                  to="/contact"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0A3B7B] hover:bg-[#1E40AF] text-white text-sm font-bold rounded-xl shadow-md hover:shadow-lg transition-all"
                 >
                   <span>{t.contact.contactSupport}</span>
                   <ArrowRight className="w-4 h-4 text-[#84CC16]" />
-                </button>
+                </Link>
 
                 <button
                   type="button"

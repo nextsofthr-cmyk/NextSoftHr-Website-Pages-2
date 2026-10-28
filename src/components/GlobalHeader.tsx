@@ -96,7 +96,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
 
   const isInsightsActive = [
     '/about-us', '/contact', '/partner-registry', '/faq', '/blog',
-    '/job-hunt', '/jobs', '/careers',
+    '/job-hunt', '/recruitment-marketplace', '/jobs', '/careers',
     '/privacy-policy', '/terms-conditions', '/partners-agreement',
     '/partner-commission', '/refund-policy'
   ].some(p => location.pathname.startsWith(p));
@@ -104,8 +104,8 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   return (
     <header className="sticky top-0 z-50 w-full transition-all">
       {/* Top micro announcement bar */}
-      <div className="bg-slate-900 text-white text-xs py-1.5 px-4 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="bg-slate-900 text-white text-xs py-1.5 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="bg-lime-400 text-slate-950 font-extrabold px-1.5 py-0.5 rounded text-[10px] tracking-wide uppercase">
               New
@@ -135,12 +135,12 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
       </div>
 
       {/* Main navigation bar */}
-      <div className={`px-4 transition-all duration-200 ${
+      <div className={`transition-all duration-200 ${
         isScrolled 
           ? 'bg-white/95 dark:bg-slate-950/95 backdrop-blur-md shadow-sm border-b border-slate-200/80 dark:border-slate-800 py-2.5' 
           : 'bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 py-3.5'
       }`}>
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 xl:gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 xl:gap-3">
           
           {/* Brand Logo */}
           <Link to="/" className="flex items-center shrink-0 group">
@@ -299,7 +299,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                       </li>
                       <li>
                         <Link
-                          to="/contact"
+                          to="/job-hunt"
                           onClick={() => setInsightsDropdown(false)}
                           className="group/item flex items-start gap-2.5 p-2 rounded-xl hover:bg-blue-50/70 dark:hover:bg-slate-800/80 transition-colors"
                         >
@@ -308,10 +308,10 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                           </div>
                           <div>
                             <div className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors">
-                              Career
+                              Recruitment Marketplace
                             </div>
                             <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
-                              Join our global mission
+                              Jobs, recruitment &amp; talent hub
                             </p>
                           </div>
                         </Link>
@@ -379,25 +379,6 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                             </div>
                             <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
                               Workforce trends, compliance &amp; tips
-                            </p>
-                          </div>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/job-hunt"
-                          onClick={() => setInsightsDropdown(false)}
-                          className="group/item flex items-start gap-2.5 p-2 rounded-xl hover:bg-lime-50/70 dark:hover:bg-slate-800/80 transition-colors"
-                        >
-                          <div className="w-7 h-7 rounded-lg bg-lime-100/80 dark:bg-lime-950 text-lime-700 dark:text-lime-400 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-lime-600 group-hover/item:text-white transition-colors">
-                            <Briefcase className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <div className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover/item:text-lime-600 dark:group-hover/item:text-lime-400 transition-colors">
-                              Job Hunt
-                            </div>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
-                              Jobs, recruitment &amp; career hub
                             </p>
                           </div>
                         </Link>
@@ -495,16 +476,15 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
             {/* Light / Dark Mode Toggle (compact icon so the header always fits) */}
             <ThemeToggle />
 
-            {/* Explore Demo Button */}
-            <a
+            {/* Book Demo Button */}
+            <button
               id="global-nav-explore-demo-btn"
-              href="https://demo.scriptmaster.store/login"
-              target="_blank"
-              rel="noopener noreferrer"
+              type="button"
+              onClick={handleDemoClick}
               className="px-3 py-2 text-[13px] font-bold text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 transition-all cursor-pointer whitespace-nowrap shrink-0"
             >
-              Explore Demo
-            </a>
+              Book a Demo
+            </button>
 
             {/* Get Started Button */}
             <Link
@@ -636,12 +616,12 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                         <span>Contact Us</span>
                       </Link>
                       <Link
-                        to="/contact"
+                        to="/job-hunt"
                         onClick={() => setMobileMenuOpen(false)}
                         className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900"
                       >
                         <Briefcase className="w-3.5 h-3.5 text-blue-600" />
-                        <span>Career</span>
+                        <span>Recruitment Marketplace</span>
                       </Link>
                     </div>
                   </div>
@@ -675,14 +655,6 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                       >
                         <BookOpen className="w-3.5 h-3.5 text-lime-600" />
                         <span>Blog</span>
-                      </Link>
-                      <Link
-                        to="/job-hunt"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900"
-                      >
-                        <Briefcase className="w-3.5 h-3.5 text-lime-600" />
-                        <span>Job Hunt</span>
                       </Link>
                     </div>
                   </div>
@@ -765,15 +737,16 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
 
             {/* CTAs */}
             <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-2">
-              <a
-                href="https://demo.scriptmaster.store/login"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleDemoClick();
+                }}
                 className="w-full py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer text-center block"
               >
-                Explore Demo
-              </a>
+                Book a Demo
+              </button>
               <Link
                 to="/signup"
                 onClick={() => setMobileMenuOpen(false)}

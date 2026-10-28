@@ -164,7 +164,7 @@ function PartnersContent() {
         {/* Section 18: Final Closing CTA */}
         <FinalCta
           onApplyClick={() => handleApplyClick()}
-          onContactClick={() => scrollToSection('apply')}
+          onContactClick={() => { window.location.href = '/contact'; }}
         />
       </main>
 

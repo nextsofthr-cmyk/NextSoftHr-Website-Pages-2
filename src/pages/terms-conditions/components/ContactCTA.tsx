@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Mail, HelpCircle, ExternalLink, ShieldCheck, Globe, ArrowRight } from 'lucide-react';
 import { NextSoftHRLogo } from './NextSoftHRLogo';
 
 interface ContactCTAProps {
-  onOpenContact: () => void;
+  onOpenContact?: () => void;
 }
 
 export const ContactCTA: React.FC<ContactCTAProps> = ({ onOpenContact }) => {
@@ -63,22 +64,21 @@ export const ContactCTA: React.FC<ContactCTAProps> = ({ onOpenContact }) => {
 
           {/* Right Column: Action Buttons */}
           <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
-            <button
-              type="button"
-              onClick={onOpenContact}
+            <Link
+              to="/contact"
               className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-slate-950 bg-[#84cc16] hover:bg-[#74c62b] active:bg-[#65a30d] px-6 py-3.5 rounded-xl shadow-lg shadow-lime-500/10 transition-all hover:scale-[1.02] focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-[#84cc16]"
             >
               <Mail className="w-4 h-4" />
               <span>Contact NextSoftHR</span>
-            </button>
+            </Link>
 
-            <a
-              href="#contact-information"
+            <Link
+              to="/faq"
               className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/20 px-6 py-3.5 rounded-xl transition-all focus:outline-hidden focus:ring-2 focus:ring-white/40"
             >
               <HelpCircle className="w-4 h-4 text-blue-300" />
-              <span>Visit Help Center</span>
-            </a>
+              <span>Visit Help Center (FAQ)</span>
+            </Link>
           </div>
 
         </div>

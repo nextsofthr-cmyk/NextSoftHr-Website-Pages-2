@@ -120,6 +120,11 @@ function renderCrestBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierThe
   const spec = escapeXml(opts.specialization.toUpperCase());
   const hash = escapeXml(opts.securityHash);
 
+  // Dynamic font sizing & text length limits to guarantee zero overflow
+  const crestPNameFontSize = pName.length > 32 ? 11 : pName.length > 22 ? 12.5 : pName.length > 16 ? 14 : 16;
+  const crestSpecFontSize = spec.length > 32 ? 8.5 : spec.length > 22 ? 9.5 : 11;
+  const crestTierFontSize = theme.label.length > 16 ? 15 : 18;
+
   // SVG Curved text path radii
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 540" width="540" height="540" role="img" aria-label="NextSofthr Certified ${theme.label} - ${pName}">
   <title>NextSofthr Official Certification Badge - ${pName} (${theme.label})</title>
@@ -199,7 +204,7 @@ function renderCrestBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierThe
     </text>
 
     <!-- Bottom Circular Text: OFFICIAL CREDENTIAL & VERIFICATION -->
-    <text fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" letter-spacing="3" text-anchor="middle">
+    <text fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="11.5" font-weight="800" letter-spacing="2.5" text-anchor="middle">
       <textPath href="#${uid}-bottomArc" startOffset="50%">
         OFFICIAL VERIFICATION • ${hash}
       </textPath>
@@ -240,17 +245,17 @@ function renderCrestBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierThe
       <polygon points="140,-12 156,0 140,12" fill="${theme.surfaceDark}" stroke="url(#${uid}-metalGrad)" stroke-width="2" />
 
       <!-- Tier Label -->
-      <text x="0" y="6" fill="url(#${uid}-metalGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="900" letter-spacing="3" text-anchor="middle">
+      <text x="0" y="6" fill="url(#${uid}-metalGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="${crestTierFontSize}" font-weight="900" letter-spacing="2.5" text-anchor="middle" ${theme.label.length > 14 ? 'textLength="240" lengthAdjust="spacingAndGlyphs"' : ''}>
         ${theme.label}
       </text>
     </g>
 
     <!-- Center: Partner Organization Name -->
     <g transform="translate(270, 316)">
-      <text x="0" y="0" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="800" text-anchor="middle" letter-spacing="0.5">
+      <text x="0" y="0" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="${crestPNameFontSize}" font-weight="800" text-anchor="middle" letter-spacing="0.4" ${pName.length > 16 ? 'textLength="250" lengthAdjust="spacingAndGlyphs"' : ''}>
         ${pName}
       </text>
-      <text x="0" y="20" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">
+      <text x="0" y="20" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="${crestSpecFontSize}" font-weight="700" text-anchor="middle" letter-spacing="0.8" ${spec.length > 18 ? 'textLength="230" lengthAdjust="spacingAndGlyphs"' : ''}>
         ${spec}
       </text>
     </g>
@@ -265,7 +270,7 @@ function renderCrestBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierThe
     <!-- Certification Info Footnote: Year & Partner ID -->
     <g transform="translate(270, 384)">
       <rect x="-85" y="-12" width="170" height="24" rx="12" fill="#040D1D" stroke="url(#${uid}-metalGrad)" stroke-width="1" />
-      <text x="0" y="4" fill="#FFFFFF" font-family="ui-monospace, monospace" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">
+      <text x="0" y="4" fill="#FFFFFF" font-family="ui-monospace, monospace" font-size="10.5" font-weight="700" text-anchor="middle" letter-spacing="1" textLength="145" lengthAdjust="spacingAndGlyphs">
         ${pId} • CERTIFIED ${year}
       </text>
     </g>
@@ -460,9 +465,9 @@ function renderHexBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierTheme
   const hash = escapeXml(opts.securityHash);
 
   // Dynamic font sizing for company name & specialization to guarantee zero overflow
-  const pNameFontSize = pName.length > 26 ? 12.5 : pName.length > 20 ? 14 : 15.5;
-  const specFontSize = spec.length > 26 ? 10 : 11;
-  const tierFontSize = theme.label.length > 16 ? 15 : 17;
+  const pNameFontSize = pName.length > 32 ? 11 : pName.length > 24 ? 12 : pName.length > 18 ? 13.5 : 15;
+  const specFontSize = spec.length > 32 ? 8.5 : spec.length > 24 ? 9.5 : 11;
+  const tierFontSize = theme.label.length > 16 ? 14 : 16.5;
 
   // Hexagon with vertical symmetry: center 250, 270, radius ~240
   // Top vertex (250, 25), (465, 149), (465, 391), (250, 515), (35, 391), (35, 149)
@@ -512,10 +517,10 @@ function renderHexBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierTheme
     </g>
 
     <!-- Top Status Beacon -->
-    <g transform="translate(250, 98)">
-      <rect x="-95" y="-12" width="190" height="24" rx="12" fill="#040F22" stroke="url(#${uid}-metalGrad)" stroke-width="1" />
-      <circle cx="-75" cy="0" r="3" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
-      <text x="8" y="3.5" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="900" letter-spacing="1.5" text-anchor="middle">
+    <g transform="translate(250, 104)">
+      <rect x="-75" y="-11" width="150" height="22" rx="11" fill="#040F22" stroke="url(#${uid}-metalGrad)" stroke-width="1" />
+      <circle cx="-58" cy="0" r="3" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
+      <text x="6" y="3.5" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="900" letter-spacing="1" text-anchor="middle">
         ACTIVE VERIFIED NODE
       </text>
     </g>
@@ -532,20 +537,20 @@ function renderHexBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierTheme
     <!-- Tier Plaque Banner -->
     <g transform="translate(250, 235)">
       <rect x="-140" y="-17" width="280" height="34" rx="6" fill="#020714" stroke="url(#${uid}-metalGrad)" stroke-width="2" />
-      <text x="0" y="5.5" fill="url(#${uid}-metalGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="${tierFontSize}" font-weight="900" letter-spacing="2" text-anchor="middle">
+      <text x="0" y="5.5" fill="url(#${uid}-metalGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="${tierFontSize}" font-weight="900" letter-spacing="2" text-anchor="middle" ${theme.label.length > 14 ? 'textLength="250" lengthAdjust="spacingAndGlyphs"' : ''}>
         ${theme.label}
       </text>
     </g>
 
     <!-- Partner Business Identity (Secure Central Placement) -->
     <g transform="translate(250, 298)">
-      <text x="0" y="0" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="${pNameFontSize}" font-weight="800" text-anchor="middle" letter-spacing="0.4">
+      <text x="0" y="0" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="${pNameFontSize}" font-weight="800" text-anchor="middle" letter-spacing="0.4" ${pName.length > 18 ? 'textLength="280" lengthAdjust="spacingAndGlyphs"' : ''}>
         ${pName}
       </text>
-      <text x="0" y="20" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="${specFontSize}" font-weight="700" text-anchor="middle" letter-spacing="0.8">
+      <text x="0" y="20" fill="${theme.accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="${specFontSize}" font-weight="700" text-anchor="middle" letter-spacing="0.8" ${spec.length > 20 ? 'textLength="260" lengthAdjust="spacingAndGlyphs"' : ''}>
         ${spec}
       </text>
-      <text x="0" y="38" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle" letter-spacing="0.8">
+      <text x="0" y="38" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle" letter-spacing="0.8" textLength="200" lengthAdjust="spacingAndGlyphs">
         NEXTSOFTHR CLOUD ECOSYSTEM
       </text>
     </g>
@@ -554,7 +559,7 @@ function renderHexBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierTheme
     <g transform="translate(250, 368)">
       <line x1="-110" y1="0" x2="-68" y2="0" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
       <rect x="-65" y="-11" width="130" height="22" rx="4" fill="#040F22" stroke="url(#${uid}-metalGrad)" stroke-width="1" />
-      <text x="0" y="3.5" fill="#FFFFFF" font-family="ui-monospace, monospace" font-size="10.5" font-weight="800" text-anchor="middle">
+      <text x="0" y="3.5" fill="#FFFFFF" font-family="ui-monospace, monospace" font-size="10.5" font-weight="800" text-anchor="middle" textLength="110" lengthAdjust="spacingAndGlyphs">
         ${pId} • ${year}
       </text>
       <line x1="68" y1="0" x2="110" y2="0" stroke="url(#${uid}-metalGrad)" stroke-width="1.5" />
@@ -562,14 +567,14 @@ function renderHexBadgeSvg(opts: Required<PartnerBadgeOptions>, theme: TierTheme
 
     <!-- Bottom Cryptographic Ledger Proof (Inside Hexagon, Zero Overflow) -->
     <g transform="translate(250, 404)">
-      <text x="0" y="0" fill="${theme.accentColor}" font-family="ui-monospace, monospace" font-size="9.5" font-weight="700" text-anchor="middle" letter-spacing="1">
+      <text x="0" y="0" fill="${theme.accentColor}" font-family="ui-monospace, monospace" font-size="9" font-weight="700" text-anchor="middle" letter-spacing="0.8" textLength="140" lengthAdjust="spacingAndGlyphs">
         ${hash}
       </text>
-      <text x="0" y="15" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="700" text-anchor="middle" letter-spacing="0.5" textLength="190" lengthAdjust="spacingAndGlyphs">
+      <text x="0" y="14" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="6.5" font-weight="700" text-anchor="middle" letter-spacing="0.4" textLength="155" lengthAdjust="spacingAndGlyphs">
         SECURE CLOUD CERTIFICATION PROTOCOL
       </text>
       <!-- Apex Cyber Indicator -->
-      <circle cx="0" cy="28" r="3" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
+      <circle cx="0" cy="26" r="2.5" fill="${theme.accentColor}" filter="url(#${uid}-glow)" />
     </g>
   </g>
 </svg>`;

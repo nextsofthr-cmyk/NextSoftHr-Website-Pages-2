@@ -30,7 +30,6 @@ function PartnerCommissionPage() {
   const { t } = useCommissionLanguage();
   const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
-  const [activeTab, setActiveTab] = useState<TabType>('simulator');
   const [targetSectionId, setTargetSectionId] = useState<number | null>(null);
   const [isPrinting, setIsPrinting] = useState(false);
 
@@ -46,9 +45,16 @@ function PartnerCommissionPage() {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
+  const scrollToSection = (sectionId: string) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const navigateToSection = (id: number) => {
     setTargetSectionId(id);
-    setActiveTab('schedule');
+    scrollToSection('schedule');
   };
 
   const handleAddStatement = (newItem: CommissionStatementItem) => {
@@ -69,7 +75,7 @@ function PartnerCommissionPage() {
     );
     setStatements((prev) => [createdStatement, ...prev]);
     showToast(`Opportunity "${lead.companyName}" successfully converted to customer sale!`);
-    setActiveTab('statements');
+    scrollToSection('statements');
   };
 
   const handleUpdateExecution = (data: PartnerExecutionData) => {
@@ -90,9 +96,8 @@ function PartnerCommissionPage() {
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors selection:bg-blue-100 selection:text-blue-900 dark:selection:bg-cyan-900 dark:selection:text-white">
       <GlobalHeader />
       <Header
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
         onPrint={() => setIsPrinting(true)}
+        onScrollToSection={scrollToSection}
         onJumpToSection={navigateToSection}
       />
 
@@ -103,56 +108,66 @@ function PartnerCommissionPage() {
         </div>
       )}
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        {activeTab === 'simulator' && <CalculatorView onNavigateToSection={navigateToSection} />}
+      {/* Main Single-Page Sequential Flow - All sections visible in sequence */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16">
+        {/* 1. Commission Calculator & Earnings Simulator */}
+        <section id="simulator" className="scroll-mt-24">
+          <CalculatorView onNavigateToSection={navigateToSection} />
+        </section>
 
-        {activeTab === 'schedule' && (
+        {/* 2. Contract Provisions & Schedule B Explorer */}
+        <section id="schedule" className="scroll-mt-24 pt-8 border-t border-slate-200 dark:border-slate-800/80">
           <ScheduleExplorer
             targetSectionId={targetSectionId}
             onClearTarget={() => setTargetSectionId(null)}
-            onNavigateTab={setActiveTab}
+            onNavigateTab={scrollToSection}
           />
-        )}
+        </section>
 
-        {activeTab === 'tiers' && (
+        {/* 3. Certified Partner Tiers & Performance Matrix */}
+        <section id="tiers" className="scroll-mt-24 pt-8 border-t border-slate-200 dark:border-slate-800/80">
           <TierMatrix
-            onSelectTierForCalc={() => setActiveTab('simulator')}
+            onSelectTierForCalc={() => scrollToSection('simulator')}
             onNavigateToSection={navigateToSection}
           />
-        )}
+        </section>
 
-        {activeTab === 'leads' && (
+        {/* 4. Lead Registration & 90-Day Protection Window */}
+        <section id="leads" className="scroll-mt-24 pt-8 border-t border-slate-200 dark:border-slate-800/80">
           <LeadRegistry
             leads={leads}
             onRegisterLead={handleRegisterLead}
             onConvertLead={handleConvertLead}
             onJumpToSection={navigateToSection}
           />
-        )}
+        </section>
 
-        {activeTab === 'statements' && (
+        {/* 5. Monthly Partner Commission Statement Ledger */}
+        <section id="statements" className="scroll-mt-24 pt-8 border-t border-slate-200 dark:border-slate-800/80">
           <StatementLedger
             statements={statements}
             onAddStatement={handleAddStatement}
             onJumpToSection={navigateToSection}
           />
-        )}
+        </section>
 
-        {activeTab === 'disputes' && (
+        {/* 6. Section 40 Commercial Dispute Center */}
+        <section id="disputes" className="scroll-mt-24 pt-8 border-t border-slate-200 dark:border-slate-800/80">
           <DisputeCenter
             disputes={disputes}
             onSubmitDispute={handleSubmitDispute}
             onJumpToSection={navigateToSection}
           />
-        )}
+        </section>
 
-        {activeTab === 'acceptance' && (
+        {/* 7. Schedule B Digital Execution & Signature */}
+        <section id="acceptance" className="scroll-mt-24 pt-8 border-t border-slate-200 dark:border-slate-800/80">
           <DigitalExecution
             executionData={executionData}
             onUpdateExecutionData={handleUpdateExecution}
             onJumpToSection={navigateToSection}
           />
-        )}
+        </section>
       </main>
 
       <GlobalFooter />

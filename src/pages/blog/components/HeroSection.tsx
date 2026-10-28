@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowDown, CheckCircle2, TrendingUp, Users, DollarSign, Clock, ArrowRight, Bot } from 'lucide-react';
+import { ArrowDown, CheckCircle2, TrendingUp, Users, DollarSign, Clock, ArrowRight, Bot, Calendar } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface HeroSectionProps {
@@ -57,9 +57,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <ArrowDown className="w-4 h-4 animate-bounce" />
               </button>
 
+              <button
+                type="button"
+                onClick={onOpenBookDemo}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-[#0A3F7E] dark:text-white bg-white dark:bg-[#0E2442] border border-[#0A3F7E]/30 dark:border-[#1E3656] hover:bg-[#0A3F7E]/5 dark:hover:bg-[#122E54] hover:border-[#0A3F7E] dark:hover:border-[#8EE000] shadow-xs transition-all cursor-pointer"
+              >
+                <Calendar className="w-4 h-4 text-[#8EE000]" />
+                <span>{t('nav.bookDemo', 'Book a Demo')}</span>
+              </button>
+
               <a
                 href="/signup"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-[#0A3F7E] dark:text-white bg-white dark:bg-[#0E2442] border border-[#0A3F7E]/30 dark:border-[#1E3656] hover:bg-[#0A3F7E]/5 dark:hover:bg-[#122E54] hover:border-[#0A3F7E] dark:hover:border-[#8EE000] shadow-xs transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all cursor-pointer"
               >
                 <span>Get Started</span>
                 <ArrowRight className="w-4 h-4" />

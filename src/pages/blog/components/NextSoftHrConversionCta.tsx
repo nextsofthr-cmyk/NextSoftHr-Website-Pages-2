@@ -48,6 +48,15 @@ export const NextSoftHrConversionCta: React.FC<NextSoftHrConversionCtaProps> = (
               <ArrowRight className="w-4 h-4" />
             </a>
 
+            <button
+              type="button"
+              onClick={onOpenBookDemo}
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold text-white bg-[#0A3F7E] hover:bg-[#0d4d99] border border-blue-400/30 shadow-lg transition-all active:scale-[0.98] cursor-pointer"
+            >
+              <Calendar className="w-4 h-4 text-[#8EE000]" />
+              <span>{t('nav.bookDemo', 'Book a Demo')}</span>
+            </button>
+
             <a
               href="https://demo.scriptmaster.store/login"
               target="_blank"

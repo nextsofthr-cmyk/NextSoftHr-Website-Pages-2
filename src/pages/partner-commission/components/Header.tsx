@@ -3,12 +3,7 @@ import {
   Building2, 
   Printer, 
   Globe,
-  Calculator, 
-  FileText, 
-  Award, 
   ShieldCheck, 
-  Receipt, 
-  AlertCircle, 
   CheckCircle2,
   Phone,
   DollarSign,
@@ -19,33 +14,21 @@ import { useCommissionLanguage } from '../context/LanguageContext';
 export type TabType = 'simulator' | 'schedule' | 'tiers' | 'leads' | 'statements' | 'disputes' | 'acceptance';
 
 interface HeaderProps {
-  activeTab: TabType;
-  setActiveTab: (tab: TabType) => void;
+  onPrint: () => void;
+  onScrollToSection?: (sectionId: string) => void;
+  onJumpToSection?: (sectionId: number) => void;
+  // Optional for backward compatibility
+  activeTab?: TabType;
+  setActiveTab?: (tab: TabType) => void;
   isDarkMode?: boolean;
   toggleTheme?: () => void;
-  onPrint: () => void;
-  onJumpToSection: (sectionId: number) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  activeTab,
-  setActiveTab,
-  isDarkMode,
-  toggleTheme,
   onPrint,
-  onJumpToSection,
+  onScrollToSection,
 }) => {
   const { t } = useCommissionLanguage();
-
-  const navItems: { id: TabType; labelKey: string; badgeKey?: string; icon: React.ElementType }[] = [
-    { id: 'simulator', labelKey: 'tab.simulator', badgeKey: 'tab.simulator_badge', icon: Calculator },
-    { id: 'schedule', labelKey: 'tab.schedule', badgeKey: 'tab.schedule_badge', icon: FileText },
-    { id: 'tiers', labelKey: 'tab.tiers', badgeKey: 'tab.tiers_badge', icon: Award },
-    { id: 'leads', labelKey: 'tab.leads', badgeKey: 'tab.leads_badge', icon: ShieldCheck },
-    { id: 'statements', labelKey: 'tab.statements', badgeKey: 'tab.statements_badge', icon: Receipt },
-    { id: 'disputes', labelKey: 'tab.disputes', badgeKey: 'tab.disputes_badge', icon: AlertCircle },
-    { id: 'acceptance', labelKey: 'tab.acceptance', badgeKey: 'tab.acceptance_badge', icon: CheckCircle2 },
-  ];
 
   return (
     <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800/80 shadow-md dark:shadow-2xl transition-colors no-print">
@@ -91,7 +74,10 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 relative z-30">
         {/* Brand identity */}
         <div
-          onClick={() => setActiveTab('simulator')}
+          onClick={() => {
+            if (onScrollToSection) onScrollToSection('simulator');
+            else window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
           className="cursor-pointer flex items-center gap-3 group select-none"
         >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-500 p-0.5 shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
@@ -116,7 +102,6 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right Action Tools: Print */}
         <div className="flex items-center gap-2 sm:gap-3 relative z-30">
-          {/* Print / Save PDF Button */}
           <button
             onClick={onPrint}
             title={t('nav.print')}
@@ -155,7 +140,9 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setActiveTab('acceptance')}
+              onClick={() => {
+                if (onScrollToSection) onScrollToSection('acceptance');
+              }}
               className="text-blue-600 dark:text-cyan-400 hover:text-blue-700 dark:hover:text-cyan-300 text-xs font-semibold flex items-center gap-1 cursor-pointer"
             >
               <span>{t('ticker.sign_schedule')}</span>
@@ -163,41 +150,6 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           </div>
         </div>
-      </div>
-
-      {/* Tabs Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto scrollbar-none">
-        <nav className="flex space-x-1 sm:space-x-2 py-2">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setActiveTab(item.id)}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
-                  isActive
-                    ? 'bg-blue-50 dark:bg-gradient-to-r dark:from-cyan-600/20 dark:to-blue-600/20 text-blue-700 dark:text-cyan-300 border border-blue-300 dark:border-cyan-500/40 shadow-xs'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900/80 border border-transparent'
-                }`}
-              >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600 dark:text-cyan-400' : 'text-slate-400 dark:text-slate-500'}`} />
-                <span>{t(item.labelKey)}</span>
-                {item.badgeKey && (
-                  <span
-                    className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
-                      isActive
-                        ? 'bg-blue-200 text-blue-800 dark:bg-cyan-500/20 dark:text-cyan-300'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
-                    }`}
-                  >
-                    {t(item.badgeKey)}
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </nav>
       </div>
     </header>
   );

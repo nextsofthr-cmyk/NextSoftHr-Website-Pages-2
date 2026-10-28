@@ -51,15 +51,14 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenDemo, onOpenGetStarted
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
 
-                <a
-                  href="https://demo.scriptmaster.store/login"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  onClick={onOpenDemo}
                   className="px-8 py-4 rounded-xl font-bold text-base text-white bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer"
                 >
                   <Play className="w-4 h-4 fill-current text-[#84CC16]" />
-                  <span>Explore Demo</span>
-                </a>
+                  <span>Book a Demo</span>
+                </button>
               </div>
 
               {/* Reassurance Badges requested */}
