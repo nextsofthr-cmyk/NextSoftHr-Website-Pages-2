@@ -23,6 +23,7 @@ const SignIn = lazy(() => import('./pages/sign-in/App'));
 const PrivacyPolicy = lazy(() => import('./pages/privacy-policy/App'));
 const RefundPolicy = lazy(() => import('./pages/refund-policy/App'));
 const TermsConditions = lazy(() => import('./pages/terms-conditions/App'));
+const JobHunt = lazy(() => import('./pages/job-hunt/JobHuntRoute'));
 
 // Premium branded loading state
 const PageLoadingFallback: React.FC = () => (
@@ -165,6 +166,11 @@ export default function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/news" element={<Navigate to="/blog" replace />} />
           <Route path="/articles" element={<Navigate to="/blog" replace />} />
+
+          {/* Job Hunt & Recruitment Hub */}
+          <Route path="/job-hunt" element={<JobHunt />} />
+          <Route path="/jobs" element={<Navigate to="/job-hunt" replace />} />
+          <Route path="/careers" element={<Navigate to="/job-hunt" replace />} />
 
           {/* 14. Contact */}
           <Route path="/contact" element={<Contact />} />

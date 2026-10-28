@@ -145,19 +145,19 @@ export const ProgramOverview: React.FC = () => {
   const [selectedCapability, setSelectedCapability] = useState<EcosystemItem>(ECOSYSTEM_CAPABILITIES[0]);
 
   return (
-    <section id="overview" className="py-20 bg-white border-b border-slate-200">
+    <section id="overview" className="py-20 bg-white dark:bg-[#051329] border-b border-slate-200 dark:border-blue-900/60 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-700 mb-2">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-lime-400 mb-2">
             <span>Program Architecture</span>
-            <span aria-hidden="true" className="text-slate-300">·</span>
+            <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">·</span>
             <span>Global SaaS Channel</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
             An International Ecosystem Built for Every Commercial Model
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             NextSoftHR collaborates with organizations and independent professionals who help businesses discover, purchase, deploy, support, and maximize the power of cloud HR and payroll technology. Our channel model provides fourteen distinct capability pathways to recurring revenue.
           </p>
         </div>
@@ -175,29 +175,29 @@ export const ProgramOverview: React.FC = () => {
                   onClick={() => setSelectedCapability(item)}
                   className={`text-left p-4 rounded-xl border transition-all cursor-pointer flex items-start gap-3 ${
                     isSelected
-                      ? 'bg-blue-50/80 border-blue-400 shadow-sm ring-1 ring-blue-300'
-                      : 'bg-slate-50/70 border-slate-200/80 hover:bg-slate-100/80 hover:border-slate-300'
+                      ? 'bg-blue-50/80 dark:bg-blue-950/80 border-blue-400 dark:border-blue-500 shadow-sm ring-1 ring-blue-300 dark:ring-blue-700'
+                      : 'bg-slate-50/70 dark:bg-[#071D3E]/70 border-slate-200/80 dark:border-blue-900/60 hover:bg-slate-100/80 dark:hover:bg-[#0A2652] hover:border-slate-300 dark:hover:border-blue-700'
                   }`}
                 >
                   <div
                     className={`p-2.5 rounded-lg shrink-0 ${
                       isSelected
                         ? 'bg-blue-600 text-white'
-                        : 'bg-white text-slate-700 border border-slate-200 shadow-xs'
+                        : 'bg-white dark:bg-[#051329] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-blue-800 shadow-xs'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-900 flex items-center justify-between">
+                    <h3 className="text-sm font-semibold text-slate-900 dark:text-white flex items-center justify-between">
                       <span>{item.title}</span>
                       {isSelected && (
-                        <span className="text-[10px] uppercase font-bold tracking-wide text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] uppercase font-bold tracking-wide text-blue-700 dark:text-lime-300 bg-blue-100 dark:bg-blue-900/80 px-1.5 py-0.5 rounded">
                           Active
                         </span>
                       )}
                     </h3>
-                    <p className="mt-1 text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -208,8 +208,8 @@ export const ProgramOverview: React.FC = () => {
 
           {/* Right: Detailed Capability Inspector Panel */}
           <div className="lg:col-span-4 sticky top-24">
-            <div className="p-6 rounded-2xl bg-slate-900 text-white border border-slate-800 shadow-xl">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div className="p-6 rounded-2xl bg-slate-900 dark:bg-[#030914] text-white border border-slate-800 dark:border-blue-800/80 shadow-xl">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-800 dark:border-blue-900/60">
                 <span className="text-xs uppercase font-mono tracking-wider text-lime-400">
                   Capability Blueprint
                 </span>

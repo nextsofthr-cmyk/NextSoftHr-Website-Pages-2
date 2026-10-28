@@ -169,6 +169,18 @@ export const PAGES_CONFIG: PageMeta[] = [
     iconName: 'Newspaper'
   },
   {
+    id: 'job-hunt',
+    slug: 'job-hunt',
+    title: 'Job Hunt & Recruitment',
+    subtitle: 'Career Marketplace, AI ATS & Talent Sourcing',
+    category: 'Resources',
+    path: '/job-hunt',
+    aliases: ['/jobs', '/careers'],
+    badge: 'Careers',
+    description: 'Find verified jobs across Africa & globally, benchmark salaries, get AI resume feedback, or post hiring vacancies.',
+    iconName: 'Briefcase'
+  },
+  {
     id: 'contact',
     slug: 'contact',
     title: 'Contact Us & Sales',

@@ -151,9 +151,9 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6">
-      <div className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div className="relative w-full max-w-3xl bg-white dark:bg-[#071D3E] rounded-3xl shadow-2xl border border-slate-200 dark:border-blue-800 overflow-hidden my-8">
         {/* Header Bar */}
-        <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
+        <div className="px-6 py-4 bg-slate-900 dark:bg-[#030914] text-white flex items-center justify-between border-b border-slate-800 dark:border-blue-900/60">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-lime-400" />
             <h2 className="text-base font-bold text-white tracking-tight">
@@ -162,7 +162,7 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 dark:hover:bg-blue-950/60 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -173,70 +173,70 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
           {activeRecord ? (
             /* Digital Certificate & Execution Record View */
             <div className="space-y-6">
-              <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-2">
-                <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-                <h3 className="text-xl font-bold text-emerald-950">
+              <div className="p-6 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-center space-y-2">
+                <CheckCircle2 className="w-12 h-12 text-emerald-600 dark:text-emerald-400 mx-auto" />
+                <h3 className="text-xl font-bold text-emerald-950 dark:text-emerald-200">
                   Agreement Accepted Successfully
                 </h3>
-                <p className="text-xs text-emerald-800 max-w-md mx-auto">
+                <p className="text-xs text-emerald-800 dark:text-emerald-300 max-w-md mx-auto">
                   A legally binding digital execution certificate has been generated and permanently recorded in the NextSoftHR Partner Registry.
                 </p>
               </div>
 
               {/* Certificate Summary Card */}
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4 text-xs font-mono">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-200 text-slate-500">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-[#040E1F] border border-slate-200 dark:border-blue-900/60 space-y-4 text-xs font-mono">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-blue-900/60 text-slate-500 dark:text-slate-400">
                   <span>NEXTSOFTHR DIGITAL ACCEPTANCE RECORD</span>
                   <span>STATUS: EXECUTED & ACTIVE</span>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Agreement ID:</span>
-                    <span className="font-bold text-slate-900 text-sm">{activeRecord.agreementId}</span>
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Agreement ID:</span>
+                    <span className="font-bold text-slate-900 dark:text-white text-sm">{activeRecord.agreementId}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Partner ID:</span>
-                    <span className="font-bold text-blue-700 text-sm">{activeRecord.partnerId}</span>
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Partner ID:</span>
+                    <span className="font-bold text-blue-700 dark:text-blue-400 text-sm">{activeRecord.partnerId}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Signatory & Job Title:</span>
-                    <span className="text-slate-900">{activeRecord.fullName} ({activeRecord.jobTitle})</span>
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Signatory & Job Title:</span>
+                    <span className="text-slate-900 dark:text-white">{activeRecord.fullName} ({activeRecord.jobTitle})</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Contracting Organization:</span>
-                    <span className="text-slate-900 font-bold">{activeRecord.company}</span>
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Contracting Organization:</span>
+                    <span className="text-slate-900 dark:text-white font-bold">{activeRecord.company}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Partner Category:</span>
-                    <span className="text-slate-900 font-bold uppercase">{activeRecord.partnerType}</span>
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Partner Category:</span>
+                    <span className="text-slate-900 dark:text-white font-bold uppercase">{activeRecord.partnerType}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Agreement Version:</span>
-                    <span className="text-slate-900">v{activeRecord.agreementVersion} (Clauses 1–81)</span>
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Agreement Version:</span>
+                    <span className="text-slate-900 dark:text-white">v{activeRecord.agreementVersion} (Clauses 1–81)</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Acceptance Timestamp:</span>
-                    <span className="text-slate-900">{new Date(activeRecord.acceptanceDate).toUTCString()}</span>
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Acceptance Timestamp:</span>
+                    <span className="text-slate-900 dark:text-white">{new Date(activeRecord.acceptanceDate).toUTCString()}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Territory & Commission Sched:</span>
-                    <span className="text-slate-900">{activeRecord.territorySummary} · {activeRecord.commissionScheduleRef}</span>
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Territory & Commission Sched:</span>
+                    <span className="text-slate-900 dark:text-white">{activeRecord.territorySummary} · {activeRecord.commissionScheduleRef}</span>
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-slate-200">
-                  <span className="text-slate-400 block text-[10px] mb-1">Cryptographic Audit Hash:</span>
-                  <div className="p-2 rounded bg-slate-900 text-lime-400 text-[10px] break-all">
+                <div className="pt-3 border-t border-slate-200 dark:border-blue-900/60">
+                  <span className="text-slate-400 dark:text-slate-500 block text-[10px] mb-1">Cryptographic Audit Hash:</span>
+                  <div className="p-2 rounded bg-slate-900 dark:bg-[#030914] text-lime-400 text-[10px] break-all border border-slate-800 dark:border-blue-900/60">
                     {activeRecord.auditHash}
                   </div>
                 </div>
 
                 <div className="pt-2">
-                  <span className="text-slate-400 block text-[10px] mb-1">Signatory Digital Stamp:</span>
-                  <div className="p-3 bg-white border border-slate-200 rounded-lg flex items-center justify-between">
-                    <span className="italic font-serif text-base text-slate-800">{activeRecord.digitalSignature}</span>
-                    <span className="text-[10px] text-emerald-700 font-bold">VERIFIED SIGNATURE</span>
+                  <span className="text-slate-400 dark:text-slate-500 block text-[10px] mb-1">Signatory Digital Stamp:</span>
+                  <div className="p-3 bg-white dark:bg-[#071D3E] border border-slate-200 dark:border-blue-800/80 rounded-lg flex items-center justify-between">
+                    <span className="italic font-serif text-base text-slate-800 dark:text-slate-200">{activeRecord.digitalSignature}</span>
+                    <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold">VERIFIED SIGNATURE</span>
                   </div>
                 </div>
               </div>
@@ -245,16 +245,16 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
               <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
                 <button
                   onClick={() => window.print()}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-blue-950/60 hover:bg-slate-200 dark:hover:bg-blue-900/50 rounded-xl transition-colors cursor-pointer"
                 >
-                  <Printer className="w-4 h-4 text-slate-500" />
+                  <Printer className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                   <span>Print Execution Certificate</span>
                 </button>
 
                 <div className="flex items-center gap-3">
                   <button
                     onClick={onClose}
-                    className="px-4 py-2.5 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-xl cursor-pointer"
+                    className="px-4 py-2.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-xl cursor-pointer"
                   >
                     Close
                   </button>
@@ -275,7 +275,7 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
             /* Execution Form */
             <form onSubmit={handleExecute} className="space-y-6">
               {/* Introduction Banner */}
-              <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-xs text-blue-900 space-y-1">
+              <div className="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 text-xs text-blue-900 dark:text-blue-200 space-y-1">
                 <span className="font-bold block">Binding Legal Instrument:</span>
                 <p>
                   You are entering into the NextSoftHR Reseller, Partner, Distributor, Affiliate & Associate Agreement (Version 1.0). Please review and complete your signatory credentials below.
@@ -284,92 +284,92 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
 
               {/* Required Signatory Organization Details */}
               <div className="space-y-4 text-xs">
-                <h3 className="text-sm font-bold text-slate-900 border-b border-slate-100 pb-2">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-blue-900/60 pb-2">
                   1. Organization & Signatory Particulars
                 </h3>
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Full Legal Name *</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Legal Name *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Chukwuemeka Okonkwo"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-[#0A1A30] border border-slate-200 dark:border-white/10 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-600 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#0A1A30]"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Job Title / Designation *</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Job Title / Designation *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Managing Director / Partner"
                       value={jobTitle}
                       onChange={(e) => setJobTitle(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-[#0A1A30] border border-slate-200 dark:border-white/10 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-600 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#0A1A30]"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Company / Firm Name *</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company / Firm Name *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Okonkwo Technologies Ltd"
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-[#0A1A30] border border-slate-200 dark:border-white/10 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-600 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#0A1A30]"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Country of Registration *</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Country of Registration *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Nigeria"
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-[#0A1A30] border border-slate-200 dark:border-white/10 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-600 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#0A1A30]"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Corporate Email *</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Corporate Email *</label>
                     <input
                       type="email"
                       required
                       placeholder="e.g. legal@okonkwotech.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-[#0A1A30] border border-slate-200 dark:border-white/10 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-600 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#0A1A30]"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Direct Phone / WhatsApp *</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Direct Phone / WhatsApp *</label>
                     <input
                       type="tel"
                       required
                       placeholder="+234 915 848 2622"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-[#0A1A30] border border-slate-200 dark:border-white/10 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-600 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#0A1A30]"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Partner Type / Category *</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Partner Type / Category *</label>
                     <select
                       value={partnerType}
                       onChange={(e) => setPartnerType(e.target.value as PartnerCategoryType)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:bg-white"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-[#0A1A30] border border-slate-200 dark:border-white/10 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-600 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#0A1A30]"
                     >
                       {PARTNER_CATEGORIES.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
+                        <option key={cat.id} value={cat.id} className="bg-white dark:bg-[#071D3E] text-slate-900 dark:text-white">
                           {cat.title} ({cat.commissionType})
                         </option>
                       ))}
@@ -377,12 +377,12 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">Agreement Version</label>
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Agreement Version</label>
                     <input
                       type="text"
                       disabled
                       value="Version 1.0 (Clauses 1–81)"
-                      className="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-lg text-slate-500 font-mono"
+                      className="w-full px-3 py-2 bg-slate-100 dark:bg-blue-950/50 border border-slate-200 dark:border-white/10 rounded-lg text-slate-500 dark:text-slate-400 font-mono"
                     />
                   </div>
                 </div>
@@ -390,8 +390,8 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
 
               {/* Digital Signature Pad / Typed Signature */}
               <div className="space-y-3 text-xs">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                  <h3 className="text-sm font-bold text-slate-900">
+                <div className="flex items-center justify-between border-b border-slate-100 dark:border-blue-900/60 pb-2">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                     2. Digital Signature
                   </h3>
                   <div className="flex items-center gap-2">
@@ -400,8 +400,8 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
                       onClick={() => setSignatureMode('type')}
                       className={`px-2.5 py-1 rounded text-xs font-semibold cursor-pointer ${
                         signatureMode === 'type'
-                          ? 'bg-slate-900 text-white'
-                          : 'bg-slate-100 text-slate-600'
+                          ? 'bg-slate-900 dark:bg-blue-600 text-white'
+                          : 'bg-slate-100 dark:bg-blue-950/60 text-slate-600 dark:text-slate-300'
                       }`}
                     >
                       Type Signature
@@ -411,8 +411,8 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
                       onClick={() => setSignatureMode('draw')}
                       className={`px-2.5 py-1 rounded text-xs font-semibold cursor-pointer ${
                         signatureMode === 'draw'
-                          ? 'bg-slate-900 text-white'
-                          : 'bg-slate-100 text-slate-600'
+                          ? 'bg-slate-900 dark:bg-blue-600 text-white'
+                          : 'bg-slate-100 dark:bg-blue-950/60 text-slate-600 dark:text-slate-300'
                       }`}
                     >
                       Draw Signature
@@ -422,7 +422,7 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
 
                 {signatureMode === 'type' ? (
                   <div>
-                    <label className="block font-semibold text-slate-700 mb-1">
+                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                       Type Your Legal Name as Digital Signature:
                     </label>
                     <input
@@ -431,16 +431,16 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
                       placeholder="e.g. Chukwuemeka Okonkwo"
                       value={typedSignature}
                       onChange={(e) => setTypedSignature(e.target.value)}
-                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-serif text-lg italic focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
+                      className="w-full px-4 py-3 bg-slate-50 dark:bg-[#0A1A30] border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-serif text-lg italic focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-[#0A1A30]"
                     />
-                    <p className="mt-1 text-[11px] text-slate-400">
+                    <p className="mt-1 text-[11px] text-slate-400 dark:text-slate-500">
                       Typing your name acts as a legally recognized electronic signature under applicable digital commerce laws.
                     </p>
                   </div>
                 ) : (
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-semibold text-slate-700">Draw Signature on Canvas:</span>
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">Draw Signature on Canvas:</span>
                       <button
                         type="button"
                         onClick={clearCanvas}
@@ -461,14 +461,14 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
                       onTouchStart={startDrawing}
                       onTouchMove={draw}
                       onTouchEnd={stopDrawing}
-                      className="w-full h-28 bg-slate-50 border border-slate-200 rounded-xl cursor-crosshair touch-none"
+                      className="w-full h-28 bg-slate-50 dark:bg-[#0A1A30] border border-slate-200 dark:border-white/10 rounded-xl cursor-crosshair touch-none"
                     />
                   </div>
                 )}
               </div>
 
               {/* Exact Required Legal Statements & Checkbox */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 text-xs text-slate-700">
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#040E1F] border border-slate-200 dark:border-blue-900/60 space-y-3 text-xs text-slate-700 dark:text-slate-300">
                 {/* Authority Declaration Prompt Requirement */}
                 <div className="flex items-start gap-2.5">
                   <input
@@ -477,9 +477,9 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
                     required
                     checked={isAuthorized}
                     onChange={(e) => setIsAuthorized(e.target.checked)}
-                    className="mt-0.5 w-4 h-4 text-blue-700 rounded border-slate-300 focus:ring-blue-600"
+                    className="mt-0.5 w-4 h-4 text-blue-700 rounded border-slate-300 dark:border-slate-600 focus:ring-blue-600"
                   />
-                  <label htmlFor="chk-authorized" className="font-semibold text-slate-900 select-none cursor-pointer">
+                  <label htmlFor="chk-authorized" className="font-semibold text-slate-900 dark:text-slate-200 select-none cursor-pointer">
                     “I confirm that I am authorized to accept this Agreement on behalf of the organization identified below, where applicable.”
                   </label>
                 </div>
@@ -492,9 +492,9 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
                     required
                     checked={hasReadAgreed}
                     onChange={(e) => setHasReadAgreed(e.target.checked)}
-                    className="mt-0.5 w-4 h-4 text-blue-700 rounded border-slate-300 focus:ring-blue-600"
+                    className="mt-0.5 w-4 h-4 text-blue-700 rounded border-slate-300 dark:border-slate-600 focus:ring-blue-600"
                   />
-                  <label htmlFor="chk-agreed" className="font-semibold text-slate-900 select-none cursor-pointer">
+                  <label htmlFor="chk-agreed" className="font-semibold text-slate-900 dark:text-slate-200 select-none cursor-pointer">
                     I have read, understood and agree to the NextSoftHR Reseller, Partner, Distributor, Affiliate & Associate Agreement.
                   </label>
                 </div>
@@ -507,7 +507,7 @@ export const ElectronicAcceptanceModal: React.FC<ElectronicAcceptanceModalProps>
                 className={`w-full py-3 px-6 text-sm font-bold rounded-xl transition-all shadow-sm cursor-pointer flex items-center justify-center gap-2 ${
                   hasReadAgreed && isAuthorized
                     ? 'bg-blue-700 hover:bg-blue-800 text-white'
-                    : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                    : 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed'
                 }`}
               >
                 <FileCheck2 className="w-4 h-4" />

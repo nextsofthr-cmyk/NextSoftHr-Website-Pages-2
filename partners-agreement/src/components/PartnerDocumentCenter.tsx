@@ -61,81 +61,81 @@ All rights reserved © NextSoftHR.`;
   };
 
   return (
-    <section id="documents" className="py-20 bg-slate-50 border-b border-slate-200">
+    <section id="documents" className="py-20 bg-slate-50 dark:bg-[#051329] border-b border-slate-200 dark:border-blue-900/60 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-700 mb-2">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-400 mb-2">
             <span>Official Legal Repository</span>
-            <span aria-hidden="true" className="text-slate-300">·</span>
+            <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">·</span>
             <span>11 Binding Documents</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
             Partner Document Center & Version Control
           </h2>
-          <p className="mt-4 text-base text-slate-600 leading-relaxed">
+          <p className="mt-4 text-base text-slate-600 dark:text-slate-300 leading-relaxed">
             Access, review, and download official schedules, operational handbooks, brand rules, and compliance addenda. All agreements are maintained under strict version control and cryptographic archiving.
           </p>
         </div>
 
         {/* Version Control & Status Panel (Prompt Requirement) */}
-        <div className="mt-10 p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+        <div className="mt-10 p-6 rounded-2xl bg-white dark:bg-[#071D3E] border border-slate-200 dark:border-blue-800/80 shadow-xs">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-blue-900/60">
             <div className="flex items-center gap-2.5">
-              <History className="w-5 h-5 text-blue-700" />
-              <h3 className="text-base font-bold text-slate-900">
+              <History className="w-5 h-5 text-blue-700 dark:text-blue-400" />
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
                 Legal Document Version Control & Status
               </h3>
             </div>
             <div className="flex items-center gap-2 text-xs">
-              <span className="text-slate-400">Current Production Release:</span>
-              <span className="font-mono font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">
+              <span className="text-slate-400 dark:text-slate-400">Current Production Release:</span>
+              <span className="font-mono font-bold text-slate-900 dark:text-white bg-slate-100 dark:bg-blue-950/60 px-2 py-0.5 rounded border border-slate-200/50 dark:border-blue-800/60">
                 v1.0 (Active)
               </span>
             </div>
           </div>
 
           <div className="mt-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#040E1F] border border-slate-100 dark:border-blue-900/60">
               <span className="text-slate-400 block text-[11px] mb-1">Agreement Version:</span>
-              <span className="font-bold text-slate-900 text-sm">Version 1.0</span>
+              <span className="font-bold text-slate-900 dark:text-white text-sm">Version 1.0</span>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#040E1F] border border-slate-100 dark:border-blue-900/60">
               <span className="text-slate-400 block text-[11px] mb-1">Effective Date:</span>
-              <span className="text-slate-900 font-semibold">October 1, 2026</span>
+              <span className="text-slate-900 dark:text-white font-semibold">October 1, 2026</span>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#040E1F] border border-slate-100 dark:border-blue-900/60">
               <span className="text-slate-400 block text-[11px] mb-1">Last Updated:</span>
-              <span className="text-slate-900 font-semibold">October 1, 2026</span>
+              <span className="text-slate-900 dark:text-white font-semibold">October 1, 2026</span>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#040E1F] border border-slate-100 dark:border-blue-900/60">
               <span className="text-slate-400 block text-[11px] mb-1">Previous Version:</span>
-              <span className="text-slate-500">v0.9 (Channel Preview)</span>
+              <span className="text-slate-500 dark:text-slate-400">v0.9 (Channel Preview)</span>
             </div>
           </div>
 
           {/* Change Summary & Acceptance Status */}
-          <div className="mt-4 pt-4 border-t border-slate-100 grid md:grid-cols-2 gap-4 text-xs">
+          <div className="mt-4 pt-4 border-t border-slate-100 dark:border-blue-900/60 grid md:grid-cols-2 gap-4 text-xs">
             <div>
-              <span className="font-semibold text-slate-700 block mb-1">Change Summary (v1.0 Release):</span>
-              <p className="text-slate-600 leading-relaxed text-[11px]">
+              <span className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">Change Summary (v1.0 Release):</span>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
                 Codified 81 original legal clauses; established 12 partner classifications; updated Lead Protection duration to 90 days with 8 forfeiture exceptions; integrated Schedule D (Data Processing Addendum) for NDPA/GDPR; added Multi-Jurisdiction Schedule C.
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-blue-50/70 border border-blue-200/80 flex items-center justify-between gap-3">
+            <div className="p-3 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-800/80 flex items-center justify-between gap-3">
               <div>
-                <span className="font-semibold text-blue-950 block">Your Acceptance Status:</span>
+                <span className="font-semibold text-blue-950 dark:text-blue-200 block">Your Acceptance Status:</span>
                 {acceptanceRecord ? (
-                  <span className="text-emerald-700 font-bold text-xs flex items-center gap-1 mt-0.5">
+                  <span className="text-emerald-700 dark:text-emerald-400 font-bold text-xs flex items-center gap-1 mt-0.5">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>Accepted on {new Date(acceptanceRecord.acceptanceDate).toLocaleDateString()} ({acceptanceRecord.agreementId})</span>
                   </span>
                 ) : (
-                  <span className="text-amber-800 text-[11px] block mt-0.5">
+                  <span className="text-amber-800 dark:text-amber-300 text-[11px] block mt-0.5">
                     Not yet executed. Electronic signature required.
                   </span>
                 )}
@@ -158,41 +158,41 @@ All rights reserved © NextSoftHR.`;
           {DOCUMENT_CENTER.map((doc) => (
             <div
               key={doc.id}
-              className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between hover:shadow-sm transition-all"
+              className="bg-white dark:bg-[#071D3E] rounded-2xl border border-slate-200 dark:border-blue-800/80 p-6 flex flex-col justify-between hover:shadow-sm dark:hover:border-blue-700 transition-all"
             >
               <div>
                 {/* Card Top */}
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-3 text-xs">
-                  <span className="font-mono text-slate-400">{doc.code}</span>
-                  <span className="font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-blue-900/60 mb-3 text-xs">
+                  <span className="font-mono text-slate-400 dark:text-slate-400">{doc.code}</span>
+                  <span className="font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-blue-950/60 px-2 py-0.5 rounded">
                     {doc.pages} Pages
                   </span>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2.5 rounded-xl bg-blue-50 text-blue-700 shrink-0">
+                  <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 shrink-0">
                     <FileText className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900">
+                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">
                       {doc.title}
                     </h4>
-                    <span className="text-[11px] text-blue-600 font-medium block mt-0.5">
+                    <span className="text-[11px] text-blue-600 dark:text-blue-400 font-medium block mt-0.5">
                       {doc.category}
                     </span>
                   </div>
                 </div>
 
-                <p className="mt-3 text-xs text-slate-600 leading-relaxed">
+                <p className="mt-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {doc.description}
                 </p>
               </div>
 
               {/* Card Footer Actions */}
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+              <div className="mt-6 pt-4 border-t border-slate-100 dark:border-blue-900/60 flex items-center justify-between gap-2">
                 <button
                   onClick={() => setSelectedDoc(doc)}
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer"
                 >
                   <Eye className="w-3.5 h-3.5 text-slate-400" />
                   <span>Preview</span>
@@ -200,16 +200,16 @@ All rights reserved © NextSoftHR.`;
 
                 <button
                   onClick={() => handleDownload(doc)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-blue-950/70 hover:bg-slate-200 dark:hover:bg-blue-900/60 rounded-lg transition-colors cursor-pointer"
                 >
                   {downloadSuccess === doc.id ? (
                     <>
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-700 font-bold">Downloaded</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                      <span className="text-emerald-700 dark:text-emerald-400 font-bold">Downloaded</span>
                     </>
                   ) : (
                     <>
-                      <Download className="w-3.5 h-3.5 text-slate-500" />
+                      <Download className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                       <span>Download</span>
                     </>
                   )}
@@ -222,8 +222,8 @@ All rights reserved © NextSoftHR.`;
         {/* Document Preview Modal */}
         {selectedDoc && (
           <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6">
-            <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
-              <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
+            <div className="relative w-full max-w-2xl bg-white dark:bg-[#071D3E] rounded-3xl shadow-2xl border border-slate-200 dark:border-blue-800 overflow-hidden">
+              <div className="px-6 py-4 bg-slate-900 dark:bg-[#030914] text-white flex items-center justify-between border-b border-slate-800 dark:border-blue-900/60">
                 <div className="flex items-center gap-2">
                   <FileText className="w-5 h-5 text-lime-400" />
                   <h3 className="text-base font-bold text-white">
@@ -232,40 +232,40 @@ All rights reserved © NextSoftHR.`;
                 </div>
                 <button
                   onClick={() => setSelectedDoc(null)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+                  className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 dark:hover:bg-blue-950/60"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
               <div className="p-6 space-y-4 text-xs">
-                <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 font-mono">
+                <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-[#040E1F] border border-slate-200 dark:border-blue-900/60 text-slate-800 dark:text-slate-200 font-mono">
                   <span>Code: {selectedDoc.code}</span>
                   <span>Version: {selectedDoc.version}</span>
                   <span>Length: {selectedDoc.pages} pages</span>
                 </div>
 
                 <div>
-                  <span className="font-bold text-slate-900 block mb-1">Overview:</span>
-                  <p className="text-slate-600 leading-relaxed">{selectedDoc.description}</p>
+                  <span className="font-bold text-slate-900 dark:text-white block mb-1">Overview:</span>
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{selectedDoc.description}</p>
                 </div>
 
                 <div>
-                  <span className="font-bold text-slate-900 block mb-1">Content Preview:</span>
-                  <div className="p-4 rounded-xl bg-slate-900 text-slate-200 font-mono text-xs leading-relaxed border border-slate-800">
+                  <span className="font-bold text-slate-900 dark:text-white block mb-1">Content Preview:</span>
+                  <div className="p-4 rounded-xl bg-slate-900 dark:bg-[#030914] text-slate-200 font-mono text-xs leading-relaxed border border-slate-800 dark:border-blue-900/60">
                     {selectedDoc.contentPreview}
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-[11px] leading-relaxed">
+                <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/80 text-blue-900 dark:text-blue-200 text-[11px] leading-relaxed">
                   To execute this document as part of your partner standing, use the digital acceptance flow or download the verified markdown/PDF schedule.
                 </div>
               </div>
 
-              <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+              <div className="p-4 bg-slate-50 dark:bg-[#040E1F] border-t border-slate-200 dark:border-blue-900/60 flex items-center justify-between">
                 <button
                   onClick={() => setSelectedDoc(null)}
-                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
+                  className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer"
                 >
                   Close
                 </button>

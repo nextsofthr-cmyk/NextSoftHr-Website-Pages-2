@@ -1,0 +1,8 @@
+{
+  "name": "NextSoftHR | Recruitment Marketplace & HR Technology",
+  "description": "Unified recruitment marketplace and HR technology platform connecting job seekers, verified employers, recruitment process outsourcing (RPO), headhunters, staffing agencies, and business partners.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

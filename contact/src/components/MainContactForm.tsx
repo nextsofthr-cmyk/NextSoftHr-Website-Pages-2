@@ -732,9 +732,12 @@ export const MainContactForm: React.FC<MainContactFormProps> = ({
                         <span>{t.form.dynamic.hrTitle}</span>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div className="min-w-0">
+                          <label 
+                            className="block text-[11px] sm:text-[11.5px] lg:text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1 whitespace-nowrap overflow-hidden text-ellipsis tracking-tight"
+                            title={t.form.dynamic.hrEmployeesCount}
+                          >
                             {t.form.dynamic.hrEmployeesCount}
                           </label>
                           <input
@@ -747,8 +750,11 @@ export const MainContactForm: React.FC<MainContactFormProps> = ({
                           />
                         </div>
 
-                        <div>
-                          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                        <div className="min-w-0">
+                          <label 
+                            className="block text-[11px] sm:text-[11.5px] lg:text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1 whitespace-nowrap overflow-hidden text-ellipsis tracking-tight"
+                            title={t.form.dynamic.hrTeamSize}
+                          >
                             {t.form.dynamic.hrTeamSize}
                           </label>
                           <select
@@ -765,9 +771,12 @@ export const MainContactForm: React.FC<MainContactFormProps> = ({
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div className="min-w-0">
+                          <label 
+                            className="block text-[11px] sm:text-[11.5px] lg:text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1 whitespace-nowrap overflow-hidden text-ellipsis tracking-tight"
+                            title="Current HR System"
+                          >
                             Current HR System
                           </label>
                           <input
@@ -780,8 +789,11 @@ export const MainContactForm: React.FC<MainContactFormProps> = ({
                           />
                         </div>
 
-                        <div>
-                          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                        <div className="min-w-0">
+                          <label 
+                            className="block text-[11px] sm:text-[11.5px] lg:text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1 whitespace-nowrap overflow-hidden text-ellipsis tracking-tight"
+                            title={t.form.dynamic.mainChallenge}
+                          >
                             {t.form.dynamic.mainChallenge}
                           </label>
                           <select
