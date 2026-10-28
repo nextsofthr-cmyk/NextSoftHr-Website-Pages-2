@@ -35,7 +35,7 @@ export const translations = {
   en: {
     common: {
       startFreeTrial: "Start Free Trial",
-      bookDemo: "Book a Demo",
+      bookDemo: "Explore Demo",
       contactSales: "Contact Sales",
       login: "Sign In",
       freeTrial14Days: "14-Day Free Trial",
@@ -120,7 +120,7 @@ export const translations = {
       sectionTitle: "Choose Your NextSofthr Plan",
       sectionSubtitle:
         "Transparent pricing with no hidden charges. All plans include employee self-service and cloud security.",
-      starterName: "Starter",
+      starterName: "Started",
       starterTagline:
         "Essential payroll and attendance tracking for small businesses and emerging startups.",
       starterAllowance: "Up to 15 Employees Included",
@@ -128,33 +128,41 @@ export const translations = {
       starterSupport: "Standard Email & Ticket Support (24h SLA)",
       starterCta: "Start 14-Day Free Trial",
 
-      proName: "Pay As You Scale",
+      proName: "Professional",
       proTagline:
-        "Complete automated payroll, biometric clocking, tax compliance, and leave management.",
-      proAllowance: "Starting from 10 Employees",
-      proRecommended: "10 – 10K Employees",
-      proSupport: "Priority 24/7 Chat & Ticket Support (< 2h SLA)",
+        "Advanced HR automation, shift management, performance reviews, and multi-tier approvals.",
+      proAllowance: "Up to 50 Employees Included",
+      proRecommended: "50 – 150 Employees",
+      proSupport: "Priority Live Chat & Email Support (< 2h SLA)",
       proCta: "Start 14-Day Free Trial",
 
       bizName: "Business",
       bizTagline:
         "Advanced HR suite with ATS recruitment, KPI reviews, expense management, and AI copilot.",
       bizAllowance: "Up to 100 Employees Included",
-      bizRecommended: "250 – 1,000 Employees",
-      bizSupport: "Dedicated Account Specialist & Priority Phone Support",
+      bizRecommended: "150 – 500 Employees",
+      bizSupport: "Dedicated Account Specialist Support",
       bizCta: "Start 14-Day Free Trial",
+
+      scaleName: "Pay As You Scale",
+      scaleTagline:
+        "Flexible per-user subscription that automatically adapts to your exact team size.",
+      scaleAllowance: "Starting from 10 Employees",
+      scaleRecommended: "10 – 10K+ Employees",
+      scaleSupport: "Priority 24/7 Chat & Ticket Support",
+      scaleCta: "Start 14-Day Free Trial",
 
       entName: "Enterprise",
       entTagline:
         "Tailored multi-entity payroll, custom API integrations, and SLA guarantees for large enterprises.",
       entAllowance: "Unlimited employees & custom instances",
-      entRecommended: "1,000+ Employees/Multi-Country Operations",
+      entRecommended: "1,000+ Employees / Global Teams",
       entSupport: "24/7 Dedicated Support Engineer & 99.99% Uptime SLA",
       entCta: "Contact Enterprise Sales",
       letsTalk: "Let's Talk",
 
       outsourcingName: "Outsourcing",
-      outsourcingTagline: "Tailored for single or multi-entity payroll, custom API integrations, and SLA guarantees for small, medium and large enterprises. Best for businesses looking for Outsourcing their administration, monitoring and coordination of employee attendance, working hours, shifts and staff schedules, payroll, HR and other Business Tools.",
+      outsourcingTagline: "End-to-end administration, employee shifts, payroll processing, and statutory compliance.",
       outsourcingAllowance: "Small, medium and large enterprises",
       outsourcingRecommended: "Small, medium and large enterprises",
       outsourcingSupport: "24/7 dedicated support engineer & 99.99% Uptime SLA",

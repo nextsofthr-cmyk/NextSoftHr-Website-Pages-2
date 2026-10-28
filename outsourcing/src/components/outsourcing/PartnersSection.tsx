@@ -37,32 +37,34 @@ export const PartnersSection: React.FC<PartnersSectionProps> = ({ onOpenLeadModa
   return (
     <div className="space-y-16 pb-16">
       {/* Hero */}
-      <section className="bg-gradient-to-b from-[#0A1E4A] via-[#0F2D6B] to-[#0A1E4A] text-white pt-20 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-semibold text-lime-400 uppercase tracking-wider">
-            <HeartHandshake className="w-3.5 h-3.5" />
-            <span>NextSofthr Partner Ecosystem</span>
-          </div>
+      <section className="bg-gradient-to-b from-[#0A1E4A] via-[#0F2D6B] to-[#0A1E4A] text-white pt-20 pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto text-center space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-semibold text-lime-400 uppercase tracking-wider">
+              <HeartHandshake className="w-3.5 h-3.5" />
+              <span>NextSofthr Partner Ecosystem</span>
+            </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
-            “Partner With NextSofthr <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-lime-300 to-emerald-400">
-              to Deliver Smarter HR Services.”
-            </span>
-          </h1>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+              “Partner With NextSofthr <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-lime-300 to-emerald-400">
+                to Deliver Smarter HR Services.”
+              </span>
+            </h1>
 
-          <p className="text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
-            Expand your firm's service offerings. Join accounting practices, HR consultancies, and staffing agencies scaling their recurring revenues with NextSofthr.
-          </p>
+            <p className="text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
+              Expand your firm's service offerings. Join accounting practices, HR consultancies, and staffing agencies scaling their recurring revenues with NextSofthr.
+            </p>
 
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => onOpenLeadModal('Partner Program Application')}
-              className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-lime-400 to-[#9AE616] hover:from-lime-300 hover:to-lime-400 text-slate-950 font-bold text-base rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
-            >
-              <span>Become a Partner</span>
-              <ArrowRight className="w-4 h-4 text-slate-950" />
-            </button>
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button
+                onClick={() => onOpenLeadModal('Partner Program Application')}
+                className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-lime-400 to-[#9AE616] hover:from-lime-300 hover:to-lime-400 text-slate-950 font-bold text-base rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
+              >
+                <span>Become a Partner</span>
+                <ArrowRight className="w-4 h-4 text-slate-950" />
+              </button>
+            </div>
           </div>
         </div>
       </section>

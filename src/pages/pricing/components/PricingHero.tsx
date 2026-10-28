@@ -101,14 +101,16 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
               <span>{t.common.startFreeTrial}</span>
               <ArrowRight className="w-4 h-4" />
             </a>
-            <button
+            <a
               id="hero-book-demo-btn"
-              onClick={onOpenDemo}
-              className="px-6 py-3.5 rounded-xl font-semibold text-[#0265DC] dark:text-blue-300 bg-white dark:bg-[#111C38] hover:bg-slate-50 dark:hover:bg-[#162447] border border-slate-200/90 dark:border-slate-700 shadow-sm hover:shadow transition-all duration-200 flex items-center gap-2"
+              href="https://demo.scriptmaster.store/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3.5 rounded-xl font-semibold text-[#0265DC] dark:text-blue-300 bg-white dark:bg-[#111C38] hover:bg-slate-50 dark:hover:bg-[#162447] border border-slate-200/90 dark:border-slate-700 shadow-sm hover:shadow transition-all duration-200 flex items-center gap-2 cursor-pointer"
             >
               <Play className="w-4 h-4 fill-current" />
               <span>{t.common.bookDemo}</span>
-            </button>
+            </a>
             <button
               id="hero-compare-plans-btn"
               onClick={onExplorePlans}

@@ -44,7 +44,7 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
     baseYearly = 144;
     perEmpRate = 3.0;
   } else {
-    recommendedPlan = PRICING_PLANS[3]; // Enterprise
+    recommendedPlan = PRICING_PLANS.find((p) => p.id === 'enterprise') || PRICING_PLANS[PRICING_PLANS.length - 1];
   }
 
   const isEnterpriseTier = employeeCount >= 1000;

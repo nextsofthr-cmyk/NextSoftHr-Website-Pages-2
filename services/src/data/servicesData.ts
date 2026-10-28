@@ -407,7 +407,7 @@ export const EXPLORER_TABS: ExplorerTab[] = [
     metricValue: "12,480+",
     metricChange: "+18% MoM across 8 African hubs",
     imageUrl:
-      "https://img.freepik.com/premium-photo/team-young-african-people-office-table-with-laptop_219728-4569.jpg?size=626&amp;ext=jpg&amp;ga=GA1.1.233311484.1695720566&amp;semt=ais",
+      "https://img.freepik.com/premium-photo/team-young-african-people-office-table-with-laptop_219728-4569.jpg?size=626&amp;ext=jpg&amp;ga=GA1.1.233311484.1695720566&amp;emt=ais",
     imageAlt:
       "African professional woman HR director in modern office collaborating with executive team",
     mockupData: {
@@ -461,7 +461,7 @@ export const EXPLORER_TABS: ExplorerTab[] = [
     metricValue: "₦4.2 Billion+",
     metricChange: "100% on-time, zero calculation variance",
     imageUrl:
-      "https://img.freepik.com/premium-photo/financial-partners-shaking-hands-during-office-meeting_160672-42630.jpg?size=626&amp;ext=jpg&amp;ga=GA1.1.233311484.1695720566&amp;semt=ais",
+      "https://img.freepik.com/free-photo/happy-african-american-businesswoman-working-touchpad-office_637285-12961.jpg?size=626&amp;ext=jpg&amp;ga=GA1.1.233311484.1695720566&amp;semt=ais",
     imageAlt:
       "African payroll accountant reviewing financial data on dual screens in corporate finance suite",
     mockupData: {

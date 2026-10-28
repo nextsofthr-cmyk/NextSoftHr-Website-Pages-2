@@ -55,7 +55,7 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({ onLearnMoreSec
               <div
                 key={item.title}
                 id={`security-card-${idx}`}
-                className="bg-white dark:bg-[#0B132B] rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 hover:border-[#0265DC] dark:hover:border-blue-500 hover:shadow-md transition-all duration-200 group"
+                className="bg-white dark:bg-[#0B132B] rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 hover:border-[#0265DC] dark:hover:border-blue-500 hover:shadow-md transition-all duration-200 group h-full flex flex-col justify-start"
               >
                 <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-[#162447] border border-blue-100 dark:border-blue-900/50 flex items-center justify-center text-[#0265DC] dark:text-blue-400 group-hover:bg-[#0265DC] group-hover:text-white transition-colors mb-4">
                   <Icon className="w-5 h-5" />
@@ -63,7 +63,7 @@ export const SecuritySection: React.FC<SecuritySectionProps> = ({ onLearnMoreSec
                 <h3 className="font-display text-base font-bold text-slate-900 dark:text-white group-hover:text-[#0265DC] dark:group-hover:text-blue-300 transition-colors">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed flex-1">
                   {item.description}
                 </p>
               </div>

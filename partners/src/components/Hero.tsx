@@ -31,7 +31,7 @@ export const Hero: React.FC<HeroProps> = ({ onApplyClick, onExploreClick }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Left Column: Messaging & CTAs */}
-          <div className="lg:col-span-6 xl:col-span-7 flex flex-col items-start text-left">
+          <div className="lg:col-span-8 xl:col-span-7 flex flex-col items-start text-left w-full min-w-0">
             {/* Top Eyebrow Tag with Floating Badge */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/90 border border-blue-200 dark:border-[#B8F010]/30 shadow-inner mb-6 animate-float">
               <span className="flex h-2 w-2 rounded-full bg-[#B8F010] animate-ping" />
@@ -60,33 +60,33 @@ export const Hero: React.FC<HeroProps> = ({ onApplyClick, onExploreClick }) => {
               {h.subtitle}
             </p>
 
-            {/* Hero CTAs - Single Straight Line Row */}
-            <div className="flex flex-row items-center gap-2 sm:gap-2.5 xl:gap-3 overflow-x-auto no-scrollbar sm:overflow-visible flex-nowrap w-full mb-10 pb-1">
+            {/* Hero CTAs - Standard height, equal width, and optimized internal spacing */}
+            <div className="relative z-20 flex flex-row items-center gap-2 sm:gap-2.5 flex-nowrap w-full max-w-2xl mb-10 pb-1 overflow-x-auto sm:overflow-x-visible no-scrollbar">
               <button
                 id="hero-become-partner-btn"
                 onClick={onApplyClick}
-                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2.5 rounded-xl bg-[#B8F010] text-[#040E1F] font-extrabold text-xs sm:text-sm hover:bg-[#CBFF1A] transition-all transform hover:-translate-y-0.5 shadow-md shadow-[#B8F010]/20 group whitespace-nowrap shrink-0"
+                className="flex-1 min-w-0 h-11 sm:h-12 inline-flex items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-3 rounded-xl bg-[#B8F010] text-[#040E1F] font-bold text-xs sm:text-sm hover:bg-[#CBFF1A] transition-all transform hover:-translate-y-0.5 shadow-md whitespace-nowrap cursor-pointer group"
               >
-                <span>{h.ctaApply}</span>
-                <ArrowRight className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#040E1F] transition-transform ${isRTL ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`} />
+                <span className="truncate">{h.ctaApply}</span>
+                <ArrowRight className={`w-4 h-4 text-[#040E1F] shrink-0 transition-transform ${isRTL ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`} />
               </button>
 
               <button
                 id="hero-explore-btn"
                 onClick={onExploreClick}
-                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2.5 rounded-xl bg-white dark:bg-blue-950/70 text-slate-800 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white font-bold text-xs sm:text-sm border border-slate-300 dark:border-blue-700/60 hover:border-blue-500 transition-all hover:bg-slate-50 dark:hover:bg-blue-900/50 shadow-sm whitespace-nowrap shrink-0"
+                className="flex-1 min-w-0 h-11 sm:h-12 inline-flex items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-3 rounded-xl bg-white dark:bg-blue-950/70 text-slate-800 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white font-semibold text-xs sm:text-sm border border-slate-300 dark:border-blue-700/60 hover:border-blue-500 transition-all hover:bg-slate-50 dark:hover:bg-blue-900/50 shadow-sm whitespace-nowrap cursor-pointer group"
               >
-                <span>{h.ctaExplore}</span>
-                <ChevronRight className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-300 ${isRTL ? 'rotate-180' : ''}`} />
+                <span className="truncate">{h.ctaExplore}</span>
+                <ChevronRight className={`w-4 h-4 text-blue-600 dark:text-blue-300 shrink-0 transition-transform ${isRTL ? 'rotate-180' : 'group-hover:translate-x-0.5'}`} />
               </button>
 
               <a
                 href="/partners-registry"
                 id="hero-explore-partner-registry-btn"
-                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2.5 rounded-xl bg-blue-600/10 dark:bg-blue-900/40 text-blue-700 dark:text-[#B8F010] hover:bg-blue-600/20 dark:hover:bg-blue-900/60 font-bold text-xs sm:text-sm border border-blue-300 dark:border-blue-600/60 transition-all shadow-sm group hover:-translate-y-0.5 whitespace-nowrap shrink-0"
+                className="flex-1 min-w-0 h-11 sm:h-12 inline-flex items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-3 rounded-xl bg-blue-50/90 dark:bg-blue-900/40 text-blue-700 dark:text-[#B8F010] hover:bg-blue-100 dark:hover:bg-blue-900/60 font-semibold text-xs sm:text-sm border border-blue-300 dark:border-blue-600/60 transition-all shadow-sm group hover:-translate-y-0.5 whitespace-nowrap cursor-pointer"
               >
-                <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 dark:text-[#B8F010] transition-transform group-hover:scale-110" />
-                <span>Explore Partner Registry</span>
+                <Award className="w-4 h-4 text-blue-600 dark:text-[#B8F010] shrink-0 transition-transform group-hover:scale-110" />
+                <span className="truncate">Explore Partner Registry</span>
               </a>
             </div>
 
@@ -112,9 +112,9 @@ export const Hero: React.FC<HeroProps> = ({ onApplyClick, onExploreClick }) => {
           </div>
 
           {/* Right Column: Hero Visual — African & Global Business Environment & Dashboard */}
-          <div className="lg:col-span-6 xl:col-span-5 relative">
+          <div className="lg:col-span-4 xl:col-span-5 relative">
             {/* The Floating Value Badge */}
-            <div className="absolute -top-4 -left-4 sm:-left-6 z-30 bg-white dark:bg-[#071D3E]/95 border border-[#8EBD07] dark:border-[#B8F010] px-4 py-2.5 rounded-xl shadow-xl backdrop-blur-md flex items-center gap-2.5 animate-float">
+            <div className="absolute -top-4 left-2 sm:left-4 z-30 bg-white dark:bg-[#071D3E]/95 border border-[#8EBD07] dark:border-[#B8F010] px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl shadow-xl backdrop-blur-md flex items-center gap-2.5 animate-float">
               <div className="w-7 h-7 rounded-lg bg-[#B8F010]/20 flex items-center justify-center">
                 <Sparkles className="w-4 h-4 text-blue-700 dark:text-[#B8F010]" />
               </div>

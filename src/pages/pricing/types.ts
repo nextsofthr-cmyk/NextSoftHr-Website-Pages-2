@@ -119,6 +119,7 @@ export interface AddOnItem {
   monthlyPrice: number;
   yearlyPrice: number;
   unitText: string;
+  isOneTime?: boolean;
 }
 
 export interface FAQItem {

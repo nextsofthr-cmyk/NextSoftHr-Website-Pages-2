@@ -26,9 +26,9 @@ export const Testimonials: React.FC = () => {
             <div
               key={item.name}
               id={`testimonial-card-${idx}`}
-              className="bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200"
+              className="bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 h-full flex-1"
             >
-              <div>
+              <div className="flex-1 flex flex-col">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-1 text-[#65A30D] dark:text-[#A3E635]">
                     {[...Array(5)].map((_, i) => (

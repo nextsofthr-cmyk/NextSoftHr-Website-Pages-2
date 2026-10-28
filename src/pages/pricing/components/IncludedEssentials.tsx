@@ -62,7 +62,7 @@ export const IncludedEssentials: React.FC = () => {
             return (
               <div
                 id={`essential-feature-${idx}`}
-                className="p-5 rounded-2xl bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/80 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all duration-200 group"
+                className="p-5 rounded-2xl bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/80 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all duration-200 group h-full flex flex-col justify-start"
               >
                 <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#0B132B] border border-slate-200/80 dark:border-slate-700 flex items-center justify-center text-[#0265DC] dark:text-blue-400 group-hover:bg-[#0265DC] group-hover:text-white transition-colors shadow-xs mb-4">
                   <Icon className="w-5 h-5" />
@@ -70,7 +70,7 @@ export const IncludedEssentials: React.FC = () => {
                 <h3 className="font-display text-base font-bold text-slate-900 dark:text-white group-hover:text-[#0265DC] dark:group-hover:text-blue-300 transition-colors">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed flex-1">
                   {item.description}
                 </p>
               </div>

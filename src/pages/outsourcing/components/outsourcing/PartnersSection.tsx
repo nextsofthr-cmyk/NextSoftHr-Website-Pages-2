@@ -37,8 +37,9 @@ export const PartnersSection: React.FC<PartnersSectionProps> = ({ onOpenLeadModa
   return (
     <div className="space-y-16 pb-16">
       {/* Hero */}
-      <section className="bg-gradient-to-b from-[#0A1E4A] via-[#0F2D6B] to-[#0A1E4A] text-white pt-20 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto text-center space-y-6">
+      <section className="bg-gradient-to-b from-[#0A1E4A] via-[#0F2D6B] to-[#0A1E4A] text-white pt-20 pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-semibold text-lime-400 uppercase tracking-wider">
             <HeartHandshake className="w-3.5 h-3.5" />
             <span>NextSofthr Partner Ecosystem</span>
@@ -65,7 +66,8 @@ export const PartnersSection: React.FC<PartnersSectionProps> = ({ onOpenLeadModa
             </button>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Partner Profiles */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

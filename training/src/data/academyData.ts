@@ -987,7 +987,7 @@ export const COURSES: Course[] = [
       photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
       bio: 'Workplace policy specialist and digital operations trainer.',
     },
-    image: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80',
+    image: 'https://img.freepik.com/free-photo/close-up-person-working-device_23-2149085998.jpg',
     description: 'Structure enforceable attendance policies, manage biometric & mobile geo-fencing inputs, configure leave policies, and integrate records with payroll.',
     longOverview:
       'Learn how to establish fair attendance expectations, configure automated time-tracking technologies, manage maternity/paternity/annual leave accruals, and prevent attendance fraud.',

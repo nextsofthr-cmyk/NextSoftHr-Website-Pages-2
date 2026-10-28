@@ -46,7 +46,7 @@ export function CardSlider<T>({
   ariaLabel,
   stepMode = 'page',
   gap = 24,
-  showSideArrows = true,
+  showSideArrows = false,
 }: CardSliderProps<T>) {
   const [view, setView] = useState<number>(() => getPerView(perView));
   const [page, setPage] = useState(0);
@@ -141,7 +141,7 @@ export function CardSlider<T>({
       <div className="overflow-hidden pt-6 pb-6 px-1.5 -mx-1.5">
         {isItemMode ? (
           <div
-            className="flex transition-transform duration-500 ease-out"
+            className="flex items-stretch transition-transform duration-500 ease-out"
             style={{
               gap: `${gap}px`,
               transform: `translateX(calc(-${page} * (100% + ${gap}px) / ${view}))`,
@@ -150,7 +150,7 @@ export function CardSlider<T>({
             {items.map((item, i) => (
               <div
                 key={i}
-                className="shrink-0 flex flex-col h-full"
+                className="shrink-0 flex flex-col items-stretch self-stretch h-full"
                 style={{
                   width: `calc((100% - ${(view - 1) * gap}px) / ${view})`,
                 }}
@@ -161,7 +161,7 @@ export function CardSlider<T>({
           </div>
         ) : (
           <div
-            className="flex transition-transform duration-500 ease-out"
+            className="flex items-stretch transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${page * 100}%)` }}
           >
             {Array.from({ length: pageCount }).map((_, p) => (
@@ -172,7 +172,9 @@ export function CardSlider<T>({
                 aria-hidden={p !== page}
               >
                 {items.slice(p * view, p * view + view).map((item, i) => (
-                  <React.Fragment key={p * view + i}>{renderItem(item, p * view + i)}</React.Fragment>
+                  <div key={p * view + i} className="h-full flex flex-col self-stretch">
+                    {renderItem(item, p * view + i)}
+                  </div>
                 ))}
               </div>
             ))}

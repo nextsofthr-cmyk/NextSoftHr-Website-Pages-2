@@ -15,7 +15,8 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ onContactClick }) => {
 
   return (
     <section id="faq" className="py-24 bg-white dark:bg-[#051329] border-t border-slate-200 dark:border-blue-900/60 relative transition-colors duration-300">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -104,6 +105,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ onContactClick }) => {
           </div>
         </div>
 
+        </div>
       </div>
     </section>
   );

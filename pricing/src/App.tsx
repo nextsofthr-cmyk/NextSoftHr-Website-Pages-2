@@ -163,7 +163,7 @@ export default function App() {
                 stepMode="item"
                 gap={24}
                 renderItem={(plan) => (
-                  <div className="h-full flex flex-col">
+                  <div className="h-full flex-1 flex flex-col self-stretch">
                     <PricingCard
                       plan={plan}
                       billingCycle={billingCycle}
@@ -193,13 +193,20 @@ export default function App() {
           }}
         />
 
-        {/* 6. AI-Powered HR & Payroll Assistant Section */}
+        {/* 6. Extend Your NextSofthr Platform (Add-ons & Modules) */}
+        <AddOnsSection
+          billingCycle={billingCycle}
+          selectedCurrency={selectedCurrency}
+          onOpenBundleCheckout={handleAddOnsCheckout}
+        />
+
+        {/* 7. AI-Powered HR & Payroll Assistant Section (Experience the Built-in AI HR & Payroll Copilot) */}
         <AISection />
 
-        {/* 7. What's Included in Every Plan */}
+        {/* 8. What's Included in Every Plan */}
         <IncludedEssentials />
 
-        {/* 8. Business Scale Section */}
+        {/* 9. Business Scale Section */}
         <BusinessScale
           onSelectPlan={(planName) => {
             if (planName === 'Enterprise') handleOpenSales();
@@ -207,24 +214,17 @@ export default function App() {
           }}
         />
 
-        {/* 9. Global Business Support */}
+        {/* 10. Global Business Support */}
         <GlobalSupport />
 
-        {/* 10. Security & Trust Section */}
+        {/* 11. Security & Trust Section */}
         <SecuritySection onLearnMoreSecurity={() => setSecurityModalOpen(true)} />
 
-        {/* 11. Customer Success & Social Proof */}
+        {/* 12. Customer Success & Social Proof */}
         <Testimonials />
 
-        {/* 12. Industry Solutions */}
+        {/* 13. Industry Solutions */}
         <IndustrySolutions onExploreIndustry={handleExploreIndustry} />
-
-        {/* 13. Add-ons Section */}
-        <AddOnsSection
-          billingCycle={billingCycle}
-          selectedCurrency={selectedCurrency}
-          onOpenBundleCheckout={handleAddOnsCheckout}
-        />
 
         {/* 14. Free Trial Conversion Section */}
         <FreeTrialSection

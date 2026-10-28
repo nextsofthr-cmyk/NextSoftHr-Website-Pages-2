@@ -129,7 +129,8 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ initialPartner
       {/* Glow effects */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 dark:bg-[#B8F010]/5 rounded-full blur-[150px] pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-4xl mx-auto">
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
@@ -553,6 +554,7 @@ export const ApplicationForm: React.FC<ApplicationFormProps> = ({ initialPartner
 
         </div>
 
+        </div>
       </div>
     </section>
   );
