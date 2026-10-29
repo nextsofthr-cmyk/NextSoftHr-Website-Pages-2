@@ -268,6 +268,33 @@ const CATEGORY_FILTERS: CategoryFilterOption[] = [
 
 const AUTO_PLAY_INTERVAL = 7000; // 7 seconds per slide
 
+const getInitials = (name: string): string => {
+  const clean = name.replace(/^(Engr\.|Dr\.|Prof\.|Chief|Mr\.|Mrs\.|Ms\.)\s+/i, '').trim();
+  const parts = clean.split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'NL';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+};
+
+const AVATAR_GRADIENTS = [
+  'from-[#0256C4] to-[#0A2540]',
+  'from-emerald-600 to-teal-900',
+  'from-indigo-600 to-slate-900',
+  'from-amber-600 to-orange-950',
+  'from-cyan-600 to-blue-900',
+  'from-purple-600 to-violet-950',
+  'from-rose-600 to-slate-900',
+];
+
+const getAvatarGradient = (name: string): string => {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % AVATAR_GRADIENTS.length;
+  return AVATAR_GRADIENTS[index];
+};
+
 export const ClientSpotlight: React.FC<ClientSpotlightProps> = ({
   onOpenDemo,
   onOpenGetStarted,
@@ -540,17 +567,18 @@ export const ClientSpotlight: React.FC<ClientSpotlightProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
             
             {/* LEFT: Video Interview Frame (5 Cols) */}
-            <div className="lg:col-span-5 relative bg-black flex flex-col justify-between min-h-[380px] sm:min-h-[460px] overflow-hidden group">
-              {/* Presenter Background Thumbnail */}
-              <img
-                src={activeLeader.videoThumbUrl}
-                alt={activeLeader.name}
-                referrerPolicy="no-referrer"
-                className="absolute inset-0 w-full h-full object-cover object-center filter brightness-90 group-hover:scale-103 transition-transform duration-700"
-              />
+            <div className="lg:col-span-5 relative bg-[#07182E] flex flex-col justify-between min-h-[380px] sm:min-h-[460px] overflow-hidden group">
+              {/* Executive Studio Backdrop with Name Initials Monogram */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${getAvatarGradient(activeLeader.name)} opacity-90 transition-all duration-700`} />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(132,204,22,0.18),transparent_65%)] pointer-events-none" />
+
+              {/* Watermark Monogram Initials */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-15 font-black text-8xl sm:text-9xl tracking-widest text-white select-none pointer-events-none group-hover:scale-105 transition-transform duration-700">
+                {getInitials(activeLeader.name)}
+              </div>
 
               {/* Shading gradients */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/60 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/70 pointer-events-none" />
 
               {/* Top Tag & Duration / Hover Pause Feedback */}
               <div className="relative z-10 p-5 flex items-center justify-between pointer-events-none">
@@ -599,11 +627,12 @@ export const ClientSpotlight: React.FC<ClientSpotlightProps> = ({
               {/* Bottom Speaker Overlay */}
               <div className="relative z-10 p-5 bg-gradient-to-t from-black via-black/80 to-transparent">
                 <div className="flex items-center gap-3">
-                  <img
-                    src={activeLeader.avatarUrl}
-                    alt={activeLeader.name}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-[#84CC16] shadow-md shrink-0"
-                  />
+                  <div
+                    className={`w-12 h-12 rounded-full bg-gradient-to-br ${getAvatarGradient(activeLeader.name)} text-white font-black text-sm flex items-center justify-center border-2 border-[#84CC16] shadow-md tracking-wider shrink-0 select-none`}
+                    aria-label={activeLeader.name}
+                  >
+                    {getInitials(activeLeader.name)}
+                  </div>
                   <div className="min-w-0">
                     <div className="text-sm font-extrabold text-white truncate">
                       {activeLeader.name}
@@ -758,11 +787,12 @@ export const ClientSpotlight: React.FC<ClientSpotlightProps> = ({
                     : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-[#84CC16]/50 hover:shadow-black/40'
                 }`}
               >
-                <img
-                  src={leader.avatarUrl}
-                  alt={leader.name}
-                  className="w-9 h-9 rounded-full object-cover shrink-0 border border-white/20 shadow-sm"
-                />
+                <div
+                  className={`w-9 h-9 rounded-full bg-gradient-to-br ${getAvatarGradient(leader.name)} text-white font-extrabold text-xs flex items-center justify-center shrink-0 border ${isSelected ? 'border-[#84CC16]' : 'border-white/20'} shadow-sm tracking-wider select-none`}
+                  aria-label={leader.name}
+                >
+                  {getInitials(leader.name)}
+                </div>
                 <div className="min-w-0">
                   <div className={`text-xs font-bold truncate transition-colors ${isSelected ? 'text-[#84CC16]' : 'text-white group-hover:text-[#84CC16]'}`}>
                     {leader.name}

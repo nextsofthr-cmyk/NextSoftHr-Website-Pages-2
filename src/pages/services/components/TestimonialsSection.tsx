@@ -3,6 +3,33 @@ import { Star, CheckCircle2 } from 'lucide-react';
 import { TESTIMONIALS_LIST } from '../data/servicesData';
 import { CardSlider } from './CardSlider';
 
+const getInitials = (name: string): string => {
+  const clean = name.replace(/^(Engr\.|Dr\.|Prof\.|Chief|Mr\.|Mrs\.|Ms\.)\s+/i, '').trim();
+  const parts = clean.split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'NL';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+};
+
+const AVATAR_GRADIENTS = [
+  'from-[#0256C4] to-[#0A2540]',
+  'from-emerald-600 to-teal-900',
+  'from-indigo-600 to-slate-900',
+  'from-amber-600 to-orange-950',
+  'from-cyan-600 to-blue-900',
+  'from-purple-600 to-violet-950',
+  'from-rose-600 to-slate-900',
+];
+
+const getAvatarGradient = (name: string): string => {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % AVATAR_GRADIENTS.length;
+  return AVATAR_GRADIENTS[index];
+};
+
 export const TestimonialsSection: React.FC = () => {
   return (
     <section id="testimonials" className="py-20 bg-white dark:bg-[#0A2540] relative overflow-hidden transition-colors">
@@ -56,11 +83,12 @@ export const TestimonialsSection: React.FC = () => {
               {/* Author Info */}
               <div className="pt-4 border-t border-slate-200/70 dark:border-blue-900/60 mt-auto">
                 <div className="flex items-center gap-3.5 mb-2">
-                  <img
-                    src={item.imageUrl}
-                    alt={item.author}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-white dark:border-blue-800 shadow-xs"
-                  />
+                  <div
+                    className={`w-12 h-12 rounded-full bg-gradient-to-br ${getAvatarGradient(item.author)} text-white font-black text-sm flex items-center justify-center border-2 border-white dark:border-blue-800 shadow-md tracking-wider shrink-0 select-none`}
+                    aria-label={item.author}
+                  >
+                    {getInitials(item.author)}
+                  </div>
                   <div>
                     <h4 className="text-sm font-bold text-[#0A2540] dark:text-white">{item.author}</h4>
                     <p className="text-xs text-[#0256C4] dark:text-[#84CC16] font-medium">{item.position}</p>
