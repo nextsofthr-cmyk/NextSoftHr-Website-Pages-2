@@ -205,20 +205,9 @@ function OutsourcingPricingContent() {
 
         {/* 4. Tab Views Switcher */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-          {/* View Tab 1: Outsourcing Pricing Table */}
+          {/* View Tab 1: Outsourcing Pricing Cards */}
           {activeTab === 'packages' && (
-            <div className="space-y-10">
-              <div className="text-center space-y-2 max-w-3xl mx-auto">
-                <span className="text-xs font-bold text-blue-600 dark:text-lime-400 uppercase tracking-wider">Outsourcing Rate Card</span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                  NextSofthr Outsourcing Packages & Pricing
-                </h2>
-                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
-                  Select your outsourcing scope below. All plans include 24/7 dedicated support engineer access and our 99.99% Uptime SLA.
-                </p>
-              </div>
-
-              {/* Responsive Outsourcing Pricing Table */}
+            <div className="space-y-6">
               <OutsourcingPricingTable
                 onSelectPlan={handleSelectTablePlan}
                 onOpenDemo={() => handleOpenLead('Outsourcing Live Demo Inquiry')}

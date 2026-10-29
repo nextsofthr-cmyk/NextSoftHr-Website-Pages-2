@@ -94,7 +94,7 @@ export const AiSalaryMarketBenchmark: React.FC<AiSalaryMarketBenchmarkProps> = (
   parsedYearsOfExperience,
   onApplyPreset
 }) => {
-  const { currentCurrency, currencyConfig, convertAndFormatSalary } = useCurrency();
+  const { currentCurrency, currencyConfig, convertAndFormatSalary, formatAmount } = useCurrency();
 
   // Interactive controls
   const [targetTitle, setTargetTitle] = useState(currentJob.title);

@@ -3,61 +3,24 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --color-brand-blue: #2563eb;
-  --color-brand-blue-dark: #3b82f6;
-  --color-brand-lemon: #a3e635;
-  --color-brand-lemon-light: #bef264;
-  --color-canvas-dark: #090d16;
-  --color-navy-dark: #0b1120;
-  --color-navy-card: #0f172a;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --color-brand-blue: #0265DC;
+  --color-brand-blue-dark: #004DB3;
+  --color-brand-lemon: #A3E635;
+  --color-brand-lemon-light: #BEF264;
+  --color-brand-navy: #0B132B;
 }
 
-html {
-  scroll-behavior: smooth;
-  font-family: var(--font-sans);
+/* Custom scrollbar and subtle grid patterns */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(2, 101, 220, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(2, 101, 220, 0.04) 1px, transparent 1px);
 }
 
-html.dark {
-  color-scheme: dark;
-}
-
-body {
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-  background-color: #f8fafc;
-  color: #0f172a;
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-html.dark body {
-  background-color: #090d16;
-  color: #f8fafc;
-}
-
-/* Custom scrollbars for modals and lists */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-html.dark ::-webkit-scrollbar-thumb {
-  background: #334155;
-}
-
-html.dark ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+.bg-dot-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(2, 101, 220, 0.08) 1px, transparent 1px);
 }

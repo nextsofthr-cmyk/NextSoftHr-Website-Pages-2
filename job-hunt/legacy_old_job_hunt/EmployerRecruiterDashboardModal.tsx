@@ -23,6 +23,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { Job, SavedCandidate, ScheduledInterview, InterviewFeedback } from '../types';
+import { RecruiterExperienceInsights } from './RecruiterExperienceInsights';
 
 interface EmployerRecruiterDashboardModalProps {
   isOpen: boolean;
