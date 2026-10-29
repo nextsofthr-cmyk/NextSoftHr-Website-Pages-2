@@ -760,6 +760,7 @@ export const ADD_ONS: AddOnItem[] = [
     yearlyPrice: 30,
     unitText: "One Time",
     isOneTime: true,
+    fixedPriceNGN: 46500,
   },
   {
     id: "accounting-integration",
@@ -770,6 +771,7 @@ export const ADD_ONS: AddOnItem[] = [
     yearlyPrice: 25,
     unitText: "One Time",
     isOneTime: true,
+    fixedPriceNGN: 38750,
   },
   {
     id: "finance-module",
@@ -777,9 +779,10 @@ export const ADD_ONS: AddOnItem[] = [
     description:
       "Comprehensive financial tracking, multi-currency budgeting, and expense accounts management.",
     monthlyPrice: 20,
-    yearlyPrice: 16,
+    yearlyPrice: 20,
     unitText: "mo",
     isOneTime: false,
+    fixedPriceNGN: 31000,
   },
   {
     id: "whatsapp-ess-integration",
@@ -787,9 +790,10 @@ export const ADD_ONS: AddOnItem[] = [
     description:
       "Employee self-service chatbot for instant payslip queries, leave applications, and notifications via WhatsApp.",
     monthlyPrice: 20,
-    yearlyPrice: 16,
+    yearlyPrice: 20,
     unitText: "mo",
     isOneTime: false,
+    fixedPriceNGN: 31000,
   },
   {
     id: "letters-templates",
@@ -797,9 +801,10 @@ export const ADD_ONS: AddOnItem[] = [
     description:
       "Automated generation of official employment offers, termination letters, memos, and HR contracts.",
     monthlyPrice: 20,
-    yearlyPrice: 16,
+    yearlyPrice: 20,
     unitText: "mo",
     isOneTime: false,
+    fixedPriceNGN: 31000,
   },
   {
     id: "bulk-sms",
@@ -810,6 +815,7 @@ export const ADD_ONS: AddOnItem[] = [
     yearlyPrice: 25,
     unitText: "One Time",
     isOneTime: true,
+    fixedPriceNGN: 38750,
   },
   {
     id: "google-meet",
@@ -820,6 +826,7 @@ export const ADD_ONS: AddOnItem[] = [
     yearlyPrice: 20,
     unitText: "One Time",
     isOneTime: true,
+    fixedPriceNGN: 31000,
   },
   {
     id: "zoom-meeting",
@@ -830,6 +837,7 @@ export const ADD_ONS: AddOnItem[] = [
     yearlyPrice: 20,
     unitText: "One Time",
     isOneTime: true,
+    fixedPriceNGN: 31000,
   },
   {
     id: "purchases-module",
@@ -837,9 +845,10 @@ export const ADD_ONS: AddOnItem[] = [
     description:
       "Streamlined purchase orders, procurement workflows, vendor requisitions, and approvals tracking.",
     monthlyPrice: 20,
-    yearlyPrice: 16,
+    yearlyPrice: 20,
     unitText: "mo",
     isOneTime: false,
+    fixedPriceNGN: 31000,
   },
   {
     id: "qr-codes",
@@ -847,9 +856,10 @@ export const ADD_ONS: AddOnItem[] = [
     description:
       "Contactless QR code clock-in badges for workplace attendance, visitor check-in, and badge verification.",
     monthlyPrice: 20,
-    yearlyPrice: 16,
+    yearlyPrice: 20,
     unitText: "mo",
     isOneTime: false,
+    fixedPriceNGN: 31000,
   },
 
   // Original Platform Modules

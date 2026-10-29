@@ -407,7 +407,7 @@ export const EXPLORER_TABS: ExplorerTab[] = [
     metricValue: "12,480+",
     metricChange: "+18% MoM across 8 African hubs",
     imageUrl:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1200&auto=format&fit=crop",
+      "https://img.freepik.com/premium-photo/team-young-african-people-office-table-with-laptop_219728-4569.jpg?size=626&amp;ext=jpg&amp;ga=GA1.1.233311484.1695720566&amp;semt=ais",
     imageAlt:
       "African professional woman HR director in modern office collaborating with executive team",
     mockupData: {
@@ -519,7 +519,7 @@ export const EXPLORER_TABS: ExplorerTab[] = [
     metricValue: "98.8%",
     metricChange: "Field workforce punctual arrivals",
     imageUrl:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
+      "https://img.freepik.com/premium-photo/human-resources-hr-management-recruitment-employment-headhunting-concept-human-resources-uses-computers-search-select-job-appliants-process-selecting-people-join-work-hr_29488-6227.jpg?size=626&amp;ext=jpg&amp;ga=GA1.1.233311484.1695720566&amp;semt=ais",
     imageAlt:
       "African tech team collaborating with laptops in modern open workspace",
     mockupData: {
@@ -763,7 +763,7 @@ export const EXPLORER_TABS: ExplorerTab[] = [
     metricValue: "85%+",
     metricChange: "Without needing human HR staff escalation",
     imageUrl:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop",
+      "https://img.magnific.com/free-photo/robot-performing-ordinary-human-job_23-2151008303.jpg?t=st=1793031753~exp=1793035353~hmac=f5a83b1538993c9b24b764978da3933c260a2de69e022fb67ce69d157f78e7ec&amp;w=360",
     imageAlt:
       "Modern tech professional in collaborative workspace with analytical dashboard",
     mockupData: {
@@ -1037,7 +1037,7 @@ export const BUSINESS_STAGES: BusinessStage[] = [
       "Comprehensive HR and finance executive reports",
     ],
     imageUrl:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop",
+      "https://img.magnific.com/free-photo/medium-shot-colleagues-sitting-desk_23-2149831320.jpg",
     imageCaption:
       "African corporate department managers reviewing quarterly metrics",
     highlightStat: "68% reduction in internal HR administrative inquiries",
@@ -1057,7 +1057,7 @@ export const BUSINESS_STAGES: BusinessStage[] = [
       "Dedicated Customer Success Manager and 24/7 SLA guarantee",
     ],
     imageUrl:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
+      "https://img.magnific.com/premium-photo/lawyer-women-talk-office-with-documents-legal-aid-proposal-planning-lawsuit-strategy-people-collaboration-discussion-with-computer-attorney-advice-court-case-paperwork_590464-628579.jpg?w=1060",
     imageCaption:
       "Enterprise executive leadership team in high-rise corporate tower",
     highlightStat: "Managing 10,000+ personnel with 99.99% system uptime",
@@ -1077,7 +1077,7 @@ export const INDUSTRIES_LIST: IndustryItem[] = [
       "Sprint & OKR alignment",
     ],
     imageUrl:
-      "https://img.magnific.com/premium-photo/african-entrepreneur-having-business-call-coronavirus-sitting-workplace-wearing-face-mask-multiethnic-coworkers-working-respecting-social-distance-financial-company_16990631.jpg",
+      "https://img.magnific.com/premium-photo/young-confident-business-coach-standing-by-table-front-audience_274679-33371.jpg?w=360",
     stat: "45% faster technical hiring",
   },
   {
@@ -1242,7 +1242,7 @@ export const INDUSTRIES_LIST: IndustryItem[] = [
       "Seasonal worker records",
     ],
     imageUrl:
-      "https://img.magnific.com/premium-photo/group-people-are-gathered-around-table-with-globe-it_1310179-5551.jpg",
+      "https://img.magnific.com/free-photo/full-shot-women-working-together_23-2149894686.jpg?uid=R108549358&ga=GA1.1.135559016.1792137120&semt=ais_hybrid&w=740&q=80",
     stat: "Effortless harvest payroll runs",
   },
   {
@@ -1257,7 +1257,7 @@ export const INDUSTRIES_LIST: IndustryItem[] = [
       "Commission payouts",
     ],
     imageUrl:
-      "https://img.magnific.com/free-photo/happy-cheerful-african-american-farm-worker-holding-crate-full-local-eco-friendly-ripe-leafy-greens-from-sustainable-crop-harvest-entrepreneurial-bio-permaculture-greenhouse-farm_482257-64585.jpg?t=st=1792141719~exp=1792145319~hmac=3e6c9f9c2c82f11ac1af44b1edb47fa279e7e805dd81e69267e15e20c4ea9d83&w=1060",
+      "https://img.magnific.com/premium-photo/close-up-shot-caucasian-contractor-holding-real-estate-project-while-his-african-colleague-point_926199-2020561.jpg?w=360",
     stat: "Full facility staffing coverage",
   },
   {
@@ -1272,7 +1272,7 @@ export const INDUSTRIES_LIST: IndustryItem[] = [
       "Health compliance tracking",
     ],
     imageUrl:
-      "https://img.magnific.com/free-photo/full-shot-women-working-together_23-2149894686.jpg?uid=R108549358&ga=GA1.1.135559016.1792137120&semt=ais_hybrid&w=740&q=80",
+      "https://img.magnific.com/premium-photo/modern-restaurant-interior-with-city-view-set-tables_681147-23172.jpg",
     stat: "Zero understaffed dinner services",
   },
   {
@@ -1287,7 +1287,7 @@ export const INDUSTRIES_LIST: IndustryItem[] = [
       "Guard asset logs",
     ],
     imageUrl:
-      "https://img.magnific.com/premium-photo/close-up-shot-caucasian-contractor-holding-real-estate-project-while-his-african-colleague-point_926199-2020561.jpg?w=360",
+      "https://img.magnific.com/premium-photo/security-patrol-malls-food-court-area-ensuring-safety-order_1327465-22506.jpg?w=360",
     stat: "100% guard post accountability",
   },
 ];

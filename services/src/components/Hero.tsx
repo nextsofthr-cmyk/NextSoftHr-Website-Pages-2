@@ -133,14 +133,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDemo, onOpenGetStarted }) => {
                 {/* Authentic African Professional Team Banner Preview */}
                 <div className="lg:col-span-7 relative rounded-xl overflow-hidden shadow-md border border-slate-200 group">
                   <img
-                    src="https://www.freepik.com/search?format=search&amp;query=payroll%20management
-
-https://img.freepik.com/free-photo/frustrated-young-mixed-race-female-entrepreneur-wearing-formal-shirt-
-
-eyeglasses_273609-
-
-13992.jpg?w=740&amp;t=st=1696962752~exp=1696963352~hmac=64db591e5a379007277aa55bf0c9a59cdb377a9b5"
-                    alt="African professional HR executive and corporate team collaborating in a modern headquarters"
+                    src="https://img.freepik.com/free-photo/frustrated-young-mixed-race-female-entrepreneur-wearing-formal-shirt-eyeglasses_273609-13992.jpg?w=1060"
+                    alt="Female entrepreneur and corporate team managing payroll operations"
                     className="w-full h-56 sm:h-72 object-cover object-top group-hover:scale-102 transition-transform duration-500"
                     loading="eager"
                   />

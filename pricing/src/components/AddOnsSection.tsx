@@ -33,6 +33,10 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
   const totalUSD = selectedItems.reduce((acc, cur) => {
     return acc + (cur.isOneTime ? cur.monthlyPrice : billingCycle === 'yearly' ? cur.yearlyPrice : cur.monthlyPrice);
   }, 0);
+  const totalNGN = selectedItems.reduce((acc, cur) => {
+    return acc + (cur.fixedPriceNGN ?? (cur.isOneTime ? cur.monthlyPrice * 1550 : billingCycle === 'yearly' ? cur.yearlyPrice * 1550 : cur.monthlyPrice * 1550));
+  }, 0);
+  const formattedTotal = selectedCurrency === 'NGN' ? `₦${totalNGN.toLocaleString()}` : currencyConfig.format(totalUSD);
 
   return (
     <section id="addons" className="py-20 bg-white dark:bg-[#0B132B] border-t border-slate-100 dark:border-slate-800 transition-colors duration-200">
@@ -66,9 +70,9 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
                 <div className="text-xs text-slate-300">
                   Total extra investment:{' '}
                   <span className="text-[#A3E635] font-bold font-mono">
-                    {currencyConfig.format(totalUSD)}
+                    {formattedTotal}
                   </span>
-                  {billingCycle === 'yearly' ? ' (calculated total)' : ''}
+                  {billingCycle === 'yearly' && selectedCurrency !== 'NGN' ? ' (calculated total)' : ''}
                 </div>
               </div>
             </div>
@@ -102,7 +106,10 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
               : billingCycle === 'yearly'
               ? addon.yearlyPrice
               : addon.monthlyPrice;
-            const displayPrice = currencyConfig.format(priceUSD);
+            const displayPrice =
+              selectedCurrency === 'NGN' && addon.fixedPriceNGN
+                ? `₦${addon.fixedPriceNGN.toLocaleString()}`
+                : currencyConfig.format(priceUSD);
 
             return (
               <div
