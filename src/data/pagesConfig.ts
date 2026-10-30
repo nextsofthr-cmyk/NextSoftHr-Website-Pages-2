@@ -181,6 +181,18 @@ export const PAGES_CONFIG: PageMeta[] = [
     iconName: 'Briefcase'
   },
   {
+    id: 'recruitment-board',
+    slug: 'recruitment-board',
+    title: 'Recruitment Board',
+    subtitle: 'Candidate Pipeline & ATS Hiring Board',
+    category: 'Resources',
+    path: '/recruitment-board',
+    aliases: ['/recruitment', '/board'],
+    badge: 'Hiring Board',
+    description: 'Visual recruitment and candidate kanban board, stage tracking, evaluation scoring & candidate management.',
+    iconName: 'LayoutGrid'
+  },
+  {
     id: 'contact',
     slug: 'contact',
     title: 'Contact Us & Sales',
