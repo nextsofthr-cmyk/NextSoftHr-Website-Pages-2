@@ -1,56 +1,92 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { LanguageCode, LanguageConfig } from '../types';
-import { translations, LANGUAGES, TranslationDictionary } from '../i18n/translations';
+import { 
+  SupportedLanguage, 
+  LanguageConfig, 
+  SUPPORTED_LANGUAGES, 
+  LANGUAGE_LIST, 
+  TRANSLATIONS 
+} from '../data/translations';
 
 interface LanguageContextType {
-  language: LanguageCode;
-  setLanguage: (lang: LanguageCode) => void;
-  t: TranslationDictionary;
-  currentLanguageConfig: LanguageConfig;
-  allLanguages: Record<LanguageCode, LanguageConfig>;
+  currentLanguage: SupportedLanguage;
+  languageConfig: LanguageConfig;
+  setLanguage: (lang: SupportedLanguage) => void;
+  t: (key: string, defaultText?: string) => string;
+  isRtl: boolean;
+  dir: 'ltr' | 'rtl';
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+const STORAGE_KEY = 'nextsoft_language';
+
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<LanguageCode>(() => {
+  const [currentLanguage, setCurrentLanguageState] = useState<SupportedLanguage>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('nextsofthr-lang') as LanguageCode;
-      if (saved && (saved === 'en' || saved === 'fr' || saved === 'pt' || saved === 'es')) {
+      const saved = localStorage.getItem(STORAGE_KEY) as SupportedLanguage;
+      if (saved && SUPPORTED_LANGUAGES[saved]) {
         return saved;
       }
-      // Auto-detect browser language if possible
+      // Check browser navigator language
       const browserLang = navigator.language?.slice(0, 2).toLowerCase();
-      if (browserLang === 'fr') return 'fr';
-      if (browserLang === 'pt') return 'pt';
-      if (browserLang === 'es') return 'es';
+      if (browserLang && SUPPORTED_LANGUAGES[browserLang as SupportedLanguage]) {
+        return browserLang as SupportedLanguage;
+      }
     }
     return 'en';
   });
 
-  const setLanguage = (lang: LanguageCode) => {
-    setLanguageState(lang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('nextsofthr-lang', lang);
-      document.documentElement.lang = lang;
-    }
-  };
+  const languageConfig = SUPPORTED_LANGUAGES[currentLanguage] || SUPPORTED_LANGUAGES.en;
+  const isRtl = languageConfig.direction === 'rtl';
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      document.documentElement.lang = language;
+      try {
+        localStorage.setItem(STORAGE_KEY, currentLanguage);
+      } catch {
+        // ignore storage errors
+      }
+      document.documentElement.lang = currentLanguage;
+      document.documentElement.dir = languageConfig.direction;
     }
-  }, [language]);
+  }, [currentLanguage, languageConfig.direction]);
 
-  const value: LanguageContextType = {
-    language,
-    setLanguage,
-    t: translations[language] as TranslationDictionary,
-    currentLanguageConfig: LANGUAGES[language],
-    allLanguages: LANGUAGES,
+  const setLanguage = (lang: SupportedLanguage) => {
+    if (SUPPORTED_LANGUAGES[lang]) {
+      setCurrentLanguageState(lang);
+    }
   };
 
-  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+  /**
+   * Translation lookup with fallback to English and default text
+   */
+  const t = (key: string, defaultText?: string): string => {
+    const activeDict = TRANSLATIONS[currentLanguage];
+    if (activeDict && activeDict[key]) {
+      return activeDict[key];
+    }
+    // Fallback to English dictionary
+    const enDict = TRANSLATIONS.en;
+    if (enDict && enDict[key]) {
+      return enDict[key];
+    }
+    return defaultText || key;
+  };
+
+  return (
+    <LanguageContext.Provider
+      value={{
+        currentLanguage,
+        languageConfig,
+        setLanguage,
+        t,
+        isRtl,
+        dir: languageConfig.direction
+      }}
+    >
+      {children}
+    </LanguageContext.Provider>
+  );
 };
 
 export const useLanguage = (): LanguageContextType => {
@@ -60,3 +96,5 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
+
+export { LANGUAGE_LIST, SUPPORTED_LANGUAGES };

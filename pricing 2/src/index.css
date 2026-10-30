@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --color-brand-blue: #0265DC;
+  --color-brand-blue-dark: #004DB3;
+  --color-brand-lemon: #A3E635;
+  --color-brand-lemon-light: #BEF264;
+  --color-brand-navy: #0B132B;
+}
+
+/* Custom scrollbar and subtle grid patterns */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(2, 101, 220, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(2, 101, 220, 0.04) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(2, 101, 220, 0.08) 1px, transparent 1px);
+}

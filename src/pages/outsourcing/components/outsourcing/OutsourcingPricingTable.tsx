@@ -20,6 +20,7 @@ import {
   Table as TableIcon
 } from 'lucide-react';
 import { useCurrency } from '../../context/CurrencyContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { CardSlider } from '../common/CardSlider';
 
 export interface OutsourcingPricingRow {
@@ -201,6 +202,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
   onOpenDemo
 }) => {
   const { formatCurrency, currency } = useCurrency();
+  const { t } = useLanguage();
   const [billingCycle, setBillingCycle] = useState<'Monthly' | 'Yearly'>('Monthly');
   const [headcount, setHeadcount] = useState<number>(25);
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'core' | 'integrated' | 'enterprise'>('all');
@@ -226,13 +228,13 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/80 text-[#0265DC] dark:text-[#A3E635] text-xs font-extrabold uppercase tracking-widest border border-blue-100 dark:border-blue-900">
           <Sparkles className="w-3.5 h-3.5 text-[#A3E635]" />
-          <span>Choose Your NextSofthr Plan</span>
+          <span>{t('pricing.choose_plan', 'Choose Your NextSofthr Plan')}</span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0B132B] dark:text-white tracking-tight">
-          Choose Your Outsourcing Plan
+          {t('pricing.choose_plan', 'Choose Your Outsourcing Plan')}
         </h2>
         <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-          Transparent per-employee monthly retainers tailored for African operations. All plans include dedicated specialist support, statutory compliance accuracy, and cloud self-service access.
+          {t('pricing.choose_plan_sub', 'Transparent per-employee monthly retainers tailored for African operations. All plans include dedicated specialist support, statutory compliance accuracy, and cloud self-service access.')}
         </p>
       </div>
 
@@ -253,7 +255,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                   : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              Monthly Billing
+              {t('pricing.monthly_billing', 'Monthly Billing')}
             </button>
 
             <button
@@ -265,13 +267,13 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                   : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <span>Annual Billing</span>
+              <span>{t('pricing.yearly_billing', 'Annual Billing')}</span>
               <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full transition-all ${
                 billingCycle === 'Yearly'
                   ? 'bg-slate-950 text-[#A3E635]'
                   : 'bg-lime-100 dark:bg-lime-950 text-lime-800 dark:text-[#A3E635]'
               }`}>
-                SAVE 20%
+                {t('pricing.save_20', 'SAVE 20%')}
               </span>
             </button>
           </div>
@@ -288,7 +290,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
               }`}
             >
               <LayoutGrid className="w-3.5 h-3.5" />
-              <span>Cards View</span>
+              <span>{t('pricing.cards_view', 'Cards View')}</span>
             </button>
 
             <button
@@ -301,7 +303,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
               }`}
             >
               <TableIcon className="w-3.5 h-3.5" />
-              <span>Matrix Table</span>
+              <span>{t('pricing.matrix_table', 'Matrix Table')}</span>
             </button>
           </div>
 
@@ -314,8 +316,8 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
               <Users className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-900 dark:text-white">Calculate for Your Headcount:</div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400">Preview total monthly investment for your team size</div>
+              <div className="text-xs font-bold text-slate-900 dark:text-white">{t('pricing.headcount_calc', 'Calculate for Your Headcount:')}</div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400">{t('pricing.headcount_sub', 'Preview total monthly investment for your team size')}</div>
             </div>
           </div>
 
@@ -456,7 +458,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                         </span>
                         {!isCustom && (
                           <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                            / emp / month
+                            {t('pricing.per_emp_month', '/ emp / month')}
                           </span>
                         )}
                       </div>
@@ -465,7 +467,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                       {!isCustom ? (
                         <div className="mt-2.5 flex items-center justify-between p-2 rounded-xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-900/40 text-xs">
                           <span className="text-slate-600 dark:text-slate-300 font-medium">
-                            Total for <strong className="text-slate-900 dark:text-white">{headcount} staff</strong>:
+                            {t('pricing.total_for', 'Total for')} <strong className="text-slate-900 dark:text-white">{headcount} {t('pricing.staff', 'staff')}</strong>:
                           </span>
                           <span className="font-extrabold text-[#0265DC] dark:text-[#A3E635] font-mono">
                             {formattedTotalMonthly} / mo
@@ -474,14 +476,14 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                       ) : (
                         <div className="mt-2.5 flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-slate-300">
                           <Zap className="w-3.5 h-3.5 text-[#0265DC] dark:text-blue-400 shrink-0" />
-                          <span>Custom Scope & Volume Brackets</span>
+                          <span>{t('pricing.custom_quote', 'Custom Scope & Volume Brackets')}</span>
                         </div>
                       )}
 
                       {/* Billing Notice */}
                       <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-1.5 flex items-center justify-between">
                         <span>
-                          {isYearly && !isCustom ? '✓ Billed Annually (20% Savings applied)' : 'Monthly Pay-As-You-Grow'}
+                          {isYearly && !isCustom ? t('pricing.billed_annually', '✓ Billed Annually (20% Savings applied)') : t('pricing.monthly_pay_as_you_grow', 'Monthly Pay-As-You-Grow')}
                         </span>
                         {currency.code !== 'NGN' && (
                           <span className="font-mono text-[10px] text-slate-400">
@@ -548,7 +550,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                         onClick={() => handleAction(row.name)}
                         className="w-full h-11 px-4 rounded-xl text-sm font-bold bg-[#0265DC] hover:bg-[#004DB3] text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
                       >
-                        <span>{isCustom ? 'Request Custom Proposal' : 'Select Outsourcing Plan'}</span>
+                        <span>{isCustom ? t('pricing.tab_wizard', 'Request Custom Proposal') : t('pricing.get_started', 'Select Outsourcing Plan')}</span>
                         <ArrowRight className="w-4 h-4" />
                       </button>
 
@@ -559,7 +561,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
                           className="w-full h-9 px-3 rounded-lg text-xs font-semibold text-[#0265DC] dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 border border-blue-200/60 dark:border-blue-900/40 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                         >
                           <PhoneCall className="w-3.5 h-3.5 text-[#0265DC] dark:text-blue-400" />
-                          <span>Talk to Outsourcing Specialist</span>
+                          <span>{t('pricing.book_demo', 'Talk to Outsourcing Specialist')}</span>
                         </button>
                       )}
                     </div>

@@ -26,13 +26,15 @@ import { GlobalHeader } from '../../components/GlobalHeader';
 import { GlobalFooter } from '../../components/GlobalFooter';
 import { SERVICE_PACKAGES } from '../outsourcing/data/mockData';
 import { CurrencyProvider, useCurrency } from '../outsourcing/context/CurrencyContext';
+import { LanguageProvider, useLanguage } from '../outsourcing/context/LanguageContext';
 import { QuotationWizard } from '../outsourcing/components/outsourcing/QuotationWizard';
 import { RoiCalculator } from '../outsourcing/components/outsourcing/RoiCalculator';
 import { LeadModal } from '../outsourcing/components/common/LeadModal';
 import { OutsourcingPricingTable } from '../outsourcing/components/outsourcing/OutsourcingPricingTable';
 
 function OutsourcingPricingContent() {
-  const { formatCurrency, currency, setCurrencyCode, supportedCurrencies } = useCurrency();
+  const { formatCurrency, currency } = useCurrency();
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'packages' | 'wizard' | 'roi' | 'compare'>('packages');
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [leadModalService, setLeadModalService] = useState('Payroll + HR Outsourcing');
@@ -88,18 +90,18 @@ function OutsourcingPricingContent() {
           <div className="relative max-w-5xl mx-auto text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold text-lime-400 uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5 text-lime-400" />
-              <span>Transparent Outsourcing Retainers • Zero Hidden Fees</span>
+              <span>{t('pricing.hero_badge', 'Transparent Outsourcing Retainers • Zero Hidden Fees')}</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]">
-              Flexible Outsourcing Packages <br />
+              {t('pricing.hero_title', 'Flexible Outsourcing Packages')} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-lime-300 via-lime-400 to-emerald-400">
-                Built for Every Stage of Scale.
+                {t('pricing.hero_subtitle', 'Built for Every Stage of Scale.')}
               </span>
             </h1>
 
             <p className="text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
-              Eliminate internal overhead, compliance bottlenecks, and payroll errors. Outsource monthly gross-to-net payroll, employee lifecycle administration, or your entire People department.
+              {t('pricing.hero_desc', 'Eliminate internal overhead, compliance bottlenecks, and payroll errors. Outsource monthly gross-to-net payroll, employee lifecycle administration, or your entire People department.')}
             </p>
 
             {/* Quick Hero Actions */}
@@ -113,7 +115,7 @@ function OutsourcingPricingContent() {
                 }`}
               >
                 <CreditCard className="w-4 h-4" />
-                <span>Explore Packages</span>
+                <span>{t('pricing.tab_packages', 'Explore Packages')}</span>
               </button>
 
               <button
@@ -125,7 +127,7 @@ function OutsourcingPricingContent() {
                 }`}
               >
                 <Zap className="w-4 h-4" />
-                <span>Custom Quotation Wizard</span>
+                <span>{t('pricing.tab_wizard', 'Custom Quotation Wizard')}</span>
               </button>
 
               <button
@@ -137,7 +139,7 @@ function OutsourcingPricingContent() {
                 }`}
               >
                 <BarChart3 className="w-4 h-4" />
-                <span>ROI Savings Calculator</span>
+                <span>{t('pricing.tab_roi', 'ROI Savings Calculator')}</span>
               </button>
 
               <button
@@ -145,7 +147,7 @@ function OutsourcingPricingContent() {
                 className="px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-500 to-[#0265DC] hover:from-blue-600 hover:to-blue-700 text-white shadow-md transition-all flex items-center gap-2 cursor-pointer"
               >
                 <PhoneCall className="w-4 h-4" />
-                <span>Talk to a Specialist</span>
+                <span>{t('pricing.tab_specialist', 'Talk to a Specialist')}</span>
               </button>
             </div>
 
@@ -153,52 +155,20 @@ function OutsourcingPricingContent() {
             <div className="pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
               <div className="p-3 bg-white/5 rounded-xl border border-white/10 backdrop-blur-xs">
                 <div className="text-2xl font-black text-lime-400 font-mono">99.99%</div>
-                <div className="text-xs text-slate-300 font-medium">Uptime & Accuracy SLA</div>
+                <div className="text-xs text-slate-300 font-medium">{t('pricing.sla_uptime', 'Uptime & Accuracy SLA')}</div>
               </div>
               <div className="p-3 bg-white/5 rounded-xl border border-white/10 backdrop-blur-xs">
                 <div className="text-2xl font-black text-lime-400 font-mono">480+</div>
-                <div className="text-xs text-slate-300 font-medium">Enterprise Clients Managed</div>
+                <div className="text-xs text-slate-300 font-medium">{t('pricing.sla_clients', 'Enterprise Clients Managed')}</div>
               </div>
               <div className="p-3 bg-white/5 rounded-xl border border-white/10 backdrop-blur-xs">
                 <div className="text-2xl font-black text-lime-400 font-mono">100%</div>
-                <div className="text-xs text-slate-300 font-medium">Statutory Tax Filing Record</div>
+                <div className="text-xs text-slate-300 font-medium">{t('pricing.sla_tax', 'Statutory Tax Filing Record')}</div>
               </div>
               <div className="p-3 bg-white/5 rounded-xl border border-white/10 backdrop-blur-xs">
                 <div className="text-2xl font-black text-lime-400 font-mono">24/7</div>
-                <div className="text-xs text-slate-300 font-medium">Dedicated Support Engineer</div>
+                <div className="text-xs text-slate-300 font-medium">{t('pricing.sla_support', 'Dedicated Support Engineer')}</div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 3. Currency Control Strip */}
-        <section className="bg-white dark:bg-[#0B1528] border-y border-slate-200 dark:border-slate-800 py-4 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
-              <Globe2 className="w-4 h-4 text-[#0265DC] dark:text-lime-400" />
-              <span>Display Currency:</span>
-              <span className="font-bold text-slate-900 dark:text-white">
-                {currency.name} ({currency.symbol})
-              </span>
-            </div>
-
-            {/* Currency Selector Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 sm:pb-0 scrollbar-none">
-              {supportedCurrencies.slice(0, 8).map((cur) => (
-                <button
-                  key={cur.code}
-                  id={`outsourcing-currency-${cur.code}`}
-                  onClick={() => setCurrencyCode(cur.code)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 ${
-                    currency.code === cur.code
-                      ? 'bg-[#0265DC] text-white shadow-xs'
-                      : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
-                  }`}
-                >
-                  <span>{cur.flag}</span>
-                  <span>{cur.code}</span>
-                </button>
-              ))}
             </div>
           </div>
         </section>
@@ -382,8 +352,10 @@ function OutsourcingPricingContent() {
 
 export default function OutsourcingPricing() {
   return (
-    <CurrencyProvider>
-      <OutsourcingPricingContent />
-    </CurrencyProvider>
+    <LanguageProvider>
+      <CurrencyProvider>
+        <OutsourcingPricingContent />
+      </CurrencyProvider>
+    </LanguageProvider>
   );
 }

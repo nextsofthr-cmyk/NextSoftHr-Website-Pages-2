@@ -1,6 +1,8 @@
 {
-  "name": "NextSofthr - Global HR, Payroll & Business Management",
-  "description": "Explore NextSofthr pricing for modern HR, payroll and business management. Choose a plan for your growing business or contact sales for enterprise solutions.",
+  "name": "NextSoftHR | Recruitment Marketplace & HR Technology",
+  "description": "Unified recruitment marketplace and HR technology platform connecting job seekers, verified employers, recruitment process outsourcing (RPO), headhunters, staffing agencies, and business partners.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

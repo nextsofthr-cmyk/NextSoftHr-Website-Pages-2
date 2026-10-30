@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { LanguageCode, LanguageConfig } from '../types';
 import { translations, LANGUAGES, TranslationDictionary } from '../i18n/translations';
 import { useSafeLanguage } from '../../homepage/context/LanguageContext';
+import { setGlobalLanguage } from '../../../utils/translationManager';
 
 interface LanguageContextType {
   language: LanguageCode;
@@ -67,12 +68,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const setLanguage = (lang: LanguageCode) => {
     setLanguageState(lang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('nextsofthr-language', lang);
-      localStorage.setItem('nextsofthr-lang', lang);
-      document.documentElement.lang = lang;
-      window.dispatchEvent(new CustomEvent('nextsoft-language-change', { detail: lang }));
-    }
+    setGlobalLanguage(lang);
     if (globalLang && globalLang.language !== lang) {
       globalLang.setLanguage(lang as any);
     }

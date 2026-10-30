@@ -1,14 +1,6 @@
 import React from 'react';
-import App from './App';
-import { LanguageProvider } from './context/LanguageContext';
-import { CurrencyProvider } from './context/CurrencyContext';
+import RecruitmentBoardRoute from '../recruitment-board/RecruitmentBoardRoute';
 
 export default function JobHuntRoute() {
-  return (
-    <LanguageProvider>
-      <CurrencyProvider>
-        <App />
-      </CurrencyProvider>
-    </LanguageProvider>
-  );
+  return <RecruitmentBoardRoute />;
 }

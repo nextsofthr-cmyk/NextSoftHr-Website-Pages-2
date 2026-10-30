@@ -19,11 +19,12 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<LanguageCode>(() => {
     try {
-      const stored = localStorage.getItem('nextsofthr_language') as LanguageCode | null;
+      const stored = (localStorage.getItem('nextsofthr-language') || 
+                      localStorage.getItem('nextsofthr-lang') || 
+                      localStorage.getItem('nextsofthr_language')) as LanguageCode | null;
       if (stored && (stored === 'en' || stored === 'fr' || stored === 'pt' || stored === 'es')) {
         return stored;
       }
-      // Check browser language
       const browserLang = navigator.language.slice(0, 2);
       if (browserLang === 'fr' || browserLang === 'pt' || browserLang === 'es') {
         return browserLang as LanguageCode;
@@ -35,17 +36,24 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   });
 
   useEffect(() => {
-    try {
-      localStorage.setItem('nextsofthr_language', language);
-      document.documentElement.lang = language;
-    } catch {
-      // ignore storage limitations
-    }
-  }, [language]);
+    const handleCustomChange = (e: Event) => {
+      const customEvent = e as CustomEvent<LanguageCode>;
+      if (customEvent.detail && (customEvent.detail === 'en' || customEvent.detail === 'fr' || customEvent.detail === 'pt' || customEvent.detail === 'es')) {
+        setLanguageState(customEvent.detail);
+      }
+    };
+    window.addEventListener('nextsoft-language-change', handleCustomChange);
+    return () => window.removeEventListener('nextsoft-language-change', handleCustomChange);
+  }, []);
 
   const setLanguage = (lang: LanguageCode) => {
     if (lang === 'en' || lang === 'fr' || lang === 'pt' || lang === 'es') {
       setLanguageState(lang);
+      try {
+        localStorage.setItem('nextsofthr-language', lang);
+        localStorage.setItem('nextsofthr-lang', lang);
+        window.dispatchEvent(new CustomEvent('nextsoft-language-change', { detail: lang }));
+      } catch {}
     }
   };
 

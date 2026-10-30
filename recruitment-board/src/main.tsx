@@ -1,16 +1,17 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
-import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { CurrencyProvider } from './context/CurrencyContext';
+import { LanguageProvider } from './context/LanguageContext';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  <ThemeProvider>
     <LanguageProvider>
       <CurrencyProvider>
         <App />
       </CurrencyProvider>
     </LanguageProvider>
-  </StrictMode>,
+  </ThemeProvider>
 );
+

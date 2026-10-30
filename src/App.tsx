@@ -30,8 +30,16 @@ const RecruitmentBoard = lazy(() => import('./pages/recruitment-board/Recruitmen
 const PageLoadingFallback: React.FC = () => (
   <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-[#071322] text-slate-900 dark:text-white transition-colors">
     <div className="relative flex items-center justify-center mb-6">
-      <div className="w-16 h-16 rounded-full border-4 border-blue-600/20 border-t-blue-600 animate-spin"></div>
-      <div className="absolute w-8 h-8 rounded-full bg-lime-400 animate-pulse"></div>
+      {/* Outer ambient glow */}
+      <div className="absolute w-20 h-20 rounded-2xl bg-lime-400/20 dark:bg-lime-400/10 blur-xl animate-pulse"></div>
+      {/* Dynamic spinner ring */}
+      <div className="w-20 h-20 rounded-full border-4 border-blue-600/20 border-t-blue-600 border-r-lime-400 animate-spin"></div>
+      {/* Branded NextSoftHr Favicon */}
+      <img
+        src="/favicon.jpeg"
+        alt="NextSoftHr Logo"
+        className="absolute w-10 h-10 rounded-xl object-contain shadow-md"
+      />
     </div>
     <div className="text-center space-y-1 font-sans">
       <h3 className="text-base font-bold tracking-tight">NextSoftHR Platform</h3>

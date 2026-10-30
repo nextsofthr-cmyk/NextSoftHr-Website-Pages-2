@@ -360,6 +360,11 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
                 </Link>
               </li>
               <li>
+                <Link to="/recruitment-board" onClick={(e) => handleItemNavigation('/recruitment-board', e)} className="hover:text-lime-400 transition-colors">
+                  Recruitment Board
+                </Link>
+              </li>
+              <li>
                 <Link to="/blog" onClick={(e) => handleItemNavigation('/blog', e)} className="hover:text-white transition-colors">
                   Resources
                 </Link>
@@ -470,6 +475,17 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
               </span>
               <ThemeToggle variant="segmented" />
             </div>
+          </div>
+
+          {/* Security & Compliance Words */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-slate-300 text-[11px] sm:text-xs font-medium">
+            <span>ISO 27001 Certified</span>
+            <span className="text-slate-600 hidden sm:inline">•</span>
+            <span>256-Bit SSL Encrypted</span>
+            <span className="text-slate-600 hidden sm:inline">•</span>
+            <span>GDPR &amp; Statutory Audit Ready</span>
+            <span className="text-slate-600 hidden sm:inline">•</span>
+            <span>SOC 2 Type II</span>
           </div>
         </div>
 

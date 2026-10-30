@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useSafeLanguage } from '../../homepage/context/LanguageContext';
 
 export type SupportedLanguage = 'en' | 'fr' | 'pt' | 'es';
 
@@ -136,6 +137,42 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     'chat.confirm_callback': 'Confirm 15-Minute Callback',
     'chat.security_notice': 'Encrypted ISO-27001 & NDPR compliant consultation',
 
+    // Pricing & Plans Page
+    'pricing.hero_badge': 'Transparent Outsourcing Retainers • Zero Hidden Fees',
+    'pricing.hero_title': 'Flexible Outsourcing Packages',
+    'pricing.hero_subtitle': 'Built for Every Stage of Scale.',
+    'pricing.hero_desc': 'Eliminate internal overhead, compliance bottlenecks, and payroll errors. Outsource monthly gross-to-net payroll, employee lifecycle administration, or your entire People department.',
+    'pricing.tab_packages': 'Explore Packages',
+    'pricing.tab_wizard': 'Custom Quotation Wizard',
+    'pricing.tab_roi': 'ROI Savings Calculator',
+    'pricing.tab_specialist': 'Talk to a Specialist',
+    'pricing.sla_uptime': 'Uptime & Accuracy SLA',
+    'pricing.sla_clients': 'Enterprise Clients Managed',
+    'pricing.sla_tax': 'Statutory Tax Filing Record',
+    'pricing.sla_support': 'Dedicated Support Engineer',
+    'pricing.choose_plan': 'Choose Your Outsourcing Plan',
+    'pricing.choose_plan_sub': 'Transparent per-employee monthly retainers tailored for African operations. All plans include dedicated specialist support, statutory compliance accuracy, and cloud self-service access.',
+    'pricing.monthly_billing': 'Monthly Billing',
+    'pricing.yearly_billing': 'Annual Billing',
+    'pricing.save_20': 'SAVE 20%',
+    'pricing.cards_view': 'Cards View',
+    'pricing.matrix_table': 'Matrix Table',
+    'pricing.headcount_calc': 'Calculate for Your Headcount:',
+    'pricing.headcount_sub': 'Preview total monthly investment for your team size',
+    'pricing.employees_count': 'Employees',
+    'pricing.per_emp_month': '/ emp / month',
+    'pricing.total_for': 'Total for',
+    'pricing.staff': 'staff',
+    'pricing.monthly_pay_as_you_grow': 'Monthly Pay-As-You-Grow',
+    'pricing.billed_annually': '✓ Billed Annually (20% Savings applied)',
+    'pricing.get_started': 'Select & Outsource',
+    'pricing.book_demo': 'Book Consultation',
+    'pricing.faq_title': 'Frequently Asked Questions About Outsourcing Retainers',
+    'pricing.faq_sub': 'Transparent terms, statutory indemnity, implementation SLAs, and Pan-African compliance details.',
+    'pricing.talk_title': 'Need a Custom Scope or Pan-African Retainer?',
+    'pricing.talk_sub': 'Speak with our enterprise solutions architects for tailored multi-country SLAs, volume discounts, or custom ERP payroll integrations.',
+    'pricing.custom_quote': 'Custom Scope & Volume Brackets',
+
     // Footer
     'footer.cta_title': 'Ready to outsource your HR & payroll with total peace of mind?',
     'footer.cta_sub': 'Join leading African and multinational employers who trust NextSofthr for precision payroll, compliant statutory operations, and human HR expertise.',
@@ -237,6 +274,42 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     'chat.return_to_chat': 'Retour au Chat',
     'chat.confirm_callback': 'Confirmer le Rappel en 15 Min',
     'chat.security_notice': 'Consultation chiffrée et conforme aux normes ISO-27001 & RGPD/NDPR',
+
+    // Pricing & Plans Page
+    'pricing.hero_badge': 'Honoraires de Sous-traitance Transparents • Zéro Frais Cachés',
+    'pricing.hero_title': 'Forfaits de Sous-traitance Flexibles',
+    'pricing.hero_subtitle': 'Conçus pour Chaque Étape de Croissance.',
+    'pricing.hero_desc': 'Éliminez les frais généraux internes, les goulots d\'étranglement de conformité et les erreurs de paie. Externalisez la paie mensuelle, l\'administration du personnel ou l\'ensemble de vos RH.',
+    'pricing.tab_packages': 'Explorer les Forfaits',
+    'pricing.tab_wizard': 'Assistant de Devis Personnalisé',
+    'pricing.tab_roi': 'Calculateur d\'Économies de ROI',
+    'pricing.tab_specialist': 'Parler à un Spécialiste',
+    'pricing.sla_uptime': 'Disponibilité & Précision SLA',
+    'pricing.sla_clients': 'Clients Entreprise Gérés',
+    'pricing.sla_tax': 'Déclarations Fiscales Réussies',
+    'pricing.sla_support': 'Ingénieur Support Dédié 24/7',
+    'pricing.choose_plan': 'Choisissez Votre Forfait de Sous-traitance',
+    'pricing.choose_plan_sub': 'Forfaits mensuels transparents par employé adaptés aux opérations africaines. Tous les forfaits incluent un support d\'experts dédiés, la conformité légale et des portails cloud.',
+    'pricing.monthly_billing': 'Facturation Mensuelle',
+    'pricing.yearly_billing': 'Facturation Annuelle',
+    'pricing.save_20': 'ÉCONOMISEZ 20%',
+    'pricing.cards_view': 'Vue Cartes',
+    'pricing.matrix_table': 'Tableau Comparatif',
+    'pricing.headcount_calc': 'Calculez Selon Votre Effectif :',
+    'pricing.headcount_sub': 'Aperçu de votre investissement mensuel total selon la taille de votre équipe',
+    'pricing.employees_count': 'Employés',
+    'pricing.per_emp_month': '/ emp / mois',
+    'pricing.total_for': 'Total pour',
+    'pricing.staff': 'employés',
+    'pricing.monthly_pay_as_you_grow': 'Paiement Mensuel à l\'Usage',
+    'pricing.billed_annually': '✓ Facturé Annuellement (20% d\'économie appliquée)',
+    'pricing.get_started': 'Sélectionner & Sous-traiter',
+    'pricing.book_demo': 'Réserver une Consultation',
+    'pricing.faq_title': 'Questions Fréquentes sur les Forfaits de Sous-traitance',
+    'pricing.faq_sub': 'Modalités transparentes, garantie fiscale, engagements de service et conformité panafricaine.',
+    'pricing.talk_title': 'Besoin d\'un Forfait Sur-Mesure ou Panafricain ?',
+    'pricing.talk_sub': 'Échangez avec nos architectes de solutions pour des SLAs multi-pays sur mesure, des remises sur volume ou des intégrations ERP personnalisées.',
+    'pricing.custom_quote': 'Périmètre Entreprise Sur Mesure',
 
     // Footer
     'footer.cta_title': 'Prêt à externaliser votre paie et vos RH en toute sérénité ?',
@@ -340,6 +413,42 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     'chat.confirm_callback': 'Confirmar Ligação em 15 Min',
     'chat.security_notice': 'Atendimento criptografado e em conformidade com ISO-27001 e normas de proteção de dados',
 
+    // Pricing & Plans Page
+    'pricing.hero_badge': 'Retentores Transparentes de Terceirização • Sem Taxas Ocultas',
+    'pricing.hero_title': 'Pacotes Flexíveis de Terceirização',
+    'pricing.hero_subtitle': 'Construídos para Cada Estágio de Escala.',
+    'pricing.hero_desc': 'Elimine custos indiretos, gargalos de conformidade e erros na folha. Terceirize a folha de pagamento bruta a líquida, a administração de funcionários ou todo o seu RH.',
+    'pricing.tab_packages': 'Explorar Pacotes',
+    'pricing.tab_wizard': 'Assistente de Cotação Personalizada',
+    'pricing.tab_roi': 'Calculadora de Economia de ROI',
+    'pricing.tab_specialist': 'Falar com um Especialista',
+    'pricing.sla_uptime': 'Disponibilidade & Precisão SLA',
+    'pricing.sla_clients': 'Clientes Corporativos Gerenciados',
+    'pricing.sla_tax': 'Histórico de Entregas Fiscais 100%',
+    'pricing.sla_support': 'Engenheiro de Suporte Dedicado 24/7',
+    'pricing.choose_plan': 'Escolha Seu Pacote de Terceirização',
+    'pricing.choose_plan_sub': 'Retentores mensais transparentes por funcionário desenvolvidos para operações africanas. Todos os planos incluem apoio consultivo dedicado, conformidade legal e portais na nuvem.',
+    'pricing.monthly_billing': 'Faturamento Mensal',
+    'pricing.yearly_billing': 'Faturamento Anual',
+    'pricing.save_20': 'POUPE 20%',
+    'pricing.cards_view': 'Vista em Cartões',
+    'pricing.matrix_table': 'Tabela Matricial',
+    'pricing.headcount_calc': 'Calcule para Sua Equipe:',
+    'pricing.headcount_sub': 'Simule o investimento mensal total de acordo com o número de funcionários',
+    'pricing.employees_count': 'Funcionários',
+    'pricing.per_emp_month': '/ emp / mês',
+    'pricing.total_for': 'Total para',
+    'pricing.staff': 'funcionários',
+    'pricing.monthly_pay_as_you_grow': 'Pagamento Mensal Sob Demanda',
+    'pricing.billed_annually': '✓ Faturado Anualmente (20% de economia aplicada)',
+    'pricing.get_started': 'Selecionar & Terceirizar',
+    'pricing.book_demo': 'Agendar Consulta',
+    'pricing.faq_title': 'Perguntas Frequentes Sobre Retentores de Terceirização',
+    'pricing.faq_sub': 'Condições transparentes, indenização fiscal, prazos de implementação e conformidade pan-africana.',
+    'pricing.talk_title': 'Precisa de um Escopo Sob Medida ou Retentor Pan-Africano?',
+    'pricing.talk_sub': 'Fale com nossos arquitetos de soluções corporativas para acordos multi-país personalizados, descontos por volume ou integrações ERP customizadas.',
+    'pricing.custom_quote': 'Escopo Corporativo Sob Medida',
+
     // Footer
     'footer.cta_title': 'Pronto para terceirizar seu RH e folha de pagamento com total tranquilidade?',
     'footer.cta_sub': 'Junte-se a grandes empresas que confiam na NextSofthr para processar sua folha com exatidão, pontualidade e conformidade jurídica rigorosa.',
@@ -442,6 +551,42 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     'chat.confirm_callback': 'Confirmar Llamada en 15 Min',
     'chat.security_notice': 'Consulta cifrada conforme a normas de seguridad ISO-27001 y protección de datos',
 
+    // Pricing & Plans Page
+    'pricing.hero_badge': 'Retenedores Transparentes de Subcontratación • Cero Tarifas Ocultas',
+    'pricing.hero_title': 'Paquetes Flexibles de Subcontratación',
+    'pricing.hero_subtitle': 'Diseñados para Cada Etapa de Crecimiento.',
+    'pricing.hero_desc': 'Elimine gastos generales internos, cuellos de botella de cumplimiento y errores de nómina. Subcontrate la nómina bruta a neta, la administración de empleados o todo su departamento de RRHH.',
+    'pricing.tab_packages': 'Explorar Paquetes',
+    'pricing.tab_wizard': 'Asistente de Cotización Personalizada',
+    'pricing.tab_roi': 'Calculadora de Ahorro de ROI',
+    'pricing.tab_specialist': 'Hablar con un Experto',
+    'pricing.sla_uptime': 'Disponibilidad & Precisión SLA',
+    'pricing.sla_clients': 'Clientes Corporativos Gestionados',
+    'pricing.sla_tax': 'Registro de Presentaciones Fiscales 100%',
+    'pricing.sla_support': 'Ingeniero de Soporte Dedicado 24/7',
+    'pricing.choose_plan': 'Elija Su Plan de Externalización',
+    'pricing.choose_plan_sub': 'Retenedores mensuales transparentes por empleado adaptados a las operaciones africanas. Todos los planes incluyen soporte de expertos dedicados, cumplimiento legal y portales en la nube.',
+    'pricing.monthly_billing': 'Facturación Mensual',
+    'pricing.yearly_billing': 'Facturación Anual',
+    'pricing.save_20': 'AHORRE 20%',
+    'pricing.cards_view': 'Vista de Tarjetas',
+    'pricing.matrix_table': 'Tabla Matriz',
+    'pricing.headcount_calc': 'Calcule Según Su Plantilla:',
+    'pricing.headcount_sub': 'Previsualice la inversión mensual total según el tamaño de su equipo',
+    'pricing.employees_count': 'Empleados',
+    'pricing.per_emp_month': '/ emp / mes',
+    'pricing.total_for': 'Total para',
+    'pricing.staff': 'empleados',
+    'pricing.monthly_pay_as_you_grow': 'Pago Mensual a Medida que Crece',
+    'pricing.billed_annually': '✓ Facturado Anualmente (20% de ahorro aplicado)',
+    'pricing.get_started': 'Seleccionar & Externalizar',
+    'pricing.book_demo': 'Reservar Consulta',
+    'pricing.faq_title': 'Preguntas Frecuentes Sobre Retenedores de Subcontratación',
+    'pricing.faq_sub': 'Condiciones transparentes, garantía de indemnización fiscal, plazos de despliegue y cumplimiento panafricano.',
+    'pricing.talk_title': '¿Necesita un Alcance a Medida o un Retenedor Panafricano?',
+    'pricing.talk_sub': 'Hable con nuestros arquitectos de soluciones empresariales para acuerdos multinacionales a medida, descuentos por volumen o integraciones ERP personalizadas.',
+    'pricing.custom_quote': 'Alcance Empresarial a Medida',
+
     // Footer
     'footer.cta_title': '¿Listo para externalizar sus nóminas y RRHH con total tranquilidad?',
     'footer.cta_sub': 'Únase a las corporaciones líderes que confían en NextSofthr por su puntualidad en pagos, rigor legal absoluto y apoyo consultivo de primer nivel.',
@@ -461,8 +606,20 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const globalLang = useSafeLanguage();
+
   const [language, setLanguage] = useState<LanguageConfig>(() => {
     try {
+      const globalSaved = localStorage.getItem('nextsofthr-language') as SupportedLanguage;
+      if (globalSaved && (globalSaved === 'en' || globalSaved === 'fr' || globalSaved === 'pt' || globalSaved === 'es')) {
+        const found = SUPPORTED_LANGUAGES.find(l => l.code === globalSaved);
+        if (found) return found;
+      }
+      const secondarySaved = localStorage.getItem('nextsofthr-lang') as SupportedLanguage;
+      if (secondarySaved && (secondarySaved === 'en' || secondarySaved === 'fr' || secondarySaved === 'pt' || secondarySaved === 'es')) {
+        const found = SUPPORTED_LANGUAGES.find(l => l.code === secondarySaved);
+        if (found) return found;
+      }
       const saved = localStorage.getItem('nextsoft_language') as SupportedLanguage;
       if (saved) {
         const found = SUPPORTED_LANGUAGES.find(l => l.code === saved);
@@ -470,15 +627,59 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       }
       // Check browser navigator language
       if (typeof navigator !== 'undefined' && navigator.language) {
-        const browserPrefix = navigator.language.slice(0, 2).toLowerCase();
+        const browserPrefix = navigator.language.slice(0, 2).toLowerCase() as SupportedLanguage;
         const matched = SUPPORTED_LANGUAGES.find(l => l.code === browserPrefix);
         if (matched) return matched;
       }
     } catch {
       // Safe fallback
     }
+    if (globalLang?.language) {
+      const found = SUPPORTED_LANGUAGES.find(l => l.code === globalLang.language);
+      if (found) return found;
+    }
     return SUPPORTED_LANGUAGES[0]; // Default English
   });
+
+  // Automatically update when user selects language in GlobalHeader
+  useEffect(() => {
+    if (globalLang?.language) {
+      const found = SUPPORTED_LANGUAGES.find(l => l.code === globalLang.language);
+      if (found && found.code !== language.code) {
+        setLanguage(found);
+      }
+    }
+  }, [globalLang?.language]);
+
+  // Synchronize across custom events and tabs
+  useEffect(() => {
+    const handleCustomChange = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail) {
+        const found = SUPPORTED_LANGUAGES.find(l => l.code === customEvent.detail);
+        if (found) {
+          setLanguage(found);
+        }
+      }
+    };
+    const handleStorageChange = (e: StorageEvent) => {
+      if (
+        (e.key === 'nextsofthr-language' || e.key === 'nextsofthr-lang' || e.key === 'nextsoft_language') &&
+        e.newValue
+      ) {
+        const found = SUPPORTED_LANGUAGES.find(l => l.code === e.newValue);
+        if (found) {
+          setLanguage(found);
+        }
+      }
+    };
+    window.addEventListener('nextsoft-language-change', handleCustomChange);
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('nextsoft-language-change', handleCustomChange);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const setLanguageCode = (code: SupportedLanguage) => {
     const found = SUPPORTED_LANGUAGES.find(l => l.code === code);
@@ -486,6 +687,10 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       setLanguage(found);
       try {
         localStorage.setItem('nextsoft_language', code);
+        localStorage.setItem('nextsofthr-language', code);
+        localStorage.setItem('nextsofthr-lang', code);
+        document.documentElement.lang = code;
+        window.dispatchEvent(new CustomEvent('nextsoft-language-change', { detail: code }));
       } catch {
         // Safe ignore
       }

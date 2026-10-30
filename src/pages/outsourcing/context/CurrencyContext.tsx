@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useSafeCurrency } from '../../homepage/context/CurrencyContext';
 
 export interface CurrencyConfig {
   code: string;
@@ -41,8 +42,20 @@ interface CurrencyContextType {
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
 
 export const CurrencyProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const globalCurrency = useSafeCurrency();
+
   const [currency, setCurrency] = useState<CurrencyConfig>(() => {
     try {
+      const globalSaved = localStorage.getItem('nextsoft_currency_preference');
+      if (globalSaved) {
+        const found = SUPPORTED_CURRENCIES.find(c => c.code === globalSaved);
+        if (found) return found;
+      }
+      const secondarySaved = localStorage.getItem('nextsofthr-currency');
+      if (secondarySaved) {
+        const found = SUPPORTED_CURRENCIES.find(c => c.code === secondarySaved);
+        if (found) return found;
+      }
       const saved = localStorage.getItem('nextsoft_currency');
       if (saved) {
         const found = SUPPORTED_CURRENCIES.find(c => c.code === saved);
@@ -51,8 +64,52 @@ export const CurrencyProvider: React.FC<{ children: ReactNode }> = ({ children }
     } catch {
       // LocalStorage fallback
     }
+    if (globalCurrency?.currency) {
+      const found = SUPPORTED_CURRENCIES.find(c => c.code === globalCurrency.currency);
+      if (found) return found;
+    }
     return SUPPORTED_CURRENCIES[0]; // Default to NGN
   });
+
+  // Automatically update when user selects currency in GlobalHeader
+  useEffect(() => {
+    if (globalCurrency?.currency) {
+      const found = SUPPORTED_CURRENCIES.find(c => c.code === globalCurrency.currency);
+      if (found && found.code !== currency.code) {
+        setCurrency(found);
+      }
+    }
+  }, [globalCurrency?.currency]);
+
+  // Synchronize with custom events & storage across components/tabs
+  useEffect(() => {
+    const handleCustomChange = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail) {
+        const found = SUPPORTED_CURRENCIES.find(c => c.code === customEvent.detail);
+        if (found) {
+          setCurrency(found);
+        }
+      }
+    };
+    const handleStorageChange = (e: StorageEvent) => {
+      if (
+        (e.key === 'nextsoft_currency_preference' || e.key === 'nextsofthr-currency' || e.key === 'nextsoft_currency') &&
+        e.newValue
+      ) {
+        const found = SUPPORTED_CURRENCIES.find(c => c.code === e.newValue);
+        if (found) {
+          setCurrency(found);
+        }
+      }
+    };
+    window.addEventListener('nextsoft-currency-change', handleCustomChange);
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('nextsoft-currency-change', handleCustomChange);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const setCurrencyCode = (code: string) => {
     const found = SUPPORTED_CURRENCIES.find(c => c.code === code);
@@ -60,6 +117,9 @@ export const CurrencyProvider: React.FC<{ children: ReactNode }> = ({ children }
       setCurrency(found);
       try {
         localStorage.setItem('nextsoft_currency', code);
+        localStorage.setItem('nextsoft_currency_preference', code);
+        localStorage.setItem('nextsofthr-currency', code);
+        window.dispatchEvent(new CustomEvent('nextsoft-currency-change', { detail: code }));
       } catch {
         // Safe ignore
       }

@@ -7,6 +7,11 @@ import {
   TRANSLATIONS, 
   getNestedTranslation 
 } from '../i18n';
+import { 
+  initTranslationManager, 
+  setGlobalLanguage, 
+  getSavedLanguage 
+} from '../../../utils/translationManager';
 
 interface LanguageContextType {
   language: SupportedLanguage;
@@ -24,37 +29,16 @@ export { LanguageContext };
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<SupportedLanguage>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem(LANGUAGE_STORAGE_KEY);
-        if (saved && (saved === 'en' || saved === 'fr' || saved === 'pt' || saved === 'es')) {
-          return saved as SupportedLanguage;
-        }
-        const secondary = localStorage.getItem('nextsofthr-lang');
-        if (secondary && (secondary === 'en' || secondary === 'fr' || secondary === 'pt' || secondary === 'es')) {
-          return secondary as SupportedLanguage;
-        }
-        // Detect browser navigator language
-        const browserLang = navigator.language || (navigator as any).userLanguage || '';
-        const prefix = browserLang.toLowerCase().slice(0, 2);
-        if (prefix === 'fr') return 'fr';
-        if (prefix === 'pt') return 'pt';
-        if (prefix === 'es') return 'es';
-      } catch {}
-    }
-    return 'en';
+    return getSavedLanguage() as SupportedLanguage;
   });
+
+  useEffect(() => {
+    initTranslationManager();
+  }, []);
 
   const setLanguage = (newLang: SupportedLanguage) => {
     setLanguageState(newLang);
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem(LANGUAGE_STORAGE_KEY, newLang);
-        localStorage.setItem('nextsofthr-lang', newLang);
-        document.documentElement.lang = newLang;
-        window.dispatchEvent(new CustomEvent('nextsoft-language-change', { detail: newLang }));
-      } catch {}
-    }
+    setGlobalLanguage(newLang);
   };
 
   useEffect(() => {

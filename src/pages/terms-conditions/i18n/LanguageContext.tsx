@@ -18,7 +18,9 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<SupportedLanguage>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('nextsofthr_language') as SupportedLanguage;
+      const saved = (localStorage.getItem('nextsofthr-language') ||
+                     localStorage.getItem('nextsofthr-lang') ||
+                     localStorage.getItem('nextsofthr_language')) as SupportedLanguage;
       if (saved && (saved === 'en' || saved === 'fr' || saved === 'pt' || saved === 'es')) {
         return saved;
       }
@@ -31,18 +33,27 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return 'en';
   });
 
+  useEffect(() => {
+    const handleCustomChange = (e: Event) => {
+      const customEvent = e as CustomEvent<SupportedLanguage>;
+      if (customEvent.detail && (customEvent.detail === 'en' || customEvent.detail === 'fr' || customEvent.detail === 'pt' || customEvent.detail === 'es')) {
+        setLanguageState(customEvent.detail);
+      }
+    };
+    window.addEventListener('nextsoft-language-change', handleCustomChange);
+    return () => window.removeEventListener('nextsoft-language-change', handleCustomChange);
+  }, []);
+
   const setLanguage = (lang: SupportedLanguage) => {
     setLanguageState(lang);
     try {
-      localStorage.setItem('nextsofthr_language', lang);
+      localStorage.setItem('nextsofthr-language', lang);
+      localStorage.setItem('nextsofthr-lang', lang);
+      window.dispatchEvent(new CustomEvent('nextsoft-language-change', { detail: lang }));
     } catch {
       // ignore
     }
   };
-
-  useEffect(() => {
-    document.documentElement.lang = language;
-  }, [language]);
 
   const t = UI_TRANSLATIONS[language] || UI_TRANSLATIONS.en;
   const sections = getLocalizedSections(language);
