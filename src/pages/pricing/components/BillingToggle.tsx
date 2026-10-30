@@ -1,7 +1,7 @@
 import React from 'react';
 import { BillingCycle, CurrencyCode } from '../types';
 import { CURRENCIES } from '../data/pricingData';
-import { Sparkles, Globe } from 'lucide-react';
+import { Sparkles, Users } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface BillingToggleProps {
@@ -9,6 +9,8 @@ interface BillingToggleProps {
   onChangeBillingCycle: (cycle: BillingCycle) => void;
   selectedCurrency: CurrencyCode;
   onChangeCurrency: (currency: CurrencyCode) => void;
+  headcount?: number;
+  onChangeHeadcount?: (count: number) => void;
 }
 
 export const BillingToggle: React.FC<BillingToggleProps> = ({
@@ -16,6 +18,8 @@ export const BillingToggle: React.FC<BillingToggleProps> = ({
   onChangeBillingCycle,
   selectedCurrency,
   onChangeCurrency,
+  headcount = 25,
+  onChangeHeadcount,
 }) => {
   const { t } = useLanguage();
 
@@ -24,88 +28,99 @@ export const BillingToggle: React.FC<BillingToggleProps> = ({
     ? popularCurrencies
     : [...popularCurrencies, selectedCurrency];
 
+  const headcountPresets = [10, 25, 50, 100, 250, 500];
+
   return (
     <div
       id="billing-toggle-container"
-      className="flex flex-col items-center justify-center pt-2 pb-6 px-4"
+      className="flex flex-col items-center justify-center pt-2 pb-6 px-4 w-full"
     >
-      <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 bg-slate-100/90 dark:bg-[#111C38] p-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-inner">
-        {/* Toggle Controls */}
-        <div className="flex items-center relative bg-white dark:bg-[#0B132B] rounded-xl p-1 shadow-sm border border-slate-200/60 dark:border-slate-700">
-          <button
-            id="billing-cycle-monthly-btn"
-            type="button"
-            onClick={() => onChangeBillingCycle('monthly')}
-            className={`relative px-4 sm:px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-              billingCycle === 'monthly'
-                ? 'text-white bg-[#0265DC] shadow-sm'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800'
-            }`}
-          >
-            {t.billing.monthly}
-          </button>
-
-          <button
-            id="billing-cycle-yearly-btn"
-            type="button"
-            onClick={() => onChangeBillingCycle('yearly')}
-            className={`relative px-4 sm:px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
-              billingCycle === 'yearly'
-                ? 'text-slate-950 bg-[#A3E635] shadow-sm ring-1 ring-lime-400'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800'
-            }`}
-          >
-            <span>{t.billing.yearly}</span>
-            {/* Animated Save 20% Badge */}
-            <span
-              id="save-discount-badge"
-              className={`text-[11px] font-bold px-2 py-0.5 rounded-full transition-all duration-200 ${
-                billingCycle === 'yearly'
-                  ? 'bg-slate-900 text-[#A3E635] shadow-sm'
-                  : 'bg-lime-100 dark:bg-lime-950 text-lime-800 dark:text-[#A3E635]'
-              }`}
-            >
-              {t.billing.yearlySavingsBadge}
-            </span>
-          </button>
-        </div>
-
-        {/* Currency Switcher */}
-        <div className="flex items-center flex-wrap gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium pl-1 pr-2">
-          <span className="hidden sm:inline">{t.billing.currency}:</span>
-          {pillsToDisplay.map((curr) => (
+      <div className="w-full max-w-6xl bg-slate-100/90 dark:bg-[#111C38] p-4 sm:p-5 lg:px-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-inner flex flex-col gap-3.5">
+        {/* Row 1: Billing Cycle Toggle (Centered, No wrapping) */}
+        <div className="flex items-center justify-center pb-3 border-b border-slate-200/70 dark:border-slate-800">
+          <div className="inline-flex items-center relative bg-white dark:bg-[#0B132B] rounded-xl p-1 shadow-sm border border-slate-200/60 dark:border-slate-700 whitespace-nowrap">
             <button
-              key={curr}
-              id={`currency-pill-${curr.toLowerCase()}`}
+              id="billing-cycle-monthly-btn"
               type="button"
-              onClick={() => onChangeCurrency(curr)}
-              className={`px-2 py-1 rounded-md transition-colors flex items-center gap-1 ${
-                selectedCurrency === curr
-                  ? 'bg-[#0265DC] text-white font-bold shadow-xs'
-                  : 'bg-white dark:bg-[#0B132B] hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-transparent dark:border-slate-700'
+              onClick={() => onChangeBillingCycle('monthly')}
+              className={`relative px-5 sm:px-7 py-2 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                billingCycle === 'monthly'
+                  ? 'text-white bg-[#0265DC] shadow-sm'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800'
               }`}
             >
-              <span>{curr}</span>
-              <span className="text-[10px] opacity-75 font-mono">
-                {CURRENCIES[curr]?.symbol}
+              {t.billing.monthly}
+            </button>
+
+            <button
+              id="billing-cycle-yearly-btn"
+              type="button"
+              onClick={() => onChangeBillingCycle('yearly')}
+              className={`relative px-5 sm:px-7 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+                billingCycle === 'yearly'
+                  ? 'text-slate-950 bg-[#A3E635] shadow-sm ring-1 ring-lime-400'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800'
+              }`}
+            >
+              <span>{t.billing.yearly}</span>
+              {/* Animated Save 20% Badge */}
+              <span
+                id="save-discount-badge"
+                className={`text-[11px] font-bold px-2 py-0.5 rounded-full transition-all duration-200 whitespace-nowrap ${
+                  billingCycle === 'yearly'
+                    ? 'bg-slate-900 text-[#A3E635] shadow-sm'
+                    : 'bg-lime-100 dark:bg-lime-950 text-lime-800 dark:text-[#A3E635]'
+                }`}
+              >
+                {t.billing.yearlySavingsBadge}
               </span>
             </button>
-          ))}
+          </div>
+        </div>
 
-          {/* Quick Select for all 16 currencies */}
-          <div className="relative inline-flex items-center">
-            <select
-              aria-label="Select from all 16 currencies"
-              value={selectedCurrency}
-              onChange={(e) => onChangeCurrency(e.target.value as CurrencyCode)}
-              className="text-xs bg-white dark:bg-[#0B132B] text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#0265DC] cursor-pointer"
-            >
-              {(Object.keys(CURRENCIES) as CurrencyCode[]).map((c) => (
-                <option key={c} value={c}>
-                  {CURRENCIES[c].flag} {c} ({CURRENCIES[c].symbol}) - {CURRENCIES[c].name}
-                </option>
-              ))}
-            </select>
+        {/* Row 2: Employee Headcount Interactive Calculator (Spacious, No Overflow) */}
+        <div className="flex flex-col xl:flex-row items-center justify-between gap-4 pt-1">
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-100 dark:bg-blue-950 text-[#0265DC] dark:text-blue-400 flex items-center justify-center shrink-0">
+              <Users className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+            </div>
+            <div className="text-left">
+              <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white whitespace-nowrap">Calculate for Your Headcount:</div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 whitespace-nowrap">Preview total monthly investment for your team size</div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center flex-wrap sm:flex-nowrap gap-1.5 sm:gap-2 shrink-0">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mr-1 hidden sm:inline whitespace-nowrap">Presets:</span>
+            {headcountPresets.map((preset) => (
+              <button
+                key={preset}
+                id={`headcount-preset-${preset}`}
+                type="button"
+                onClick={() => onChangeHeadcount?.(preset)}
+                className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                  headcount === preset
+                    ? 'bg-[#0265DC] text-white shadow-xs'
+                    : 'bg-white dark:bg-[#0B132B] text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'
+                }`}
+              >
+                {preset} staff
+              </button>
+            ))}
+
+            <div className="flex items-center gap-1.5 pl-1.5 sm:pl-2 shrink-0 whitespace-nowrap">
+              <input
+                id="headcount-input-number"
+                type="number"
+                min={1}
+                max={50000}
+                value={headcount}
+                onChange={(e) => onChangeHeadcount?.(Math.max(1, parseInt(e.target.value) || 1))}
+                aria-label="Staff headcount"
+                className="w-16 sm:w-18 px-2 py-1 text-xs font-black text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-[#0B132B] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0265DC]"
+              />
+              <span className="text-xs font-bold text-slate-600 dark:text-slate-400 whitespace-nowrap">employees</span>
+            </div>
           </div>
         </div>
       </div>

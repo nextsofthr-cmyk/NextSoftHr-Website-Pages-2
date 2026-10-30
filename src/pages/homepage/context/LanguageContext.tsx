@@ -20,6 +20,7 @@ interface LanguageContextType {
 const LANGUAGE_STORAGE_KEY = 'nextsofthr-language';
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+export { LanguageContext };
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<SupportedLanguage>(() => {
@@ -28,6 +29,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         const saved = localStorage.getItem(LANGUAGE_STORAGE_KEY);
         if (saved && (saved === 'en' || saved === 'fr' || saved === 'pt' || saved === 'es')) {
           return saved as SupportedLanguage;
+        }
+        const secondary = localStorage.getItem('nextsofthr-lang');
+        if (secondary && (secondary === 'en' || secondary === 'fr' || secondary === 'pt' || secondary === 'es')) {
+          return secondary as SupportedLanguage;
         }
         // Detect browser navigator language
         const browserLang = navigator.language || (navigator as any).userLanguage || '';
@@ -45,10 +50,36 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (typeof window !== 'undefined') {
       try {
         localStorage.setItem(LANGUAGE_STORAGE_KEY, newLang);
+        localStorage.setItem('nextsofthr-lang', newLang);
         document.documentElement.lang = newLang;
+        window.dispatchEvent(new CustomEvent('nextsoft-language-change', { detail: newLang }));
       } catch {}
     }
   };
+
+  useEffect(() => {
+    const handleCustomChange = (e: Event) => {
+      const customEvent = e as CustomEvent<SupportedLanguage>;
+      if (customEvent.detail && (customEvent.detail === 'en' || customEvent.detail === 'fr' || customEvent.detail === 'pt' || customEvent.detail === 'es')) {
+        if (customEvent.detail !== language) {
+          setLanguageState(customEvent.detail);
+        }
+      }
+    };
+    const handleStorage = (e: StorageEvent) => {
+      if ((e.key === LANGUAGE_STORAGE_KEY || e.key === 'nextsofthr-lang') && e.newValue) {
+        if (e.newValue === 'en' || e.newValue === 'fr' || e.newValue === 'pt' || e.newValue === 'es') {
+          setLanguageState(e.newValue as SupportedLanguage);
+        }
+      }
+    };
+    window.addEventListener('nextsoft-language-change', handleCustomChange);
+    window.addEventListener('storage', handleStorage);
+    return () => {
+      window.removeEventListener('nextsoft-language-change', handleCustomChange);
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, [language]);
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -103,3 +134,8 @@ export function useLanguage(): LanguageContextType {
   }
   return context;
 }
+
+export function useSafeLanguage(): LanguageContextType | undefined {
+  return useContext(LanguageContext);
+}
+

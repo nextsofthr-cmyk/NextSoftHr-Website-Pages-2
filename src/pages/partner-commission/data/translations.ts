@@ -17,7 +17,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     'ticker.commission_range': '15%–40% Recurring Commission (Sec 3)',
     'ticker.lead_protection': '90 Days Exclusive Lead Protection (Sec 24)',
     'ticker.payout_threshold': '$100 Min. Payout Threshold (Sec 34)',
-    'ticker.services_retained': '100% Pro Services Retained (Sec 46)',
+    'ticker.services_retained': 'Pro Services Retained (Sec 46)',
     'ticker.sign_schedule': 'Sign Schedule B (Sec 60)',
 
     // Navigation Tabs
@@ -193,7 +193,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     'ticker.commission_range': '15%–40% Commission Récurrente (Art. 3)',
     'ticker.lead_protection': '90 Jours de Protection Exclusive des Leads (Art. 24)',
     'ticker.payout_threshold': '100 $ Seuil Min. de Versement (Art. 34)',
-    'ticker.services_retained': '100% Services Professionnels Conservés (Art. 46)',
+    'ticker.services_retained': 'Services Professionnels Conservés (Art. 46)',
     'ticker.sign_schedule': 'Signer l’Annexe B (Art. 60)',
 
     // Navigation Tabs
@@ -369,7 +369,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     'ticker.commission_range': '15%–40% Comisión Recurrente (Sec. 3)',
     'ticker.lead_protection': '90 Días de Protección Exclusiva de Prospectos (Sec. 24)',
     'ticker.payout_threshold': '$100 Umbral Mínimo de Pago (Sec. 34)',
-    'ticker.services_retained': '100% Servicios Profesionales Retenidos (Sec. 46)',
+    'ticker.services_retained': 'Servicios Profesionales Retenidos (Sec. 46)',
     'ticker.sign_schedule': 'Firmar Anexo B (Sec. 60)',
 
     // Navigation Tabs
@@ -545,7 +545,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     'ticker.commission_range': '15%–40% Comissão Recorrente (Sec. 3)',
     'ticker.lead_protection': '90 Dias de Proteção Exclusiva de Leads (Sec. 24)',
     'ticker.payout_threshold': '$100 Limite Mínimo de Pagamento (Sec. 34)',
-    'ticker.services_retained': '100% Serviços Profissionais Retidos (Sec. 46)',
+    'ticker.services_retained': 'Serviços Profissionais Retidos (Sec. 46)',
     'ticker.sign_schedule': 'Assinar Anexo B (Sec. 60)',
 
     // Navigation Tabs

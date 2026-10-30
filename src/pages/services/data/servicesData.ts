@@ -1017,7 +1017,7 @@ export const BUSINESS_STAGES: BusinessStage[] = [
       "Structured onboarding workflows for new team members",
     ],
     imageUrl:
-      "https://iideainformatics.it/html/taxvi/assets/img/project/project-5.jpg",
+      "https://img.magnific.com/free-photo/portrait-female-business-executive-holding-start-up-sign_1170-1107.jpg?t=st=1793301746~exp=1793305346~hmac=d7fbadcf3726b496faf736912118e43a88568a9e2ea9fc346ede03ff55b68f68&w=740",
     imageCaption:
       "Young vibrant African startup team brainstorming in open workspace",
     highlightStat: "Zero payroll penalties and tax calculation errors",

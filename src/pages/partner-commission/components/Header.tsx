@@ -114,31 +114,31 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Program Vital Metrics Ticker */}
-      <div className="bg-slate-50 dark:bg-slate-900/60 border-t border-b border-slate-200 dark:border-slate-800/80 px-4 sm:px-6 lg:px-8 py-2 text-xs transition-colors">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-slate-500 dark:text-slate-400">
-          <div className="flex flex-wrap items-center gap-3 sm:gap-6">
-            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+      <div className="bg-slate-50 dark:bg-slate-900/60 border-t border-b border-slate-200 dark:border-slate-800/80 px-4 sm:px-6 lg:px-8 py-2 text-xs transition-colors overflow-x-auto scrollbar-none">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 text-slate-500 dark:text-slate-400 min-w-max">
+          <div className="flex items-center gap-3 sm:gap-5 whitespace-nowrap">
+            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 shrink-0">
               <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400"></span>
               <strong className="text-slate-900 dark:text-white font-mono">15%–40%</strong> {t('ticker.commission_range')}
             </span>
-            <span className="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
-            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+            <span className="text-slate-300 dark:text-slate-700 shrink-0">•</span>
+            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 shrink-0">
               <ShieldCheck className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
               <strong className="text-slate-900 dark:text-white font-mono">90 Days</strong> {t('ticker.lead_protection')}
             </span>
-            <span className="hidden md:inline text-slate-300 dark:text-slate-700">•</span>
-            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+            <span className="text-slate-300 dark:text-slate-700 shrink-0">•</span>
+            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 shrink-0">
               <DollarSign className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
               <strong className="text-slate-900 dark:text-white font-mono">$100</strong> {t('ticker.payout_threshold')}
             </span>
-            <span className="hidden lg:inline text-slate-300 dark:text-slate-700">•</span>
-            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+            <span className="text-slate-300 dark:text-slate-700 shrink-0">•</span>
+            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 shrink-0">
               <CheckCircle2 className="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400" />
               <strong className="text-slate-900 dark:text-white font-mono">100%</strong> {t('ticker.services_retained')}
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0 whitespace-nowrap">
             <button
               onClick={() => {
                 if (onScrollToSection) onScrollToSection('acceptance');

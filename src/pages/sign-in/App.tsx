@@ -107,9 +107,9 @@ function SignInContent() {
         </section>
 
         {/* Right Side: Sign In Panel (50% on desktop) - Step 2 & 3 in Staggered Sequence */}
-        <section className="lg:w-1/2 flex-1 flex flex-col justify-between bg-gradient-to-b from-[#f0f7ff]/70 via-white to-slate-50 dark:from-[#0a1222] dark:via-[#0c1628] dark:to-[#08101e] p-4 sm:p-8 lg:px-8 lg:pt-6 lg:pb-8 overflow-y-auto transition-colors duration-200">
+        <section className="lg:w-1/2 flex-1 flex flex-col justify-between bg-gradient-to-b from-[#f0f7ff]/70 via-white to-slate-50 dark:from-[#0a1222] dark:via-[#0c1628] dark:to-[#08101e] p-4 sm:p-6 lg:px-8 lg:pt-0 lg:pb-6 overflow-y-auto transition-colors duration-200">
           {/* Centered Sign In Card - Step 3 in Sequence */}
-          <div className="pt-2 pb-4 sm:pb-6 flex flex-col items-center justify-start animate-fade-in-up animation-delay-200">
+          <div className="pt-0 pb-3 sm:pb-5 flex flex-col items-center justify-start animate-fade-in-up animation-delay-200">
             <SignInCard
               t={t}
               onSuccessLogin={(email) => setUserEmail(email)}

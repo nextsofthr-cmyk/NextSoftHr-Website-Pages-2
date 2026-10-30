@@ -31,6 +31,7 @@ export default function App() {
   const { t } = useLanguage();
   const { selectedCurrency, setSelectedCurrency } = useCurrency();
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('yearly');
+  const [headcount, setHeadcount] = useState<number>(25);
 
   // Theme State: 'light' | 'dark'
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -145,22 +146,24 @@ export default function App() {
               </p>
             </div>
 
-            {/* Billing Toggle (Monthly / Yearly) */}
+            {/* Billing Toggle (Monthly / Yearly) & Headcount Toolbar */}
             <BillingToggle
               billingCycle={billingCycle}
               onChangeBillingCycle={setBillingCycle}
               selectedCurrency={selectedCurrency}
               onChangeCurrency={setSelectedCurrency}
+              headcount={headcount}
+              onChangeHeadcount={setHeadcount}
             />
 
-            {/* 3 in a row Sliding Pricing Cards */}
+            {/* 3 in a row Sliding Pricing Cards (2 pages of 3 = 6 distinct cards, matching Outsourcing) */}
             <div className="mt-8">
               <CardSlider
                 id="pricing-plans-slider"
                 ariaLabel="NextSofthr pricing plans"
                 items={PRICING_PLANS}
                 perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
-                stepMode="item"
+                stepMode="page"
                 gap={24}
                 renderItem={(plan) => (
                   <div className="h-full flex-1 flex flex-col self-stretch">
@@ -168,6 +171,7 @@ export default function App() {
                       plan={plan}
                       billingCycle={billingCycle}
                       selectedCurrency={selectedCurrency}
+                      headcount={headcount}
                       onSelectPlan={handleSelectPlan}
                       onOpenEnterpriseDemo={handleOpenDemo}
                     />

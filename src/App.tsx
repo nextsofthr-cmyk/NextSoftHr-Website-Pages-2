@@ -24,6 +24,7 @@ const PrivacyPolicy = lazy(() => import('./pages/privacy-policy/App'));
 const RefundPolicy = lazy(() => import('./pages/refund-policy/App'));
 const TermsConditions = lazy(() => import('./pages/terms-conditions/App'));
 const JobHunt = lazy(() => import('./pages/job-hunt/JobHuntRoute'));
+const RecruitmentBoard = lazy(() => import('./pages/recruitment-board/RecruitmentBoardRoute'));
 
 // Premium branded loading state
 const PageLoadingFallback: React.FC = () => (
@@ -174,6 +175,11 @@ export default function App() {
           <Route path="/jobs" element={<Navigate to="/job-hunt" replace />} />
           <Route path="/careers" element={<Navigate to="/job-hunt" replace />} />
           <Route path="/career" element={<Navigate to="/job-hunt" replace />} />
+
+          {/* Recruitment Board */}
+          <Route path="/recruitment-board" element={<RecruitmentBoard />} />
+          <Route path="/recruitment" element={<Navigate to="/recruitment-board" replace />} />
+          <Route path="/board" element={<Navigate to="/recruitment-board" replace />} />
 
           {/* 14. Contact */}
           <Route path="/contact" element={<Contact />} />

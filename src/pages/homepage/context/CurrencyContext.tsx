@@ -110,12 +110,18 @@ const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined
 
 const STORAGE_KEY = 'nextsoft_currency_preference';
 
+export { CurrencyContext };
+
 export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   const [currency, setCurrencyState] = useState<MajorCurrency>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY) as MajorCurrency | null;
       if (saved && MAJOR_CURRENCIES[saved]) {
         return saved;
+      }
+      const secondarySaved = localStorage.getItem('nextsofthr-currency') as MajorCurrency | null;
+      if (secondarySaved && MAJOR_CURRENCIES[secondarySaved]) {
+        return secondarySaved;
       }
     } catch {
       // LocalStorage access issues fallback to USD
@@ -128,11 +134,37 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
       setCurrencyState(newCurrency);
       try {
         localStorage.setItem(STORAGE_KEY, newCurrency);
+        localStorage.setItem('nextsofthr-currency', newCurrency);
+        window.dispatchEvent(new CustomEvent('nextsoft-currency-change', { detail: newCurrency }));
       } catch {
         // Ignore storage errors
       }
     }
   };
+
+  useEffect(() => {
+    const handleCustomChange = (e: Event) => {
+      const customEvent = e as CustomEvent<MajorCurrency>;
+      if (customEvent.detail && MAJOR_CURRENCIES[customEvent.detail] && customEvent.detail !== currency) {
+        setCurrencyState(customEvent.detail);
+      }
+    };
+    const handleStorage = (e: StorageEvent) => {
+      if (
+        (e.key === STORAGE_KEY || e.key === 'nextsofthr-currency') &&
+        e.newValue &&
+        MAJOR_CURRENCIES[e.newValue as MajorCurrency]
+      ) {
+        setCurrencyState(e.newValue as MajorCurrency);
+      }
+    };
+    window.addEventListener('nextsoft-currency-change', handleCustomChange);
+    window.addEventListener('storage', handleStorage);
+    return () => {
+      window.removeEventListener('nextsoft-currency-change', handleCustomChange);
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, [currency]);
 
   const currencyInfo = useMemo(() => MAJOR_CURRENCIES[currency], [currency]);
 
@@ -229,3 +261,8 @@ export const useCurrency = (): CurrencyContextType => {
   }
   return context;
 };
+
+export const useSafeCurrency = (): CurrencyContextType | undefined => {
+  return useContext(CurrencyContext);
+};
+

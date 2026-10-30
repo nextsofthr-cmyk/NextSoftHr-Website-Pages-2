@@ -31,6 +31,7 @@ function PricingContent() {
   const { t } = useLanguage();
   const { selectedCurrency, setSelectedCurrency } = useCurrency();
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('yearly');
+  const [headcount, setHeadcount] = useState<number>(25);
 
   // Theme State: 'light' | 'dark'
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -60,13 +61,13 @@ function PricingContent() {
   // Modal States
   const [trialModalOpen, setTrialModalOpen] = useState(false);
   const [selectedPlanForTrial, setSelectedPlanForTrial] = useState('Pay As You Scale');
-  const [trialEmployeeCount, setTrialEmployeeCount] = useState(50);
+  const [trialEmployeeCount, setTrialEmployeeCount] = useState(25);
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [salesModalOpen, setSalesModalOpen] = useState(false);
   const [securityModalOpen, setSecurityModalOpen] = useState(false);
 
   // Handlers
-  const handleOpenTrial = (planName: string = 'Pay As You Scale', empCount: number = 50) => {
+  const handleOpenTrial = (planName: string = 'Pay As You Scale', empCount: number = 25) => {
     setSelectedPlanForTrial(planName);
     setTrialEmployeeCount(empCount);
     setTrialModalOpen(true);
@@ -84,7 +85,7 @@ function PricingContent() {
     if (plan.id === 'enterprise') {
       handleOpenSales();
     } else {
-      handleOpenTrial(plan.name);
+      handleOpenTrial(plan.name, headcount);
     }
   };
 
@@ -145,22 +146,24 @@ function PricingContent() {
               </p>
             </div>
 
-            {/* Billing Toggle (Monthly / Yearly) */}
+            {/* Billing Toggle (Monthly / Yearly) & Headcount Toolbar */}
             <BillingToggle
               billingCycle={billingCycle}
               onChangeBillingCycle={setBillingCycle}
               selectedCurrency={selectedCurrency}
               onChangeCurrency={setSelectedCurrency}
+              headcount={headcount}
+              onChangeHeadcount={setHeadcount}
             />
 
-            {/* 3 in a row Sliding Pricing Cards */}
+            {/* 3 in a row Sliding Pricing Cards (2 pages of 3 = 6 distinct cards, matching Outsourcing) */}
             <div className="mt-8">
               <CardSlider
                 id="pricing-plans-slider"
                 ariaLabel="NextSofthr pricing plans"
                 items={PRICING_PLANS}
                 perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
-                stepMode="item"
+                stepMode="page"
                 gap={24}
                 renderItem={(plan) => (
                   <div className="h-full flex-1 flex flex-col self-stretch">
@@ -168,6 +171,7 @@ function PricingContent() {
                       plan={plan}
                       billingCycle={billingCycle}
                       selectedCurrency={selectedCurrency}
+                      headcount={headcount}
                       onSelectPlan={handleSelectPlan}
                       onOpenEnterpriseDemo={handleOpenDemo}
                     />

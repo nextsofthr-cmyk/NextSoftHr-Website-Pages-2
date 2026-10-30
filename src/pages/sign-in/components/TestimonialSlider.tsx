@@ -206,27 +206,13 @@ export const TestimonialSlider: React.FC<TestimonialSliderProps> = ({
         <div className="pt-3 border-t border-white/10 dark:border-slate-800/80 flex items-center justify-between gap-3">
           {/* Author Avatar Image & Details */}
           <div className="flex items-center gap-3 min-w-0">
-            {/* Author Portrait Image with fallback initials badge */}
+            {/* Author Name Initials Badge */}
             <div className="relative shrink-0">
-              <img
-                src={current.imageUrl}
-                alt={current.author}
-                className={`w-10 h-10 rounded-full object-cover shadow-md ring-2 ${
-                  isDarkVariant ? 'ring-[#caff33]' : 'ring-lime-500'
-                }`}
-                onError={(e) => {
-                  const target = e.currentTarget;
-                  target.style.display = 'none';
-                  const fallback = target.nextElementSibling as HTMLElement | null;
-                  if (fallback) fallback.style.display = 'flex';
-                }}
-              />
               <div
-                style={{ display: 'none' }}
-                className={`w-10 h-10 rounded-full items-center justify-center font-black text-xs tracking-wider shadow-md ring-2 ${
+                className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-xs tracking-wider shadow-md ring-2 transition-all ${
                   isDarkVariant
-                    ? 'bg-gradient-to-br from-[#caff33] to-[#88c200] text-[#003366] ring-[#caff33]/50'
-                    : 'bg-gradient-to-br from-[#003366] to-[#0056b3] text-[#caff33] ring-lime-400/30'
+                    ? 'bg-gradient-to-br from-[#caff33] to-[#88c200] text-[#003366] ring-[#caff33]/60'
+                    : 'bg-gradient-to-br from-[#003366] to-[#0056b3] text-[#caff33] ring-lime-400/40'
                 }`}
                 title={current.author}
               >

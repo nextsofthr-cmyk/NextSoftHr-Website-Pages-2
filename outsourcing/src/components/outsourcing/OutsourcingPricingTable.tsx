@@ -90,48 +90,25 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
     ]
   },
   {
-    id: 'employee-administration',
-    name: 'Employee Administration',
+    id: 'hr-administration',
+    name: 'HR & Employee Administration',
     category: 'core',
     badge: 'Records & Personnel',
     subtitle:
-      'Consolidate fragmented personnel folders, physical contracts, and salary spreadsheets into a verified single source of truth.',
+      'Consolidate employee personnel archives, contracts, leaves, document requests, and statutory workforce policies.',
     bestFor:
-      'Businesses with growing headcounts, multiple branches, high staff turnover, or limited internal HR administrative capacity.',
-    monthlyActualNGN: 4500,
+      'Growing businesses seeking verified digital personnel folders, structured employee onboarding/offboarding, and compliant HR administration.',
+    monthlyActualNGN: 5000,
     monthlyDiscountedNGN: null,
-    yearlyActualNGN: 54000,
-    yearlyDiscountedNGN: 43200,
+    yearlyActualNGN: 60000,
+    yearlyDiscountedNGN: 48000,
     keyInclusions: [
-      'Digital employee personnel files & audit archiving',
-      'Official employment letter & contract drafting',
-      'Document request tracking (visas, embassy, verification)',
-      'Digital onboarding & offboarding workflows',
+      'Centralized digital personnel archives & audit records',
+      'Official employment contracts & letter drafting (promotions, visas)',
+      'Document request tracking (embassy, bank, verification)',
+      'End-to-end digital onboarding & offboarding workflows',
       'Leave, attendance & employee lifecycle administration',
       'HR software data entry & employee change management',
-      'Employee benefits & workforce compliance logging'
-    ]
-  },
-  {
-    id: 'hr-administration',
-    name: 'HR Administration',
-    category: 'integrated',
-    badge: 'Operational HR',
-    subtitle:
-      'Hands-on operational employee administration, leave tracking, document lifecycle, and regulatory workforce records.',
-    bestFor:
-      'Companies seeking structured personnel files, formalized HR policies, and dedicated operational support.',
-    monthlyActualNGN: 5500,
-    monthlyDiscountedNGN: null,
-    yearlyActualNGN: 66000,
-    yearlyDiscountedNGN: 52800,
-    keyInclusions: [
-      'Centralized employee personnel archives & digital storage',
-      'End-to-end digital onboarding & offboarding workflows',
-      'Company policy administration & compliance records',
-      'Time, attendance & shift recording administration',
-      'Official HR letters (promotions, confirmations, visas)',
-      'Quarterly HR headcount & attrition analytics',
       'Dedicated employee HR request processing desk'
     ]
   },
@@ -184,13 +161,14 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
   },
   {
     id: 'enterprise-workforce',
-    name: 'Enterprise Workforce',
+    name: 'Enterprise & Custom Outsourcing',
     category: 'enterprise',
     badge: 'Multi-Country Scale',
     subtitle:
-      'Bespoke multi-company, multi-country and foreign currency workforce outsourcing for large pan-African corporate groups.',
+      'Bespoke multi-company, multi-country and foreign currency workforce outsourcing with custom operating pods for corporate groups.',
     bestFor:
-      'Pan-African and multinational groups with complex branch hierarchies, subsidiaries, and holding companies.',
+      'Pan-African and multinational groups with complex branch hierarchies, subsidiaries, or 250+ to 10,000+ employees.',
+    recommended: '250+ employees / Multi-country operations',
     monthlyActualNGN: 25000,
     monthlyDiscountedNGN: null,
     yearlyActualNGN: 300000,
@@ -201,57 +179,8 @@ export const OUTSOURCING_TABLE_ROWS: OutsourcingPricingRow[] = [
       'Custom ERP integrations (SAP, Oracle, NetSuite, Workday, Sage)',
       'Custom biometric device integrations & enterprise SSO (Okta/SAML)',
       'Dedicated enterprise delivery pod (3 specialists + lead counsel)',
-      'Custom SLA with 1-hour priority support & quarterly onsite',
-      'Employee Help Desk & Workforce Analytics'
-    ]
-  },
-  {
-    id: 'recruitment-talent',
-    name: 'Recruitment & Talent',
-    category: 'enterprise',
-    badge: 'Talent Acquisition',
-    isCustomQuote: true,
-    subtitle:
-      'Dedicated talent acquisition engine combining human headhunters with intelligent ATS workflows and AI assistance.',
-    bestFor:
-      'Organizations scaling rapidly, hiring across multiple African corridors, or needing executive talent placement.',
-    monthlyActualNGN: 0,
-    monthlyDiscountedNGN: null,
-    yearlyActualNGN: 0,
-    yearlyDiscountedNGN: 0,
-    keyInclusions: [
-      'Workforce planning & headcount modeling',
-      'AI-assisted job description creation & role scoring',
-      'Proactive executive candidate headhunting across Africa',
-      'Multi-channel job publishing & ATS pipeline tracking',
-      'Structured interview scheduling & candidate assessments',
-      'Multi-tier hiring approvals & offer letter management',
-      'Seamless transition into digital employee onboarding'
-    ]
-  },
-  {
-    id: 'custom-outsourcing',
-    name: 'Custom Outsourcing',
-    category: 'enterprise',
-    badge: 'Bespoke Retainer',
-    isCustomQuote: true,
-    subtitle:
-      'Tailored multi-entity HR, payroll, custom API integrations, dedicated legal counsel, and custom SLA guarantees.',
-    bestFor:
-      'Enterprises with 250+ to 10,000+ employees requiring custom operating pods and dedicated compliance oversight.',
-    recommended: '250+ employees / Multi-country operations',
-    monthlyActualNGN: 0,
-    monthlyDiscountedNGN: null,
-    yearlyActualNGN: 0,
-    yearlyDiscountedNGN: 0,
-    keyInclusions: [
-      'Unlimited scalability & custom architecture',
-      'Enterprise multi-country payroll setup',
-      'Custom role hierarchies & approvals',
-      'Dedicated Customer Success Manager & delivery pod',
-      'Custom SLA guarantees (99.95% uptime)',
-      '24/7 Premium executive support line',
-      'Data migration assistance from legacy HRIS'
+      'Custom SLA with 1-hour priority support & quarterly onsite review',
+      'Data migration assistance from legacy HRIS systems'
     ],
     enterpriseSupport: [
       'Dedicated account manager',
@@ -429,7 +358,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
           </span>
 
           {[
-            { id: 'all', label: 'All Packages (9)' },
+            { id: 'all', label: 'All Packages (6)' },
             { id: 'core', label: 'Core Payroll & Shift Roster' },
             { id: 'integrated', label: 'Integrated HR & People Pod' },
             { id: 'enterprise', label: 'Enterprise & Multi-Country' },
@@ -459,7 +388,7 @@ export const OutsourcingPricingTable: React.FC<OutsourcingPricingTableProps> = (
             ariaLabel="NextSofthr outsourcing pricing cards"
             items={filteredRows}
             perView={{ base: 1, md: 2, lg: 3, xl: 3 }}
-            stepMode="item"
+            stepMode="page"
             gap={24}
             showSideArrows={false}
             renderItem={(row) => {

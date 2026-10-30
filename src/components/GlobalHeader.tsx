@@ -4,7 +4,7 @@ import {
   ChevronDown, Menu, X, ArrowRight, Headphones, Sparkles,
   Users, Mail, Briefcase, Award, HelpCircle, BookOpen,
   ShieldCheck, FileText, Handshake, Percent, Receipt,
-  Play, CheckCircle2, Phone, Coins, Globe
+  Play, CheckCircle2, Phone, Coins, Globe, LayoutGrid
 } from 'lucide-react';
 import { ThemeToggle } from '../pages/homepage/components/ThemeToggle';
 import { LanguageSelector } from '../pages/homepage/components/LanguageSelector';
@@ -97,6 +97,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   const isInsightsActive = [
     '/about-us', '/contact', '/partner-registry', '/faq', '/blog',
     '/job-hunt', '/recruitment-marketplace', '/jobs', '/careers',
+    '/recruitment-board', '/recruitment', '/board',
     '/privacy-policy', '/terms-conditions', '/partners-agreement',
     '/partner-commission', '/refund-policy'
   ].some(p => location.pathname.startsWith(p));
@@ -312,6 +313,25 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                             </div>
                             <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
                               Jobs, recruitment &amp; talent hub
+                            </p>
+                          </div>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/recruitment-board"
+                          onClick={() => setInsightsDropdown(false)}
+                          className="group/item flex items-start gap-2.5 p-2 rounded-xl hover:bg-blue-50/70 dark:hover:bg-slate-800/80 transition-colors"
+                        >
+                          <div className="w-7 h-7 rounded-lg bg-blue-100/70 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-blue-600 group-hover/item:text-white transition-colors">
+                            <LayoutGrid className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors">
+                              Recruitment Board
+                            </div>
+                            <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
+                              Pipeline stages &amp; candidate board
                             </p>
                           </div>
                         </Link>
@@ -622,6 +642,14 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                       >
                         <Briefcase className="w-3.5 h-3.5 text-blue-600" />
                         <span>Recruitment Marketplace</span>
+                      </Link>
+                      <Link
+                        to="/recruitment-board"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900"
+                      >
+                        <LayoutGrid className="w-3.5 h-3.5 text-blue-600" />
+                        <span>Recruitment Board</span>
                       </Link>
                     </div>
                   </div>

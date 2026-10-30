@@ -295,28 +295,28 @@ export const SignInCard: React.FC<SignInCardProps> = ({
   return (
     <div className="w-full animate-in fade-in slide-in-from-bottom-6 duration-700 ease-out fill-mode-both">
       {/* Main Authentication Card */}
-      <div className="relative bg-white dark:bg-[#0f1c33] rounded-2xl shadow-xl shadow-slate-200/60 dark:shadow-black/50 border border-slate-200/90 dark:border-white/10 p-6 sm:p-9 transition-colors">
+      <div className="relative bg-white dark:bg-[#0f1c33] rounded-2xl shadow-xl shadow-slate-200/60 dark:shadow-black/50 border border-slate-200/90 dark:border-white/10 p-5 sm:p-7 pt-4 sm:pt-6 transition-colors">
         {/* Lemon green top accent indicator */}
         <div className="absolute top-0 left-8 right-8 h-1 bg-gradient-to-r from-[#0056b3] via-[#004494] to-[#caff33] rounded-t-full" />
 
         {/* Card Header */}
-        <div className="mb-6 text-center">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#0056b3] dark:text-[#38bdf8] text-[11px] font-semibold mb-2.5 border border-blue-100 dark:border-blue-900/60">
+        <div className="mb-3 text-center">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#0056b3] dark:text-[#38bdf8] text-[11px] font-semibold mb-1.5 border border-blue-100 dark:border-blue-900/60">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0056b3] dark:bg-[#caff33]"></span>
             <span>Enterprise Authentication</span>
           </div>
 
-          <h2 className="text-2xl sm:text-[1.75rem] font-black text-[#0b1528] dark:text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-[#0b1528] dark:text-white tracking-tight">
             {t.welcomeBack}
           </h2>
-          <p className="mt-1.5 text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
             {authMode === 'qr'
               ? 'Scan with your enrolled NextSofthr mobile app for passwordless access.'
               : t.enterCredentials}
           </p>
 
           {/* Auth Method Tabs: Password vs QR Code */}
-          <div className="mt-4 p-1 rounded-xl bg-slate-100 dark:bg-[#162542] border border-slate-200/80 dark:border-white/10 grid grid-cols-2 gap-1">
+          <div className="mt-2.5 p-1 rounded-xl bg-slate-100 dark:bg-[#162542] border border-slate-200/80 dark:border-white/10 grid grid-cols-2 gap-1">
             <button
               type="button"
               onClick={() => setAuthMode('credentials')}
@@ -382,8 +382,8 @@ export const SignInCard: React.FC<SignInCardProps> = ({
           </div>
         </div>
 
-        {/* Unrecognized or Suspicious Device / Browser Security Banner */}
-        {!deviceProfile.isKnownDevice && !isDeviceBannerDismissed && (
+        {/* Unrecognized or Suspicious Device / Browser Security Banner (Commented out per request) */}
+        {/* {!deviceProfile.isKnownDevice && !isDeviceBannerDismissed && (
           <div className="mb-4 p-3 rounded-xl bg-amber-50/90 dark:bg-amber-950/30 border border-amber-300/80 dark:border-amber-500/40 text-left animate-in fade-in slide-in-from-top-2 duration-200">
             <div className="flex items-start gap-2.5">
               <div className="p-1.5 rounded-lg bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 shrink-0">
@@ -413,7 +413,6 @@ export const SignInCard: React.FC<SignInCardProps> = ({
                   You are accessing NextSofthr from an unrecognized workstation or location. For your protection, step-up verification may be required.
                 </p>
 
-                {/* Device metadata specs */}
                 <div className="mt-2 p-2 rounded-lg bg-white/70 dark:bg-[#0c172a]/70 border border-amber-200/60 dark:border-amber-900/40 text-[10px] space-y-1 text-slate-700 dark:text-slate-300">
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400">
@@ -429,7 +428,6 @@ export const SignInCard: React.FC<SignInCardProps> = ({
                   </div>
                 </div>
 
-                {/* Security Actions */}
                 <div className="mt-2.5 flex items-center justify-between gap-2">
                   <button
                     type="button"
@@ -446,7 +444,7 @@ export const SignInCard: React.FC<SignInCardProps> = ({
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* Recognized Device Badge when verified */}
         {deviceProfile.isKnownDevice && (

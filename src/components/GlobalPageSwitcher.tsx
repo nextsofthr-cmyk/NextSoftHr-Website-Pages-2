@@ -31,7 +31,8 @@ import {
   Sun,
   Moon,
   ExternalLink,
-  Compass
+  Compass,
+  LayoutGrid
 } from 'lucide-react';
 import { PAGES_CONFIG, CATEGORIES, PageMeta } from '../data/pagesConfig';
 
@@ -55,6 +56,7 @@ const iconMap: Record<string, React.ElementType> = {
   Shield,
   Receipt,
   Scale,
+  LayoutGrid,
 };
 
 export const GlobalPageSwitcher: React.FC = () => {

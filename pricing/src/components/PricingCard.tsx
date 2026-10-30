@@ -9,6 +9,7 @@ interface PricingCardProps {
   plan: PricingPlan;
   billingCycle: BillingCycle;
   selectedCurrency: CurrencyCode;
+  headcount?: number;
   onSelectPlan: (plan: PricingPlan) => void;
   onOpenEnterpriseDemo?: () => void;
 }
@@ -17,11 +18,12 @@ export const PricingCard: React.FC<PricingCardProps> = ({
   plan,
   billingCycle,
   selectedCurrency,
+  headcount = 25,
   onSelectPlan,
   onOpenEnterpriseDemo,
 }) => {
   const { t, language } = useLanguage();
-  const currencyConfig = CURRENCIES[selectedCurrency];
+  const currencyConfig = CURRENCIES[selectedCurrency] || CURRENCIES.USD;
   const isEnterprise = plan.id === 'enterprise';
   const isOutsourcing = plan.id === 'outsourcing';
   const isScale = plan.id === 'scale' || plan.id === 'pay-as-you-scale';
@@ -152,6 +154,82 @@ export const PricingCard: React.FC<PricingCardProps> = ({
     }
   }
 
+  // Headcount-aware total price calculation (matching Outsourcing pricing table behavior)
+  const isYearly = billingCycle === 'yearly';
+  let formattedTotalMonthly = '';
+  let employeeNote = '';
+
+  if (isEnterprise) {
+    formattedTotalMonthly = customText;
+    employeeNote = 'Dedicated Enterprise Pod';
+  } else if (isOutsourcing) {
+    if (selectedCurrency === 'NGN') {
+      const perEmp = isYearly ? 2800 : 3500;
+      formattedTotalMonthly = `₦${(perEmp * headcount).toLocaleString()} / mo`;
+    } else {
+      const perEmpUSD = isYearly ? 2.0 : 2.5;
+      formattedTotalMonthly = `${currencyConfig.format(perEmpUSD * headcount)} / mo`;
+    }
+    employeeNote = `${headcount} staff managed outsourcing`;
+  } else if (isScale) {
+    if (selectedCurrency === 'NGN') {
+      const perEmp = 2000;
+      formattedTotalMonthly = `₦${(perEmp * headcount).toLocaleString()} / mo`;
+    } else {
+      const perEmpUSD = isYearly ? 1.33 : 1.5;
+      formattedTotalMonthly = `${currencyConfig.format(perEmpUSD * headcount)} / mo`;
+    }
+    employeeNote = `${headcount} staff @ flexible per-user rate`;
+  } else if (isStarter) {
+    const allowance = 15;
+    const baseNGN = isYearly ? 18000 : 22500;
+    const extraPerEmpNGN = isYearly ? 2400 : 3000;
+    const baseUSD = isYearly ? 12 : 15;
+    const extraPerEmpUSD = isYearly ? 1.6 : 2.0;
+
+    const extraCount = Math.max(0, headcount - allowance);
+    if (selectedCurrency === 'NGN') {
+      const total = baseNGN + extraCount * extraPerEmpNGN;
+      formattedTotalMonthly = `₦${total.toLocaleString()} / mo`;
+    } else {
+      const totalUSD = baseUSD + extraCount * extraPerEmpUSD;
+      formattedTotalMonthly = `${currencyConfig.format(totalUSD)} / mo`;
+    }
+    employeeNote = extraCount > 0 ? `Includes 15 (+${extraCount} extra)` : `Within 15 included allowance`;
+  } else if (isProfessional) {
+    const allowance = 50;
+    const baseNGN = isYearly ? 100000 : 125000;
+    const extraPerEmpNGN = isYearly ? 3040 : 3800;
+    const baseUSD = isYearly ? 65 : 80;
+    const extraPerEmpUSD = isYearly ? 2.0 : 2.5;
+
+    const extraCount = Math.max(0, headcount - allowance);
+    if (selectedCurrency === 'NGN') {
+      const total = baseNGN + extraCount * extraPerEmpNGN;
+      formattedTotalMonthly = `₦${total.toLocaleString()} / mo`;
+    } else {
+      const totalUSD = baseUSD + extraCount * extraPerEmpUSD;
+      formattedTotalMonthly = `${currencyConfig.format(totalUSD)} / mo`;
+    }
+    employeeNote = extraCount > 0 ? `Includes 50 (+${extraCount} extra)` : `Within 50 included allowance`;
+  } else if (isBusiness) {
+    const allowance = 100;
+    const baseNGN = isYearly ? 280000 : 350000;
+    const extraPerEmpNGN = isYearly ? 4000 : 5000;
+    const baseUSD = isYearly ? 185 : 230;
+    const extraPerEmpUSD = isYearly ? 2.8 : 3.5;
+
+    const extraCount = Math.max(0, headcount - allowance);
+    if (selectedCurrency === 'NGN') {
+      const total = baseNGN + extraCount * extraPerEmpNGN;
+      formattedTotalMonthly = `₦${total.toLocaleString()} / mo`;
+    } else {
+      const totalUSD = baseUSD + extraCount * extraPerEmpUSD;
+      formattedTotalMonthly = `${currencyConfig.format(totalUSD)} / mo`;
+    }
+    employeeNote = extraCount > 0 ? `Includes 100 (+${extraCount} extra)` : `Within 100 included allowance`;
+  }
+
   return (
     <div
       id={`pricing-card-${plan.id}`}
@@ -194,7 +272,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
         </p>
 
         {/* Pricing Block */}
-        <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 min-h-[116px] flex flex-col justify-center">
+        <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 min-h-[140px] flex flex-col justify-center">
           <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1">
             <span className="text-3xl sm:text-4xl font-extrabold font-display text-slate-900 dark:text-white tracking-tight">
               {formattedPrice}
@@ -205,6 +283,34 @@ export const PricingCard: React.FC<PricingCardProps> = ({
               </span>
             )}
           </div>
+
+          {/* Dynamic Headcount Total Preview Pill (Matching Outsourcing Pricing Table) */}
+          {!isEnterprise ? (
+            <div className="mt-3 p-2.5 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/70 dark:border-blue-900/40 text-xs flex items-center justify-between">
+              <div className="flex flex-col text-left">
+                <span className="text-slate-600 dark:text-slate-300 font-medium">
+                  Total for <strong className="text-slate-900 dark:text-white font-bold">{headcount} staff</strong>:
+                </span>
+                {employeeNote && (
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
+                    {employeeNote}
+                  </span>
+                )}
+              </div>
+              <span className="font-extrabold text-[#0265DC] dark:text-[#A3E635] font-mono text-sm sm:text-base whitespace-nowrap">
+                {formattedTotalMonthly}
+              </span>
+            </div>
+          ) : (
+            <div className="mt-3 p-2.5 rounded-xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 text-xs flex items-center justify-between">
+              <span className="text-slate-600 dark:text-slate-300 font-medium">
+                Volume for <strong className="text-slate-900 dark:text-white font-bold">{headcount} staff</strong>:
+              </span>
+              <span className="font-extrabold text-[#0265DC] dark:text-blue-400 font-mono text-xs">
+                Bespoke SLA & Volume
+              </span>
+            </div>
+          )}
 
           {/* Employee Allowance */}
           <div className="mt-2.5 flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-slate-300">

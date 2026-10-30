@@ -20,7 +20,7 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
   const [showAll, setShowAll] = useState(false);
   const visibleAddOns = showAll ? ADD_ONS : ADD_ONS.slice(0, INITIAL_VISIBLE_ADDONS);
   const hasMore = ADD_ONS.length > INITIAL_VISIBLE_ADDONS;
-  const currencyConfig = CURRENCIES[selectedCurrency];
+  const currencyConfig = CURRENCIES[selectedCurrency] || CURRENCIES.USD;
 
   const toggleAddOn = (id: string) => {
     setSelectedIds((prev) =>
