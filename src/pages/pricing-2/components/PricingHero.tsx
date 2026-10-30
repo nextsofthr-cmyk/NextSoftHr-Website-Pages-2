@@ -37,7 +37,7 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
   return (
     <section
       id="pricing-hero-section"
-      className="relative pt-32 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-[#F8FAFC] dark:from-[#0B132B] dark:via-[#070D1E] dark:to-[#070D1E] transition-colors duration-200"
+      className="relative pt-8 pb-16 md:pt-12 md:pb-24 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-[#F8FAFC] dark:from-[#0B132B] dark:via-[#070D1E] dark:to-[#070D1E] transition-colors duration-200"
     >
       {/* Subtle Background Accents */}
       <div className="absolute inset-0 bg-grid-pattern opacity-60 dark:opacity-20 pointer-events-none" />
