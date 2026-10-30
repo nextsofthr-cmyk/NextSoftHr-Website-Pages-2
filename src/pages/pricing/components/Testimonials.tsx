@@ -1,9 +1,16 @@
 import React from 'react';
-import { Quote, CheckCircle2, Star, Building2, MapPin } from 'lucide-react';
+import { CheckCircle2, Star, MapPin } from 'lucide-react';
 import { TESTIMONIALS } from '../data/pricingData';
 import { CardSlider } from './CardSlider';
 
 const TESTIMONIALS_PER_VIEW = { base: 1, md: 2 };
+
+const getInitials = (fullName: string): string => {
+  const parts = fullName.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+};
 
 export const Testimonials: React.FC = () => {
   return (
@@ -58,14 +65,14 @@ export const Testimonials: React.FC = () => {
                   <span>{item.verifiedBenefit}</span>
                 </div>
 
-                {/* Person Profile */}
+                {/* Person Profile with Initials Avatar */}
                 <div className="flex items-center gap-3.5 pt-4 border-t border-slate-200/60 dark:border-slate-800">
-                  <img
-                    src={item.avatarUrl}
-                    alt={item.name}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-white dark:border-slate-700 shadow-xs"
-                    referrerPolicy="no-referrer"
-                  />
+                  <div
+                    aria-hidden="true"
+                    className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#0265DC] to-[#004DB3] text-white font-display font-bold text-sm flex items-center justify-center border-2 border-white dark:border-slate-700 shadow-xs shrink-0"
+                  >
+                    {getInitials(item.name)}
+                  </div>
                   <div>
                     <div className="font-display font-bold text-slate-900 dark:text-white text-sm sm:text-base">
                       {item.name}

@@ -1,6 +1,16 @@
 import React from 'react';
-import { Quote, CheckCircle2, Star, Building2, MapPin } from 'lucide-react';
+import { CheckCircle2, Star, MapPin } from 'lucide-react';
 import { TESTIMONIALS } from '../data/pricingData';
+import { CardSlider } from './CardSlider';
+
+const TESTIMONIALS_PER_VIEW = { base: 1, md: 2 };
+
+const getInitials = (fullName: string): string => {
+  const parts = fullName.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+};
 
 export const Testimonials: React.FC = () => {
   return (
@@ -20,15 +30,19 @@ export const Testimonials: React.FC = () => {
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {TESTIMONIALS.map((item, idx) => (
+        {/* Testimonials Slider (with bottom pagination & arrows only) */}
+        <CardSlider
+          id="testimonials-slider"
+          ariaLabel="Customer testimonials"
+          items={TESTIMONIALS}
+          perView={TESTIMONIALS_PER_VIEW}
+          showSideArrows={false}
+          renderItem={(item, idx) => (
             <div
-              key={item.name}
               id={`testimonial-card-${idx}`}
-              className="bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200"
+              className="bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/90 dark:border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 h-full flex-1"
             >
-              <div>
+              <div className="flex-1 flex flex-col">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-1 text-[#65A30D] dark:text-[#A3E635]">
                     {[...Array(5)].map((_, i) => (
@@ -52,14 +66,14 @@ export const Testimonials: React.FC = () => {
                   <span>{item.verifiedBenefit}</span>
                 </div>
 
-                {/* Person Profile */}
+                {/* Person Profile with Initials Avatar */}
                 <div className="flex items-center gap-3.5 pt-4 border-t border-slate-200/60 dark:border-slate-800">
-                  <img
-                    src={item.avatarUrl}
-                    alt={item.name}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-white dark:border-slate-700 shadow-xs"
-                    referrerPolicy="no-referrer"
-                  />
+                  <div
+                    aria-hidden="true"
+                    className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#0265DC] to-[#004DB3] text-white font-display font-bold text-sm flex items-center justify-center border-2 border-white dark:border-slate-700 shadow-xs shrink-0"
+                  >
+                    {getInitials(item.name)}
+                  </div>
                   <div>
                     <div className="font-display font-bold text-slate-900 dark:text-white text-sm sm:text-base">
                       {item.name}
@@ -75,8 +89,8 @@ export const Testimonials: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        />
       </div>
     </section>
   );

@@ -8,7 +8,7 @@ const Homepage = lazy(() => import('./pages/homepage/App'));
 const AboutUs = lazy(() => import('./pages/about-us/App'));
 const AboutUs2 = lazy(() => import('./pages/about-us-2/App'));
 const Services = lazy(() => import('./pages/services/App'));
-const Pricing = lazy(() => import('./pages/pricing/App'));
+const Pricing = lazy(() => import('./pages/pricing-2/Pricing2Route'));
 const Outsourcing = lazy(() => import('./pages/outsourcing/App'));
 const OutsourcingPricing = lazy(() => import('./pages/outsourcing-pricing/App'));
 const Training = lazy(() => import('./pages/training/App'));
@@ -23,7 +23,6 @@ const SignIn = lazy(() => import('./pages/sign-in/App'));
 const PrivacyPolicy = lazy(() => import('./pages/privacy-policy/App'));
 const RefundPolicy = lazy(() => import('./pages/refund-policy/App'));
 const TermsConditions = lazy(() => import('./pages/terms-conditions/App'));
-const JobHunt = lazy(() => import('./pages/job-hunt/JobHuntRoute'));
 const RecruitmentBoard = lazy(() => import('./pages/recruitment-board/RecruitmentBoardRoute'));
 
 // Premium branded loading state
@@ -136,8 +135,9 @@ export default function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/solutions" element={<Navigate to="/services" replace />} />
 
-          {/* 5. Pricing */}
+          {/* 5. Pricing (powered by Pricing 2, old Pricing disabled) */}
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/pricing-2" element={<Navigate to="/pricing" replace />} />
           <Route path="/plans" element={<Navigate to="/pricing" replace />} />
           <Route path="/cost" element={<Navigate to="/pricing" replace />} />
 
@@ -177,17 +177,13 @@ export default function App() {
           <Route path="/news" element={<Navigate to="/blog" replace />} />
           <Route path="/articles" element={<Navigate to="/blog" replace />} />
 
-          {/* Recruitment Marketplace (Job Hunt) */}
-          <Route path="/job-hunt" element={<JobHunt />} />
-          <Route path="/recruitment-marketplace" element={<Navigate to="/job-hunt" replace />} />
-          <Route path="/jobs" element={<Navigate to="/job-hunt" replace />} />
-          <Route path="/careers" element={<Navigate to="/job-hunt" replace />} />
-          <Route path="/career" element={<Navigate to="/job-hunt" replace />} />
-
-          {/* Recruitment Board */}
+          {/* Recruitment Board (Recruitment Marketplace disabled) */}
           <Route path="/recruitment-board" element={<RecruitmentBoard />} />
           <Route path="/recruitment" element={<Navigate to="/recruitment-board" replace />} />
           <Route path="/board" element={<Navigate to="/recruitment-board" replace />} />
+          <Route path="/jobs" element={<Navigate to="/recruitment-board" replace />} />
+          <Route path="/careers" element={<Navigate to="/recruitment-board" replace />} />
+          <Route path="/career" element={<Navigate to="/recruitment-board" replace />} />
 
           {/* 14. Contact */}
           <Route path="/contact" element={<Contact />} />

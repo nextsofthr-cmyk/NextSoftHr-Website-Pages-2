@@ -355,11 +355,6 @@ export const GlobalFooter: React.FC<GlobalFooterProps> = ({
                 </Link>
               </li>
               <li>
-                <Link to="/job-hunt" onClick={(e) => handleItemNavigation('/job-hunt', e)} className="hover:text-white transition-colors">
-                  Recruitment Marketplace
-                </Link>
-              </li>
-              <li>
                 <Link to="/recruitment-board" onClick={(e) => handleItemNavigation('/recruitment-board', e)} className="hover:text-lime-400 transition-colors">
                   Recruitment Board
                 </Link>

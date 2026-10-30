@@ -96,7 +96,6 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
 
   const isInsightsActive = [
     '/about-us', '/contact', '/partner-registry', '/faq', '/blog',
-    '/job-hunt', '/recruitment-marketplace', '/jobs', '/careers',
     '/recruitment-board', '/recruitment', '/board',
     '/privacy-policy', '/terms-conditions', '/partners-agreement',
     '/partner-commission', '/refund-policy'
@@ -294,25 +293,6 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                             </div>
                             <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
                               Reach enterprise advisors &amp; support
-                            </p>
-                          </div>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/job-hunt"
-                          onClick={() => setInsightsDropdown(false)}
-                          className="group/item flex items-start gap-2.5 p-2 rounded-xl hover:bg-blue-50/70 dark:hover:bg-slate-800/80 transition-colors"
-                        >
-                          <div className="w-7 h-7 rounded-lg bg-blue-100/70 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-blue-600 group-hover/item:text-white transition-colors">
-                            <Briefcase className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <div className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover/item:text-blue-600 dark:group-hover/item:text-blue-400 transition-colors">
-                              Recruitment Marketplace
-                            </div>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
-                              Jobs, recruitment &amp; talent hub
                             </p>
                           </div>
                         </Link>
@@ -634,14 +614,6 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                       >
                         <Mail className="w-3.5 h-3.5 text-blue-600" />
                         <span>Contact Us</span>
-                      </Link>
-                      <Link
-                        to="/job-hunt"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900"
-                      >
-                        <Briefcase className="w-3.5 h-3.5 text-blue-600" />
-                        <span>Recruitment Marketplace</span>
                       </Link>
                       <Link
                         to="/recruitment-board"

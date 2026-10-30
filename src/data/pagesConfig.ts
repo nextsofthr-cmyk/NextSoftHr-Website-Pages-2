@@ -64,12 +64,12 @@ export const PAGES_CONFIG: PageMeta[] = [
     id: 'pricing',
     slug: 'pricing',
     title: 'Pricing & Plans',
-    subtitle: 'Interactive Tiered Calculator & Regional Currencies',
+    subtitle: 'Country-Specific PPP Pricing, 160+ Currencies & Cart Checkout',
     category: 'Solutions',
     path: '/pricing',
-    aliases: ['/plans', '/cost'],
-    badge: 'Transparent',
-    description: 'Transparent pricing plans for Startups, Growth, and Enterprise with live currency toggle.',
+    aliases: ['/pricing-2', '/plans', '/cost'],
+    badge: 'PPP & Cart',
+    description: 'Interactive PPP regional pricing, 160+ world currencies, add-on cart checkout, and quick-start company setup.',
     iconName: 'CreditCard'
   },
   {
@@ -169,25 +169,13 @@ export const PAGES_CONFIG: PageMeta[] = [
     iconName: 'Newspaper'
   },
   {
-    id: 'job-hunt',
-    slug: 'job-hunt',
-    title: 'Recruitment Marketplace',
-    subtitle: 'Career Marketplace, AI ATS & Talent Sourcing',
-    category: 'Resources',
-    path: '/job-hunt',
-    aliases: ['/recruitment-marketplace', '/jobs', '/careers', '/career'],
-    badge: 'Careers',
-    description: 'Find verified jobs across Africa & globally, benchmark salaries, get AI resume feedback, or post hiring vacancies.',
-    iconName: 'Briefcase'
-  },
-  {
     id: 'recruitment-board',
     slug: 'recruitment-board',
     title: 'Recruitment Board',
     subtitle: 'Candidate Pipeline & ATS Hiring Board',
     category: 'Resources',
     path: '/recruitment-board',
-    aliases: ['/recruitment', '/board'],
+    aliases: ['/recruitment', '/board', '/jobs', '/careers'],
     badge: 'Hiring Board',
     description: 'Visual recruitment and candidate kanban board, stage tracking, evaluation scoring & candidate management.',
     iconName: 'LayoutGrid'
