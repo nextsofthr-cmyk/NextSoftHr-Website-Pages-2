@@ -79,7 +79,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
   pppFactor = 1.0,
   pppRegionName,
 }) => {
-  const { t, language } = useLanguage();
+  const { t, language, tx } = useLanguage();
   const { selectedCurrency, currencyConfig, setSelectedCurrency } = useCurrency();
   const [showCurrencyPicker, setShowCurrencyPicker] = useState<boolean>(false);
 
@@ -268,17 +268,17 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
     setPromoSuccess('');
 
     if (!code) {
-      setPromoError('Please enter a promotion code.');
+      setPromoError(tx("Please enter a promotion code."));
       return;
     }
 
     const matchedPromo = VALID_PROMO_CODES.find((p) => p.code === code);
     if (matchedPromo) {
       setAppliedPromo(matchedPromo);
-      setPromoSuccess(`Promo code "${matchedPromo.code}" applied! You save ${matchedPromo.discountPercent}%.`);
+      setPromoSuccess(tx("Promo code \"{code}\" applied! You save {discountPercent}%.", { code: matchedPromo.code, discountPercent: matchedPromo.discountPercent }));
       setPromoInput('');
     } else {
-      setPromoError('Invalid coupon code. Try NEXTSOFT20 or PANAFRICA10.');
+      setPromoError(tx("Invalid coupon code. Try NEXTSOFT20 or PANAFRICA10."));
     }
   };
 
@@ -414,8 +414,8 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                 <div className="flex items-center gap-2">
                   <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white">
                     {isPaymentSuccess
-                      ? 'Subscription Activated Successfully!'
-                      : 'NextSofthr Subscription Checkout'}
+                      ? tx("Subscription Activated Successfully!")
+                      : tx("NextSofthr Subscription Checkout")}
                   </h3>
                   <span
                     className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
@@ -424,13 +424,13 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                         : 'bg-[#A3E635] text-slate-950'
                     }`}
                   >
-                    {isPaymentSuccess ? '✓ Confirmed' : 'Instant Setup'}
+                    {isPaymentSuccess ? tx("✓ Confirmed") : tx("Instant Setup")}
                   </span>
                 </div>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   {isPaymentSuccess
-                    ? 'Official Tax Invoice & Cloud Workspace Provisioning'
-                    : 'Select payment gateways across Nigeria, West Africa, East Africa, South Africa & Global'}
+                    ? tx("Official Tax Invoice & Cloud Workspace Provisioning")
+                    : tx("Select payment gateways across Nigeria, West Africa, East Africa, South Africa & Global")}
                 </p>
               </div>
             </div>
@@ -442,7 +442,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                 id="checkout-currency-header-pill"
                 onClick={() => setShowCurrencyPicker(true)}
                 className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-colors shadow-xs"
-                title="Select Payment Currency (160+ World Currencies)"
+                title={tx("Select Payment Currency (160+ World Currencies)")}
               >
                 <span className="text-base leading-none">{currencyConfig.flag}</span>
                 <span className="font-bold">{selectedCurrency}</span>
@@ -453,7 +453,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
               <button
                 onClick={handleCloseModal}
                 className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                aria-label="Close"
+                aria-label={tx("Close")}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -485,18 +485,13 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
               <div className="space-y-1.5 max-w-xl mx-auto mb-6">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-xs font-extrabold uppercase tracking-wider mb-1 border border-emerald-300 dark:border-emerald-800 shadow-xs">
                   <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Payment Verified &amp; Activated</span>
+                  <span>{tx("Payment Verified & Activated")}</span>
                 </div>
-                <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
-                  Subscription Live &amp; Operational! 🎉
-                </h2>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Congratulations! Your NextSofthr enterprise subscription for{' '}
+                <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{tx("Subscription Live & Operational! 🎉")}</h2>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{tx("Congratulations! Your NextSofthr enterprise subscription for")}{' '}
                   <strong className="text-slate-900 dark:text-white font-bold">
                     {customer.companyName || customer.fullName}
-                  </strong>{' '}
-                  has been confirmed with instant cloud provisioning.
-                </p>
+                  </strong>{' '}{tx("has been confirmed with instant cloud provisioning.")}</p>
               </div>
 
               {/* Transaction & Plan Summary Card */}
@@ -504,22 +499,18 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                 {/* Row 1: Amount & Gateway info */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-4 border-b border-slate-200 dark:border-slate-700/80">
                   <div>
-                    <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                      Amount Paid
-                    </div>
+                    <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">{tx("Amount Paid")}</div>
                     <div className="text-xl sm:text-2xl font-black font-display text-slate-900 dark:text-white mt-0.5">
                       {generatedInvoice.totalFormatted}
                     </div>
                     <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 mt-0.5">
                       <CheckCircle2 className="w-3 h-3" />
-                      <span>Full Settlement Confirmed</span>
+                      <span>{tx("Full Settlement Confirmed")}</span>
                     </div>
                   </div>
 
                   <div>
-                    <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                      Processed Through
-                    </div>
+                    <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">{tx("Processed Through")}</div>
                     <div className="text-sm font-bold text-slate-900 dark:text-white mt-0.5 flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                       {generatedInvoice.gatewayName}
@@ -530,9 +521,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   </div>
 
                   <div>
-                    <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                      Transaction Reference
-                    </div>
+                    <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">{tx("Transaction Reference")}</div>
                     <div className="flex items-center gap-2 mt-0.5">
                       <code className="text-xs font-mono font-bold text-[#0265DC] dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-900 truncate">
                         {generatedInvoice.paymentReference}
@@ -541,7 +530,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                         type="button"
                         onClick={() => handleCopyRef(generatedInvoice.paymentReference)}
                         className="p-1 rounded-md text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                        title="Copy Reference"
+                        title={tx("Copy Reference")}
                       >
                         {copiedRef ? (
                           <CheckCheck className="w-3.5 h-3.5 text-emerald-500" />
@@ -550,8 +539,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                         )}
                       </button>
                     </div>
-                    <div className="text-[10px] text-slate-400 mt-0.5">
-                      Receipt: {generatedInvoice.receiptNumber}
+                    <div className="text-[10px] text-slate-400 mt-0.5">{tx("Receipt:")}{' '}{generatedInvoice.receiptNumber}
                     </div>
                   </div>
                 </div>
@@ -560,32 +548,27 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                 <div className="pt-4 space-y-3">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <span className="text-xs text-slate-500">Subscribed Tier:</span>
+                      <span className="text-xs text-slate-500">{tx("Subscribed Tier:")}</span>
                       <div className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                        <span>{generatedInvoice.planName} Plan</span>
+                        <span>{generatedInvoice.planName}{' '}{tx("Plan")}</span>
                         <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#A3E635] text-slate-950 uppercase">
-                          {generatedInvoice.billingCycle} Cycle
-                        </span>
+                          {generatedInvoice.billingCycle}{' '}{tx("Cycle")}</span>
                         {generatedInvoice.discountPercent && (
                           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-[#0265DC] dark:bg-blue-950 dark:text-blue-300">
-                            {generatedInvoice.discountPercent}% Off Applied
-                          </span>
+                            {generatedInvoice.discountPercent}{tx("% Off Applied")}</span>
                         )}
                       </div>
                     </div>
                     <div className="text-xs text-slate-500 text-left sm:text-right">
-                      <div>Includes 7.5% Exclusive VAT</div>
-                      <div className="text-slate-700 dark:text-slate-300 font-semibold">
-                        Tax: {currencyConfig.format(generatedInvoice.vatAmountUSD)} (TIN: 24891048-0001)
-                      </div>
+                      <div>{tx("Includes 7.5% Exclusive VAT")}</div>
+                      <div className="text-slate-700 dark:text-slate-300 font-semibold">{tx("Tax:")}{' '}{currencyConfig.format(generatedInvoice.vatAmountUSD)}{' '}{tx("(TIN: 24891048-0001)")}</div>
                     </div>
                   </div>
 
                   {/* Add-ons list if any */}
                   {generatedInvoice.selectedAddOns.length > 0 ? (
                     <div className="space-y-1.5 pt-2 border-t border-slate-200 dark:border-slate-800">
-                      <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-                        Activated Modules ({generatedInvoice.selectedAddOns.length})
+                      <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">{tx("Activated Modules (")}{generatedInvoice.selectedAddOns.length})
                       </span>
                       <div className="flex flex-wrap gap-1.5">
                         {generatedInvoice.selectedAddOns.map((addon) => (
@@ -602,7 +585,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   ) : (
                     <div className="pt-2 text-xs text-slate-500 flex items-center gap-1.5 border-t border-slate-200 dark:border-slate-800">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                      <span>Full NextSofthr Core Suite Activated: Automated PAYE, Direct Bank Payroll, and Employee Self-Service.</span>
+                      <span>{tx("Full NextSofthr Core Suite Activated: Automated PAYE, Direct Bank Payroll, and Employee Self-Service.")}</span>
                     </div>
                   )}
 
@@ -610,9 +593,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   {workspaceLaunched && (
                     <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-xs text-[#0265DC] dark:text-blue-300 flex items-center gap-2 animate-in fade-in">
                       <Sparkles className="w-4 h-4 shrink-0 text-amber-500" />
-                      <span>
-                        Workspace setup email dispatched to <strong>{customer.email}</strong>. Provisioning automated employee sync...
-                      </span>
+                      <span>{tx("Workspace setup email dispatched to")}{' '}<strong>{customer.email}</strong>{tx(". Provisioning automated employee sync...")}</span>
                     </div>
                   )}
                 </div>
@@ -627,7 +608,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   className="w-full sm:w-auto flex-1 py-3.5 px-5 rounded-xl font-bold text-sm text-white bg-[#0265DC] hover:bg-[#004DB3] shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                 >
                   <FileText className="w-4 h-4" />
-                  <span>View &amp; Print Official Tax Receipt</span>
+                  <span>{tx("View & Print Official Tax Receipt")}</span>
                 </button>
 
                 <button
@@ -635,10 +616,10 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   type="button"
                   onClick={() => setConfettiTrigger((c) => c + 1)}
                   className="w-full sm:w-auto py-3.5 px-4 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center gap-2 transition-all shadow-xs active:scale-[0.98]"
-                  title="Celebration Cannon"
+                  title={tx("Celebration Cannon")}
                 >
                   <PartyPopper className="w-4 h-4 text-pink-500" />
-                  <span>🎉 Pop Confetti</span>
+                  <span>{tx("🎉 Pop Confetti")}</span>
                 </button>
 
                 <button
@@ -647,7 +628,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   onClick={() => setWorkspaceLaunched(true)}
                   className="w-full sm:w-auto py-3.5 px-4 rounded-xl font-bold text-sm text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] shadow-md shadow-lime-500/20 flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                 >
-                  <span>Launch Workspace</span>
+                  <span>{tx("Launch Workspace")}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -659,16 +640,14 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   className="hover:text-slate-700 dark:hover:text-slate-200 underline underline-offset-4 flex items-center gap-1"
                 >
                   <RotateCcw className="w-3 h-3" />
-                  <span>Configure Another Plan</span>
+                  <span>{tx("Configure Another Plan")}</span>
                 </button>
                 <span>•</span>
                 <button
                   type="button"
                   onClick={handleCloseModal}
                   className="hover:text-slate-700 dark:hover:text-slate-200 underline underline-offset-4"
-                >
-                  Return to Pricing Page
-                </button>
+                >{tx("Return to Pricing Page")}</button>
               </div>
             </div>
           ) : (
@@ -679,11 +658,8 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
               <div className="p-4 sm:p-5 rounded-2xl bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/80 dark:border-slate-800 space-y-3.5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                      Step 1: Base Subscription Plan
-                    </span>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-100 text-[#0265DC] dark:bg-blue-950 dark:text-blue-300 border border-blue-200 dark:border-blue-900">
-                      Multiplier: Qty {multiplier} ({billingCycle === 'yearly' ? '12 Months' : '1 Month'})
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{tx("Step 1: Base Subscription Plan")}</span>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-100 text-[#0265DC] dark:bg-blue-950 dark:text-blue-300 border border-blue-200 dark:border-blue-900">{tx("Multiplier: Qty")}{' '}{multiplier} ({billingCycle === 'yearly' ? tx("12 Months") : tx("1 Month")})
                     </span>
                   </div>
                   {/* Billing cycle toggle */}
@@ -698,8 +674,8 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                           : 'text-slate-600 dark:text-slate-400'
                       }`}
                     >
-                      <span>Monthly</span>
-                      <span className="text-[10px] font-mono opacity-80">(Qty: 1)</span>
+                      <span>{tx("Monthly")}</span>
+                      <span className="text-[10px] font-mono opacity-80">{tx("(Qty: 1)")}</span>
                     </button>
                     <button
                       type="button"
@@ -711,10 +687,8 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                           : 'text-slate-600 dark:text-slate-400'
                       }`}
                     >
-                      <span>Annual</span>
-                      <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-slate-900 text-[#A3E635]">
-                        Qty: 12
-                      </span>
+                      <span>{tx("Annual")}</span>
+                      <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-slate-900 text-[#A3E635]">{tx("Qty: 12")}</span>
                       <span className="text-[9px] bg-emerald-600 text-white px-1 py-0.2 rounded font-sans">
                         -20%
                       </span>
@@ -744,7 +718,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                           {isSelected && <Check className="w-3.5 h-3.5 text-[#0265DC] dark:text-blue-400" />}
                         </div>
                         <div className="text-sm font-extrabold font-display text-slate-900 dark:text-white mt-1">
-                          {plan.id === 'enterprise' ? 'Custom' : currencyConfig.format(price)}
+                          {plan.id === 'enterprise' ? tx("Custom") : currencyConfig.format(price)}
                         </div>
                         <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
                           {plan.employeeAllowanceText}
@@ -759,27 +733,22 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
               <div className="p-4 sm:p-5 rounded-2xl bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/80 dark:border-slate-800 space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div>
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                      Step 2: Extension Modules &amp; Add-ons
-                    </span>
-                    <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
-                      Extend NextSofthr capabilities with tailored modules below the base price
-                    </p>
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{tx("Step 2: Extension Modules & Add-ons")}</span>
+                    <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">{tx("Extend NextSofthr capabilities with tailored modules below the base price")}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-bold text-[#0265DC] dark:text-blue-400 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-full border border-blue-200 dark:border-blue-900">
-                      {selectedAddOnIds.length} Selected
-                    </span>
+                      {selectedAddOnIds.length}{' '}{tx("Selected")}</span>
                     {selectedAddOnIds.length > 0 && (
                       <button
                         type="button"
                         id="checkout-step2-clear-cart-btn"
                         onClick={handleClearAllAddOns}
                         className="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-950/60 flex items-center gap-1 transition-colors px-2 py-1 rounded-lg border border-rose-300 dark:border-rose-900/60 bg-rose-50 dark:bg-rose-950/30"
-                        title="Clear all selected modules from cart"
+                        title={tx("Clear all selected modules from cart")}
                       >
                         <Trash2 className="w-3.5 h-3.5" />
-                        <span>Clear Cart Items</span>
+                        <span>{tx("Clear Cart Items")}</span>
                       </button>
                     )}
                   </div>
@@ -809,7 +778,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                               type="button"
                               onClick={() => toggleAddOn(addon.id)}
                               className="text-slate-400 hover:text-rose-500 transition-colors p-1"
-                              title="Remove Add-on"
+                              title={tx("Remove Add-on")}
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -828,7 +797,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                     className="w-full py-2 px-3 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-xs font-semibold text-[#0265DC] dark:text-blue-300 hover:bg-white dark:hover:bg-slate-800 flex items-center justify-center gap-1.5 transition-colors"
                   >
                     <Plus className="w-3.5 h-3.5" />
-                    <span>{showAddOnsPicker ? 'Hide Extra Module Catalog' : '+ Add / Customize Extra Modules'}</span>
+                    <span>{showAddOnsPicker ? tx("Hide Extra Module Catalog") : tx("+ Add / Customize Extra Modules")}</span>
                     {showAddOnsPicker ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                   </button>
 
@@ -860,7 +829,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                               </div>
                             </div>
                             <div className="flex items-center justify-between text-[11px] mt-1 text-slate-500 dark:text-slate-400">
-                              <span>{currencyConfig.format(price)}/mo</span>
+                              <span>{currencyConfig.format(price)}{tx("/mo")}</span>
                               <span className="truncate max-w-[100px]">{addon.unitText}</span>
                             </div>
                           </div>
@@ -873,15 +842,11 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
 
               {/* 3. Customer Billing Details Form */}
               <div className="p-4 sm:p-5 rounded-2xl bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/80 dark:border-slate-800 space-y-3.5">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
-                  Step 3: Customer Billing Information
-                </span>
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">{tx("Step 3: Customer Billing Information")}</span>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                   <div>
-                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">
-                      Full Name
-                    </label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">{tx("Full Name")}</label>
                     <div className="relative">
                       <User className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
@@ -889,15 +854,13 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                         value={customer.fullName}
                         onChange={(e) => setCustomer({ ...customer, fullName: e.target.value })}
                         className="w-full pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070D1E] text-slate-900 dark:text-white"
-                        placeholder="e.g. Adeola Johnson"
+                        placeholder={tx("e.g. Adeola Johnson")}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">
-                      Company / Organization Name
-                    </label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">{tx("Company / Organization Name")}</label>
                     <div className="relative">
                       <Building2 className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
@@ -905,15 +868,13 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                         value={customer.companyName}
                         onChange={(e) => setCustomer({ ...customer, companyName: e.target.value })}
                         className="w-full pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070D1E] text-slate-900 dark:text-white"
-                        placeholder="e.g. Apex Logistics Ltd"
+                        placeholder={tx("e.g. Apex Logistics Ltd")}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">
-                      Billing Email Address
-                    </label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">{tx("Billing Email Address")}</label>
                     <div className="relative">
                       <Mail className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
@@ -921,15 +882,13 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                         value={customer.email}
                         onChange={(e) => setCustomer({ ...customer, email: e.target.value })}
                         className="w-full pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070D1E] text-slate-900 dark:text-white"
-                        placeholder="finance@company.com"
+                        placeholder={tx("finance@company.com")}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">
-                      Phone Number (for SMS &amp; Mobile Pay)
-                    </label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">{tx("Phone Number (for SMS & Mobile Pay)")}</label>
                     <div className="relative">
                       <Phone className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
@@ -943,9 +902,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   </div>
 
                   <div>
-                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">
-                      Country
-                    </label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">{tx("Country")}</label>
                     <div className="relative">
                       <Globe className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
@@ -953,15 +910,13 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                         value={customer.country}
                         onChange={(e) => setCustomer({ ...customer, country: e.target.value })}
                         className="w-full pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070D1E] text-slate-900 dark:text-white"
-                        placeholder="Nigeria, Kenya, South Africa, UK..."
+                        placeholder={tx("Nigeria, Kenya, South Africa, UK...")}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">
-                      Tax Identification Number (TIN / VAT ID)
-                    </label>
+                    <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">{tx("Tax Identification Number (TIN / VAT ID)")}</label>
                     <div className="relative">
                       <FileText className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
@@ -969,7 +924,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                         value={customer.taxId || ''}
                         onChange={(e) => setCustomer({ ...customer, taxId: e.target.value })}
                         className="w-full pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070D1E] text-slate-900 dark:text-white"
-                        placeholder="Optional tax / TIN number"
+                        placeholder={tx("Optional tax / TIN number")}
                       />
                     </div>
                   </div>
@@ -980,12 +935,8 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
               <div className="p-4 sm:p-5 rounded-2xl bg-[#F8FAFC] dark:bg-[#111C38] border border-slate-200/80 dark:border-slate-800 space-y-3.5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div>
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                      Step 4: Select Payment Gateway by Country / Region
-                    </span>
-                    <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
-                      Pay easily via cards, bank transfer, USSD, M-Pesa, Instant EFT &amp; mobile wallets
-                    </p>
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{tx("Step 4: Select Payment Gateway by Country / Region")}</span>
+                    <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">{tx("Pay easily via cards, bank transfer, USSD, M-Pesa, Instant EFT & mobile wallets")}</p>
                   </div>
                   {/* Gateway Search */}
                   <div className="relative w-full sm:w-48">
@@ -994,7 +945,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                       type="text"
                       value={gatewaySearch}
                       onChange={(e) => setGatewaySearch(e.target.value)}
-                      placeholder="Search gateway..."
+                      placeholder={tx("Search gateway...")}
                       className="w-full pl-8 pr-2 py-1 text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070D1E] text-slate-900 dark:text-white"
                     />
                   </div>
@@ -1020,7 +971,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                           : 'bg-white dark:bg-[#070D1E] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                       }`}
                     >
-                      {tab.label}
+                      {tx(tab.label)}
                     </button>
                   ))}
                 </div>
@@ -1046,9 +997,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                               <span className="text-base">{g.flag}</span>
                               <span>{g.name}</span>
                               {g.popular && (
-                                <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-[#A3E635] text-slate-950 font-bold">
-                                  Popular
-                                </span>
+                                <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-[#A3E635] text-slate-950 font-bold">{tx("Popular")}</span>
                               )}
                             </div>
                             <div
@@ -1063,18 +1012,17 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                           </div>
 
                           <div className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mb-1.5">
-                            {g.tagline}
+                            {tx(g.tagline)}
                           </div>
 
-                          <div className="text-[10px] text-slate-600 dark:text-slate-300 line-clamp-1">
-                            Methods: {g.supportedMethods.slice(0, 2).join(', ')}
+                          <div className="text-[10px] text-slate-600 dark:text-slate-300 line-clamp-1">{tx("Methods:")}{' '}{g.supportedMethods.slice(0, 2).join(', ')}
                           </div>
                         </div>
 
                         <div className="mt-2 pt-1.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
-                          <span>{g.regionLabel}</span>
+                          <span>{tx(g.regionLabel)}</span>
                           <span className="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">
-                            {g.settlementTime}
+                            {tx(g.settlementTime)}
                           </span>
                         </div>
                       </div>
@@ -1091,18 +1039,16 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
 
                 <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                   <div className="flex items-center gap-2">
-                    <span className="font-display font-bold text-sm uppercase tracking-wider text-slate-300">
-                      Order Summary
-                    </span>
+                    <span className="font-display font-bold text-sm uppercase tracking-wider text-slate-300">{tx("Order Summary")}</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setShowCurrencyPicker(true)}
                     className="text-xs font-mono font-bold text-[#A3E635] bg-lime-950/80 hover:bg-lime-900 px-2 py-0.5 rounded-md border border-lime-500/30 flex items-center gap-1 transition-colors"
-                    title="Change payment currency"
+                    title={tx("Change payment currency")}
                   >
                     <span>{currencyConfig.flag}</span>
-                    <span>{selectedCurrency} Invoicing</span>
+                    <span>{selectedCurrency}{' '}{tx("Invoicing")}</span>
                     <Globe className="w-3 h-3 text-[#A3E635]" />
                   </button>
                 </div>
@@ -1112,20 +1058,16 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
                       <Globe className="w-3.5 h-3.5 text-blue-400" />
-                      <span>Payment Currency</span>
+                      <span>{tx("Payment Currency")}</span>
                     </span>
                     {selectedCurrency === 'NGN' ? (
-                      <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                        ★ Default Currency
-                      </span>
+                      <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full">{tx("★ Default Currency")}</span>
                     ) : (
                       <button
                         type="button"
                         onClick={() => handleCurrencyChange('NGN')}
                         className="text-[10px] text-emerald-400 hover:underline font-semibold"
-                      >
-                        Reset to ₦ NGN
-                      </button>
+                      >{tx("Reset to ₦ NGN")}</button>
                     )}
                   </div>
 
@@ -1137,8 +1079,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                           <span>{currencyConfig.name}</span>
                           <span className="text-xs font-mono text-[#A3E635]">({currencyConfig.code})</span>
                         </div>
-                        <div className="text-[10px] text-slate-400 truncate">
-                          Rate: 1 USD ≈ {currencyConfig.format(1)}
+                        <div className="text-[10px] text-slate-400 truncate">{tx("Rate: 1 USD ≈")}{' '}{currencyConfig.format(1)}
                         </div>
                       </div>
                     </div>
@@ -1148,7 +1089,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                       onClick={() => setShowCurrencyPicker(true)}
                       className="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-[#0265DC] hover:bg-[#004DB3] text-white shrink-0 shadow-xs flex items-center gap-1 transition-all active:scale-95"
                     >
-                      <span>Change</span>
+                      <span>{tx("Change")}</span>
                       <ChevronDown className="w-3 h-3" />
                     </button>
                   </div>
@@ -1159,13 +1100,11 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="font-bold text-white text-sm flex items-center gap-1.5">
-                        <span>{currentPlan.name} Plan</span>
-                        <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-blue-900/80 text-blue-300 border border-blue-700">
-                          Qty: {multiplier} mo
-                        </span>
+                        <span>{currentPlan.name}{' '}{tx("Plan")}</span>
+                        <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-blue-900/80 text-blue-300 border border-blue-700">{tx("Qty:")}{' '}{multiplier}{' '}{tx("mo")}</span>
                       </div>
                       <div className="text-slate-400 text-[11px] capitalize">
-                        {billingCycle} billing cycle ({currencyConfig.format(effectiveMonthlyPlanUSD)}/mo × {multiplier})
+                        {billingCycle}{' '}{tx("billing cycle (")}{currencyConfig.format(effectiveMonthlyPlanUSD)}{tx("/mo ×")}{' '}{multiplier})
                       </div>
                     </div>
                     <div className="font-mono font-bold text-right text-sm">
@@ -1178,10 +1117,8 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                     <div className="pt-2 border-t border-slate-800">
                       <div className="flex items-center justify-between text-slate-300 font-semibold mb-1">
                         <span className="flex items-center gap-1.5">
-                          <span>{selectedAddOns.length} Extension Module(s):</span>
-                          <span className="text-[10px] font-mono text-lime-400">
-                            (Qty: {multiplier} mo each)
-                          </span>
+                          <span>{selectedAddOns.length}{' '}{tx("Extension Module(s):")}</span>
+                          <span className="text-[10px] font-mono text-lime-400">{tx("(Qty:")}{' '}{multiplier}{' '}{tx("mo each)")}</span>
                         </span>
                         <span className="font-mono">{currencyConfig.format(addOnsTotalUSD)}</span>
                       </div>
@@ -1200,7 +1137,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                                   type="button"
                                   onClick={() => toggleAddOn(a.id)}
                                   className="text-slate-500 hover:text-rose-400 p-0.5"
-                                  title="Remove module"
+                                  title={tx("Remove module")}
                                 >
                                   <X className="w-3 h-3" />
                                 </button>
@@ -1219,7 +1156,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                           className="text-[10px] text-rose-400 hover:text-rose-300 hover:underline inline-flex items-center gap-1"
                         >
                           <Trash2 className="w-3 h-3" />
-                          <span>Clear all {selectedAddOns.length} cart add-ons</span>
+                          <span>{tx("Clear all")}{' '}{selectedAddOns.length}{' '}{tx("cart add-ons")}</span>
                         </button>
                       </div>
                     </div>
@@ -1228,7 +1165,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   {/* Subtotal breakdowns with multiplier & 20% discount */}
                   <div className="pt-2 border-t border-slate-800 space-y-1">
                     <div className="flex justify-between text-slate-300 font-medium">
-                      <span>Gross Base ({multiplier} month{multiplier > 1 ? 's' : ''}):</span>
+                      <span>{tx("Gross Base (")}{multiplier}{' '}{tx("month")}{multiplier > 1 ? 's' : ''}):</span>
                       <span className="font-mono">{currencyConfig.format(grossUndiscountedSubtotalUSD)}</span>
                     </div>
 
@@ -1236,7 +1173,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                       <div className="flex justify-between text-[#A3E635] font-semibold">
                         <span className="flex items-center gap-1">
                           <Percent className="w-3.5 h-3.5" />
-                          <span>20% Annual Discount Savings:</span>
+                          <span>{tx("20% Annual Discount Savings:")}</span>
                         </span>
                         <span className="font-mono">-{currencyConfig.format(annualSavingsUSD)}</span>
                       </div>
@@ -1249,16 +1186,14 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   <div className="flex items-center justify-between text-xs font-semibold">
                     <span className="flex items-center gap-1.5 text-slate-300">
                       <Tag className="w-3.5 h-3.5 text-[#A3E635]" />
-                      <span>Promotion Code &amp; Discount</span>
+                      <span>{tx("Promotion Code & Discount")}</span>
                     </span>
                     {appliedPromo && (
                       <button
                         type="button"
                         onClick={handleRemovePromo}
                         className="text-[11px] text-rose-400 hover:underline"
-                      >
-                        Remove Coupon
-                      </button>
+                      >{tx("Remove Coupon")}</button>
                     )}
                   </div>
 
@@ -1267,21 +1202,19 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                       type="text"
                       value={promoInput}
                       onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
-                      placeholder="e.g. NEXTSOFT20"
+                      placeholder={tx("e.g. NEXTSOFT20")}
                       className="flex-1 px-3 py-1.5 text-xs rounded-xl bg-slate-800 border border-slate-700 text-white placeholder:text-slate-500 font-mono focus:outline-none focus:border-[#A3E635]"
                     />
                     <button
                       type="button"
                       onClick={() => handleApplyPromo()}
                       className="px-3.5 py-1.5 rounded-xl bg-[#A3E635] text-slate-950 font-bold text-xs hover:bg-[#84CC16] transition-colors shrink-0"
-                    >
-                      Apply
-                    </button>
+                    >{tx("Apply")}</button>
                   </div>
 
                   {/* Clickable suggested promo chips */}
                   <div className="flex flex-wrap gap-1.5 text-[10px]">
-                    <span className="text-slate-400">Try codes:</span>
+                    <span className="text-slate-400">{tx("Try codes:")}</span>
                     {VALID_PROMO_CODES.slice(0, 3).map((p) => (
                       <button
                         key={p.code}
@@ -1304,11 +1237,11 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   {appliedPromo && (
                     <div className="p-2.5 rounded-xl bg-lime-950/60 border border-lime-500/40 text-xs text-[#A3E635] space-y-1">
                       <div className="flex items-center justify-between font-bold">
-                        <span>Coupon {appliedPromo.code} Applied:</span>
-                        <span>-{appliedPromo.discountPercent}% Off</span>
+                        <span>{tx("Coupon")}{' '}{appliedPromo.code}{' '}{tx("Applied:")}</span>
+                        <span>-{appliedPromo.discountPercent}{tx("% Off")}</span>
                       </div>
                       <div className="flex items-center justify-between text-white font-semibold">
-                        <span>Total Amount Saved:</span>
+                        <span>{tx("Total Amount Saved:")}</span>
                         <span className="font-mono text-[#A3E635]">
                           {currencyConfig.format(discountAmountUSD)}
                         </span>
@@ -1321,13 +1254,13 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                 <div className="pt-3 border-t border-slate-800 space-y-2 text-xs">
                   {discountAmountUSD > 0 && (
                     <div className="flex justify-between text-emerald-400">
-                      <span>Promo Discount Applied:</span>
+                      <span>{tx("Promo Discount Applied:")}</span>
                       <span className="font-mono font-bold">-{currencyConfig.format(discountAmountUSD)}</span>
                     </div>
                   )}
 
                   <div className="flex justify-between text-slate-300">
-                    <span>Net Taxable Subtotal:</span>
+                    <span>{tx("Net Taxable Subtotal:")}</span>
                     <span className="font-mono font-semibold">{currencyConfig.format(taxableSubtotalUSD)}</span>
                   </div>
 
@@ -1335,12 +1268,10 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                   <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/80">
                     <div>
                       <div className="font-bold text-white flex items-center gap-1">
-                        <span>VAT (7.5% Exclusive Rate)</span>
-                        <span className="text-[10px] text-slate-400 font-normal">Statutory</span>
+                        <span>{tx("VAT (7.5% Exclusive Rate)")}</span>
+                        <span className="text-[10px] text-slate-400 font-normal">{tx("Statutory")}</span>
                       </div>
-                      <div className="text-[10px] text-slate-400">
-                        Calculated on net taxable subscription
-                      </div>
+                      <div className="text-[10px] text-slate-400">{tx("Calculated on net taxable subscription")}</div>
                     </div>
                     <div className="font-mono font-bold text-white text-sm">
                       +{currencyConfig.format(vatAmountUSD)}
@@ -1353,43 +1284,37 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                       <div className="flex items-center justify-between font-bold">
                         <span className="text-blue-300 flex items-center gap-1">
                           <Calendar className="w-3.5 h-3.5 text-blue-400" />
-                          <span>Exact Price Per Month:</span>
+                          <span>{tx("Exact Price Per Month:")}</span>
                         </span>
                         <span className="font-mono text-sm text-[#A3E635]">
                           {currencyConfig.format(exactPricePerMonthUSD)}
-                          <span className="text-[10px] font-sans text-slate-300">/mo</span>
+                          <span className="text-[10px] font-sans text-slate-300">{tx("/mo")}</span>
                         </span>
                       </div>
-                      <div className="text-[10px] text-slate-400">
-                        * All-inclusive rate ({billingCycle === 'yearly' ? 'includes 20% annual discount & ' : ''}7.5% statutory VAT)
-                      </div>
+                      <div className="text-[10px] text-slate-400">{tx("* All-inclusive rate (")}{billingCycle === 'yearly' ? tx("includes 20% annual discount & ") : ''}{tx("7.5% statutory VAT)")}</div>
                     </div>
 
                     <div className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-xs space-y-1">
                       <div className="flex items-center justify-between font-bold">
                         <span className="text-emerald-300 flex items-center gap-1">
                           <Calendar className="w-3.5 h-3.5 text-emerald-400" />
-                          <span>Exact Price Per Year:</span>
+                          <span>{tx("Exact Price Per Year:")}</span>
                         </span>
                         <span className="font-mono text-sm text-[#A3E635]">
                           {currencyConfig.format(exactPricePerYearUSD)}
-                          <span className="text-[10px] font-sans text-slate-300">/yr</span>
+                          <span className="text-[10px] font-sans text-slate-300">{tx("/yr")}</span>
                         </span>
                       </div>
-                      <div className="text-[10px] text-slate-400">
-                        * 12-month all-inclusive rate (20% discount &amp; 7.5% VAT included)
-                      </div>
+                      <div className="text-[10px] text-slate-400">{tx("* 12-month all-inclusive rate (20% discount & 7.5% VAT included)")}</div>
                     </div>
                   </div>
 
                   {/* Final Total Line */}
                   <div className="pt-3 border-t-2 border-slate-700 flex items-baseline justify-between">
                     <div>
-                      <div className="text-sm font-extrabold text-white">
-                        Total Amount Due (Qty {multiplier} mo{multiplier > 1 ? 's' : ''}):
+                      <div className="text-sm font-extrabold text-white">{tx("Total Amount Due (Qty")}{' '}{multiplier}{' '}{tx("mo")}{multiplier > 1 ? 's' : ''}):
                       </div>
-                      <div className="text-[10px] text-slate-400">
-                        Includes 7.5% VAT • Invoiced via {currentGateway.name}
+                      <div className="text-[10px] text-slate-400">{tx("Includes 7.5% VAT • Invoiced via")}{' '}{currentGateway.name}
                       </div>
                     </div>
                     <div className="text-right">
@@ -1397,8 +1322,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                         {currencyConfig.format(totalAmountUSD)}
                       </div>
                       <div className="text-[10px] font-mono text-slate-400">
-                        ≈ ${totalAmountUSD.toFixed(2)} USD
-                      </div>
+                        ≈ ${totalAmountUSD.toFixed(2)}{' '}{tx("USD")}</div>
                     </div>
                   </div>
                 </div>
@@ -1411,7 +1335,7 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                     onClick={handleProceedToPayment}
                     className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] shadow-lg shadow-lime-500/20 flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
                   >
-                    <span>Proceed to Pay with {currentGateway.name}</span>
+                    <span>{tx("Proceed to Pay with")}{' '}{currentGateway.name}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
 
@@ -1422,13 +1346,13 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
                     className="w-full py-2.5 px-3 rounded-xl font-semibold text-xs text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors flex items-center justify-center gap-1.5"
                   >
                     <FileText className="w-3.5 h-3.5" />
-                    <span>Generate Pro-Forma Tax Invoice / Quote</span>
+                    <span>{tx("Generate Pro-Forma Tax Invoice / Quote")}</span>
                   </button>
                 </div>
 
                 <div className="pt-2 text-[10px] text-slate-400 text-center flex items-center justify-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Instant Receipt generated immediately upon payment confirmation.</span>
+                  <span>{tx("Instant Receipt generated immediately upon payment confirmation.")}</span>
                 </div>
               </div>
             </div>
@@ -1465,8 +1389,8 @@ export const SubscriptionCheckoutModal: React.FC<SubscriptionCheckoutModalProps>
         onClose={() => setShowCurrencyPicker(false)}
         selectedCurrency={selectedCurrency}
         onSelectCurrency={handleCurrencyChange}
-        title="Select Payment Currency"
-        subtitle="Choose from all 160+ world currencies. Defaults to Nigerian Naira (₦)."
+        title={tx("Select Payment Currency")}
+        subtitle={tx('Choose from all 160+ world currencies. Defaults to Nigerian Naira (₦).')}
       />
     </>
   );

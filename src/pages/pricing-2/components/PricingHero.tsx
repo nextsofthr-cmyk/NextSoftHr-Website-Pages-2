@@ -32,7 +32,7 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
   selectedCurrency = 'NGN',
   onOpenQuickStart,
 }) => {
-  const { t } = useLanguage();
+  const { t, tx } = useLanguage();
   const currencyConfig = CURRENCIES[selectedCurrency] || CURRENCIES['NGN'];
   return (
     <section
@@ -48,7 +48,7 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
         <div className="flex justify-center mb-5">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/80 text-xs font-semibold text-[#0265DC] dark:text-blue-300 shadow-sm text-center">
             <span className="w-2 h-2 rounded-full bg-[#A3E635] ring-2 ring-[#84CC16]/40 animate-pulse shrink-0" />
-            <span>{t.hero.badge}</span>
+            <span>{tx(t.hero.badge)}</span>
           </div>
         </div>
 
@@ -81,7 +81,7 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
             id="pricing-hero-copy"
             className="mt-5 text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto"
           >
-            {t.hero.subtitle}
+            {tx(t.hero.subtitle)}
           </p>
 
           {/* Trust Message */}
@@ -110,7 +110,7 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
                 className="px-5 py-3.5 rounded-xl font-bold text-slate-900 dark:text-white bg-blue-50 dark:bg-blue-950/80 hover:bg-blue-100 dark:hover:bg-blue-900 border border-blue-200 dark:border-blue-800 shadow-sm transition-all duration-200 flex items-center gap-2 text-sm"
               >
                 <Sparkles className="w-4 h-4 text-[#0265DC] dark:text-[#A3E635]" />
-                <span>Quick Start Setup (3-Min)</span>
+                <span>{tx("Quick Start Setup (3-Min)")}</span>
               </button>
             )}
             <button
@@ -211,7 +211,7 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
                     <CalendarCheck className="w-3.5 h-3.5" />
                   </div>
                 </div>
-                <div className="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">5 Pending</div>
+                <div className="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">{tx("5 Pending")}</div>
                 <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">
                   <span>{t.hero.approvalsToday}</span>
                 </div>
@@ -225,7 +225,7 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
                     <Briefcase className="w-3.5 h-3.5" />
                   </div>
                 </div>
-                <div className="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">3 Openings</div>
+                <div className="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">{tx("3 Openings")}</div>
                 <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">
                   <span>{t.hero.activeCandidates}</span>
                 </div>
@@ -239,7 +239,7 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
                     <TrendingUp className="w-3.5 h-3.5" />
                   </div>
                 </div>
-                <div className="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">94% Done</div>
+                <div className="text-xl sm:text-2xl font-bold font-display text-slate-900 dark:text-white">{tx("94% Done")}</div>
                 <div className="flex items-center gap-1 text-[11px] text-[#65A30D] dark:text-[#A3E635] font-medium mt-1">
                   <span>{t.hero.appraisalCycle}</span>
                 </div>
@@ -264,7 +264,7 @@ export const PricingHero: React.FC<PricingHeroProps> = ({
               {/* 8. AI Copilot Status */}
               <div className="p-3.5 sm:p-4 rounded-xl bg-gradient-to-br from-blue-500 to-[#0265DC] text-white shadow-sm flex flex-col justify-between">
                 <div className="flex items-center justify-between mb-1.5 text-blue-100">
-                  <span className="text-xs font-medium">AI Workforce Hub</span>
+                  <span className="text-xs font-medium">{tx("AI Workforce Hub")}</span>
                   <Sparkles className="w-4 h-4 text-[#A3E635]" />
                 </div>
                 <div>

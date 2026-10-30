@@ -19,7 +19,7 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
   onGetStarted,
   pppFactor = 1.0,
 }) => {
-  const { t, language } = useLanguage();
+  const { t, language, tx } = useLanguage();
   const [sliderIndex, setSliderIndex] = useState(2); // default 50 employees
   const employeeCount = EMPLOYEE_STEPS[sliderIndex];
   const currencyConfig = CURRENCIES[selectedCurrency] || CURRENCIES['NGN'];
@@ -111,13 +111,13 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-[#0265DC] dark:text-blue-300 text-xs font-bold mb-3 border border-blue-200/50 dark:border-blue-800/60">
             <Calculator className="w-3.5 h-3.5" />
-            <span>{t.calculator.badge}</span>
+            <span>{tx(t.calculator.badge)}</span>
           </div>
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-[#0B132B] dark:text-white tracking-tight">
-            {t.calculator.title}
+            {tx(t.calculator.title)}
           </h2>
           <p className="mt-3 text-slate-600 dark:text-slate-300 text-sm sm:text-base">
-            {t.calculator.subtitle}
+            {tx(t.calculator.subtitle)}
           </p>
         </div>
 
@@ -197,7 +197,7 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
               <div className="absolute top-0 right-0 w-28 h-28 bg-[#A3E635]/15 rounded-full blur-2xl pointer-events-none" />
 
               <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 pb-3 border-b border-slate-100 dark:border-slate-700">
-                {t.calculator.title}
+                {tx(t.calculator.title)}
               </h3>
 
               <div className="mt-4 space-y-3.5">
@@ -236,10 +236,7 @@ export const PricingCalculator: React.FC<PricingCalculatorProps> = ({
               {/* Disclaimer */}
               <div className="mt-4 flex items-start gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
                 <Info className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
-                <span>
-                  Displayed pricing is an estimate based on selected parameters. Final enterprise or
-                  high-volume pricing may depend on custom integrations and multi-country tax rules.
-                </span>
+                <span>{tx("Displayed pricing is an estimate based on selected parameters. Final enterprise or high-volume pricing may depend on custom integrations and multi-country tax rules.")}</span>
               </div>
             </div>
           </div>

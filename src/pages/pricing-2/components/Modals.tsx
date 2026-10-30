@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { PricingPlan } from '../types';
 
+import { useLanguage } from '../context/LanguageContext';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -40,6 +41,7 @@ export const TrialModal: React.FC<TrialModalProps> = ({
   employeeCount = 50,
   onStartQuickStart,
 }) => {
+  const { tx } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -82,10 +84,9 @@ export const TrialModal: React.FC<TrialModalProps> = ({
             <div className="w-14 h-14 rounded-2xl bg-lime-100 dark:bg-lime-950/60 text-[#65A30D] dark:text-[#A3E635] flex items-center justify-center mx-auto mb-4">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Workspace Ready!</h3>
-            <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm leading-relaxed max-w-sm mx-auto">
-              We have dispatched your instant trial activation link to{' '}
-              <strong className="text-slate-900 dark:text-white">{formData.workEmail || 'your email'}</strong>.
+            <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">{tx("Workspace Ready!")}</h3>
+            <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm leading-relaxed max-w-sm mx-auto">{tx("We have dispatched your instant trial activation link to")}{' '}
+              <strong className="text-slate-900 dark:text-white">{formData.workEmail || tx("your email")}</strong>.
             </p>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-2 justify-center">
@@ -96,42 +97,35 @@ export const TrialModal: React.FC<TrialModalProps> = ({
                 className="px-5 py-2.5 rounded-xl font-bold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] text-sm flex items-center justify-center gap-1.5 shadow-sm"
               >
                 <Sparkles className="w-4 h-4 fill-slate-950" />
-                <span>Configure Company Profile (Quick Start)</span>
+                <span>{tx("Configure Company Profile (Quick Start)")}</span>
               </button>
               <button
                 type="button"
                 onClick={onClose}
                 className="px-4 py-2.5 rounded-xl font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm"
-              >
-                Close
-              </button>
+              >{tx("Close")}</button>
             </div>
           </div>
         ) : (
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-[#0265DC] dark:text-blue-300 uppercase tracking-wider mb-1">
               <Sparkles className="w-3.5 h-3.5 text-[#65A30D] dark:text-[#A3E635]" />
-              <span>Instant Access • No Card Required</span>
+              <span>{tx("Instant Access • No Card Required")}</span>
             </div>
-            <h3 className="font-display text-2xl font-bold text-[#0B132B] dark:text-white">
-              Start Your Free Trial
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-              Selected Plan:{' '}
+            <h3 className="font-display text-2xl font-bold text-[#0B132B] dark:text-white">{tx("Start Your Free Trial")}</h3>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">{tx("Selected Plan:")}{' '}
               <span className="font-bold text-[#0265DC] dark:text-blue-300">{formData.plan}</span>
             </p>
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-3.5">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Full Name
-                </label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{tx("Full Name")}</label>
                 <div className="relative">
                   <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     required
                     type="text"
-                    placeholder="e.g. Elena Rostova"
+                    placeholder={tx("e.g. Elena Rostova")}
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111C38] text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#0265DC]"
@@ -140,15 +134,13 @@ export const TrialModal: React.FC<TrialModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Work Email
-                </label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{tx("Work Email")}</label>
                 <div className="relative">
                   <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     required
                     type="email"
-                    placeholder="elena@company.com"
+                    placeholder={tx("elena@company.com")}
                     value={formData.workEmail}
                     onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
                     className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111C38] text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#0265DC]"
@@ -158,13 +150,11 @@ export const TrialModal: React.FC<TrialModalProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Company Name
-                  </label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{tx("Company Name")}</label>
                   <input
                     required
                     type="text"
-                    placeholder="Acme Corp"
+                    placeholder={tx("Acme Corp")}
                     value={formData.companyName}
                     onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                     className="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111C38] text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#0265DC]"
@@ -172,18 +162,16 @@ export const TrialModal: React.FC<TrialModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Team Size
-                  </label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{tx("Team Size")}</label>
                   <select
                     value={formData.teamSize}
                     onChange={(e) => setFormData({ ...formData, teamSize: e.target.value })}
                     className="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#0265DC] bg-white dark:bg-[#111C38] text-slate-900 dark:text-white"
                   >
-                    <option value="10">10 – 30 staff</option>
-                    <option value="50">30 – 100 staff</option>
-                    <option value="250">100 – 500 staff</option>
-                    <option value="1000">500+ staff</option>
+                    <option value="10">{tx("10 – 30 staff")}</option>
+                    <option value="50">{tx("30 – 100 staff")}</option>
+                    <option value="250">{tx("100 – 500 staff")}</option>
+                    <option value="1000">{tx("500+ staff")}</option>
                   </select>
                 </div>
               </div>
@@ -192,13 +180,13 @@ export const TrialModal: React.FC<TrialModalProps> = ({
                 type="submit"
                 className="w-full mt-4 py-3.5 rounded-xl font-bold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] shadow-md shadow-lime-500/20 text-sm transition-all flex items-center justify-center gap-2"
               >
-                <span>Activate Free Trial</span>
+                <span>{tx("Activate Free Trial")}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
               <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400 dark:text-slate-500 mt-2">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                <span>Your company data is strictly private &amp; encrypted</span>
+                <span>{tx("Your company data is strictly private & encrypted")}</span>
               </div>
             </form>
           </div>
@@ -209,6 +197,7 @@ export const TrialModal: React.FC<TrialModalProps> = ({
 };
 
 export const DemoModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  const { tx } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [focusArea, setFocusArea] = useState('All-in-One Platform');
 
@@ -229,31 +218,22 @@ export const DemoModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             <div className="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-950/60 text-[#0265DC] dark:text-blue-300 flex items-center justify-center mx-auto mb-4">
               <Calendar className="w-8 h-8" />
             </div>
-            <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Demo Scheduled!</h3>
-            <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm leading-relaxed max-w-sm mx-auto">
-              A NextSofthr workforce solutions architect will connect with you to demonstrate{' '}
-              <strong className="text-slate-900 dark:text-white">{focusArea}</strong> tailored to your team.
-            </p>
+            <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">{tx("Demo Scheduled!")}</h3>
+            <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm leading-relaxed max-w-sm mx-auto">{tx("A NextSofthr workforce solutions architect will connect with you to demonstrate")}{' '}
+              <strong className="text-slate-900 dark:text-white">{focusArea}</strong>{' '}{tx("tailored to your team.")}</p>
             <button
               onClick={onClose}
               className="mt-6 px-6 py-2.5 rounded-xl font-bold text-white bg-[#0265DC] hover:bg-[#004DB3] text-sm"
-            >
-              Done
-            </button>
+            >{tx("Done")}</button>
           </div>
         ) : (
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-[#0265DC] dark:text-blue-300 uppercase tracking-wider mb-1">
               <Calendar className="w-3.5 h-3.5" />
-              <span>30-Minute Personalized Walkthrough</span>
+              <span>{tx("30-Minute Personalized Walkthrough")}</span>
             </div>
-            <h3 className="font-display text-2xl font-bold text-[#0B132B] dark:text-white">
-              Book a Live Demo
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-              Explore how NextSofthr streamlines payroll, shifts, and HR operations for your specific
-              industry.
-            </p>
+            <h3 className="font-display text-2xl font-bold text-[#0B132B] dark:text-white">{tx("Book a Live Demo")}</h3>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">{tx("Explore how NextSofthr streamlines payroll, shifts, and HR operations for your specific industry.")}</p>
 
             <form
               onSubmit={(e) => {
@@ -263,38 +243,32 @@ export const DemoModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               className="mt-6 space-y-3.5"
             >
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Work Email
-                </label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{tx("Work Email")}</label>
                 <input
                   required
                   type="email"
-                  placeholder="name@company.com"
+                  placeholder={tx("name@company.com")}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111C38] text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#0265DC]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Primary Interest / Focus Area
-                </label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{tx("Primary Interest / Focus Area")}</label>
                 <select
                   value={focusArea}
                   onChange={(e) => setFocusArea(e.target.value)}
                   className="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#0265DC] bg-white dark:bg-[#111C38] text-slate-900 dark:text-white"
                 >
-                  <option value="All-in-One Platform">All-in-One Platform (HR + Payroll + Attendance)</option>
-                  <option value="Advanced Payroll & Multi-Tax">Advanced Payroll &amp; Multi-Tax Rules</option>
-                  <option value="Attendance & Shift Scheduling">Attendance &amp; Shift Scheduling</option>
-                  <option value="AI HR & Payroll Copilot">AI HR &amp; Payroll Copilot</option>
-                  <option value="Multi-Company & Global Teams">Multi-Company &amp; Global Teams</option>
+                  <option value="All-in-One Platform">{tx("All-in-One Platform (HR + Payroll + Attendance)")}</option>
+                  <option value="Advanced Payroll & Multi-Tax">{tx("Advanced Payroll & Multi-Tax Rules")}</option>
+                  <option value="Attendance & Shift Scheduling">{tx("Attendance & Shift Scheduling")}</option>
+                  <option value="AI HR & Payroll Copilot">{tx("AI HR & Payroll Copilot")}</option>
+                  <option value="Multi-Company & Global Teams">{tx("Multi-Company & Global Teams")}</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Phone / WhatsApp (Optional)
-                </label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{tx("Phone / WhatsApp (Optional)")}</label>
                 <input
                   type="tel"
                   placeholder="+234..."
@@ -306,7 +280,7 @@ export const DemoModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 type="submit"
                 className="w-full mt-4 py-3.5 rounded-xl font-bold text-white bg-[#0265DC] hover:bg-[#004DB3] shadow-md shadow-blue-500/20 text-sm transition-all flex items-center justify-center gap-2"
               >
-                <span>Schedule Walkthrough</span>
+                <span>{tx("Schedule Walkthrough")}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </form>
@@ -318,6 +292,7 @@ export const DemoModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 };
 
 export const ContactSalesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  const { tx } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
 
   if (!isOpen) return null;
@@ -337,29 +312,21 @@ export const ContactSalesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => 
             <div className="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-950/60 text-[#0265DC] dark:text-blue-300 flex items-center justify-center mx-auto mb-4">
               <Building className="w-8 h-8" />
             </div>
-            <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Inquiry Received</h3>
-            <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm leading-relaxed max-w-sm mx-auto">
-              Our Enterprise Solutions Director will review your multi-entity requirements and contact
-              you directly.
-            </p>
+            <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">{tx("Inquiry Received")}</h3>
+            <p className="mt-2 text-slate-600 dark:text-slate-300 text-sm leading-relaxed max-w-sm mx-auto">{tx("Our Enterprise Solutions Director will review your multi-entity requirements and contact you directly.")}</p>
             <button
               onClick={onClose}
               className="mt-6 px-6 py-2.5 rounded-xl font-bold text-white bg-[#0265DC] hover:bg-[#004DB3] text-sm"
-            >
-              Close
-            </button>
+            >{tx("Close")}</button>
           </div>
         ) : (
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-[#0265DC] dark:text-blue-300 uppercase tracking-wider mb-1">
               <Building className="w-3.5 h-3.5" />
-              <span>Enterprise &amp; Custom Deployments</span>
+              <span>{tx("Enterprise & Custom Deployments")}</span>
             </div>
-            <h3 className="font-display text-2xl font-bold text-[#0B132B] dark:text-white">
-              Contact Enterprise Sales
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-              Direct line: <a href="tel:+2349158482622" className="text-[#0265DC] dark:text-blue-300 font-bold">+2349158482622</a>
+            <h3 className="font-display text-2xl font-bold text-[#0B132B] dark:text-white">{tx("Contact Enterprise Sales")}</h3>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">{tx("Direct line:")}{' '}<a href="tel:+2349158482622" className="text-[#0265DC] dark:text-blue-300 font-bold">+2349158482622</a>
             </p>
 
             <form
@@ -370,36 +337,30 @@ export const ContactSalesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => 
               className="mt-6 space-y-3.5"
             >
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Work Email
-                </label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{tx("Work Email")}</label>
                 <input
                   required
                   type="email"
-                  placeholder="director@enterprise.com"
+                  placeholder={tx("director@enterprise.com")}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111C38] text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#0265DC]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Approximate Total Workforce Count
-                </label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{tx("Approximate Total Workforce Count")}</label>
                 <input
                   required
                   type="text"
-                  placeholder="e.g. 1,500 employees across 4 subsidiaries"
+                  placeholder={tx("e.g. 1,500 employees across 4 subsidiaries")}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111C38] text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#0265DC]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                  Special Requirements (SSO, Multi-Country, Custom SLA)
-                </label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{tx("Special Requirements (SSO, Multi-Country, Custom SLA)")}</label>
                 <textarea
                   rows={3}
-                  placeholder="Describe any custom integrations, data migration needs, or compliance policies..."
+                  placeholder={tx("Describe any custom integrations, data migration needs, or compliance policies...")}
                   className="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#111C38] text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-[#0265DC]"
                 />
               </div>
@@ -407,9 +368,7 @@ export const ContactSalesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => 
               <button
                 type="submit"
                 className="w-full mt-4 py-3.5 rounded-xl font-bold text-white bg-slate-900 dark:bg-[#0265DC] hover:bg-slate-800 dark:hover:bg-[#004DB3] text-sm transition-all"
-              >
-                Submit Enterprise Request
-              </button>
+              >{tx("Submit Enterprise Request")}</button>
             </form>
           </div>
         )}
@@ -419,6 +378,7 @@ export const ContactSalesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => 
 };
 
 export const SecurityModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  const { tx } = useLanguage();
   if (!isOpen) return null;
 
   return (
@@ -433,45 +393,29 @@ export const SecurityModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
         <div className="flex items-center gap-2 text-xs font-bold text-[#0265DC] dark:text-blue-300 uppercase tracking-wider mb-1">
           <ShieldCheck className="w-4 h-4 text-[#65A30D] dark:text-[#A3E635]" />
-          <span>Security Architecture &amp; Governance</span>
+          <span>{tx("Security Architecture & Governance")}</span>
         </div>
-        <h3 className="font-display text-2xl font-bold text-[#0B132B] dark:text-white">
-          Enterprise Protection Standards
-        </h3>
+        <h3 className="font-display text-2xl font-bold text-[#0B132B] dark:text-white">{tx("Enterprise Protection Standards")}</h3>
 
         <div className="mt-6 space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#111C38] border border-slate-200 dark:border-slate-800">
-            <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">Data Encryption at Rest and Transit</h4>
-            <p>
-              All workforce databases, employee identity numbers, and bank account numbers are
-              encrypted at rest using military-grade AES-256 encryption. Network communications are
-              enforced over TLS 1.3 with automated certificate rotation.
-            </p>
+            <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">{tx("Data Encryption at Rest and Transit")}</h4>
+            <p>{tx("All workforce databases, employee identity numbers, and bank account numbers are encrypted at rest using military-grade AES-256 encryption. Network communications are enforced over TLS 1.3 with automated certificate rotation.")}</p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#111C38] border border-slate-200 dark:border-slate-800">
-            <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">Role-Based Access Control (RBAC)</h4>
-            <p>
-              Strict internal isolation ensures that department supervisors only view team member
-              timesheets without salary visibility. Full payroll calculations and disbursements
-              require designated finance authorizations.
-            </p>
+            <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">{tx("Role-Based Access Control (RBAC)")}</h4>
+            <p>{tx("Strict internal isolation ensures that department supervisors only view team member timesheets without salary visibility. Full payroll calculations and disbursements require designated finance authorizations.")}</p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#111C38] border border-slate-200 dark:border-slate-800">
-            <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">Immutable Audit Logging</h4>
-            <p>
-              Every salary modification, attendance adjustment, leave approval, and user authentication
-              event generates an unalterable audit log timestamped with IP address and user credentials.
-            </p>
+            <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">{tx("Immutable Audit Logging")}</h4>
+            <p>{tx("Every salary modification, attendance adjustment, leave approval, and user authentication event generates an unalterable audit log timestamped with IP address and user credentials.")}</p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#111C38] border border-slate-200 dark:border-slate-800">
-            <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">Disaster Recovery &amp; Geo-Redundancy</h4>
-            <p>
-              Automated snapshot backups are scheduled continuously across geo-distributed cloud
-              clusters, maintaining a target Recovery Point Objective (RPO) under 15 minutes.
-            </p>
+            <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">{tx("Disaster Recovery & Geo-Redundancy")}</h4>
+            <p>{tx("Automated snapshot backups are scheduled continuously across geo-distributed cloud clusters, maintaining a target Recovery Point Objective (RPO) under 15 minutes.")}</p>
           </div>
         </div>
 
@@ -479,9 +423,7 @@ export const SecurityModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           <button
             onClick={onClose}
             className="px-5 py-2 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-          >
-            Close
-          </button>
+          >{tx("Close")}</button>
         </div>
       </div>
     </div>

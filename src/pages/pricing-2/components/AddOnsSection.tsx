@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Plus, Check, Sparkles, Layers, ArrowRight } from 'lucide-react';
+import { Plus, Check, Layers, ArrowRight, ChevronDown } from 'lucide-react';
 import { ADD_ONS, CURRENCIES } from '../data/pricingData';
 import { BillingCycle, CurrencyCode, AddOnItem } from '../types';
 import { useLanguage } from '../context/LanguageContext';
+
+const INITIAL_VISIBLE_ADDONS = 6;
 
 interface AddOnsSectionProps {
   billingCycle: BillingCycle;
@@ -21,7 +23,11 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
 }) => {
   const { tx } = useLanguage();
   const [localSelectedIds, setLocalSelectedIds] = useState<string[]>([]);
+  const [showAll, setShowAll] = useState(false);
+
   const selectedIds = propSelectedIds !== undefined ? propSelectedIds : localSelectedIds;
+  const visibleAddOns = showAll ? ADD_ONS : ADD_ONS.slice(0, INITIAL_VISIBLE_ADDONS);
+  const hasMore = ADD_ONS.length > INITIAL_VISIBLE_ADDONS;
   const currencyConfig = CURRENCIES[selectedCurrency] || CURRENCIES['NGN'];
 
   const toggleAddOn = (id: string) => {
@@ -45,8 +51,14 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
   // Calculate total of selected add-ons
   const selectedItems = ADD_ONS.filter((a) => selectedIds.includes(a.id));
   const totalUSD = selectedItems.reduce((acc, cur) => {
-    return acc + (billingCycle === 'yearly' ? cur.yearlyPrice : cur.monthlyPrice);
+    const isOneTime = cur.isOneTime || cur.unitText === 'One Time';
+    return acc + (isOneTime ? cur.monthlyPrice : billingCycle === 'yearly' ? cur.yearlyPrice : cur.monthlyPrice);
   }, 0);
+  const totalNGN = selectedItems.reduce((acc, cur) => {
+    const isOneTime = cur.isOneTime || cur.unitText === 'One Time';
+    return acc + (cur.fixedPriceNGN ?? (isOneTime ? cur.monthlyPrice * 1550 : billingCycle === 'yearly' ? cur.yearlyPrice * 1550 : cur.monthlyPrice * 1550));
+  }, 0);
+  const formattedTotal = selectedCurrency === 'NGN' ? `₦${totalNGN.toLocaleString()}` : currencyConfig.format(totalUSD);
 
   return (
     <section id="addons" className="py-20 bg-white dark:bg-[#0B132B] border-t border-slate-100 dark:border-slate-800 transition-colors duration-200">
@@ -79,9 +91,8 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
                 <div className="text-xs text-slate-300">
                   {tx('Total extra investment:')}{' '}
                   <span className="text-[#A3E635] font-bold font-mono">
-                    {currencyConfig.format(totalUSD)}
+                    {formattedTotal}
                   </span>
-                  {tx('/mo')} {billingCycle === 'yearly' ? tx('(annual billing)') : ''}
                 </div>
               </div>
             </div>
@@ -89,14 +100,14 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
             <div className="flex items-center gap-2">
               <button
                 onClick={handleClearAll}
-                className="px-3 py-1.5 text-xs text-slate-400 hover:text-white"
+                className="px-3 py-1.5 text-xs text-slate-400 hover:text-white cursor-pointer"
               >
                 {tx('Clear all')}
               </button>
               <button
                 id="addons-checkout-btn"
                 onClick={() => onOpenBundleCheckout(selectedItems, totalUSD)}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] flex items-center gap-1.5 shadow-sm"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] flex items-center gap-1.5 shadow-sm cursor-pointer"
               >
                 <span>{tx('Subscribe & Checkout with Add-ons')}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -107,16 +118,24 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
 
         {/* Add-Ons Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {ADD_ONS.map((addon) => {
+          {visibleAddOns.map((addon) => {
             const isSelected = selectedIds.includes(addon.id);
-            const priceUSD = billingCycle === 'yearly' ? addon.yearlyPrice : addon.monthlyPrice;
-            const displayPrice = currencyConfig.format(priceUSD);
+            const isOneTime = addon.isOneTime || addon.unitText === 'One Time';
+            const priceUSD = isOneTime
+              ? addon.monthlyPrice
+              : billingCycle === 'yearly'
+              ? addon.yearlyPrice
+              : addon.monthlyPrice;
+            const displayPrice =
+              selectedCurrency === 'NGN' && addon.fixedPriceNGN
+                ? `₦${addon.fixedPriceNGN.toLocaleString()}`
+                : currencyConfig.format(priceUSD);
 
             return (
               <div
                 key={addon.id}
                 id={`addon-card-${addon.id}`}
-                className={`p-6 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
+                className={`p-6 rounded-2xl border transition-all duration-200 flex flex-col justify-between h-full ${
                   isSelected
                     ? 'bg-blue-50/40 dark:bg-blue-950/30 border-[#0265DC] dark:border-blue-500 shadow-md ring-2 ring-blue-500/20'
                     : 'bg-[#F8FAFC] dark:bg-[#111C38] border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-[#162447] hover:shadow-sm'
@@ -130,7 +149,7 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
                     <button
                       id={`toggle-addon-${addon.id}`}
                       onClick={() => toggleAddOn(addon.id)}
-                      className={`p-1.5 rounded-lg text-xs font-bold transition-all shrink-0 ${
+                      className={`p-1.5 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer ${
                         isSelected
                           ? 'bg-[#0265DC] text-white'
                           : 'bg-white dark:bg-[#0B132B] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-[#A3E635] hover:text-slate-950'
@@ -148,13 +167,23 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
 
                 <div className="mt-6 pt-4 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between">
                   <div>
-                    <span className="font-display text-lg font-bold text-slate-900 dark:text-white">{displayPrice}</span>
-                    <span className="text-[11px] text-slate-500 dark:text-slate-400 ml-1">/ {tx(addon.unitText)}</span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="font-display text-lg font-bold text-slate-900 dark:text-white">{displayPrice}</span>
+                      {isOneTime ? (
+                        <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/70 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800/60">
+                          {tx('One Time')}
+                        </span>
+                      ) : (
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                          / {tx(addon.unitText)}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   <button
                     onClick={() => toggleAddOn(addon.id)}
-                    className={`text-xs font-semibold px-2.5 py-1 rounded-lg transition-colors ${
+                    className={`text-xs font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
                       isSelected
                         ? 'text-[#0265DC] dark:text-blue-300 font-bold bg-blue-100/70 dark:bg-blue-950/80'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -167,6 +196,26 @@ export const AddOnsSection: React.FC<AddOnsSectionProps> = ({
             );
           })}
         </div>
+
+        {/* Load More / Show Less Button */}
+        {hasMore && (
+          <div className="mt-10 flex justify-center">
+            <button
+              id="addons-load-more-btn"
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+              aria-expanded={showAll}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#0265DC] hover:bg-[#0153B5] shadow-md shadow-blue-600/20 transition-all hover:-translate-y-0.5 cursor-pointer"
+            >
+              <span>
+                {showAll
+                  ? tx('Show Fewer Modules')
+                  : tx('Load More Modules ({count} More)', { count: ADD_ONS.length - INITIAL_VISIBLE_ADDONS })}
+              </span>
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showAll ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

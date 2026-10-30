@@ -45,7 +45,7 @@ const STORAGE_KEY_ADDONS = 'nextsofthr_cart_addons';
 const STORAGE_KEY_CYCLE = 'nextsofthr_billing_cycle';
 
 export default function App() {
-  const { t } = useLanguage();
+  const { t, tx } = useLanguage();
   const { selectedCurrency, setSelectedCurrency } = useCurrency();
 
   // Billing Cycle State with sessionStorage persistence
@@ -62,6 +62,9 @@ export default function App() {
     }
     return 'yearly';
   });
+
+  // Headcount state for interactive pricing card calculations
+  const [headcount, setHeadcount] = useState<number>(25);
 
   // Theme State: 'light' | 'dark'
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -163,7 +166,7 @@ export default function App() {
     }
   }, [billingCycle]);
 
-  // Notice banner when a shared cart is restored from URL params
+  // Notice banner when a shared cart is restored from URL params (holds the restored plan name)
   const [sharedCartNotice, setSharedCartNotice] = useState<string | null>(null);
 
   // Restore cart configuration from Shared URL parameters if present
@@ -215,7 +218,7 @@ export default function App() {
 
       if (restoredSomething) {
         const planObj = PRICING_PLANS.find((p) => p.id === urlPlan) || PRICING_PLANS[1];
-        setSharedCartNotice(`Loaded shared team configuration: ${planObj.name} plan with customized subscription settings.`);
+        setSharedCartNotice(planObj.name);
         const timer = setTimeout(() => {
           setSharedCartNotice(null);
         }, 6000);
@@ -410,12 +413,14 @@ export default function App() {
               onSelectRegion={handleSelectPPPRegion}
             />
 
-            {/* Billing Toggle (Monthly / Yearly) */}
+            {/* Billing Toggle (Monthly / Yearly) & Headcount Toolbar */}
             <BillingToggle
               billingCycle={billingCycle}
               onChangeBillingCycle={setBillingCycle}
               selectedCurrency={selectedCurrency}
               onChangeCurrency={setSelectedCurrency}
+              headcount={headcount}
+              onChangeHeadcount={setHeadcount}
             />
 
             {/* 4 Pricing Cards Grid */}
@@ -426,6 +431,8 @@ export default function App() {
                   plan={plan}
                   billingCycle={billingCycle}
                   selectedCurrency={selectedCurrency}
+                  headcount={headcount}
+                  onChangeHeadcount={setHeadcount}
                   onSelectPlan={handleSelectPlan}
                   onSubscribePlan={(p) => {
                     if (p.id === 'enterprise') {
@@ -459,33 +466,7 @@ export default function App() {
           }}
         />
 
-        {/* 6. AI-Powered HR & Payroll Assistant Section */}
-        <AISection />
-
-        {/* 7. What's Included in Every Plan */}
-        <IncludedEssentials />
-
-        {/* 8. Business Scale Section */}
-        <BusinessScale
-          onSelectPlan={(planName) => {
-            if (planName === 'Enterprise') handleOpenSales();
-            else handleOpenTrial(planName);
-          }}
-        />
-
-        {/* 9. Global Business Support */}
-        <GlobalSupport />
-
-        {/* 10. Security & Trust Section */}
-        <SecuritySection onLearnMoreSecurity={() => setSecurityModalOpen(true)} />
-
-        {/* 11. Customer Success & Social Proof */}
-        <Testimonials />
-
-        {/* 12. Industry Solutions */}
-        <IndustrySolutions onExploreIndustry={handleExploreIndustry} />
-
-        {/* 13. Add-ons Section */}
+        {/* 6. Extend Your NextSofthr Platform (Add-ons & Modules) */}
         <AddOnsSection
           billingCycle={billingCycle}
           selectedCurrency={selectedCurrency}
@@ -493,6 +474,32 @@ export default function App() {
           onToggleAddOn={handleToggleAddOn}
           onOpenBundleCheckout={handleAddOnsCheckout}
         />
+
+        {/* 7. AI-Powered HR & Payroll Assistant Section */}
+        <AISection />
+
+        {/* 8. What's Included in Every Plan */}
+        <IncludedEssentials />
+
+        {/* 9. Business Scale Section */}
+        <BusinessScale
+          onSelectPlan={(planName) => {
+            if (planName === 'Enterprise') handleOpenSales();
+            else handleOpenTrial(planName);
+          }}
+        />
+
+        {/* 10. Global Business Support */}
+        <GlobalSupport />
+
+        {/* 11. Security & Trust Section */}
+        <SecuritySection onLearnMoreSecurity={() => setSecurityModalOpen(true)} />
+
+        {/* 12. Customer Success & Social Proof */}
+        <Testimonials />
+
+        {/* 13. Industry Solutions */}
+        <IndustrySolutions onExploreIndustry={handleExploreIndustry} />
 
         {/* 14. Free Trial Conversion Section */}
         <FreeTrialSection
@@ -513,117 +520,121 @@ export default function App() {
       {/* 17. Comprehensive Footer */}
       <Footer />
 
-      {/* Modals */}
-      <TrialModal
-        isOpen={trialModalOpen}
-        onClose={() => setTrialModalOpen(false)}
-        initialPlan={selectedPlanForTrial}
-        employeeCount={trialEmployeeCount}
-        onStartQuickStart={handleStartQuickStart}
-      />
-
-      {/* Quick Start Wizard Modal */}
-      <QuickStartWizardModal
-        isOpen={quickStartModalOpen}
-        onClose={() => setQuickStartModalOpen(false)}
-        initialData={quickStartData}
-        onComplete={(data) => {
-          // Log or trigger additional actions
-        }}
-      />
-
-      <DemoModal
-        isOpen={demoModalOpen}
-        onClose={() => setDemoModalOpen(false)}
-      />
-
-      <ContactSalesModal
-        isOpen={salesModalOpen}
-        onClose={() => setSalesModalOpen(false)}
-      />
-
-      <SecurityModal
-        isOpen={securityModalOpen}
-        onClose={() => setSecurityModalOpen(false)}
-      />
-
-      {/* Subscription Checkout Modal with 20 Regional & Global Gateways, VAT, Promo Codes & Receipt */}
-      <SubscriptionCheckoutModal
-        isOpen={checkoutModalOpen}
-        onClose={() => setCheckoutModalOpen(false)}
-        initialPlanId={selectedPlanForCheckout}
-        initialBillingCycle={billingCycle}
-        initialSelectedAddOns={ADD_ONS.filter((a) => selectedAddOnIds.includes(a.id))}
-        onUpdatePlan={setSelectedPlanForCheckout}
-        onUpdateAddOns={setSelectedAddOnIds}
-        onUpdateBillingCycle={setBillingCycle}
-        onClearAddOns={handleClearCart}
-        pppFactor={isPPPActive ? activePPPRegion.factor : 1.0}
-        pppRegionName={isPPPActive ? activePPPRegion.name : undefined}
-      />
-
-      {/* Floating Cart Widget (Appears whenever add-on modules are selected) */}
-      {selectedAddOnIds.length > 0 && (
-        <FloatingCartWidget
-          selectedPlanId={selectedPlanForCheckout}
-          selectedAddOns={ADD_ONS.filter((a) => selectedAddOnIds.includes(a.id))}
-          billingCycle={billingCycle}
-          onOpenCheckout={() => handleOpenCheckout()}
-          onClearCart={handleClearCart}
-          onRemoveAddOn={handleToggleAddOn}
-          onChangeBillingCycle={setBillingCycle}
-          onSelectAllAddOns={handleSelectAllAddOns}
-          pppFactor={isPPPActive ? activePPPRegion.factor : 1.0}
-          pppRegionId={isPPPActive ? activePPPRegion.id : 'global'}
+      {/* Overlays are translated by React; keep Google Translate's DOM rewriting out so prices and
+          language switches re-render correctly. */}
+      <div className="notranslate" translate="no">
+        {/* Modals */}
+        <TrialModal
+          isOpen={trialModalOpen}
+          onClose={() => setTrialModalOpen(false)}
+          initialPlan={selectedPlanForTrial}
+          employeeCount={trialEmployeeCount}
+          onStartQuickStart={handleStartQuickStart}
         />
-      )}
 
-      {/* Shared Cart URL Notification Toast */}
-      {sharedCartNotice && (
-        <div
-          id="shared-cart-loaded-banner"
-          className="fixed top-20 right-4 z-50 p-3.5 rounded-2xl bg-slate-900 text-white border-2 border-lime-400 shadow-2xl flex items-center gap-3 animate-in slide-in-from-top-4 duration-300 max-w-md text-xs font-medium"
-        >
-          <div className="w-8 h-8 rounded-xl bg-[#A3E635] text-slate-950 flex items-center justify-center font-bold shrink-0 shadow-xs">
-            <Share2 className="w-4 h-4" />
-          </div>
-          <div className="flex-1">
-            <div className="font-bold text-white flex items-center gap-1.5">
-              <span>Shared Cart Restored</span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-lime-400 text-slate-950 font-extrabold uppercase">
-                Synchronized
-              </span>
-            </div>
-            <div className="text-slate-300 text-[11px] mt-0.5">{sharedCartNotice}</div>
-          </div>
-          <button
-            type="button"
-            onClick={() => setSharedCartNotice(null)}
-            className="p-1 rounded-lg text-slate-400 hover:text-white transition-colors cursor-pointer"
-            aria-label="Dismiss Notification"
+        {/* Quick Start Wizard Modal */}
+        <QuickStartWizardModal
+          isOpen={quickStartModalOpen}
+          onClose={() => setQuickStartModalOpen(false)}
+          initialData={quickStartData}
+          onComplete={(data) => {
+            // Log or trigger additional actions
+          }}
+        />
+
+        <DemoModal
+          isOpen={demoModalOpen}
+          onClose={() => setDemoModalOpen(false)}
+        />
+
+        <ContactSalesModal
+          isOpen={salesModalOpen}
+          onClose={() => setSalesModalOpen(false)}
+        />
+
+        <SecurityModal
+          isOpen={securityModalOpen}
+          onClose={() => setSecurityModalOpen(false)}
+        />
+
+        {/* Subscription Checkout Modal with 20 Regional & Global Gateways, VAT, Promo Codes & Receipt */}
+        <SubscriptionCheckoutModal
+          isOpen={checkoutModalOpen}
+          onClose={() => setCheckoutModalOpen(false)}
+          initialPlanId={selectedPlanForCheckout}
+          initialBillingCycle={billingCycle}
+          initialSelectedAddOns={ADD_ONS.filter((a) => selectedAddOnIds.includes(a.id))}
+          onUpdatePlan={setSelectedPlanForCheckout}
+          onUpdateAddOns={setSelectedAddOnIds}
+          onUpdateBillingCycle={setBillingCycle}
+          onClearAddOns={handleClearCart}
+          pppFactor={isPPPActive ? activePPPRegion.factor : 1.0}
+          pppRegionName={isPPPActive ? activePPPRegion.name : undefined}
+        />
+
+        {/* Floating Cart Widget (Appears whenever add-on modules are selected) */}
+        {selectedAddOnIds.length > 0 && (
+          <FloatingCartWidget
+            selectedPlanId={selectedPlanForCheckout}
+            selectedAddOns={ADD_ONS.filter((a) => selectedAddOnIds.includes(a.id))}
+            billingCycle={billingCycle}
+            onOpenCheckout={() => handleOpenCheckout()}
+            onClearCart={handleClearCart}
+            onRemoveAddOn={handleToggleAddOn}
+            onChangeBillingCycle={setBillingCycle}
+            onSelectAllAddOns={handleSelectAllAddOns}
+            pppFactor={isPPPActive ? activePPPRegion.factor : 1.0}
+            pppRegionId={isPPPActive ? activePPPRegion.id : 'global'}
+          />
+        )}
+
+        {/* Shared Cart URL Notification Toast */}
+        {sharedCartNotice && (
+          <div
+            id="shared-cart-loaded-banner"
+            className="fixed top-20 right-4 z-50 p-3.5 rounded-2xl bg-slate-900 text-white border-2 border-lime-400 shadow-2xl flex items-center gap-3 animate-in slide-in-from-top-4 duration-300 max-w-md text-xs font-medium"
           >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-      )}
+            <div className="w-8 h-8 rounded-xl bg-[#A3E635] text-slate-950 flex items-center justify-center font-bold shrink-0 shadow-xs">
+              <Share2 className="w-4 h-4" />
+            </div>
+            <div className="flex-1">
+              <div className="font-bold text-white flex items-center gap-1.5">
+                <span>{tx('Shared Cart Restored')}</span>
+                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-lime-400 text-slate-950 font-extrabold uppercase">
+                  {tx('Synchronized')}
+                </span>
+              </div>
+              <div className="text-slate-300 text-[11px] mt-0.5">{tx('Loaded shared team configuration: {plan} plan with customized subscription settings.', { plan: tx(sharedCartNotice) })}</div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSharedCartNotice(null)}
+              className="p-1 rounded-lg text-slate-400 hover:text-white transition-colors cursor-pointer"
+              aria-label={tx('Dismiss Notification')}
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
 
-      {/* Mobile Sticky CTA Bar */}
-      <MobileStickyCTA
-        onOpenTrial={() => handleOpenTrial()}
-        onOpenDemo={handleOpenDemo}
-      />
+        {/* Mobile Sticky CTA Bar */}
+        <MobileStickyCTA
+          onOpenTrial={() => handleOpenTrial()}
+          onOpenDemo={handleOpenDemo}
+        />
 
-      {/* Floating Live Chat Action Widget to Contact Support Agents */}
-      <LiveChatWidget
-        selectedCurrency={selectedCurrency}
-        onOpenTrial={() => handleOpenTrial()}
-        onOpenDemo={handleOpenDemo}
-      />
+        {/* Floating Live Chat Action Widget to Contact Support Agents */}
+        <LiveChatWidget
+          selectedCurrency={selectedCurrency}
+          onOpenTrial={() => handleOpenTrial()}
+          onOpenDemo={handleOpenDemo}
+        />
 
-      {/* Subtle Limited Time Trial Bonus Banner triggering at page bottom */}
-      <LimitedTrialBonusBanner
-        onClaimBonus={() => handleOpenTrial('Professional (With Limited Trial Bonus)')}
-      />
+        {/* Subtle Limited Time Trial Bonus Banner triggering at page bottom */}
+        <LimitedTrialBonusBanner
+          onClaimBonus={() => handleOpenTrial('Professional (With Limited Trial Bonus)')}
+        />
+      </div>
     </div>
   );
 }

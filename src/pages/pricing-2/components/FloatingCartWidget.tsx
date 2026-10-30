@@ -30,6 +30,7 @@ import { AddOnItem, BillingCycle, CurrencyCode } from '../types';
 import { PRICING_PLANS, ADD_ONS } from '../data/pricingData';
 import { useCurrency } from '../context/CurrencyContext';
 
+import { useLanguage } from '../context/LanguageContext';
 interface FloatingCartWidgetProps {
   selectedPlanId: string;
   selectedAddOns: AddOnItem[];
@@ -57,6 +58,7 @@ export const FloatingCartWidget: React.FC<FloatingCartWidgetProps> = ({
   pppFactor = 1.0,
   pppRegionId,
 }) => {
+  const { tx } = useLanguage();
   const { selectedCurrency, currencyConfig } = useCurrency();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [clearConfirming, setClearConfirming] = useState<boolean>(false);
@@ -219,11 +221,11 @@ ${shareUrl}
 
     if (type === 'link') {
       setCopiedLink(true);
-      setShareToast('Unique shareable cart link copied to clipboard!');
+      setShareToast(tx("Unique shareable cart link copied to clipboard!"));
       setTimeout(() => setCopiedLink(false), 2500);
     } else {
       setCopiedSummary(true);
-      setShareToast('Proposal summary copied! Ready to paste into Slack or Email.');
+      setShareToast(tx("Proposal summary copied! Ready to paste into Slack or Email."));
       setTimeout(() => setCopiedSummary(false), 2500);
     }
 
@@ -249,7 +251,7 @@ ${shareUrl}
   return (
     <aside
       id="floating-cart-bar"
-      aria-label="Subscription Shopping Cart"
+      aria-label={tx("Subscription Shopping Cart")}
       className="fixed bottom-20 sm:bottom-6 right-3 sm:right-6 z-40 max-w-sm sm:max-w-md w-full animate-in slide-in-from-bottom-4 duration-300 pointer-events-auto font-sans"
     >
       {/* Expanded Cart Details Drawer Modal */}
@@ -266,13 +268,12 @@ ${shareUrl}
               </div>
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-                  <span>Subscription Cart</span>
+                  <span>{tx("Subscription Cart")}</span>
                   <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#A3E635] text-slate-950 font-extrabold">
-                    {selectedAddOns.length + 1} item{selectedAddOns.length > 0 ? 's' : ''}
+                    {selectedAddOns.length + 1}{' '}{tx("item")}{selectedAddOns.length > 0 ? 's' : ''}
                   </span>
                 </div>
-                <div className="text-[11px] text-slate-400">
-                  Multiplier: Qty {multiplier} ({billingCycle === 'yearly' ? '12 Months' : '1 Month'})
+                <div className="text-[11px] text-slate-400">{tx("Multiplier: Qty")}{' '}{multiplier} ({billingCycle === 'yearly' ? tx("12 Months") : tx("1 Month")})
                 </div>
               </div>
             </div>
@@ -284,17 +285,17 @@ ${shareUrl}
                 id="cart-drawer-header-share-btn"
                 onClick={() => setIsShareModalOpen(true)}
                 className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors border border-slate-700/80 cursor-pointer shadow-xs"
-                title="Share subscription configuration with team"
+                title={tx("Share subscription configuration with team")}
               >
                 <Share2 className="w-3.5 h-3.5 text-[#A3E635]" />
-                <span className="hidden xs:inline">Share</span>
+                <span className="hidden xs:inline">{tx("Share")}</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setIsExpanded(false)}
                 className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
-                title="Minimize Cart"
+                title={tx("Minimize Cart")}
               >
                 <ChevronDown className="w-4 h-4" />
               </button>
@@ -307,10 +308,9 @@ ${shareUrl}
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5 text-[#0265DC] dark:text-blue-400" />
-                  <span>Duration &amp; Quantity Multiplier</span>
+                  <span>{tx("Duration & Quantity Multiplier")}</span>
                 </span>
-                <span className="text-[11px] font-mono font-bold text-[#0265DC] dark:text-[#A3E635]">
-                  Qty: {multiplier} × Month{multiplier > 1 ? 's' : ''}
+                <span className="text-[11px] font-mono font-bold text-[#0265DC] dark:text-[#A3E635]">{tx("Qty:")}{' '}{multiplier}{' '}{tx("× Month")}{multiplier > 1 ? 's' : ''}
                 </span>
               </div>
 
@@ -326,14 +326,10 @@ ${shareUrl}
                   }`}
                 >
                   <span className="flex items-center gap-1">
-                    <span>Monthly</span>
-                    <span className="text-[10px] px-1 py-0.2 rounded bg-white/20 font-mono">
-                      Qty: 1
-                    </span>
+                    <span>{tx("Monthly")}</span>
+                    <span className="text-[10px] px-1 py-0.2 rounded bg-white/20 font-mono">{tx("Qty: 1")}</span>
                   </span>
-                  <span className="text-[10px] opacity-80 font-normal">
-                    1 Month Multiplier (×1)
-                  </span>
+                  <span className="text-[10px] opacity-80 font-normal">{tx("1 Month Multiplier (×1)")}</span>
                 </button>
 
                 <button
@@ -347,14 +343,10 @@ ${shareUrl}
                   }`}
                 >
                   <span className="flex items-center gap-1">
-                    <span>Yearly</span>
-                    <span className="text-[10px] px-1 py-0.2 rounded bg-slate-900 text-[#A3E635] font-mono">
-                      Qty: 12
-                    </span>
+                    <span>{tx("Yearly")}</span>
+                    <span className="text-[10px] px-1 py-0.2 rounded bg-slate-900 text-[#A3E635] font-mono">{tx("Qty: 12")}</span>
                   </span>
-                  <span className="text-[10px] text-emerald-700 dark:text-lime-300 font-semibold">
-                    12 Months (20% Discount)
-                  </span>
+                  <span className="text-[10px] text-emerald-700 dark:text-lime-300 font-semibold">{tx("12 Months (20% Discount)")}</span>
                 </button>
               </div>
 
@@ -367,15 +359,11 @@ ${shareUrl}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5 text-xs font-extrabold text-slate-900 dark:text-white">
                       <Sparkles className="w-3.5 h-3.5 text-[#65A30D] dark:text-[#A3E635]" />
-                      <span>Bulk Move All to Yearly</span>
+                      <span>{tx("Bulk Move All to Yearly")}</span>
                     </div>
-                    <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-[#A3E635] text-slate-950 uppercase tracking-wide">
-                      Save 20%
-                    </span>
+                    <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-[#A3E635] text-slate-950 uppercase tracking-wide">{tx("Save 20%")}</span>
                   </div>
-                  <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-snug">
-                    Convert base plan and all {selectedAddOns.length > 0 ? selectedAddOns.length : ''} add-ons to annual billing (Qty 12) with instant 20% bundle discount in 1-click.
-                  </p>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-snug">{tx("Convert base plan and all")}{' '}{selectedAddOns.length > 0 ? selectedAddOns.length : ''}{' '}{tx("add-ons to annual billing (Qty 12) with instant 20% bundle discount in 1-click.")}</p>
                   <button
                     type="button"
                     id="cart-move-to-yearly-btn"
@@ -383,22 +371,20 @@ ${shareUrl}
                     className="w-full py-2.5 px-3 rounded-xl bg-[#A3E635] hover:bg-[#84CC16] text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all active:scale-[0.98]"
                   >
                     <Zap className="w-4 h-4 fill-slate-950" />
-                    <span>Move to Yearly (1-Click 20% Discount)</span>
+                    <span>{tx("Move to Yearly (1-Click 20% Discount)")}</span>
                   </button>
                 </div>
               ) : (
                 <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300/60 dark:border-emerald-800/60 flex items-center justify-between text-xs text-emerald-800 dark:text-emerald-300">
                   <div className="flex items-center gap-1.5 font-bold">
                     <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    <span>Yearly 20% Discount Active (Qty 12 Multiplier)</span>
+                    <span>{tx("Yearly 20% Discount Active (Qty 12 Multiplier)")}</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleCycleChange('monthly')}
                     className="text-[10px] text-slate-500 dark:text-slate-400 underline hover:text-slate-800 dark:hover:text-slate-200"
-                  >
-                    Switch to Monthly
-                  </button>
+                  >{tx("Switch to Monthly")}</button>
                 </div>
               )}
             </div>
@@ -406,7 +392,7 @@ ${shareUrl}
             {/* Selected Items List */}
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                <span>Selected Items in Cart ({selectedAddOns.length + 1})</span>
+                <span>{tx("Selected Items in Cart (")}{selectedAddOns.length + 1})</span>
                 {/* Clear Cart Button */}
                 {selectedAddOns.length > 0 && onClearCart && (
                   <div>
@@ -416,29 +402,25 @@ ${shareUrl}
                         id="cart-clear-all-trigger-btn"
                         onClick={() => setClearConfirming(true)}
                         className="text-rose-600 dark:text-rose-400 hover:text-rose-700 hover:underline flex items-center gap-1 text-[11px] font-semibold transition-colors"
-                        title="Clear all selected modules from cart"
+                        title={tx("Clear all selected modules from cart")}
                       >
                         <Trash2 className="w-3 h-3" />
-                        <span>Clear Cart</span>
+                        <span>{tx("Clear Cart")}</span>
                       </button>
                     ) : (
                       <div className="flex items-center gap-1.5 animate-in fade-in">
-                        <span className="text-[10px] text-rose-500 font-bold">Clear all?</span>
+                        <span className="text-[10px] text-rose-500 font-bold">{tx("Clear all?")}</span>
                         <button
                           type="button"
                           id="cart-clear-confirm-btn"
                           onClick={handleClear}
                           className="px-2 py-0.5 rounded bg-rose-600 text-white text-[10px] font-bold hover:bg-rose-700"
-                        >
-                          Yes, Clear
-                        </button>
+                        >{tx("Yes, Clear")}</button>
                         <button
                           type="button"
                           onClick={() => setClearConfirming(false)}
                           className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px]"
-                        >
-                          Cancel
-                        </button>
+                        >{tx("Cancel")}</button>
                       </div>
                     )}
                   </div>
@@ -462,7 +444,7 @@ ${shareUrl}
                       onChange={(e) => onSelectAllAddOns(e.target.checked)}
                       className="w-4 h-4 rounded text-[#0265DC] focus:ring-[#0265DC] border-slate-300 dark:border-slate-600 cursor-pointer accent-[#0265DC]"
                     />
-                    <span>Select All Add-ons ({selectedAddOns.length}/{totalAvailableCount} bundled)</span>
+                    <span>{tx("Select All Add-ons (")}{selectedAddOns.length}/{totalAvailableCount}{' '}{tx("bundled)")}</span>
                   </label>
 
                   <button
@@ -471,7 +453,7 @@ ${shareUrl}
                     onClick={() => onSelectAllAddOns(!isAllSelected)}
                     className="text-[11px] font-bold text-[#0265DC] dark:text-blue-400 hover:underline px-1.5 py-0.5 rounded hover:bg-blue-50 dark:hover:bg-blue-950 transition-colors"
                   >
-                    {isAllSelected ? 'Deselect All' : 'Select All (Bundle)'}
+                    {isAllSelected ? tx("Deselect All") : tx("Select All (Bundle)")}
                   </button>
                 </div>
               )}
@@ -481,11 +463,8 @@ ${shareUrl}
                 <div className="min-w-0 pr-2">
                   <div className="flex items-center gap-1.5">
                     <span className="font-bold text-slate-900 dark:text-white">
-                      {plan.name} Plan
-                    </span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-blue-100 text-[#0265DC] dark:bg-blue-950 dark:text-blue-300 font-bold">
-                      Qty: {multiplier} mo
-                    </span>
+                      {plan.name}{' '}{tx("Plan")}</span>
+                    <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-blue-100 text-[#0265DC] dark:bg-blue-950 dark:text-blue-300 font-bold">{tx("Qty:")}{' '}{multiplier}{' '}{tx("mo")}</span>
                   </div>
                   <div className="text-[10px] text-slate-500 dark:text-slate-400">
                     {plan.employeeAllowanceText}
@@ -498,8 +477,7 @@ ${shareUrl}
                     )}
                   </div>
                   <div className="text-[10px] text-slate-400">
-                    {currencyConfig.format(billingCycle === 'yearly' ? plan.yearlyPrice : plan.monthlyPrice)}/mo
-                  </div>
+                    {currencyConfig.format(billingCycle === 'yearly' ? plan.yearlyPrice : plan.monthlyPrice)}{tx("/mo")}</div>
                 </div>
               </div>
 
@@ -519,9 +497,7 @@ ${shareUrl}
                             <span className="font-semibold text-slate-900 dark:text-white truncate">
                               {addon.name}
                             </span>
-                            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 shrink-0 font-bold">
-                              Qty: {multiplier} mo
-                            </span>
+                            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 shrink-0 font-bold">{tx("Qty:")}{' '}{multiplier}{' '}{tx("mo")}</span>
                           </div>
                           <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
                             {addon.unitText}
@@ -534,15 +510,14 @@ ${shareUrl}
                               +{currencyConfig.format(priceTotal)}
                             </div>
                             <div className="text-[10px] text-slate-400">
-                              {currencyConfig.format(pricePerMo)}/mo
-                            </div>
+                              {currencyConfig.format(pricePerMo)}{tx("/mo")}</div>
                           </div>
                           {onRemoveAddOn && (
                             <button
                               type="button"
                               onClick={() => onRemoveAddOn(addon.id)}
                               className="p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950 transition-colors"
-                              title={`Remove ${addon.name} from cart`}
+                              title={tx("Remove {name} from cart", { name: addon.name })}
                             >
                               <X className="w-3.5 h-3.5" />
                             </button>
@@ -553,16 +528,14 @@ ${shareUrl}
                   })}
                 </div>
               ) : (
-                <div className="p-3 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-center text-xs text-slate-500">
-                  No extra extension modules added yet. Select modules from the catalog to bundle.
-                </div>
+                <div className="p-3 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-center text-xs text-slate-500">{tx("No extra extension modules added yet. Select modules from the catalog to bundle.")}</div>
               )}
             </div>
 
             {/* Calculations Breakdown (Undiscounted, Multiplier, 20% Discount, 7.5% VAT) */}
             <div className="p-3 rounded-xl bg-slate-900 text-white space-y-2 text-xs">
               <div className="flex items-center justify-between text-slate-300">
-                <span>Gross Base ({multiplier} month{multiplier > 1 ? 's' : ''}):</span>
+                <span>{tx("Gross Base (")}{multiplier}{' '}{tx("month")}{multiplier > 1 ? 's' : ''}):</span>
                 <span className="font-mono">{currencyConfig.format(undiscountedSubtotalUSD)}</span>
               </div>
 
@@ -570,14 +543,14 @@ ${shareUrl}
                 <div className="flex items-center justify-between text-[#A3E635] font-semibold">
                   <span className="flex items-center gap-1">
                     <Percent className="w-3.5 h-3.5" />
-                    <span>20% Annual Discount Savings:</span>
+                    <span>{tx("20% Annual Discount Savings:")}</span>
                   </span>
                   <span className="font-mono">-{currencyConfig.format(annualSavingsUSD)}</span>
                 </div>
               )}
 
               <div className="flex items-center justify-between text-slate-300">
-                <span>Net Taxable Subtotal:</span>
+                <span>{tx("Net Taxable Subtotal:")}</span>
                 <span className="font-mono font-bold">{currencyConfig.format(discountedSubtotalUSD)}</span>
               </div>
 
@@ -585,12 +558,10 @@ ${shareUrl}
               <div className="flex items-center justify-between p-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200">
                 <div>
                   <div className="font-bold text-white flex items-center gap-1">
-                    <span>VAT (7.5% Exclusive)</span>
-                    <span className="text-[10px] text-slate-400">Statutory</span>
+                    <span>{tx("VAT (7.5% Exclusive)")}</span>
+                    <span className="text-[10px] text-slate-400">{tx("Statutory")}</span>
                   </div>
-                  <div className="text-[10px] text-slate-400">
-                    7.5% applicable tax
-                  </div>
+                  <div className="text-[10px] text-slate-400">{tx("7.5% applicable tax")}</div>
                 </div>
                 <div className="font-mono font-bold text-white">
                   +{currencyConfig.format(vatAmountUSD)}
@@ -602,41 +573,35 @@ ${shareUrl}
                 <div className="p-2.5 rounded-xl bg-gradient-to-r from-blue-950/80 to-slate-900 border border-blue-500/40 space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-bold text-blue-300 flex items-center gap-1">
-                      <span>Exact Price Per Month:</span>
+                      <span>{tx("Exact Price Per Month:")}</span>
                     </span>
                     <span className="text-sm font-extrabold font-mono text-[#A3E635]">
                       {currencyConfig.format(exactPricePerMonthUSD)}
-                      <span className="text-[10px] font-sans text-slate-300">/mo</span>
+                      <span className="text-[10px] font-sans text-slate-300">{tx("/mo")}</span>
                     </span>
                   </div>
-                  <div className="text-[10px] text-slate-400">
-                    * Inclusive of {billingCycle === 'yearly' ? '20% annual discount and ' : ''}7.5% exclusive VAT
-                  </div>
+                  <div className="text-[10px] text-slate-400">{tx("* Inclusive of")}{' '}{billingCycle === 'yearly' ? tx("20% annual discount and ") : ''}{tx("7.5% exclusive VAT")}</div>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-gradient-to-r from-emerald-950/80 to-slate-900 border border-emerald-500/40 space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-bold text-emerald-300 flex items-center gap-1">
-                      <span>Exact Price Per Year:</span>
+                      <span>{tx("Exact Price Per Year:")}</span>
                     </span>
                     <span className="text-sm font-extrabold font-mono text-[#A3E635]">
                       {currencyConfig.format(exactPricePerYearUSD)}
-                      <span className="text-[10px] font-sans text-slate-300">/yr</span>
+                      <span className="text-[10px] font-sans text-slate-300">{tx("/yr")}</span>
                     </span>
                   </div>
-                  <div className="text-[10px] text-slate-400">
-                    * 12-month total inclusive of 20% discount and 7.5% exclusive VAT
-                  </div>
+                  <div className="text-[10px] text-slate-400">{tx("* 12-month total inclusive of 20% discount and 7.5% exclusive VAT")}</div>
                 </div>
               </div>
 
               {/* Total Due Today */}
               <div className="pt-2 border-t border-slate-800 flex items-baseline justify-between">
                 <div>
-                  <span className="text-xs font-bold text-white">Total Billed Today:</span>
-                  <div className="text-[10px] text-slate-400">
-                    Qty {multiplier} month{multiplier > 1 ? 's' : ''} subscription
-                  </div>
+                  <span className="text-xs font-bold text-white">{tx("Total Billed Today:")}</span>
+                  <div className="text-[10px] text-slate-400">{tx("Qty")}{' '}{multiplier}{' '}{tx("month")}{multiplier > 1 ? 's' : ''}{' '}{tx("subscription")}</div>
                 </div>
                 <span className="text-lg font-extrabold font-mono text-[#A3E635]">
                   {currencyConfig.format(totalDueTodayUSD)}
@@ -654,16 +619,12 @@ ${shareUrl}
                   <div className="w-6 h-6 rounded-lg bg-lime-400/20 text-[#A3E635] flex items-center justify-center">
                     <Users className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-xs font-bold text-white">Share Cart with Team</span>
+                  <span className="text-xs font-bold text-white">{tx("Share Cart with Team")}</span>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-semibold border border-slate-700">
-                  Collaborative Proposal
-                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-semibold border border-slate-700">{tx("Collaborative Proposal")}</span>
               </div>
 
-              <p className="text-[11px] text-slate-300 leading-relaxed">
-                Need approval from finance or your leadership team? Generate a unique link or copy a formatted Slack/Email specification.
-              </p>
+              <p className="text-[11px] text-slate-300 leading-relaxed">{tx("Need approval from finance or your leadership team? Generate a unique link or copy a formatted Slack/Email specification.")}</p>
 
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -671,10 +632,10 @@ ${shareUrl}
                   id="cart-quick-copy-url-btn"
                   onClick={() => copyToClipboard(generateShareUrl(), 'link')}
                   className="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center justify-center gap-1.5 border border-slate-700 transition-colors cursor-pointer"
-                  title="Copy shareable link to clipboard"
+                  title={tx("Copy shareable link to clipboard")}
                 >
                   {copiedLink ? <Check className="w-3.5 h-3.5 text-[#A3E635] stroke-[3]" /> : <LinkIcon className="w-3.5 h-3.5 text-blue-400" />}
-                  <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
+                  <span>{copiedLink ? tx("Link Copied!") : tx("Copy Link")}</span>
                 </button>
 
                 <button
@@ -682,10 +643,10 @@ ${shareUrl}
                   id="cart-quick-copy-summary-btn"
                   onClick={() => copyToClipboard(generateSummaryString(), 'summary')}
                   className="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center justify-center gap-1.5 border border-slate-700 transition-colors cursor-pointer"
-                  title="Copy formatted summary to clipboard"
+                  title={tx("Copy formatted summary to clipboard")}
                 >
                   {copiedSummary ? <Check className="w-3.5 h-3.5 text-[#A3E635] stroke-[3]" /> : <FileText className="w-3.5 h-3.5 text-emerald-400" />}
-                  <span>{copiedSummary ? 'Summary Copied!' : 'Copy Summary'}</span>
+                  <span>{copiedSummary ? tx("Summary Copied!") : tx("Copy Summary")}</span>
                 </button>
               </div>
 
@@ -695,7 +656,7 @@ ${shareUrl}
                 onClick={() => setIsShareModalOpen(true)}
                 className="w-full text-center text-[11px] text-[#A3E635] hover:underline font-semibold flex items-center justify-center gap-1 pt-0.5 cursor-pointer"
               >
-                <span>View full sharing options (WhatsApp, Email &amp; Previews)</span>
+                <span>{tx("View full sharing options (WhatsApp, Email & Previews)")}</span>
                 <ArrowRight className="w-3 h-3" />
               </button>
             </div>
@@ -710,7 +671,7 @@ ${shareUrl}
                   className="w-full py-2 px-3 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
-                  <span>Clear All {selectedAddOns.length} Selected Add-on Modules</span>
+                  <span>{tx("Clear All")}{' '}{selectedAddOns.length}{' '}{tx("Selected Add-on Modules")}</span>
                 </button>
               </div>
             )}
@@ -722,7 +683,7 @@ ${shareUrl}
               onClick={onOpenCheckout}
               className="w-full py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] shadow-lg shadow-lime-500/20 flex items-center justify-center gap-2 transition-all active:scale-[0.98] cursor-pointer"
             >
-              <span>Proceed to Regional &amp; Global Checkout</span>
+              <span>{tx("Proceed to Regional & Global Checkout")}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -735,7 +696,7 @@ ${shareUrl}
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
           className="flex items-center gap-2.5 min-w-0 text-left hover:opacity-90 transition-opacity focus:outline-none cursor-pointer"
-          title="Click to view quantity multiplier and exact monthly/yearly pricing"
+          title={tx("Click to view quantity multiplier and exact monthly/yearly pricing")}
         >
           <div className="w-9 h-9 rounded-xl bg-[#A3E635] text-slate-950 flex items-center justify-center font-bold text-sm shrink-0 shadow-xs relative">
             <ShoppingCart className="w-4 h-4" />
@@ -748,21 +709,18 @@ ${shareUrl}
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 text-xs font-bold truncate">
               <span className="text-white">{plan.name}</span>
-              <span className="text-[10px] font-mono text-[#A3E635] bg-slate-800 px-1.5 py-0.2 rounded border border-lime-500/30">
-                Qty: {multiplier} mo
-              </span>
+              <span className="text-[10px] font-mono text-[#A3E635] bg-slate-800 px-1.5 py-0.2 rounded border border-lime-500/30">{tx("Qty:")}{' '}{multiplier}{' '}{tx("mo")}</span>
               {selectedAddOns.length > 0 && (
                 <span className="text-[10px] text-lime-400 bg-lime-950/80 px-1.5 py-0.2 rounded-full border border-lime-500/30 truncate">
-                  +{selectedAddOns.length} module{selectedAddOns.length > 1 ? 's' : ''}
+                  +{selectedAddOns.length}{' '}{tx("module")}{selectedAddOns.length > 1 ? 's' : ''}
                 </span>
               )}
             </div>
             <div className="text-[11px] text-slate-300 font-mono flex items-center gap-1.5 flex-wrap">
               <span className="text-[#A3E635] font-bold">
-                {currencyConfig.format(exactPricePerMonthUSD)}/mo
-              </span>
+                {currencyConfig.format(exactPricePerMonthUSD)}{tx("/mo")}</span>
               <span className="text-[9px] text-slate-400 font-sans">
-                ({currencyConfig.format(totalDueTodayUSD)} billed {billingCycle})
+                ({currencyConfig.format(totalDueTodayUSD)}{' '}{tx("billed")}{' '}{billingCycle})
               </span>
             </div>
           </div>
@@ -775,8 +733,8 @@ ${shareUrl}
             id="floating-cart-compact-share-btn"
             onClick={() => setIsShareModalOpen(true)}
             className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
-            title="Share Cart Configuration with Team"
-            aria-label="Share Cart"
+            title={tx("Share Cart Configuration with Team")}
+            aria-label={tx("Share Cart")}
           >
             <Share2 className="w-4 h-4 text-[#A3E635]" />
           </button>
@@ -788,7 +746,7 @@ ${shareUrl}
               id="floating-cart-quick-clear-btn"
               onClick={handleClear}
               className="p-2 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition-colors cursor-pointer"
-              title="Clear all cart add-ons"
+              title={tx("Clear all cart add-ons")}
             >
               <Trash2 className="w-4 h-4" />
             </button>
@@ -800,7 +758,7 @@ ${shareUrl}
             id="floating-cart-toggle-expand-btn"
             onClick={() => setIsExpanded(!isExpanded)}
             className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition-colors text-xs font-semibold flex items-center gap-0.5 cursor-pointer"
-            title="Expand Cart Breakdown"
+            title={tx("Expand Cart Breakdown")}
           >
             {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
           </button>
@@ -811,7 +769,7 @@ ${shareUrl}
             onClick={onOpenCheckout}
             className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-950 bg-[#A3E635] hover:bg-[#84CC16] shadow-sm flex items-center gap-1.5 shrink-0 transition-transform active:scale-95 cursor-pointer"
           >
-            <span>Checkout</span>
+            <span>{tx("Checkout")}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -838,14 +796,10 @@ ${shareUrl}
                 </div>
                 <div>
                   <h3 className="font-display text-base font-bold text-white flex items-center gap-2">
-                    <span>Share Cart Configuration</span>
-                    <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#A3E635] text-slate-950 uppercase tracking-wide">
-                      Team Sync
-                    </span>
+                    <span>{tx("Share Cart Configuration")}</span>
+                    <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#A3E635] text-slate-950 uppercase tracking-wide">{tx("Team Sync")}</span>
                   </h3>
-                  <p className="text-xs text-slate-400">
-                    Collaborate with your team, finance department, or leadership
-                  </p>
+                  <p className="text-xs text-slate-400">{tx("Collaborate with your team, finance department, or leadership")}</p>
                 </div>
               </div>
 
@@ -854,7 +808,7 @@ ${shareUrl}
                 id="share-cart-modal-close-btn"
                 onClick={() => setIsShareModalOpen(false)}
                 className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
-                aria-label="Close Share Modal"
+                aria-label={tx("Close Share Modal")}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -866,22 +820,20 @@ ${shareUrl}
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#111C38] border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 text-xs">
                 <div>
                   <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 flex-wrap">
-                    <span>{plan.name} Plan</span>
+                    <span>{plan.name}{' '}{tx("Plan")}</span>
                     <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-blue-100 text-[#0265DC] dark:bg-blue-950 dark:text-blue-300 font-bold">
-                      {billingCycle === 'yearly' ? 'Yearly (20% Off)' : 'Monthly'}
+                      {billingCycle === 'yearly' ? tx("Yearly (20% Off)") : tx("Monthly")}
                     </span>
                     {selectedAddOns.length > 0 && (
                       <span className="text-[10px] text-lime-600 dark:text-lime-400 font-semibold">
-                        +{selectedAddOns.length} module{selectedAddOns.length > 1 ? 's' : ''}
+                        +{selectedAddOns.length}{' '}{tx("module")}{selectedAddOns.length > 1 ? 's' : ''}
                       </span>
                     )}
                   </div>
-                  <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                    Total Due: <span className="font-bold text-emerald-600 dark:text-emerald-400">{currencyConfig.format(totalDueTodayUSD)}</span> ({currencyConfig.format(exactPricePerMonthUSD)}/mo effective)
-                  </div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{tx("Total Due:")}{' '}<span className="font-bold text-emerald-600 dark:text-emerald-400">{currencyConfig.format(totalDueTodayUSD)}</span> ({currencyConfig.format(exactPricePerMonthUSD)}{tx("/mo effective)")}</div>
                 </div>
                 <div className="text-right shrink-0">
-                  <span className="text-[10px] uppercase font-bold text-slate-400">Currency</span>
+                  <span className="text-[10px] uppercase font-bold text-slate-400">{tx("Currency")}</span>
                   <div className="font-bold font-mono text-slate-800 dark:text-slate-200">{currencyConfig.code}</div>
                 </div>
               </div>
@@ -899,7 +851,7 @@ ${shareUrl}
                   }`}
                 >
                   <LinkIcon className="w-3.5 h-3.5" />
-                  <span>Unique Shareable URL</span>
+                  <span>{tx("Unique Shareable URL")}</span>
                 </button>
                 <button
                   type="button"
@@ -912,21 +864,18 @@ ${shareUrl}
                   }`}
                 >
                   <FileText className="w-3.5 h-3.5" />
-                  <span>Proposal Summary (Slack / Email)</span>
+                  <span>{tx("Proposal Summary (Slack / Email)")}</span>
                 </button>
               </div>
 
               {/* Tab 1: Shareable URL */}
               {shareTab === 'link' && (
                 <div className="space-y-3.5 animate-in fade-in duration-150">
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                    Anyone opening this unique URL will instantly load your selected <span className="font-semibold text-slate-900 dark:text-white">{plan.name} Plan</span>, billing cycle ({billingCycle}), currency ({currencyConfig.code}), and all <span className="font-semibold text-slate-900 dark:text-white">{selectedAddOns.length} selected add-on modules</span>.
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{tx("Anyone opening this unique URL will instantly load your selected")}{' '}<span className="font-semibold text-slate-900 dark:text-white">{plan.name}{' '}{tx("Plan")}</span>{tx(", billing cycle (")}{billingCycle}{tx("), currency (")}{currencyConfig.code}{tx("), and all")}{' '}<span className="font-semibold text-slate-900 dark:text-white">{selectedAddOns.length}{' '}{tx("selected add-on modules")}</span>.
                   </p>
 
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                      Collaborative Cart Link
-                    </label>
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">{tx("Collaborative Cart Link")}</label>
                     <div className="flex items-center gap-2">
                       <input
                         type="text"
@@ -946,16 +895,14 @@ ${shareUrl}
                         }`}
                       >
                         {copiedLink ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : <Copy className="w-3.5 h-3.5" />}
-                        <span>{copiedLink ? 'Copied!' : 'Copy Link'}</span>
+                        <span>{copiedLink ? tx("Copied!") : tx("Copy Link")}</span>
                       </button>
                     </div>
                   </div>
 
                   {/* Direct Sharing Actions: WhatsApp & Email */}
                   <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
-                      Quick Share with Decision Makers
-                    </div>
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">{tx("Quick Share with Decision Makers")}</div>
                     <div className="grid grid-cols-2 gap-2.5">
                       <button
                         type="button"
@@ -964,7 +911,7 @@ ${shareUrl}
                         className="py-2.5 px-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-300/80 dark:border-emerald-700/60 text-emerald-800 dark:text-emerald-300 text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                       >
                         <MessageSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                        <span>Send to WhatsApp</span>
+                        <span>{tx("Send to WhatsApp")}</span>
                       </button>
 
                       <button
@@ -974,7 +921,7 @@ ${shareUrl}
                         className="py-2.5 px-3 rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/60 border border-blue-300/80 dark:border-blue-700/60 text-blue-800 dark:text-blue-300 text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
                       >
                         <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                        <span>Email to Colleagues</span>
+                        <span>{tx("Email to Colleagues")}</span>
                       </button>
                     </div>
                   </div>
@@ -984,9 +931,7 @@ ${shareUrl}
               {/* Tab 2: Proposal Summary for Slack / Teams */}
               {shareTab === 'summary' && (
                 <div className="space-y-3 animate-in fade-in duration-150">
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                    Copy a clean, pre-formatted proposal specification ready to paste directly into Slack channels, Microsoft Teams, finance review threads, or board approval memos.
-                  </p>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{tx("Copy a clean, pre-formatted proposal specification ready to paste directly into Slack channels, Microsoft Teams, finance review threads, or board approval memos.")}</p>
 
                   <div className="relative">
                     <textarea
@@ -1009,7 +954,7 @@ ${shareUrl}
                     }`}
                   >
                     {copiedSummary ? <Check className="w-4 h-4 stroke-[3]" /> : <FileText className="w-4 h-4" />}
-                    <span>{copiedSummary ? 'Summary Copied to Clipboard!' : 'Copy Formatted Summary to Clipboard'}</span>
+                    <span>{copiedSummary ? tx("Summary Copied to Clipboard!") : tx("Copy Formatted Summary to Clipboard")}</span>
                   </button>
                 </div>
               )}
@@ -1027,15 +972,13 @@ ${shareUrl}
             <div className="p-3 bg-slate-100 dark:bg-slate-900/60 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
               <span className="flex items-center gap-1">
                 <Users className="w-3.5 h-3.5 text-[#0265DC] dark:text-blue-400" />
-                <span>Synchronized with active cart</span>
+                <span>{tx("Synchronized with active cart")}</span>
               </span>
               <button
                 type="button"
                 onClick={() => setIsShareModalOpen(false)}
                 className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold border border-slate-300 dark:border-slate-700 transition-colors cursor-pointer"
-              >
-                Done
-              </button>
+              >{tx("Done")}</button>
             </div>
           </div>
         </div>

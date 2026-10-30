@@ -63,6 +63,9 @@ export default function App() {
     return 'yearly';
   });
 
+  // Headcount state for interactive pricing card calculations
+  const [headcount, setHeadcount] = useState<number>(25);
+
   // Theme State: 'light' | 'dark'
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
@@ -410,12 +413,14 @@ export default function App() {
               onSelectRegion={handleSelectPPPRegion}
             />
 
-            {/* Billing Toggle (Monthly / Yearly) */}
+            {/* Billing Toggle (Monthly / Yearly) & Headcount Toolbar */}
             <BillingToggle
               billingCycle={billingCycle}
               onChangeBillingCycle={setBillingCycle}
               selectedCurrency={selectedCurrency}
               onChangeCurrency={setSelectedCurrency}
+              headcount={headcount}
+              onChangeHeadcount={setHeadcount}
             />
 
             {/* 4 Pricing Cards Grid */}
@@ -426,6 +431,8 @@ export default function App() {
                   plan={plan}
                   billingCycle={billingCycle}
                   selectedCurrency={selectedCurrency}
+                  headcount={headcount}
+                  onChangeHeadcount={setHeadcount}
                   onSelectPlan={handleSelectPlan}
                   onSubscribePlan={(p) => {
                     if (p.id === 'enterprise') {
@@ -459,33 +466,7 @@ export default function App() {
           }}
         />
 
-        {/* 6. AI-Powered HR & Payroll Assistant Section */}
-        <AISection />
-
-        {/* 7. What's Included in Every Plan */}
-        <IncludedEssentials />
-
-        {/* 8. Business Scale Section */}
-        <BusinessScale
-          onSelectPlan={(planName) => {
-            if (planName === 'Enterprise') handleOpenSales();
-            else handleOpenTrial(planName);
-          }}
-        />
-
-        {/* 9. Global Business Support */}
-        <GlobalSupport />
-
-        {/* 10. Security & Trust Section */}
-        <SecuritySection onLearnMoreSecurity={() => setSecurityModalOpen(true)} />
-
-        {/* 11. Customer Success & Social Proof */}
-        <Testimonials />
-
-        {/* 12. Industry Solutions */}
-        <IndustrySolutions onExploreIndustry={handleExploreIndustry} />
-
-        {/* 13. Add-ons Section */}
+        {/* 6. Extend Your NextSofthr Platform (Add-ons & Modules) */}
         <AddOnsSection
           billingCycle={billingCycle}
           selectedCurrency={selectedCurrency}
@@ -493,6 +474,32 @@ export default function App() {
           onToggleAddOn={handleToggleAddOn}
           onOpenBundleCheckout={handleAddOnsCheckout}
         />
+
+        {/* 7. AI-Powered HR & Payroll Assistant Section */}
+        <AISection />
+
+        {/* 8. What's Included in Every Plan */}
+        <IncludedEssentials />
+
+        {/* 9. Business Scale Section */}
+        <BusinessScale
+          onSelectPlan={(planName) => {
+            if (planName === 'Enterprise') handleOpenSales();
+            else handleOpenTrial(planName);
+          }}
+        />
+
+        {/* 10. Global Business Support */}
+        <GlobalSupport />
+
+        {/* 11. Security & Trust Section */}
+        <SecuritySection onLearnMoreSecurity={() => setSecurityModalOpen(true)} />
+
+        {/* 12. Customer Success & Social Proof */}
+        <Testimonials />
+
+        {/* 13. Industry Solutions */}
+        <IndustrySolutions onExploreIndustry={handleExploreIndustry} />
 
         {/* 14. Free Trial Conversion Section */}
         <FreeTrialSection

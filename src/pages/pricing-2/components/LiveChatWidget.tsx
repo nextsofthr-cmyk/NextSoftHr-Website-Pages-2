@@ -117,7 +117,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
   onOpenTrial,
   onOpenDemo,
 }) => {
-  const { t, language } = useLanguage();
+  const { t, language, tx } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'chat' | 'channels' | 'faq'>('chat');
   const [hasUnreadNotification, setHasUnreadNotification] = useState(true);
@@ -216,14 +216,20 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
         const pStarter = CURRENCIES[selectedCurrency]?.format(29) || '$29';
         const pPro = CURRENCIES[selectedCurrency]?.format(79) || '$79';
         const pBiz = CURRENCIES[selectedCurrency]?.format(179) || '$179';
-        replyText = `Great question! In ${selectedCurrency}, our plans start at ${pStarter}/month for Starter (up to 15 employees), ${pPro}/month for Professional (our most popular tier with multi-currency payroll), and ${pBiz}/month for Business. Would you like to start a 14-day free trial or see the calculator?`;
+        replyText = tx(
+          'Great question! In {currency}, our plans start at {starter}/month for Starter (up to 15 employees), {pro}/month for Professional (our most popular tier with multi-currency payroll), and {business}/month for Business. Would you like to start a 14-day free trial or see the calculator?',
+          { currency: selectedCurrency, starter: pStarter, pro: pPro, business: pBiz }
+        );
         suggestedAction = { label: 'Start 14-Day Free Trial', action: 'trial' };
       } else if (lower.includes('biometric') || lower.includes('attendance') || lower.includes('clock') || lower.includes('device')) {
         replyText =
           "NextSofthr supports plug-and-play biometric synchronization with ZKTeco, Hikvision, and Anviz devices via our secure Cloud Bridge, as well as geofenced mobile clock-ins. Our support engineers provide free remote installation assistance during your trial.";
         suggestedAction = { label: 'Book Technical Demo', action: 'demo' };
       } else if (lower.includes('currency') || lower.includes('naira') || lower.includes('ngn') || lower.includes('kes') || lower.includes('usd') || lower.includes('tax') || lower.includes('zar') || lower.includes('ghs')) {
-        replyText = `We fully support ${selectedCurrency} and all 16 African and global currencies (NGN, USD, GBP, KES, ZAR, GHS, MAD, XAF, AED, UGX, TZS, RWF, ZMW, EGP, ZIP, EUR) with live conversion rates! Invoices and payroll runs are processed in your local denomination with zero foreign exchange markup.`;
+        replyText = tx(
+          'We fully support {currency} and all 16 African and global currencies (NGN, USD, GBP, KES, ZAR, GHS, MAD, XAF, AED, UGX, TZS, RWF, ZMW, EGP, ZIP, EUR) with live conversion rates! Invoices and payroll runs are processed in your local denomination with zero foreign exchange markup.',
+          { currency: selectedCurrency }
+        );
       } else if (lower.includes('demo') || lower.includes('walkthrough') || lower.includes('call')) {
         replyText =
           "We would be delighted to host a 1-on-1 personalized product demo for your leadership team! You can schedule it right now or chat directly on WhatsApp.";
@@ -321,7 +327,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
       id="live-chat-floating-widget"
       ref={dialogRef}
       className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-auto"
-      aria-label="Live Chat Support Widget"
+      aria-label={tx("Live Chat Support Widget")}
     >
       {/* Help Dialog to Contact Support Agents */}
       {isOpen && (
@@ -340,15 +346,13 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                 <span className="p-1.5 rounded-xl bg-white/15 text-[#A3E635] shadow-xs">
                   <Headphones className="w-4 h-4" />
                 </span>
-                <span className="text-xs font-semibold uppercase tracking-wider text-blue-100">
-                  NextSofthr Help &amp; Support
-                </span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-blue-100">{tx("NextSofthr Help & Support")}</span>
               </div>
               <button
                 id="close-live-chat-dialog-btn"
                 onClick={() => setIsOpen(false)}
                 className="p-1.5 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-                aria-label="Close Live Chat Dialog"
+                aria-label={tx("Close Live Chat Dialog")}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -375,7 +379,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                   <div
                     key={agent.name}
                     className={`w-8 h-8 rounded-full border-2 border-white dark:border-[#0B132B] flex items-center justify-center text-[10px] font-extrabold text-white shadow-sm ${agent.bg}`}
-                    title={`${agent.name} (${agent.role})`}
+                    title={`${agent.name} (${tx(agent.role)})`}
                   >
                     {agent.avatar}
                   </div>
@@ -436,27 +440,21 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                 <div className="flex items-center justify-between p-2.5 rounded-xl bg-blue-50/70 dark:bg-[#111C38] border border-blue-100 dark:border-slate-800 text-xs">
                   <div className="flex items-center gap-2">
                     <div className="relative">
-                      <div className="w-7 h-7 rounded-full bg-[#0265DC] text-white flex items-center justify-center text-[10px] font-bold">
-                        CA
-                      </div>
+                      <div className="w-7 h-7 rounded-full bg-[#0265DC] text-white flex items-center justify-center text-[10px] font-bold">{tx("CA")}</div>
                       <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#A3E635] border border-white" />
                     </div>
                     <div>
-                      <div className="font-bold text-slate-900 dark:text-white">Chioma Adeyemi</div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                        Senior HR &amp; Payroll Specialist
-                      </div>
+                      <div className="font-bold text-slate-900 dark:text-white">{tx("Chioma Adeyemi")}</div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400">{tx("Senior HR & Payroll Specialist")}</div>
                     </div>
                   </div>
-                  <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200/50">
-                    Active Now
-                  </span>
+                  <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200/50">{tx("Active Now")}</span>
                 </div>
 
                 {/* Quick Topic Chips */}
                 <div>
                   <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                    <span>Quick assistance topics:</span>
+                    <span>{tx("Quick assistance topics:")}</span>
                     <Sparkles className="w-3 h-3 text-[#0265DC] dark:text-[#A3E635]" />
                   </div>
                   <div className="grid grid-cols-2 gap-1.5">
@@ -468,10 +466,10 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                         className="text-left p-2 rounded-xl bg-slate-50 dark:bg-[#111C38] hover:bg-blue-50/70 dark:hover:bg-blue-950/40 border border-slate-200/70 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-700 transition-all text-xs"
                       >
                         <div className="font-semibold text-slate-900 dark:text-white truncate">
-                          {topic.title}
+                          {tx(topic.title)}
                         </div>
                         <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                          {topic.subtitle}
+                          {tx(topic.subtitle)}
                         </div>
                       </button>
                     ))}
@@ -493,7 +491,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                             {msg.agentName}
                           </span>
                           <span>•</span>
-                          <span>{msg.time}</span>
+                          <span>{tx(msg.time)}</span>
                         </div>
                       )}
 
@@ -504,7 +502,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                             : 'bg-slate-100 dark:bg-[#111C38] text-slate-800 dark:text-slate-100 rounded-tl-xs border border-slate-200/70 dark:border-slate-800'
                         }`}
                       >
-                        <p>{msg.text}</p>
+                        <p>{tx(msg.text)}</p>
 
                         {/* Optional action pill inside agent bubble */}
                         {msg.suggestedAction && (
@@ -512,7 +510,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                             onClick={() => handleActionClick(msg.suggestedAction?.action)}
                             className="mt-2.5 w-full py-1.5 px-3 rounded-lg text-xs font-bold bg-[#A3E635] text-slate-950 hover:bg-[#84CC16] shadow-sm flex items-center justify-center gap-1.5 transition-all"
                           >
-                            <span>{msg.suggestedAction.label}</span>
+                            <span>{tx(msg.suggestedAction.label)}</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         )}
@@ -520,7 +518,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
 
                       {msg.sender === 'user' && (
                         <div className="text-[10px] text-slate-400 mt-0.5 mr-1 flex items-center gap-1">
-                          <span>{msg.time}</span>
+                          <span>{tx(msg.time)}</span>
                           <CheckCircle2 className="w-3 h-3 text-blue-500" />
                         </div>
                       )}
@@ -533,7 +531,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce" />
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce [animation-delay:0.2s]" />
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce [animation-delay:0.4s]" />
-                      <span className="ml-1 text-[11px]">Support agent is typing...</span>
+                      <span className="ml-1 text-[11px]">{tx("Support agent is typing...")}</span>
                     </div>
                   )}
 
@@ -554,7 +552,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                       type="text"
                       value={inputText}
                       onChange={(e) => setInputText(e.target.value)}
-                      placeholder="Type your question for an agent..."
+                      placeholder={tx("Type your question for an agent...")}
                       className="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#111C38] text-slate-900 dark:text-white placeholder-slate-400 text-xs focus:outline-none focus:ring-2 focus:ring-[#0265DC]"
                     />
                     <button
@@ -562,7 +560,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                       type="submit"
                       disabled={!inputText.trim() || isTyping}
                       className="p-2.5 rounded-xl bg-[#0265DC] hover:bg-[#0256bc] disabled:opacity-50 text-white shadow-md transition-all shrink-0"
-                      aria-label="Send message to live support agent"
+                      aria-label={tx("Send message to live support agent")}
                     >
                       <Send className="w-4 h-4" />
                     </button>
@@ -582,28 +580,20 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                         <MessageCircle className="w-5 h-5 fill-current" />
                       </div>
                       <div>
-                        <div className="font-bold text-slate-900 dark:text-white text-sm">
-                          Direct WhatsApp Support
-                        </div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400">
-                          MsmeBooks Sales &amp; Technical Desk
-                        </div>
+                        <div className="font-bold text-slate-900 dark:text-white text-sm">{tx("Direct WhatsApp Support")}</div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400">{tx("MsmeBooks Sales & Technical Desk")}</div>
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-950/80 px-2 py-0.5 rounded-md">
-                      Fastest
-                    </span>
+                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-950/80 px-2 py-0.5 rounded-md">{tx("Fastest")}</span>
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-2">
-                    Chat with senior onboarding managers on WhatsApp for quotes, biometric sync, or payroll migration.
-                  </p>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-2">{tx("Chat with senior onboarding managers on WhatsApp for quotes, biometric sync, or payroll migration.")}</p>
                   <button
                     id="channel-whatsapp-btn"
                     onClick={() => handleOpenWhatsAppDirect()}
                     className="mt-3 w-full py-2.5 px-3.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold shadow-md shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
-                    <span>Open WhatsApp Chat (+2349158482622)</span>
+                    <span>{tx("Open WhatsApp Chat (+2349158482622)")}</span>
                   </button>
                 </div>
 
@@ -611,18 +601,14 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                 <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#111C38] border border-slate-200/80 dark:border-slate-800">
                   <div className="flex items-center gap-2 mb-1.5">
                     <Phone className="w-4 h-4 text-[#0265DC] dark:text-blue-400" />
-                    <h4 className="text-xs font-bold text-slate-900 dark:text-white">
-                      Request 15-Minute Phone Callback
-                    </h4>
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-white">{tx("Request 15-Minute Phone Callback")}</h4>
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-2.5">
-                    An enterprise specialist will call your direct line to answer technical questions.
-                  </p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-2.5">{tx("An enterprise specialist will call your direct line to answer technical questions.")}</p>
 
                   {callbackSubmitted ? (
                     <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Callback requested! An agent will call you within 15 minutes.</span>
+                      <span>{tx("Callback requested! An agent will call you within 15 minutes.")}</span>
                     </div>
                   ) : (
                     <form onSubmit={handleCallbackSubmit} className="space-y-2">
@@ -631,7 +617,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                           type="text"
                           value={callbackName}
                           onChange={(e) => setCallbackName(e.target.value)}
-                          placeholder="Your Name"
+                          placeholder={tx("Your Name")}
                           className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070D1E] text-xs"
                           required
                         />
@@ -639,7 +625,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                           type="tel"
                           value={callbackPhone}
                           onChange={(e) => setCallbackPhone(e.target.value)}
-                          placeholder="Phone / Mobile"
+                          placeholder={tx("Phone / Mobile")}
                           className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070D1E] text-xs"
                           required
                         />
@@ -647,9 +633,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                       <button
                         type="submit"
                         className="w-full py-2 rounded-lg bg-[#0265DC] hover:bg-[#0256bc] text-white text-xs font-bold transition-colors"
-                      >
-                        Request Instant Call
-                      </button>
+                      >{tx("Request Instant Call")}</button>
                     </form>
                   )}
                 </div>
@@ -658,19 +642,15 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                 <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#111C38] border border-slate-200/80 dark:border-slate-800">
                   <div className="flex items-center gap-2 mb-1.5">
                     <Mail className="w-4 h-4 text-[#0265DC] dark:text-blue-400" />
-                    <h4 className="text-xs font-bold text-slate-900 dark:text-white">
-                      Submit Priority Support Ticket
-                    </h4>
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-white">{tx("Submit Priority Support Ticket")}</h4>
                   </div>
 
                   {ticketSubmitted ? (
                     <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                       <div>
-                        <p className="font-semibold">Ticket #NS-9482 created!</p>
-                        <p className="text-[11px] text-emerald-700 dark:text-emerald-400">
-                          Confirmation sent to {ticketEmail}. We respond within 1 hour.
-                        </p>
+                        <p className="font-semibold">{tx("Ticket #NS-9482 created!")}</p>
+                        <p className="text-[11px] text-emerald-700 dark:text-emerald-400">{tx("Confirmation sent to")}{' '}{ticketEmail}{tx(". We respond within 1 hour.")}</p>
                       </div>
                     </div>
                   ) : (
@@ -679,7 +659,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                         type="email"
                         value={ticketEmail}
                         onChange={(e) => setTicketEmail(e.target.value)}
-                        placeholder="work.email@company.com"
+                        placeholder={tx("work.email@company.com")}
                         className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070D1E] text-xs"
                         required
                       />
@@ -687,16 +667,14 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                         rows={2}
                         value={ticketMessage}
                         onChange={(e) => setTicketMessage(e.target.value)}
-                        placeholder="Describe your inquiry or issue..."
+                        placeholder={tx("Describe your inquiry or issue...")}
                         className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#070D1E] text-xs resize-none"
                         required
                       />
                       <button
                         type="submit"
                         className="w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white text-xs font-bold transition-colors"
-                      >
-                        Send Ticket to Support Team
-                      </button>
+                      >{tx("Send Ticket to Support Team")}</button>
                     </form>
                   )}
                 </div>
@@ -713,7 +691,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                     type="text"
                     value={faqSearch}
                     onChange={(e) => setFaqSearch(e.target.value)}
-                    placeholder="Search answers (currency, tax, biometrics)..."
+                    placeholder={tx("Search answers (currency, tax, biometrics)...")}
                     className="w-full pl-8 pr-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-[#111C38] text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0265DC]"
                   />
                 </div>
@@ -732,7 +710,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                           onClick={() => setExpandedFaq(isExpanded ? null : article.id)}
                           className="w-full text-left p-3 flex items-center justify-between gap-2 text-xs font-semibold text-slate-900 dark:text-white hover:text-[#0265DC] dark:hover:text-blue-400 transition-colors"
                         >
-                          <span>{article.q}</span>
+                          <span>{tx(article.q)}</span>
                           <ChevronRight
                             className={`w-4 h-4 text-slate-400 transition-transform shrink-0 ${
                               isExpanded ? 'rotate-90 text-[#0265DC]' : ''
@@ -741,7 +719,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                         </button>
                         {isExpanded && (
                           <div className="px-3 pb-3 text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200/50 dark:border-slate-800/80 pt-2 animate-in fade-in duration-150">
-                            {article.a}
+                            {tx(article.a)}
                           </div>
                         )}
                       </div>
@@ -755,7 +733,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
                     onClick={() => setActiveTab('chat')}
                     className="text-xs font-semibold text-[#0265DC] dark:text-blue-400 hover:underline flex items-center justify-center gap-1 mx-auto"
                   >
-                    <span>Can't find your answer? Chat with an agent</span>
+                    <span>{tx("Can't find your answer? Chat with an agent")}</span>
                     <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
@@ -769,7 +747,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
               <span>{t.liveChat.officialSupport}</span>
             </span>
-            <span className="font-mono text-[10px]">24/7 SLA</span>
+            <span className="font-mono text-[10px]">{tx("24/7 SLA")}</span>
           </div>
         </div>
       )}
@@ -784,7 +762,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
             className="hidden sm:flex items-center gap-2 py-2 px-3.5 rounded-full bg-white dark:bg-[#0B132B] text-slate-800 dark:text-slate-100 text-xs font-bold shadow-xl border border-slate-200 dark:border-slate-800 hover:border-[#0265DC] dark:hover:border-blue-500 transition-all duration-200 group"
           >
             <span className="w-2 h-2 rounded-full bg-[#A3E635] animate-pulse" />
-            <span>{t.liveChat.label}</span>
+            <span>{tx(t.liveChat.label)}</span>
             <span className="text-[10px] text-slate-400 font-normal">• {t.liveChat.agentsOnline}</span>
           </button>
         )}
@@ -794,7 +772,7 @@ export const LiveChatWidget: React.FC<LiveChatWidgetProps> = ({
           id="live-chat-fab-button"
           onClick={handleToggle}
           aria-expanded={isOpen}
-          aria-label={isOpen ? 'Close Live Chat' : `${t.liveChat.label} - ${t.liveChat.agentsOnline}`}
+          aria-label={isOpen ? tx("Close Live Chat") : `${t.liveChat.label} - ${t.liveChat.agentsOnline}`}
           className={`relative p-3.5 sm:p-4 rounded-full text-white shadow-2xl transition-all duration-300 flex items-center justify-center group focus:outline-none focus:ring-4 focus:ring-blue-500/40 ${
             isOpen
               ? 'bg-slate-900 dark:bg-slate-700 rotate-90 scale-95'

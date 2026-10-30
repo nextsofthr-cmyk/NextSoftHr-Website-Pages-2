@@ -8,7 +8,7 @@ interface LimitedTrialBonusBannerProps {
 }
 
 export const LimitedTrialBonusBanner: React.FC<LimitedTrialBonusBannerProps> = ({ onClaimBonus }) => {
-  const { language } = useLanguage();
+  const { language, tx } = useLanguage();
   const { formatAmount } = useCurrency();
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
@@ -79,7 +79,7 @@ export const LimitedTrialBonusBanner: React.FC<LimitedTrialBonusBannerProps> = (
       description: 'Activez votre essai gratuit de 14 jours aujourd’hui pour bénéficier automatiquement de 30 jours d’IA Copilot et de la migration complète de vos dossiers salariés.',
       cta: 'Réclamer le Bonus & Commencer',
       expiresIn: 'Offre réservée pendant :',
-      noCard: 'Sans carte bancaire • Puesta en marche immédiate',
+      noCard: 'Sans carte bancaire • Mise en service immédiate',
     },
     pt: {
       badge: 'Bónus de Teste por Tempo Limitado',
@@ -115,7 +115,7 @@ export const LimitedTrialBonusBanner: React.FC<LimitedTrialBonusBannerProps> = (
     <aside
       id="limited-trial-bonus-banner"
       role="region"
-      aria-label="Limited-time trial bonus offer"
+      aria-label={tx("Limited-time trial bonus offer")}
       className="fixed bottom-18 sm:bottom-6 left-3 right-3 sm:left-6 sm:right-auto sm:max-w-xl z-40 bg-slate-950/95 dark:bg-[#070D1E]/95 text-white backdrop-blur-md border border-lime-400/50 dark:border-lime-500/40 rounded-2xl shadow-2xl p-4 sm:p-4.5 animate-in slide-in-from-bottom-5 fade-in duration-300 transition-all"
     >
       {/* Background glow */}
@@ -126,7 +126,7 @@ export const LimitedTrialBonusBanner: React.FC<LimitedTrialBonusBannerProps> = (
         <div className="flex items-center gap-2 flex-wrap">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#A3E635] text-slate-950 text-[11px] font-extrabold tracking-wide uppercase shadow-xs">
             <Gift className="w-3.5 h-3.5 fill-current" />
-            <span>{content.badge}</span>
+            <span>{tx(content.badge)}</span>
           </div>
 
           <span className="text-[10px] font-bold text-lime-400 bg-lime-950/80 px-2 py-0.5 rounded-full border border-lime-500/30">
@@ -137,8 +137,8 @@ export const LimitedTrialBonusBanner: React.FC<LimitedTrialBonusBannerProps> = (
         <button
           onClick={handleDismiss}
           className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
-          title="Dismiss bonus banner"
-          aria-label="Dismiss limited-time trial bonus banner"
+          title={tx("Dismiss bonus banner")}
+          aria-label={tx("Dismiss limited-time trial bonus banner")}
         >
           <X className="w-4 h-4" />
         </button>
@@ -147,10 +147,10 @@ export const LimitedTrialBonusBanner: React.FC<LimitedTrialBonusBannerProps> = (
       {/* Main Content */}
       <div className="relative z-10 space-y-1.5">
         <h4 className="font-display text-sm sm:text-base font-bold text-white tracking-tight leading-snug">
-          {content.title}
+          {tx(content.title)}
         </h4>
         <p className="text-xs text-slate-300 leading-relaxed line-clamp-2 sm:line-clamp-none">
-          {content.description}
+          {tx(content.description)}
         </p>
       </div>
 

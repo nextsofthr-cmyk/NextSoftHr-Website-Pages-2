@@ -470,7 +470,7 @@ export const INDUSTRY_SOLUTIONS: IndustrySolution[] = [
       "Subcontractor registry",
     ],
     imageUrl:
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80",
+      "https://img.magnific.com/free-photo/building-new-concrete-houses_1398-3932.jpg",
   },
   {
     id: "logistics",
@@ -500,7 +500,7 @@ export const INDUSTRY_SOLUTIONS: IndustrySolution[] = [
       "Overtime premium formulas",
     ],
     imageUrl:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+      "https://img.magnific.com/free-photo/repairman-showing-customer-car-changes_482257-76100.jpg?t=st=1793024919~exp=1793028519~hmac=b7faa4c58f14279e5fb02bf39890ba092a095035207df75bf32a68003f6bf62f&amp;w=360",
   },
   {
     id: "technology",
@@ -530,7 +530,7 @@ export const INDUSTRY_SOLUTIONS: IndustrySolution[] = [
       "Zero-leakage confidentiality",
     ],
     imageUrl:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80",
+      "https://img.magnific.com/free-photo/close-up-five-rows-coins_1150-17749.jpg?t=st=1793025375~exp=1793028975~hmac=7698b3bba12725759c9d86eb4c470f0e07094d9a332780fa1f1ea32fbfc14977&amp;w=740",
   },
   {
     id: "nonprofits",
@@ -545,7 +545,7 @@ export const INDUSTRY_SOLUTIONS: IndustrySolution[] = [
       "Transparent expense tracking",
     ],
     imageUrl:
-      "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=600&q=80",
+      "https://img.magnific.com/premium-photo/charity-food-drive-volunteers-share-provisions-food-with-homeless-young-people-offer-their-time-feed-hungry-less-fortunate-exhibiting-spirit-volunteerism-handheld_482257-74147.jpg?w=1060",
   },
   {
     id: "ecommerce",
@@ -560,11 +560,124 @@ export const INDUSTRY_SOLUTIONS: IndustrySolution[] = [
       "Performance incentives",
     ],
     imageUrl:
-      "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=600&q=80",
+      "https://img.magnific.com/free-photo/surprised-positive-african-american-woman-smiles-broadly-uses-modern-smartphone-credit-card_273609-34149.jpg?t=st=1792144743~exp=1792148343~hmac=0574b4bfb1c8f2d4522386adc6a9c8ae457509c8000839df2bd365e2c20f3ff9&amp;w=740",
   },
 ];
 
 export const ADD_ONS: AddOnItem[] = [
+  // 10 Requested Modules
+  {
+    id: "biometrics-integration",
+    name: "Biometrics Integration",
+    description:
+      "Hardware biometric clock-in and facial recognition attendance terminal integration.",
+    monthlyPrice: 30,
+    yearlyPrice: 30,
+    unitText: "One Time",
+    isOneTime: true,
+    fixedPriceNGN: 46500,
+  },
+  {
+    id: "accounting-integration",
+    name: "Accounting Integration",
+    description:
+      "Direct accounting and ERP synchronization for automated general ledger payroll journals.",
+    monthlyPrice: 25,
+    yearlyPrice: 25,
+    unitText: "One Time",
+    isOneTime: true,
+    fixedPriceNGN: 38750,
+  },
+  {
+    id: "finance-module",
+    name: "Finance",
+    description:
+      "Comprehensive financial tracking, multi-currency budgeting, and expense accounts management.",
+    monthlyPrice: 20,
+    yearlyPrice: 20,
+    unitText: "mo",
+    isOneTime: false,
+    fixedPriceNGN: 31000,
+  },
+  {
+    id: "whatsapp-ess-integration",
+    name: "WhatsApp ESS Integration",
+    description:
+      "Employee self-service chatbot for instant payslip queries, leave applications, and notifications via WhatsApp.",
+    monthlyPrice: 20,
+    yearlyPrice: 20,
+    unitText: "mo",
+    isOneTime: false,
+    fixedPriceNGN: 31000,
+  },
+  {
+    id: "letters-templates",
+    name: "Letters & Templates",
+    description:
+      "Automated generation of official employment offers, termination letters, memos, and HR contracts.",
+    monthlyPrice: 20,
+    yearlyPrice: 20,
+    unitText: "mo",
+    isOneTime: false,
+    fixedPriceNGN: 31000,
+  },
+  {
+    id: "bulk-sms",
+    name: "Bulk SMS",
+    description:
+      "High-delivery SMS gateway for urgent broadcast alerts, shift updates, and company announcements.",
+    monthlyPrice: 25,
+    yearlyPrice: 25,
+    unitText: "One Time",
+    isOneTime: true,
+    fixedPriceNGN: 38750,
+  },
+  {
+    id: "google-meet",
+    name: "Google Meet",
+    description:
+      "One-click Google Meet video integration for remote candidate interviews and team check-ins.",
+    monthlyPrice: 20,
+    yearlyPrice: 20,
+    unitText: "One Time",
+    isOneTime: true,
+    fixedPriceNGN: 31000,
+  },
+  {
+    id: "zoom-meeting",
+    name: "Zoom Meeting",
+    description:
+      "Native Zoom integration for automated interview calendar scheduling and company all-hands.",
+    monthlyPrice: 20,
+    yearlyPrice: 20,
+    unitText: "One Time",
+    isOneTime: true,
+    fixedPriceNGN: 31000,
+  },
+  {
+    id: "purchases-module",
+    name: "Purchases",
+    description:
+      "Streamlined purchase orders, procurement workflows, vendor requisitions, and approvals tracking.",
+    monthlyPrice: 20,
+    yearlyPrice: 20,
+    unitText: "mo",
+    isOneTime: false,
+    fixedPriceNGN: 31000,
+  },
+  {
+    id: "qr-codes",
+    name: "QR Codes",
+    description:
+      "Contactless QR code clock-in badges for workplace attendance, visitor check-in, and badge verification.",
+    monthlyPrice: 20,
+    yearlyPrice: 20,
+    unitText: "mo",
+    isOneTime: false,
+    fixedPriceNGN: 31000,
+  },
+
+  // Original Platform Modules
   {
     id: "addon-payroll-adv",
     name: "Advanced Payroll & Multi-Tax Engine",

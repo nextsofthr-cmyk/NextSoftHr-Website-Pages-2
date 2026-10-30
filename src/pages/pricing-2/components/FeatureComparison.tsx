@@ -213,10 +213,11 @@ export const FeatureComparison: React.FC<FeatureComparisonProps> = ({ onSelectPl
                             <div className="flex items-center justify-between pr-2">
                               <span>{tx(feature.name)}</span>
                               {feature.description && (
-                                <HelpCircle
-                                  className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 cursor-help"
-                                  title={feature.description}
-                                />
+                                <span title={feature.description}>
+                                  <HelpCircle
+                                    className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 cursor-help"
+                                  />
+                                </span>
                               )}
                             </div>
                           </td>
