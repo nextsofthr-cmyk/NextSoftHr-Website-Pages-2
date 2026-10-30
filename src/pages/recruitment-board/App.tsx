@@ -13,7 +13,7 @@ import { AiRecruitmentAssistant } from './components/AiRecruitmentAssistant';
 import { TrustAndSecurity } from './components/TrustAndSecurity';
 import { CareerResources } from './components/CareerResources';
 import { PricingPackages } from './components/PricingPackages';
-import { FaqSection } from './components/FaqSection';
+import { FaqSection } from './components/FAQSection';
 import { Footer } from './components/Footer';
 import { FloatingLiveChat } from './components/FloatingLiveChat';
 
