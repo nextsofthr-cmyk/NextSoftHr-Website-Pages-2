@@ -24,6 +24,7 @@ const PrivacyPolicy = lazy(() => import('./pages/privacy-policy/App'));
 const RefundPolicy = lazy(() => import('./pages/refund-policy/App'));
 const TermsConditions = lazy(() => import('./pages/terms-conditions/App'));
 const RecruitmentBoard = lazy(() => import('./pages/recruitment-board/RecruitmentBoardRoute'));
+const AuthenticationPage = lazy(() => import('./pages/authentication/AuthenticationPage'));
 
 // Premium branded loading state
 const PageLoadingFallback: React.FC = () => (
@@ -194,13 +195,18 @@ export default function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/help-center" element={<Navigate to="/faq" replace />} />
 
-          {/* 16. Sign In & Sign Up */}
+          {/* 16. Sign In, Sign Up & Two-Step Authentication */}
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/login" element={<Navigate to="/sign-in" replace />} />
           <Route path="/auth" element={<Navigate to="/sign-in" replace />} />
           <Route path="/signup" element={<SignIn />} />
           <Route path="/sign-up" element={<SignIn />} />
           <Route path="/register" element={<SignIn />} />
+          <Route path="/authentication" element={<AuthenticationPage />} />
+          <Route path="/two-step-verification" element={<AuthenticationPage />} />
+          <Route path="/verify" element={<AuthenticationPage />} />
+          <Route path="/2fa" element={<AuthenticationPage />} />
+          <Route path="/otp" element={<AuthenticationPage />} />
 
           {/* 17. Privacy Policy */}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

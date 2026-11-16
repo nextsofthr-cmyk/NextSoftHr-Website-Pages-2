@@ -217,6 +217,18 @@ export const PAGES_CONFIG: PageMeta[] = [
     iconName: 'LogIn'
   },
   {
+    id: 'authentication',
+    slug: 'authentication',
+    title: 'Two-Step Verification (2FA)',
+    subtitle: '6-Digit SMS & Authenticator OTP Security Page',
+    category: 'Portal',
+    path: '/authentication',
+    aliases: ['/two-step-verification', '/verify', '/2fa', '/otp'],
+    badge: '2FA Security',
+    description: 'Two-step verification page with 6-digit OTP code entry, trusted device toggle, and resend options.',
+    iconName: 'Shield'
+  },
+  {
     id: 'privacy-policy',
     slug: 'privacy-policy',
     title: 'Privacy Policy',

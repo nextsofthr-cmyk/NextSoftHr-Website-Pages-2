@@ -10,6 +10,8 @@ import { ThemeToggle } from '../pages/homepage/components/ThemeToggle';
 import { LanguageSelector } from '../pages/homepage/components/LanguageSelector';
 import { CurrencySelector } from '../pages/homepage/components/CurrencySelector';
 import { useLanguage } from '../pages/homepage/context/LanguageContext';
+import { GetStartedModal } from '../pages/homepage/components/Modals/GetStartedModal';
+import { DemoModal } from '../pages/homepage/components/Modals/DemoModal';
 
 export interface GlobalHeaderProps {
   onOpenDemo?: () => void;
@@ -140,10 +142,10 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           ? 'bg-white/95 dark:bg-slate-950/95 backdrop-blur-md shadow-sm border-b border-slate-200/80 dark:border-slate-800 py-2.5' 
           : 'bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 py-3.5'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 xl:gap-3">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           
           {/* Brand Logo */}
-          <Link to="/" className="flex items-center shrink-0 group">
+          <Link to="/" className="flex items-center shrink-0 group xl:mr-6 2xl:mr-10">
             <img
               src="/next-soft-logo.png"
               alt="NextSoftHr — Powering People. Driving Businesses"
@@ -152,7 +154,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden xl:flex flex-1 justify-center items-center gap-0.5 text-[13px] font-semibold min-w-0 [&>a]:px-2! [&>a]:whitespace-nowrap [&>div>button:first-child]:px-2! [&>div>button:first-child]:whitespace-nowrap">
+          <nav className="hidden xl:flex flex-1 justify-center items-center gap-1 xl:gap-1.5 text-[13px] font-semibold min-w-0 whitespace-nowrap [&>a]:px-2.5! [&>div>button:first-child]:px-2.5!">
             {/* 1. Home */}
             <Link
               to="/"
@@ -383,6 +385,25 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                           </div>
                         </Link>
                       </li>
+                      <li>
+                        <Link
+                          to="/authentication"
+                          onClick={() => setInsightsDropdown(false)}
+                          className="group/item flex items-start gap-2.5 p-2 rounded-xl hover:bg-lime-50/70 dark:hover:bg-slate-800/80 transition-colors"
+                        >
+                          <div className="w-7 h-7 rounded-lg bg-lime-100/80 dark:bg-lime-950 text-lime-700 dark:text-lime-400 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-lime-600 group-hover/item:text-white transition-colors">
+                            <ShieldCheck className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover/item:text-lime-600 dark:group-hover/item:text-lime-400 transition-colors">
+                              Two-Step Verification
+                            </div>
+                            <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
+                              6-digit OTP authentication page
+                            </p>
+                          </div>
+                        </Link>
+                      </li>
                     </ul>
                   </div>
 
@@ -468,7 +489,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           {/* Action CTAs, Language Selector, Currency Selector & Theme Toggle */}
           <div className="hidden xl:flex items-center gap-2 shrink-0">
             {/* Country / Currency Selector Dropdown */}
-            <CurrencySelector variant="dropdown" />
+            <CurrencySelector variant="compact" />
 
             {/* Language Dropdown */}
             <LanguageSelector variant="dropdown" />
@@ -476,25 +497,37 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
             {/* Light / Dark Mode Toggle (compact icon so the header always fits) */}
             <ThemeToggle />
 
-            {/* Book Demo Button */}
-            <button
+            {/* Explore Demo Button */}
+            <a
               id="global-nav-explore-demo-btn"
+              href="https://demo.scriptmaster.store/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-2 text-[12.5px] font-bold text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 transition-all cursor-pointer whitespace-nowrap shrink-0"
+            >
+              Explore Demo
+            </a>
+
+            {/* Book a Demo Button */}
+            <button
+              id="global-nav-book-demo-btn"
               type="button"
               onClick={handleDemoClick}
-              className="px-3 py-2 text-[13px] font-bold text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 transition-all cursor-pointer whitespace-nowrap shrink-0"
+              className="px-3 py-2 text-[12.5px] font-bold text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 transition-all cursor-pointer whitespace-nowrap shrink-0"
             >
               Book a Demo
             </button>
 
             {/* Get Started Button */}
-            <Link
+            <button
               id="global-nav-get-started-btn"
-              to="/signup"
-              className="px-3.5 py-2 text-[13px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md shadow-blue-600/20 transition-all flex items-center gap-2 group cursor-pointer whitespace-nowrap shrink-0"
+              type="button"
+              onClick={handleGetStartedClick}
+              className="px-3.5 py-2 text-[12.5px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md shadow-blue-600/20 transition-all flex items-center gap-1.5 group cursor-pointer whitespace-nowrap shrink-0"
             >
               <span>Get Started</span>
               <div className="w-1.5 h-1.5 rounded-full bg-lime-400 group-hover:scale-125 transition-transform" />
-            </Link>
+            </button>
           </div>
 
           {/* Mobile Header Controls */}
@@ -502,13 +535,14 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
             <CurrencySelector variant="compact" />
             <LanguageSelector variant="dropdown" />
             <ThemeToggle />
-            <Link
+            <button
               id="global-mobile-quick-start-btn"
-              to="/signup"
+              type="button"
+              onClick={handleGetStartedClick}
               className="px-2.5 py-1.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg cursor-pointer whitespace-nowrap"
             >
               Get Started
-            </Link>
+            </button>
             <button
               id="global-mobile-menu-toggle-btn"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -656,6 +690,14 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
                         <BookOpen className="w-3.5 h-3.5 text-lime-600" />
                         <span>Blog</span>
                       </Link>
+                      <Link
+                        to="/authentication"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900"
+                      >
+                        <ShieldCheck className="w-3.5 h-3.5 text-lime-600" />
+                        <span>Two-Step Verification</span>
+                      </Link>
                     </div>
                   </div>
 
@@ -737,6 +779,15 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
 
             {/* CTAs */}
             <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-2">
+              <a
+                href="https://demo.scriptmaster.store/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 text-sm font-bold text-slate-800 dark:text-slate-100 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer text-center block"
+              >
+                Explore Demo
+              </a>
               <button
                 type="button"
                 onClick={() => {
@@ -747,167 +798,32 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
               >
                 Book a Demo
               </button>
-              <Link
-                to="/signup"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleGetStartedClick();
+                }}
                 className="w-full py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md shadow-blue-600/20 cursor-pointer text-center block"
               >
                 Get Started
-              </Link>
+              </button>
             </div>
           </div>
         )}
       </div>
 
       {/* Built-in Fallback Demo Modal for pages without modal handlers */}
-      {localDemoOpen && (
-        <div 
-          className="fixed inset-0 z-70 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fadeIn"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 relative animate-scaleUp">
-            <button
-              onClick={() => setLocalDemoOpen(false)}
-              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-lg cursor-pointer"
-              aria-label="Close dialog"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center">
-                <Play className="w-5 h-5 fill-current" />
-              </div>
-              <div>
-                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white">
-                  Schedule a Live Demo
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Tailored workforce &amp; payroll walkthrough with specialists
-                </p>
-              </div>
-            </div>
-            <form 
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert('Thank you! A NextSoftHr workforce specialist will reach out shortly.');
-                setLocalDemoOpen(false);
-              }}
-              className="space-y-3.5 text-xs"
-            >
-              <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
-                <input
-                  required
-                  type="text"
-                  placeholder="e.g. Jane Doe"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-                />
-              </div>
-              <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email</label>
-                <input
-                  required
-                  type="email"
-                  placeholder="jane@company.com"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-                />
-              </div>
-              <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company Size</label>
-                <select className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600">
-                  <option>1 - 25 Employees</option>
-                  <option>26 - 150 Employees</option>
-                  <option>151 - 500 Employees</option>
-                  <option>500+ Enterprise</option>
-                </select>
-              </div>
-              <button
-                type="submit"
-                className="w-full mt-2 py-3 px-4 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-md shadow-blue-600/20 cursor-pointer"
-              >
-                Confirm Walkthrough Request
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+      <DemoModal
+        isOpen={localDemoOpen}
+        onClose={() => setLocalDemoOpen(false)}
+      />
 
       {/* Built-in Fallback Get Started Modal */}
-      {localGetStartedOpen && (
-        <div 
-          className="fixed inset-0 z-70 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-fadeIn"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 relative animate-scaleUp">
-            <button
-              onClick={() => setLocalGetStartedOpen(false)}
-              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-lg cursor-pointer"
-              aria-label="Close dialog"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center">
-                <CheckCircle2 className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white">
-                  Get Started Free
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  14-Day Free All-Access Trial • Instant Setup • No Credit Card
-                </p>
-              </div>
-            </div>
-            <form 
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert('Your free trial workspace is ready! Please check your email to verify.');
-                setLocalGetStartedOpen(false);
-              }}
-              className="space-y-3.5 text-xs"
-            >
-              <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Company Name</label>
-                <input
-                  required
-                  type="text"
-                  placeholder="Acme Technologies Ltd"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-                />
-              </div>
-              <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Business Email</label>
-                <input
-                  required
-                  type="email"
-                  placeholder="admin@company.com"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
-                />
-              </div>
-              <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Primary Country of Operation</label>
-                <select className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600">
-                  <option>Nigeria (NGN)</option>
-                  <option>Kenya (KES)</option>
-                  <option>South Africa (ZAR)</option>
-                  <option>Ghana (GHS)</option>
-                  <option>United Kingdom (GBP)</option>
-                  <option>United States / International (USD)</option>
-                </select>
-              </div>
-              <button
-                type="submit"
-                className="w-full mt-2 py-3 px-4 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-md shadow-blue-600/20 cursor-pointer"
-              >
-                Create Workspace &amp; Start Trial
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+      <GetStartedModal
+        isOpen={localGetStartedOpen}
+        onClose={() => setLocalGetStartedOpen(false)}
+      />
     </header>
   );
 };

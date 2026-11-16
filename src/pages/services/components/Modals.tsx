@@ -16,6 +16,12 @@ import {
   Layers,
 } from 'lucide-react';
 import { ServiceItem, IndustryItem } from '../types';
+import {
+  ALL_WORLD_COUNTRIES,
+  MODAL_PLAN_OPTIONS,
+  ORGANIZATION_SIZE_OPTIONS,
+  PRIMARY_BUSINESS_INDUSTRY_OPTIONS,
+} from '../../../data/worldCountries';
 
 interface ServiceModalProps {
   service: ServiceItem | null;
@@ -380,26 +386,40 @@ interface GetStartedModalProps {
 
 export const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClose, onOpenDemo }) => {
   const [created, setCreated] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
+    selectedPlan: 'Growth',
+    fullName: '',
     businessName: '',
+    webAddress: '',
     workEmail: '',
+    phone: '',
+    primaryIndustry: '1 Location (Single Store)',
     country: 'Nigeria',
+    organizationSize: '1 – 25 Employees',
     password: '',
+    confirmPassword: '',
   });
 
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match. Please confirm your password.');
+      return;
+    }
+    setError('');
     setCreated(true);
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white dark:bg-[#0A2540] rounded-3xl max-w-md w-full shadow-2xl border border-slate-200 dark:border-blue-900 p-6 sm:p-8 relative transition-colors">
+      <div className="bg-white dark:bg-[#0A2540] rounded-3xl max-w-[840px] w-full shadow-2xl border border-slate-200 dark:border-blue-900 p-6 sm:p-8 md:p-10 relative max-h-[92vh] overflow-y-auto transition-colors">
         <button
           onClick={() => {
             setCreated(false);
+            setError('');
             onClose();
           }}
           className="absolute top-5 right-5 p-2 rounded-full bg-slate-100 dark:bg-[#0D2644] hover:bg-slate-200 dark:hover:bg-blue-900 text-slate-500 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
@@ -414,7 +434,7 @@ export const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClos
             </div>
             <h3 className="text-2xl font-extrabold text-[#0A2540] dark:text-white">Workspace Provisioned!</h3>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
-              Your NextSofthr instance for <span className="font-bold text-slate-900 dark:text-white">{formData.businessName}</span> has been initialized.
+              Your NextSofthr instance for <span className="font-bold text-slate-900 dark:text-white">{formData.businessName}</span> ({formData.webAddress || 'acme'}.scriptmaster.store) has been initialized.
               Check {formData.workEmail} for your activation link and company dashboard credentials.
             </p>
             <div className="p-3 bg-slate-50 dark:bg-[#0D2644] rounded-xl border border-slate-200 dark:border-blue-900 text-xs text-slate-600 dark:text-slate-300">
@@ -440,57 +460,191 @@ export const GetStartedModal: React.FC<GetStartedModalProps> = ({ isOpen, onClos
               No credit card required. Setup takes less than 2 minutes.
             </p>
 
+            {error && (
+              <div className="mb-4 p-2.5 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-xs font-medium text-red-600 dark:text-red-400">
+                {error}
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* 1. Selected Plan (3x3 Grid) */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Company / Organization Name *</label>
-                <input
-                  required
-                  type="text"
-                  value={formData.businessName}
-                  onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                  placeholder="e.g. Apex Global Logistics"
-                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0256C4] dark:focus:ring-[#84CC16] focus:outline-none"
-                />
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-2">
+                  Selected Plan
+                </label>
+                <div className="grid grid-cols-3 gap-2.5">
+                  {MODAL_PLAN_OPTIONS.map((p) => {
+                    const isSelected = formData.selectedPlan === p.name;
+                    return (
+                      <button
+                        type="button"
+                        key={p.id}
+                        onClick={() => setFormData({ ...formData, selectedPlan: p.name })}
+                        className={`py-2.5 px-2 rounded-xl border text-center transition-all cursor-pointer ${
+                          isSelected
+                            ? 'bg-blue-50/90 dark:bg-blue-950/60 border-[#0256C4] dark:border-blue-400 ring-2 ring-[#0256C4]/20 shadow-xs'
+                            : 'bg-white dark:bg-[#07182E] border-slate-200 dark:border-blue-800 hover:border-slate-300'
+                        }`}
+                      >
+                        <div className={`text-xs font-bold ${isSelected ? 'text-[#0256C4] dark:text-white' : 'text-slate-800 dark:text-slate-200'}`}>
+                          {p.name}
+                        </div>
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-tight">
+                          {p.priceLabel}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Work Email Address *</label>
-                <input
-                  required
-                  type="email"
-                  value={formData.workEmail}
-                  onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
-                  placeholder="you@company.com"
-                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0256C4] dark:focus:ring-[#84CC16] focus:outline-none"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Full Name *</label>
+                  <input
+                    required
+                    type="text"
+                    value={formData.fullName}
+                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                    placeholder="e.g. Jane Doe"
+                    className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0256C4] focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Work Email Address *</label>
+                  <input
+                    required
+                    type="email"
+                    value={formData.workEmail}
+                    onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
+                    placeholder="you@company.com"
+                    className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0256C4] focus:outline-none"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Primary Country of Operation</label>
-                <select
-                  value={formData.country}
-                  onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 focus:ring-2 focus:ring-[#0256C4] dark:focus:ring-[#84CC16] focus:outline-none bg-white dark:bg-[#07182E] text-slate-900 dark:text-white"
-                >
-                  <option>Nigeria (NGN ₦)</option>
-                  <option>Ghana (GHS ₵)</option>
-                  <option>Kenya (KES KSh)</option>
-                  <option>South Africa (ZAR R)</option>
-                  <option>Rwanda (RWF RF)</option>
-                  <option>United States / International (USD $)</option>
-                </select>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Phone Number *</label>
+                  <input
+                    required
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="+234 800 000 0000"
+                    className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0256C4] focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Company / Organization Name *</label>
+                  <input
+                    required
+                    type="text"
+                    value={formData.businessName}
+                    onChange={(e) => {
+                      const businessName = e.target.value;
+                      const slug = businessName.toLowerCase().replace(/[^a-z0-9]/g, '');
+                      setFormData({ ...formData, businessName, webAddress: formData.webAddress || slug });
+                    }}
+                    placeholder="e.g. Apex Global Logistics"
+                    className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0256C4] focus:outline-none"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Create Admin Password *</label>
-                <input
-                  required
-                  type="password"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  placeholder="••••••••••••"
-                  className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0256C4] dark:focus:ring-[#84CC16] focus:outline-none"
-                />
+              {/* Row 3: Web address * & Country * */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    Web address <span className="text-red-500">*</span>
+                  </label>
+                  <div className="flex items-stretch rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] overflow-hidden focus-within:ring-2 focus-within:ring-[#0256C4]">
+                    <input
+                      required
+                      type="text"
+                      value={formData.webAddress}
+                      onChange={(e) =>
+                        setFormData({ ...formData, webAddress: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') })
+                      }
+                      placeholder="acme"
+                      className="flex-1 min-w-0 px-3 py-2 text-xs sm:text-sm bg-transparent text-slate-900 dark:text-white focus:outline-none"
+                    />
+                    <span className="px-3.5 py-2 bg-slate-100 dark:bg-[#051120] border-l border-slate-300 dark:border-blue-800 text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 flex items-center whitespace-nowrap">
+                      .scriptmaster.store
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Country *</label>
+                  <select
+                    value={formData.country}
+                    onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                    className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white"
+                  >
+                    {ALL_WORLD_COUNTRIES.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Row 4: Primary Business Industry & Organization Size */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Primary Business Industry</label>
+                  <select
+                    value={formData.primaryIndustry}
+                    onChange={(e) => setFormData({ ...formData, primaryIndustry: e.target.value })}
+                    className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white"
+                  >
+                    {PRIMARY_BUSINESS_INDUSTRY_OPTIONS.map((ind) => (
+                      <option key={ind} value={ind}>{ind}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Organization Size</label>
+                  <select
+                    value={formData.organizationSize}
+                    onChange={(e) => setFormData({ ...formData, organizationSize: e.target.value })}
+                    className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white"
+                  >
+                    {ORGANIZATION_SIZE_OPTIONS.map((size) => (
+                      <option key={size} value={size}>{size}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Row 5: Password & Confirm Password */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Password *</label>
+                  <input
+                    required
+                    type="password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    placeholder="Create password"
+                    className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0256C4] focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Confirm Password *</label>
+                  <input
+                    required
+                    type="password"
+                    value={formData.confirmPassword}
+                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                    placeholder="Confirm password"
+                    className="w-full px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-blue-800 bg-white dark:bg-[#07182E] text-slate-900 dark:text-white focus:ring-2 focus:ring-[#0256C4] focus:outline-none"
+                  />
+                </div>
               </div>
 
               <button

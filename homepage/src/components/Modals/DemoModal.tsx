@@ -1,6 +1,11 @@
 import { useState, type FormEvent } from 'react';
-import { X, CheckCircle, Calendar, Clock, Building2, User, Mail, Globe, ArrowRight } from 'lucide-react';
+import { X, CheckCircle, Calendar, Clock, Building2, User, Mail, Globe, Phone, MessageCircle, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import {
+  ALL_WORLD_COUNTRIES,
+  ORGANIZATION_SIZE_OPTIONS,
+  WORLD_COUNTRY_DIAL_CODES,
+} from '../../../../src/data/worldCountries';
 
 interface DemoModalProps {
   isOpen: boolean;
@@ -8,17 +13,19 @@ interface DemoModalProps {
   onOpenGetStarted?: () => void;
 }
 
-export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps) => {
+export const DemoModal = ({ isOpen, onClose }: DemoModalProps) => {
   const [step, setStep] = useState<'form' | 'success'>('form');
   const [formData, setFormData] = useState({
     fullName: '',
     workEmail: '',
+    dialCode: '+234',
+    phone: '',
     companyName: '',
-    companySize: '25-100 employees',
-    country: 'United States',
+    companySize: '1 – 25 Employees',
+    country: 'Nigeria',
     primaryInterest: 'All-in-One Suite (HR + Payroll + AI)',
     date: '2026-09-18',
-    timeSlot: '14:00 EST'
+    timeSlot: '14:00 EST',
   });
 
   if (!isOpen) return null;
@@ -29,7 +36,7 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
       confetti({
         particleCount: 80,
         spread: 70,
-        origin: { y: 0.6 }
+        origin: { y: 0.6 },
       });
     } catch {
       // safe fallback
@@ -44,11 +51,11 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
 
   return (
     <div id="demo-modal-backdrop" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 max-w-lg w-full overflow-hidden relative transition-colors">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 max-w-2xl w-full overflow-hidden max-h-[92vh] overflow-y-auto relative transition-colors">
         <button
           id="close-demo-modal-btn"
           onClick={handleReset}
-          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors z-10"
+          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors z-10 cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -63,7 +70,7 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
                 30 Minutes
               </span>
             </div>
-            
+
             <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Book a Personalized Demo
             </h3>
@@ -74,7 +81,7 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name *</label>
                   <div className="relative">
                     <User className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                     <input
@@ -83,13 +90,13 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
                       placeholder="e.g. Alex Morgan"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                      className="w-full pl-9 pr-3 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email</label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Work Email *</label>
                   <div className="relative">
                     <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                     <input
@@ -98,7 +105,39 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
                       placeholder="alex@company.com"
                       value={formData.workEmail}
                       onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                      className="w-full pl-9 pr-3 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Phone Number with Country Dialing Code Dropdown */}
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  Phone Number *
+                </label>
+                <div className="flex items-stretch rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 overflow-hidden focus-within:ring-2 focus-within:ring-blue-600">
+                  <select
+                    aria-label="Country dialing code"
+                    value={formData.dialCode}
+                    onChange={(e) => setFormData({ ...formData, dialCode: e.target.value })}
+                    className="w-44 sm:w-52 px-3 py-2.5 text-xs sm:text-sm font-semibold bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 focus:outline-none cursor-pointer truncate"
+                  >
+                    {WORLD_COUNTRY_DIAL_CODES.map((item) => (
+                      <option key={`${item.country}-${item.dialCode}`} value={item.dialCode}>
+                        {item.country} ({item.dialCode})
+                      </option>
+                    ))}
+                  </select>
+                  <div className="relative flex-1 min-w-0 flex items-center">
+                    <Phone className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                    <input
+                      required
+                      type="tel"
+                      placeholder="803 123 4567"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full pl-9 pr-3 py-2.5 text-sm bg-transparent text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -106,7 +145,7 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Company Name</label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Company Name *</label>
                   <div className="relative">
                     <Building2 className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                     <input
@@ -115,22 +154,23 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
                       placeholder="Acme Global Inc."
                       value={formData.companyName}
                       onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                      className="w-full pl-9 pr-3 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Team Size</label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Organization Size</label>
                   <select
                     value={formData.companySize}
                     onChange={(e) => setFormData({ ...formData, companySize: e.target.value })}
-                    className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                   >
-                    <option>1 - 25 employees (Startup)</option>
-                    <option>26 - 100 employees (Growing SME)</option>
-                    <option>101 - 500 employees (Mid-Market)</option>
-                    <option>500+ employees (Enterprise)</option>
+                    {ORGANIZATION_SIZE_OPTIONS.map((size) => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -141,27 +181,39 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
                   <select
                     value={formData.primaryInterest}
                     onChange={(e) => setFormData({ ...formData, primaryInterest: e.target.value })}
-                    className="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                   >
                     <option>All-in-One Suite (HR + Payroll + AI)</option>
                     <option>Automated Global Payroll</option>
-                    <option>Time, Attendance & Shift Rosters</option>
-                    <option>AI HR Assistant & Analytics</option>
-                    <option>Fully Outsourced HR & Payroll</option>
+                    <option>Time, Attendance &amp; Shift Rosters</option>
+                    <option>AI HR Assistant &amp; Analytics</option>
+                    <option>Fully Outsourced HR &amp; Payroll</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Country / Jurisdiction</label>
                   <div className="relative">
-                    <Globe className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                    <input
-                      type="text"
-                      placeholder="e.g. US / UK / Global"
+                    <Globe className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
+                    <select
                       value={formData.country}
-                      onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    />
+                      onChange={(e) => {
+                        const selectedCountry = e.target.value;
+                        const matchedDial = WORLD_COUNTRY_DIAL_CODES.find((d) => d.country === selectedCountry);
+                        setFormData({
+                          ...formData,
+                          country: selectedCountry,
+                          dialCode: matchedDial ? matchedDial.dialCode : formData.dialCode,
+                        });
+                      }}
+                      className="w-full pl-9 pr-3 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    >
+                      {ALL_WORLD_COUNTRIES.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
               </div>
@@ -180,11 +232,23 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
               <button
                 id="submit-demo-booking-btn"
                 type="submit"
-                className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2 text-sm"
+                className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2 text-sm cursor-pointer"
               >
-                Confirm Product Demo
+                <span>Confirm Product Demo</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
+
+              {/* WhatsApp Direct Link Below Confirm Product Demo */}
+              <a
+                id="demo-whatsapp-direct-link"
+                href="https://wa.me/2349158482622?text=Hello%20NextSofthr%20Team%2C%20I%20would%20like%20to%20book%20a%20live%20product%20demo."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-4 rounded-xl border border-emerald-200 dark:border-emerald-800/70 bg-emerald-50/80 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              >
+                <MessageCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400 fill-current" />
+                <span>Chat with Us on WhatsApp for Instant Demo</span>
+              </a>
 
               <p className="text-center text-xs text-slate-400">
                 No credit card required • Tailored session with an HR Systems Architect
@@ -202,8 +266,8 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
             </p>
             <div className="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-xl text-left text-xs space-y-2 border border-slate-200 dark:border-slate-700">
               <div className="flex justify-between text-slate-700 dark:text-slate-300">
-                <span className="text-slate-400">Date & Time:</span>
-                <span className="font-semibold">Friday, Sep 18, 2026 @ 14:00 EST</span>
+                <span className="text-slate-400">Phone:</span>
+                <span className="font-semibold">{formData.dialCode} {formData.phone}</span>
               </div>
               <div className="flex justify-between text-slate-700 dark:text-slate-300">
                 <span className="text-slate-400">Focus Module:</span>
@@ -217,7 +281,7 @@ export const DemoModal = ({ isOpen, onClose, onOpenGetStarted }: DemoModalProps)
             <button
               id="close-success-demo-btn"
               onClick={handleReset}
-              className="w-full bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-colors"
+              className="w-full bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-xl text-sm transition-colors cursor-pointer"
             >
               Done
             </button>

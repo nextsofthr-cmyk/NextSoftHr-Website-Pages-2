@@ -29,6 +29,7 @@ import PasswordStrengthMeter from './PasswordStrengthMeter';
 import { validatePasswordRealtime } from '../utils/passwordValidation';
 import SuccessCheckmark from './SuccessCheckmark';
 import QrSignIn from './QrSignIn';
+import { TwoStepVerification } from '../../../components/TwoStepVerification';
 import {
   getDeviceSecurityProfile,
   trustCurrentDevice,
@@ -66,6 +67,7 @@ export const SignInCard: React.FC<SignInCardProps> = ({
 
   // States
   const [isLoading, setIsLoading] = useState(false);
+  const [isOtpStep, setIsOtpStep] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
@@ -257,14 +259,22 @@ export const SignInCard: React.FC<SignInCardProps> = ({
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      setIsSuccess(true);
-      toast.success(`Welcome back! Authenticated as ${email}.`, {
-        title: 'Sign In Successful',
+      setIsOtpStep(true);
+      toast.info('Enter the 6-digit verification code sent to your registered device.', {
+        title: 'Two-Step Verification',
       });
-      setTimeout(() => {
-        onSuccessLogin(email);
-      }, 1600);
-    }, 1100);
+    }, 800);
+  };
+
+  const handleOtpVerified = () => {
+    setIsOtpStep(false);
+    setIsSuccess(true);
+    toast.success(`Welcome back! Authenticated as ${email}.`, {
+      title: 'Sign In Successful',
+    });
+    setTimeout(() => {
+      onSuccessLogin(email);
+    }, 1600);
   };
 
   const handleSsoLogin = (provider: 'Google' | 'Microsoft' | 'LinkedIn') => {
@@ -289,6 +299,19 @@ export const SignInCard: React.FC<SignInCardProps> = ({
         roleName="HR & Payroll Directorate"
         onRedirectNow={() => onSuccessLogin(email.trim() || 'executive@nextsofthr.com')}
       />
+    );
+  }
+
+  if (isOtpStep) {
+    return (
+      <div className="w-full py-4 animate-in fade-in duration-300">
+        <TwoStepVerification
+          embedded
+          onVerifySuccess={handleOtpVerified}
+          onBack={() => setIsOtpStep(false)}
+          backLabel="Back to Sign In"
+        />
+      </div>
     );
   }
 

@@ -12,6 +12,11 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { BRAND } from '../data/contentData';
+import {
+  ALL_WORLD_COUNTRIES,
+  ORGANIZATION_SIZE_OPTIONS,
+  WORLD_COUNTRY_DIAL_CODES,
+} from '../../../data/worldCountries';
 
 interface DemoModalProps {
   isOpen: boolean;
@@ -28,9 +33,10 @@ export const DemoModal: React.FC<DemoModalProps> = ({
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
+    dialCode: '+234',
     phone: '',
     company: '',
-    employees: '11-50',
+    employees: '1 – 25 Employees',
     country: 'Nigeria',
     date: '',
     notes: prefilledSegment ? `Interested in solutions for ${prefilledSegment}` : '',
@@ -134,16 +140,30 @@ export const DemoModal: React.FC<DemoModalProps> = ({
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
                   Phone Number *
                 </label>
-                <div className="relative">
-                  <Phone className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+234 800 000 0000"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full pl-8 pr-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-[#071322] text-slate-900 dark:text-slate-100 focus:outline-none focus:border-[#0B3B73] dark:focus:border-[#84CC16]"
-                  />
+                <div className="flex items-stretch border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-[#071322] overflow-hidden focus-within:border-[#0B3B73] dark:focus-within:border-[#84CC16]">
+                  <select
+                    aria-label="Country dialing code"
+                    value={formData.dialCode}
+                    onChange={(e) => setFormData({ ...formData, dialCode: e.target.value })}
+                    className="w-32 px-2 py-2 text-xs font-semibold bg-slate-50 dark:bg-[#0A2540] border-r border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 focus:outline-none cursor-pointer truncate"
+                  >
+                    {WORLD_COUNTRY_DIAL_CODES.map((item) => (
+                      <option key={`${item.country}-${item.dialCode}`} value={item.dialCode}>
+                        {item.country} ({item.dialCode})
+                      </option>
+                    ))}
+                  </select>
+                  <div className="relative flex-1 min-w-0 flex items-center">
+                    <Phone className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" />
+                    <input
+                      type="tel"
+                      required
+                      placeholder="803 123 4567"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full pl-8 pr-2.5 py-2 text-xs bg-transparent text-slate-900 dark:text-slate-100 focus:outline-none"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -175,11 +195,11 @@ export const DemoModal: React.FC<DemoModalProps> = ({
                   onChange={(e) => setFormData({ ...formData, employees: e.target.value })}
                   className="w-full px-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:border-[#0B3B73] dark:focus:border-[#84CC16] bg-white dark:bg-[#071322] text-slate-900 dark:text-slate-100"
                 >
-                  <option value="1-10">1 – 10 (Micro)</option>
-                  <option value="11-50">11 – 50 (Small)</option>
-                  <option value="51-200">51 – 200 (Medium)</option>
-                  <option value="201-1000">201 – 1,000 (Mid-Enterprise)</option>
-                  <option value="1000+">1,000+ (Large Enterprise)</option>
+                  {ORGANIZATION_SIZE_OPTIONS.map((size) => (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -192,14 +212,11 @@ export const DemoModal: React.FC<DemoModalProps> = ({
                   onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                   className="w-full px-3 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:border-[#0B3B73] dark:focus:border-[#84CC16] bg-white dark:bg-[#071322] text-slate-900 dark:text-slate-100"
                 >
-                  <option value="Nigeria">Nigeria</option>
-                  <option value="Kenya">Kenya</option>
-                  <option value="South Africa">South Africa</option>
-                  <option value="Ghana">Ghana</option>
-                  <option value="Rwanda">Rwanda</option>
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="United States">United States</option>
-                  <option value="Other Global">Other Global</option>
+                  {ALL_WORLD_COUNTRIES.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -217,14 +234,24 @@ export const DemoModal: React.FC<DemoModalProps> = ({
               ></textarea>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-2 space-y-2.5">
               <button
                 type="submit"
                 className="w-full py-3 bg-[#84CC16] hover:bg-[#74be12] text-[#0A2540] font-bold text-xs rounded-xl shadow transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Confirm Demo Reservation</span>
+                <span>Confirm Product Demo</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
+
+              <a
+                href={`https://wa.me/2349158482622?text=Hello%20NextSofthr%20Team,%20I%20would%20like%20to%20book%20a%20live%20product%20demo.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 px-4 rounded-xl border border-emerald-200 dark:border-emerald-800/70 bg-emerald-50/80 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              >
+                <MessageSquare className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>Chat with Us on WhatsApp for Instant Demo</span>
+              </a>
             </div>
 
             <div className="text-center text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1">
