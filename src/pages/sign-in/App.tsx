@@ -16,9 +16,11 @@ import SessionTimeoutToast from './components/SessionTimeoutToast';
 import { translations, LanguageKey } from './data/translations';
 import { useDeviceIdentifier } from './hooks/useDeviceIdentifier';
 import { ToastProvider } from './components/ToastNotification';
+import { TwoStepVerification } from '../../components/TwoStepVerification';
 
 function SignInContent() {
   const [currentLang, setCurrentLang] = useState<LanguageKey>('en');
+  const [pendingAuthEmail, setPendingAuthEmail] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
   // Hook identifying browser and device (e.g. 'Chrome on macOS') for security transparency
@@ -66,12 +68,30 @@ function SignInContent() {
   const t = translations[currentLang] || translations.en;
   const isRtl = currentLang === 'ar';
 
-  // If user signed in successfully, render the live enterprise NextSofthr dashboard
+  // Step 2: Full-screen Two-Step Verification Authentication Page after Sign In
+  if (pendingAuthEmail && !userEmail) {
+    return (
+      <TwoStepVerification
+        email={pendingAuthEmail}
+        onVerifySuccess={() => {
+          setUserEmail(pendingAuthEmail);
+          setPendingAuthEmail(null);
+        }}
+        onBack={() => setPendingAuthEmail(null)}
+        backLabel="Back to Sign In"
+      />
+    );
+  }
+
+  // Step 3: If user verified 2FA, render the live enterprise NextSofthr dashboard
   if (userEmail) {
     return (
       <DashboardPreview
         userEmail={userEmail}
-        onSignOut={() => setUserEmail(null)}
+        onSignOut={() => {
+          setUserEmail(null);
+          setPendingAuthEmail(null);
+        }}
         isDark={isDark}
         onToggleTheme={toggleTheme}
       />
@@ -112,7 +132,7 @@ function SignInContent() {
           <div className="pt-0 pb-3 sm:pb-5 flex flex-col items-center justify-start animate-fade-in-up animation-delay-200">
             <SignInCard
               t={t}
-              onSuccessLogin={(email) => setUserEmail(email)}
+              onSuccessLogin={(email) => setPendingAuthEmail(email || 'executive@nextsofthr.com')}
               onForgotPassword={() => setIsForgotPasswordOpen(true)}
               onCreateAccount={() => setIsCreateAccountOpen(true)}
             />

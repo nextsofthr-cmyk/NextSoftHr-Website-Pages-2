@@ -190,11 +190,8 @@ export const SignInCard: React.FC<SignInCardProps> = ({
       );
       setTimeout(() => {
         setIsBiometricScanning(false);
-        setIsSuccess(true);
         const resolvedEmail = email.trim() || 'executive.biometric@nextsofthr.com';
-        setTimeout(() => {
-          onSuccessLogin(resolvedEmail);
-        }, 1600);
+        onSuccessLogin(resolvedEmail);
       }, 700);
     }, 1400);
   };
@@ -259,36 +256,22 @@ export const SignInCard: React.FC<SignInCardProps> = ({
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      setIsOtpStep(true);
       toast.info('Enter the 6-digit verification code sent to your registered device.', {
         title: 'Two-Step Verification',
       });
-    }, 800);
-  };
-
-  const handleOtpVerified = () => {
-    setIsOtpStep(false);
-    setIsSuccess(true);
-    toast.success(`Welcome back! Authenticated as ${email}.`, {
-      title: 'Sign In Successful',
-    });
-    setTimeout(() => {
       onSuccessLogin(email);
-    }, 1600);
+    }, 600);
   };
 
   const handleSsoLogin = (provider: 'Google' | 'Microsoft' | 'LinkedIn') => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      setIsSuccess(true);
-      toast.success(`Authenticated securely via ${provider} Workspace SSO.`, {
-        title: 'Enterprise SSO Connected',
+      toast.info(`Complete two-step verification for your ${provider} account.`, {
+        title: 'Two-Step Verification',
       });
-      setTimeout(() => {
-        onSuccessLogin(`${provider.toLowerCase()}.user@nextsofthr.org`);
-      }, 1600);
-    }, 1000);
+      onSuccessLogin(`${provider.toLowerCase()}.user@nextsofthr.org`);
+    }, 600);
   };
 
   // If successfully authenticated, render professional SuccessCheckmark component before redirecting
